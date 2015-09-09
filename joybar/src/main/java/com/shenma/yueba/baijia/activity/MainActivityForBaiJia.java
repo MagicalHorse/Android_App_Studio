@@ -37,7 +37,9 @@ import im.broadcast.ImBroadcastReceiver.ImBroadcastReceiverLinstener;
 import im.broadcast.ImBroadcastReceiver.RECEIVER_type;
 import im.form.RequestMessageBean;
 
-
+/******
+ * 败家主页  包含败家主页面的 布局 以及 加载或替换 fragment 来更新显示内容
+ * *******/
 public class MainActivityForBaiJia extends FragmentActivity implements ImBroadcastReceiverLinstener{
 	FrameLayout baijia_main_framelayout;
 	private long exitTime = 0;// 初始化退出时间，用于两次点击返回退出程序
