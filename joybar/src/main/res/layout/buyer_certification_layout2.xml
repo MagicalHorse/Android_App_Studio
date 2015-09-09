@@ -271,31 +271,7 @@
                 </LinearLayout>
             </ScrollView>
 
-            <android.support.v4.widget.DrawerLayout
-                android:id="@+id/drawer_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" >
 
-                <FrameLayout
-                    android:id="@+id/content_frame"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <RelativeLayout
-                    android:id="@+id/right_drawer"
-                    android:layout_width="220dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:background="#111"
-                    android:gravity="center_horizontal" >
-
-                    <ListView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
-                    </ListView>
-                </RelativeLayout>
-            </android.support.v4.widget.DrawerLayout>
         </RelativeLayout>
 
         <RelativeLayout

@@ -37,7 +37,6 @@ public class QRCodeShareDialog extends Dialog implements
 	ImageView qzcodeshare_layouyt_close_imageview;
 	TextView qzcodeshare_layouyt_name_textview;
 	TextView tv_share;
-	TextView qzcodeshare_layout_title_textview;
 	kaixiaoPiaoBean obj;
 	private TextView qzcodeshare_layouyt_count_textview;
 	private ImageView qzcodeshare_layout_content_imageview;
@@ -73,8 +72,6 @@ public class QRCodeShareDialog extends Dialog implements
 				.findViewById(R.id.qzcodeshare_layouyt_close_imageview);
 		qzcodeshare_layout_content_imageview = (ImageView) ll
 				.findViewById(R.id.qzcodeshare_layout_content_imageview);
-		qzcodeshare_layout_title_textview = (TextView) ll
-				.findViewById(R.id.qzcodeshare_layout_title_textview);
 		qzcodeshare_layouyt_name_textview = (TextView) ll
 				.findViewById(R.id.qzcodeshare_layouyt_name_textview);
 		qzcodeshare_layouyt_count_textview = (TextView) ll
@@ -111,15 +108,15 @@ public class QRCodeShareDialog extends Dialog implements
 			break;
 		case R.id.tv_share:// 分享给好友
 			this.cancel();
-			ShareUtil.shareAll2((Activity)context,"扫码商品分享", "亲，帮我代付下呗", "", bitmap, new ShareListener() {
+			ShareUtil.shareAll2((Activity) context, "扫码商品分享", "亲，帮我代付下呗", "", bitmap, new ShareListener() {
 				@Override
 				public void sharedListener_sucess() {
-					Toast.makeText(context, "分享成功", 1000).show();
+					Toast.makeText(context, "分享成功", Toast.LENGTH_SHORT).show();
 				}
 
 				@Override
 				public void sharedListener_Fails(String msg) {
-					Toast.makeText(context, "分享失败", 1000).show();
+					Toast.makeText(context, "分享失败", Toast.LENGTH_SHORT).show();
 				}
 			});
 			break;

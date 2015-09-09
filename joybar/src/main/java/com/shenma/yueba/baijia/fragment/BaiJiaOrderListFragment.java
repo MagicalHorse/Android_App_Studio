@@ -21,6 +21,7 @@ import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.util.ToolsUtil;
 import com.umeng.socialize.utils.Log;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -55,7 +56,12 @@ public class BaiJiaOrderListFragment extends Fragment implements OrderBroadcaseL
 	OrderBroadcaseReceiver orderBroadcaseReceiver;
 	boolean isBroadcase=false;
 	boolean isruning=false;//是否执行网络访问  true是  false 否
-	
+
+	public BaiJiaOrderListFragment() {
+		super();
+	}
+
+	@SuppressLint("ValidFragment")
 	public BaiJiaOrderListFragment(int state) {
 		super();
 		this.state = state;

@@ -9,7 +9,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-class CropImageView extends ImageViewTouchBase {
+public class CropImageView extends ImageViewTouchBase {
     ArrayList<HighlightView> mHighlightViews = new ArrayList<HighlightView>();
     HighlightView mMotionHighlightView = null;
     float mLastX, mLastY;
