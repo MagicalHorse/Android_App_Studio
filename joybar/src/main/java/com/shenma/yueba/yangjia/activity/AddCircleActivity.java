@@ -38,6 +38,9 @@ import com.shenma.yueba.view.RoundImageView;
 import com.shenma.yueba.view.SelectePhotoType;
 import com.umeng.analytics.MobclickAgent;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 新增圈子
  * 
@@ -47,20 +50,21 @@ import com.umeng.analytics.MobclickAgent;
 public class AddCircleActivity extends BaseActivityWithTopView implements
 		OnClickListener {
 
-	private RoundImageView riv_circle_head;
-	private EditText et_circle_name;
-	private LinearLayout ll_logo;
+	@Bind(R.id.riv_circle_head) RoundImageView riv_circle_head;
+	@Bind(R.id.et_circle_name)  EditText et_circle_name;
+	@Bind(R.id.ll_logo)  LinearLayout ll_logo;
+	@Bind(R.id.tv_add_title)  TextView tv_add_title;
+	@Bind(R.id.tv_create)  TextView tv_create;
 	private String littlePicPath;// 小图路径
 	private String littlePicPath_cache;// 裁剪后图片存储的路径
 	private CustomProgressDialog progressDialog;
-	private TextView tv_create;
-	private TextView tv_add_title;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		MyApplication.getInstance().addActivity(this);//加入回退栈
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.add_circle_layout2);
+		ButterKnife.bind(this);
 		super.onCreate(savedInstanceState);
 		initView();
 		progressDialog = CustomProgressDialog.createDialog(this);
@@ -74,12 +78,7 @@ public class AddCircleActivity extends BaseActivityWithTopView implements
 				AddCircleActivity.this.finish();
 			}
 		});
-		tv_add_title = getView(R.id.tv_add_title);
-		tv_create = getView(R.id.tv_create);
 		tv_create.setOnClickListener(this);
-		et_circle_name = getView(R.id.et_circle_name);
-		riv_circle_head = getView(R.id.riv_circle_head);
-		ll_logo = getView(R.id.ll_logo);
 		ll_logo.setOnClickListener(this);
 		FontManager.changeFonts(mContext, et_circle_name, tv_create,tv_top_title,tv_add_title);
 	}
@@ -93,11 +92,11 @@ public class AddCircleActivity extends BaseActivityWithTopView implements
 			break;
 		case R.id.tv_create:// 新建圈子
 			if (TextUtils.isEmpty(littlePicPath_cache)) {
-				Toast.makeText(mContext, "圈子头像不能为空", 1000).show();
+				Toast.makeText(mContext, "圈子头像不能为空", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (TextUtils.isEmpty(et_circle_name.getText().toString().trim())) {
-				Toast.makeText(mContext, "圈子名称不能为空", 1000).show();
+				Toast.makeText(mContext, "圈子名称不能为空", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			uploadImage(littlePicPath_cache);
@@ -122,7 +121,7 @@ public class AddCircleActivity extends BaseActivityWithTopView implements
 						if (progressDialog.isShowing()) {
 							progressDialog.cancel();
 						}
-						Toast.makeText(mContext, "创建成功", 1000).show();
+						Toast.makeText(mContext, "创建成功", Toast.LENGTH_SHORT).show();
 						setResult(Constants.RESULTCODE);
 						AddCircleActivity.this.finish();
 					}
@@ -132,7 +131,7 @@ public class AddCircleActivity extends BaseActivityWithTopView implements
 						if (progressDialog.isShowing()) {
 							progressDialog.cancel();
 						}
-						Toast.makeText(mContext, msg, 1000).show();
+						Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 
 					}
 				}, AddCircleActivity.this);

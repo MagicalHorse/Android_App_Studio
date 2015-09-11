@@ -28,6 +28,7 @@ import android.widget.ImageView.ScaleType;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.MainActivityForBaiJia;
 import com.shenma.yueba.baijia.adapter.GuideAdapter;
+import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.yangjia.activity.MainActivityForYangJia;
 
 public class GuideActivity extends Activity{
@@ -60,6 +61,7 @@ public class GuideActivity extends Activity{
 				@Override
 				public void onClick(View v) {
 					if(ids.length-1 == position){
+						SharedUtil.setBooleanPerfernece(GuideActivity.this, SharedUtil.user_first, true);
 						Intent intent = new Intent(context, MainActivityForBaiJia.class);
 						startActivity(intent);
 						GuideActivity.this.finish();					

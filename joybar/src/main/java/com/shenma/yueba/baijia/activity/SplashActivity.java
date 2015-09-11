@@ -39,7 +39,6 @@ public class SplashActivity extends BaseActivity {
 			public void run() {
 				if(!SharedUtil.getBooleanPerfernece(mContext, SharedUtil.user_first)){
 					skip(GuideActivity.class, true);
-					SharedUtil.setBooleanPerfernece(mContext, SharedUtil.user_first, true);
 				}else{
 					skip(MainActivityForBaiJia.class, true);
 				}
@@ -121,4 +120,7 @@ public class SplashActivity extends BaseActivity {
 		  }
 
 
+	@Override
+	public void onBackPressed() {
+	}
 }
