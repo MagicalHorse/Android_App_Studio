@@ -355,6 +355,8 @@ public class ToolsUtil {
 				+ "\">" + str2 + "</font>"));
 	}
 
+
+
 	/**
 	 * 设置红色字在前，黑色字在后
 	 * 
