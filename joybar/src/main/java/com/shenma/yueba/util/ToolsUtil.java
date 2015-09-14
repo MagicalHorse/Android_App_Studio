@@ -226,7 +226,7 @@ public class ToolsUtil {
 		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			return true;
 		}
-		Toast.makeText(mContext, "SD卡不可用", 1000).show();
+		Toast.makeText(mContext, "SD卡不可用", Toast.LENGTH_SHORT).show();
 		return false;
 	}
 
@@ -238,7 +238,7 @@ public class ToolsUtil {
 	 */
 	public static boolean isEnoughSpace(Context mContext) {
 		if (getSDFreeSize() < 5) {
-			Toast.makeText(mContext, "存储空间不足", 1000).show();
+			Toast.makeText(mContext, "存储空间不足", Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
@@ -318,7 +318,6 @@ public class ToolsUtil {
 	/**
 	 * 获取当前时间的字符串
 	 * 
-	 * @param ctx
 	 * @return
 	 */
 	public static String getCurrentTime() {
@@ -376,9 +375,7 @@ public class ToolsUtil {
 	 * 
 	 * @param tv
 	 *            TextView控件
-	 * @param redStr
 	 *            红颜色字
-	 * @param normalStr
 	 *            黑颜色字
 	 */
 	public static void setKeyColor(TextView tv, String normalBegin, String redCenter, String normalEnd) {
@@ -404,7 +401,6 @@ public class ToolsUtil {
 	 * 设置字体颜色为红色
 	 * 
 	 * @param tv
-	 * @param redSt
 	 *            红颜色字
 	 */
 	public static void setTextColorRed(TextView tv, String redStr) {
@@ -414,7 +410,6 @@ public class ToolsUtil {
 	/**
 	 * 获取红色的字体
 	 * 
-	 * @param tv
 	 * @param redStr
 	 *            红颜色字
 	 */
@@ -565,7 +560,7 @@ public class ToolsUtil {
 							initAliOSS(ctx, ToolsUtil.nullToString(keyArr[1]), ToolsUtil.nullToString(signArr[1]));
 						}
 					} else {
-						Toast.makeText(ctx, "阿里云key获取失败", 1000).show();
+						Toast.makeText(ctx, "阿里云key获取失败", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -1033,8 +1028,6 @@ public class ToolsUtil {
 	
 	
 	/******
-	 * 跳转到个人主页
-	 * @param context Context
 	 * @param id int
 	 * ****/
 	public static void forwardShopMainActivity(Context ctx,int id)
@@ -1047,7 +1040,6 @@ public class ToolsUtil {
 	
 	/*****
 	 *  跳转到聊天界面
-	 * @param context Context
 	 * @param Chat_NAME String  圈子名称  没有 传 null
 	 * @param toUser_id int 私聊对象id  没有 传 0
 	 * @param circleId int 圈子id  没有 传 0
@@ -1071,7 +1063,6 @@ public class ToolsUtil {
 	
 	/******
 	 * 跳转到商品详情
-	 * @param context Context
 	 * @param id int
 	 * ****/
 	public static void forwardProductInfoActivity(Context ctx,int id)
@@ -1083,7 +1074,6 @@ public class ToolsUtil {
 	
 	/******
 	 * 跳转到圈子详情
-	 * @param context Context
 	 * @param id int
 	 * @param requestCode int 是否需要返回数据 resultCode>0 将以startActivityForResult 方式启动   否则 以普通方式启动
 	 * ****/
@@ -1099,6 +1089,29 @@ public class ToolsUtil {
 			ctx.startActivity(intent);
 		}
 		
+	}
+
+
+	/**
+	 * 跳转到微信
+	 * @param context
+	 */
+	public static void skipToWechat(Context context){
+		ComponentName componetName = new ComponentName(
+				// 这个是另外一个应用程序的包名
+				"com.tencent.mm",
+				// 这个参数是要启动的Activity
+				"com.tencent.mm.ui.LauncherUI");
+		try {
+			Intent intent = new Intent();
+			intent.setComponent(componetName);
+			context.startActivity(intent);
+		} catch (Exception e) {
+			Toast.makeText(context,
+					"亲爱的用户您好，您的手机没有安装微信或者微信版本过低！", Toast.LENGTH_SHORT)
+					.show();
+		}
+
 	}
 
 }
