@@ -356,6 +356,7 @@ public class ToolsUtil {
 	}
 
 
+
 	/**
 	 * 设置红色字在前，黑色字在后
 	 * 
