@@ -80,22 +80,22 @@
       <file leaf-file-name="ToolsUtil.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/ToolsUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23801653">
-              <caret line="358" column="0" selection-start-line="358" selection-start-column="0" selection-end-line="358" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.17520662">
+              <caret line="356" column="0" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#12566#12567#0" expanded="true" />
-                <element signature="e#12583#12584#0" expanded="true" />
-                <element signature="e#20573#20895#0" expanded="true" />
-                <element signature="e#20894#20895#0" expanded="true" />
-                <element signature="e#22870#23942#0" expanded="true" />
-                <element signature="e#23153#23209#0" expanded="true" />
-                <element signature="e#23283#23344#0" expanded="true" />
-                <element signature="e#23415#23475#0" expanded="true" />
-                <element signature="e#23594#23656#0" expanded="true" />
-                <element signature="e#23730#23791#0" expanded="true" />
-                <element signature="e#23862#23922#0" expanded="true" />
-                <element signature="e#23941#23942#0" expanded="true" />
+                <element signature="e#12565#12566#0" expanded="true" />
+                <element signature="e#12582#12583#0" expanded="true" />
+                <element signature="e#20572#20894#0" expanded="true" />
+                <element signature="e#20893#20894#0" expanded="true" />
+                <element signature="e#22869#23941#0" expanded="true" />
+                <element signature="e#23152#23208#0" expanded="true" />
+                <element signature="e#23282#23343#0" expanded="true" />
+                <element signature="e#23414#23474#0" expanded="true" />
+                <element signature="e#23593#23655#0" expanded="true" />
+                <element signature="e#23729#23790#0" expanded="true" />
+                <element signature="e#23861#23921#0" expanded="true" />
+                <element signature="e#23940#23941#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -3670,7 +3670,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442200164492</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="modify">
+      <created>1442200183448</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1442200183448</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3703,7 +3709,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22750643" sideWeight="0.57359636" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22750643" sideWeight="0.57359636" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.48457584" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -4140,22 +4146,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/ToolsUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23801653">
-          <caret line="358" column="0" selection-start-line="358" selection-start-column="0" selection-end-line="358" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.17520662">
+          <caret line="356" column="0" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#12566#12567#0" expanded="true" />
-            <element signature="e#12583#12584#0" expanded="true" />
-            <element signature="e#20573#20895#0" expanded="true" />
-            <element signature="e#20894#20895#0" expanded="true" />
-            <element signature="e#22870#23942#0" expanded="true" />
-            <element signature="e#23153#23209#0" expanded="true" />
-            <element signature="e#23283#23344#0" expanded="true" />
-            <element signature="e#23415#23475#0" expanded="true" />
-            <element signature="e#23594#23656#0" expanded="true" />
-            <element signature="e#23730#23791#0" expanded="true" />
-            <element signature="e#23862#23922#0" expanded="true" />
-            <element signature="e#23941#23942#0" expanded="true" />
+            <element signature="e#12565#12566#0" expanded="true" />
+            <element signature="e#12582#12583#0" expanded="true" />
+            <element signature="e#20572#20894#0" expanded="true" />
+            <element signature="e#20893#20894#0" expanded="true" />
+            <element signature="e#22869#23941#0" expanded="true" />
+            <element signature="e#23152#23208#0" expanded="true" />
+            <element signature="e#23282#23343#0" expanded="true" />
+            <element signature="e#23414#23474#0" expanded="true" />
+            <element signature="e#23593#23655#0" expanded="true" />
+            <element signature="e#23729#23790#0" expanded="true" />
+            <element signature="e#23861#23921#0" expanded="true" />
+            <element signature="e#23940#23941#0" expanded="true" />
           </folding>
         </state>
       </provider>
