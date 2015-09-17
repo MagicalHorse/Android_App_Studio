@@ -314,8 +314,6 @@ public class MyApplication extends Application {
     /******
      * 显示提示信息
      *
-     * @param Context context
-     * @param String  msg 提示的消息
      ***/
     public void showMessage(final Context context, final String msg) {
         if (context != null && context instanceof Activity && msg != null) {
@@ -323,7 +321,7 @@ public class MyApplication extends Application {
 
                 @Override
                 public void run() {
-                    Toast.makeText(context, msg, 1000).show();
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                 }
             });
         }
