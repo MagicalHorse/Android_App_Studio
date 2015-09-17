@@ -300,6 +300,9 @@ public class MyApplication extends Application {
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
     }
 
+
+
+
     public void initRoundDisplayImageOptions() {
         optionsForRound = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.default_pic)
