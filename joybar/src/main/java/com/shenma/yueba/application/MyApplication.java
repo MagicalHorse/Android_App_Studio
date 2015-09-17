@@ -302,7 +302,7 @@ public class MyApplication extends Application {
 
 
 
-
+//圆形图片初始化设置
     public void initRoundDisplayImageOptions() {
         optionsForRound = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.default_pic)
