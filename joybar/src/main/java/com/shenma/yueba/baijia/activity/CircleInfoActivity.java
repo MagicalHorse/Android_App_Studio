@@ -245,7 +245,7 @@ public class CircleInfoActivity extends BaseActivityWithTopView implements
 		httpControl.deleteCircle(cricleId, "", true, new HttpCallBackInterface() {
 			@Override
 			public void http_Success(Object obj) {
-				Toast.makeText(mContext, "删除成功", 1000).show();		
+				Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
 				setResult(Constants.RESULTCODE);
 				CircleInfoActivity.this.finish();
 			}
@@ -253,7 +253,7 @@ public class CircleInfoActivity extends BaseActivityWithTopView implements
 			@Override
 			public void http_Fails(int error, String msg) {
 			
-				Toast.makeText(mContext, msg, 1000).show();
+				Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				
 			}
 		}, CircleInfoActivity.this);
@@ -263,7 +263,6 @@ public class CircleInfoActivity extends BaseActivityWithTopView implements
 	 * 获取圈子详情
 	 * 
 	 * @param ctx
-	 * @param isRefresh
 	 * @param showDialog
 	 */
 	public void getCircleDetail(final String circleId, Context ctx, boolean showDialog) {
@@ -333,7 +332,7 @@ public class CircleInfoActivity extends BaseActivityWithTopView implements
 
 					@Override
 					public void http_Fails(int error, String msg) {
-						Toast.makeText(mContext, msg, 1000).show();
+						Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 						CircleInfoActivity.this.finish();
 					}
 				}, CircleInfoActivity.this);
@@ -490,14 +489,14 @@ public class CircleInfoActivity extends BaseActivityWithTopView implements
 							
 							@Override
 							public void http_Success(Object obj) {
-								Toast.makeText(mContext, "修改成功", 1000).show();
+								Toast.makeText(mContext, "修改成功", Toast.LENGTH_SHORT).show();
 								customerDialog.dismiss();
 							}
 							
 							@Override
 							public void http_Fails(int error, String msg) {
 								customerDialog.dismiss();
-								Toast.makeText(mContext, msg, 1000).show();
+								Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 							}
 						}, CircleInfoActivity.this);
 					}

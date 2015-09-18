@@ -386,7 +386,7 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 			if (!TextUtils.isEmpty(phoneNo)) {
 				ToolsUtil.callActivity(AffirmOrderActivity.this, phoneNo);
 			} else {
-				Toast.makeText(mContext, "该买手暂无联系电话", 1000).show();
+				Toast.makeText(mContext, "该买手暂无联系电话", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}

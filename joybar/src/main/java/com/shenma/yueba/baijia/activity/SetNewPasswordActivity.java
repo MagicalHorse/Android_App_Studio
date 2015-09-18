@@ -102,7 +102,7 @@ public class SetNewPasswordActivity extends BaseActivityWithTopView implements O
 				
 				@Override
 				public void http_Success(Object obj) {
-					Toast.makeText(mContext, "修改成功", 1000).show();
+					Toast.makeText(mContext, "修改成功", Toast.LENGTH_SHORT).show();
 					finish();
 				}
 				

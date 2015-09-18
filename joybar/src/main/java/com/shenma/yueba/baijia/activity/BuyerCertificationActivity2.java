@@ -271,7 +271,7 @@ public class BuyerCertificationActivity2 extends BaseActivityWithTopView
 						}, BuyerCertificationActivity2.this);
 				drawer_layout.openDrawer(Gravity.RIGHT);
 			} else {
-				Toast.makeText(mContext, "请先选择省份", 1000).show();
+				Toast.makeText(mContext, "请先选择省份", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		case R.id.tv_county_town:// 县
@@ -298,36 +298,36 @@ public class BuyerCertificationActivity2 extends BaseActivityWithTopView
 						}, BuyerCertificationActivity2.this);
 				drawer_layout.openDrawer(Gravity.RIGHT);
 			} else {
-				Toast.makeText(mContext, "请先选择城市", 1000).show();
+				Toast.makeText(mContext, "请先选择城市", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		case R.id.tv_confirm:// 提交申请
 			if (TextUtils.isEmpty(et_store_name.getText().toString())) {//
-				Toast.makeText(mContext, "商场名称不能为空", 1000).show();
+				Toast.makeText(mContext, "商场名称不能为空", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (TextUtils.isEmpty(et_zhuangui_name.getText().toString().trim())) {//
-				Toast.makeText(mContext, "专柜名称不能为空", 1000).show();
+				Toast.makeText(mContext, "专柜名称不能为空", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (TextUtils.isEmpty(et_number_name.getText().toString().trim())) {//
-				Toast.makeText(mContext, "专柜位置不能为空", 1000).show();
+				Toast.makeText(mContext, "专柜位置不能为空", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (TextUtils.isEmpty(province_id)) {//
-				Toast.makeText(mContext, "请选择省份", 1000).show();
+				Toast.makeText(mContext, "请选择省份", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (TextUtils.isEmpty(city_id)) {//
-				Toast.makeText(mContext, "请选择城市", 1000).show();
+				Toast.makeText(mContext, "请选择城市", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (TextUtils.isEmpty(town_id)) {//
-				Toast.makeText(mContext, "请选择区县", 1000).show();
+				Toast.makeText(mContext, "请选择区县", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (TextUtils.isEmpty(et_street.getText().toString().trim())) {//
-				Toast.makeText(mContext, "请填写详细地址", 1000).show();
+				Toast.makeText(mContext, "请填写详细地址", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			uploadData();

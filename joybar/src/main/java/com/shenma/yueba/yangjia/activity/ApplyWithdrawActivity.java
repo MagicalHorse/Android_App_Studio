@@ -90,7 +90,7 @@ public class ApplyWithdrawActivity extends BaseActivityWithTopView implements
 					dialog.alertDialog(mContext, "提示", "您需要绑定微信才可以提款，现在去绑定吗？", new DialogUtilInter() {
 						@Override
 						public void dialogCallBack(int... which) {
-							Toast.makeText(mContext, "正在绑定微信", 1000).show();
+							Toast.makeText(mContext, "正在绑定微信", Toast.LENGTH_SHORT).show();
 							// 绑定手机号
 							WXLoginUtil wxLoginUtil = new WXLoginUtil(mContext);
 							wxLoginUtil.initWeiChatLogin(false,false,false);
@@ -99,7 +99,7 @@ public class ApplyWithdrawActivity extends BaseActivityWithTopView implements
 				
 				}
 			} else {
-				Toast.makeText(mContext, "请输入整数", 1000).show();
+				Toast.makeText(mContext, "请输入整数", Toast.LENGTH_SHORT).show();
 			}
 			break;
 

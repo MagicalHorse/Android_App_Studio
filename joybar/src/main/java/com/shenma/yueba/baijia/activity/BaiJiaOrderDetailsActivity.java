@@ -176,9 +176,6 @@ boolean isBroadcase=false;
 	
 	/********
 	 *  分享
-	 *  @param content String 内容提示
-	 *  @param url String 链接地址
-	 *  @param icon String 图片地址
 	 * ****/
 	void shareUrl()
 	{

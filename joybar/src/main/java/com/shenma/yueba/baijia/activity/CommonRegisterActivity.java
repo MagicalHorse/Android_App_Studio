@@ -151,7 +151,7 @@ public class CommonRegisterActivity extends BaseActivityWithTopView implements
 				return;
 			}
 			if(!ToolsUtil.checkEmail(et_username.getText().toString()) && !ToolsUtil.checkPhone(et_username.getText().toString())){
-				Toast.makeText(mContext, "手机号或者邮箱不正确", 1000).show();
+				Toast.makeText(mContext, "手机号或者邮箱不正确", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			final String username = String.valueOf(et_username.getText());

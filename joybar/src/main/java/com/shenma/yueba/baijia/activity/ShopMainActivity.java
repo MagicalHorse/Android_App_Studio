@@ -229,8 +229,6 @@ public class ShopMainActivity extends FragmentActivity {
 	
 	/****
 	 * 提交收藏与取消收藏商品
-	 * @param type int   0表示取消收藏   1表示收藏
-	 * @param brandCityWideInfo BrandCityWideInfo  商品对象
 	 * **/
 	void submitAttention(final View textview,final int Status,final UserInfoBean bean)
 	{
@@ -244,13 +242,13 @@ public class ShopMainActivity extends FragmentActivity {
 					((TextView)textview).setText("关注");
 					shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(ShopMainActivity.this.getResources().getDrawable(R.drawable.shop_guanzhu), null, null, null);
 					bean.setIsFollowing(false);
-					Toast.makeText(ShopMainActivity.this, "取消成功", 1000).show();
+					Toast.makeText(ShopMainActivity.this, "取消成功", Toast.LENGTH_SHORT).show();
 					break;
 				case 1:
 					((TextView)textview).setText("取消");
 					shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(ShopMainActivity.this.getResources().getDrawable(R.drawable.shop_unguanzhu), null, null, null);
 					bean.setIsFollowing(true);
-					Toast.makeText(ShopMainActivity.this, "关注成功", 1000).show();
+					Toast.makeText(ShopMainActivity.this, "关注成功", Toast.LENGTH_SHORT).show();
 					break;
 				}
 			}

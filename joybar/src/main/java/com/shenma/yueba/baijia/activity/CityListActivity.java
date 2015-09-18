@@ -183,7 +183,7 @@ public class CityListActivity extends BaseActivityWithTopView {
 			@Override
 			public void http_Fails(int error, String msg) {
 				
-				Toast.makeText(CityListActivity.this, msg, 1000).show();
+				Toast.makeText(CityListActivity.this, msg, Toast.LENGTH_SHORT).show();
 				
 			}
 		}, this);
@@ -239,7 +239,6 @@ public class CityListActivity extends BaseActivityWithTopView {
 	
 	/**
 	 * 为ListView填充数据
-	 * @param date
 	 * @return
 	 */
 	private List<SortModel> filledData(List<String> city_array){

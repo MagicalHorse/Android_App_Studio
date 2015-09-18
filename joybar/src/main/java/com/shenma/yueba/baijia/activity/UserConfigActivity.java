@@ -308,7 +308,7 @@ public class UserConfigActivity extends BaseActivityWithTopView implements
 										if (progressDialog.isShowing()) {
 											progressDialog.dismiss();
 										}
-										Toast.makeText(mContext, "修改成功", 1000)
+										Toast.makeText(mContext, "修改成功", Toast.LENGTH_SHORT)
 												.show();
 										Bitmap bm = BitmapFactory
 												.decodeFile(littlePicPath_cache);
@@ -323,7 +323,7 @@ public class UserConfigActivity extends BaseActivityWithTopView implements
 
 									@Override
 									public void http_Fails(int error, String msg) {
-										Toast.makeText(mContext, msg, 1000)
+										Toast.makeText(mContext, msg, Toast.LENGTH_SHORT)
 												.show();
 
 									}
@@ -378,7 +378,7 @@ public class UserConfigActivity extends BaseActivityWithTopView implements
 		case R.id.rl_bind_phone:// 绑定手机号
 			if (SharedUtil.getBooleanPerfernece(mContext,
 					SharedUtil.user_IsBindMobile)) {
-				Toast.makeText(mContext, "手机号已绑定", 1000).show();
+				Toast.makeText(mContext, "手机号已绑定", Toast.LENGTH_SHORT).show();
 			} else {
 				// 绑定手机号
 				Intent intentBindPhone = new Intent(UserConfigActivity.this,
@@ -390,7 +390,7 @@ public class UserConfigActivity extends BaseActivityWithTopView implements
 		case R.id.rl_bind_wechat:// 绑定微信
 			if (SharedUtil.getBooleanPerfernece(mContext,
 					SharedUtil.user_IsBindWeiXin)) {
-				Toast.makeText(mContext, "微信号已绑定", 1000).show();
+				Toast.makeText(mContext, "微信号已绑定", Toast.LENGTH_SHORT).show();
 			} else {
 				// 绑定微信
 				WXLoginUtil wxLoginUtil = new WXLoginUtil(UserConfigActivity.this);
@@ -431,12 +431,12 @@ public class UserConfigActivity extends BaseActivityWithTopView implements
 					SharedUtil.setBooleanPerfernece(mContext,
 							SharedUtil.user_canPush, false);
 					switchButton.setBackgroundResource(R.drawable.off);
-					Toast.makeText(mContext, "已关闭", 1000).show();
+					Toast.makeText(mContext, "已关闭", Toast.LENGTH_SHORT).show();
 				} else {
 					SharedUtil.setBooleanPerfernece(mContext,
 							SharedUtil.user_canPush, true);
 					switchButton.setBackgroundResource(R.drawable.on);
-					Toast.makeText(mContext, "已开启", 1000).show();
+					Toast.makeText(mContext, "已开启", Toast.LENGTH_SHORT).show();
 				}
 			}
 
@@ -463,7 +463,7 @@ public class UserConfigActivity extends BaseActivityWithTopView implements
 						UpdateManager manager = new UpdateManager(UserConfigActivity.this, versionRemote+"", bean.getData().getUrl(), bean.getData().getTitle(), bean.getData().getDetails());
 						manager.startUpdate();
 					}else{
-						Toast.makeText(mContext, "当前是最新版本", 1000).show();
+						Toast.makeText(mContext, "当前是最新版本", Toast.LENGTH_SHORT).show();
 					}
 				}
 				

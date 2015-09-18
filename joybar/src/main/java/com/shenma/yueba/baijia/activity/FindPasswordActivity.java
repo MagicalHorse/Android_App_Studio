@@ -170,7 +170,7 @@ public class FindPasswordActivity extends BaseActivityWithTopView implements
 
 					@Override
 					public void http_Success(Object obj) {
-						Toast.makeText(mContext, "绑定成功", 1000).show();
+						Toast.makeText(mContext, "绑定成功", Toast.LENGTH_SHORT).show();
 						SharedUtil.setBooleanPerfernece(mContext,
 								SharedUtil.user_IsBindMobile, true);
 						FindPasswordActivity.this.finish();
@@ -178,7 +178,7 @@ public class FindPasswordActivity extends BaseActivityWithTopView implements
 
 					@Override
 					public void http_Fails(int error, String msg) {
-						Toast.makeText(mContext, msg, 1000).show();
+						Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 					}
 				}, mContext, true);
 	}

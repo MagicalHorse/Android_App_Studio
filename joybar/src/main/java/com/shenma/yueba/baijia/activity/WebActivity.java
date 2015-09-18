@@ -108,12 +108,12 @@ public class WebActivity extends BaseActivityWithTopView {
 		webView.addJavascriptInterface(new Object(){
 			@JavascriptInterface
 			private void clickOnAndroid() {
-				Toast.makeText(WebActivity.this, "我接收到了", 1000).show();
+				Toast.makeText(WebActivity.this, "我接收到了", Toast.LENGTH_SHORT).show();
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 						WebActivity.this.finish();
-						Toast.makeText(WebActivity.this, "我接收到了", 1000).show();
+						Toast.makeText(WebActivity.this, "我接收到了", Toast.LENGTH_SHORT).show();
 					}
 				});
 
