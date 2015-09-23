@@ -63,7 +63,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
 
 	private void initView() {
 		et_search = (EditText) findViewById(R.id.et_search);
-		bt_search = (Button) findViewById(R.id.bt_search);
+		bt_search = (Button) findViewById(R.id.bt_searchs);
 		viewpager_search = (ViewPager) findViewById(R.id.viewpager_search);
 		iv_cursor_left = (ImageView) findViewById(R.id.iv_cursor_left);
 		iv_cursor_left.setVisibility(View.VISIBLE);
@@ -96,7 +96,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
 			currID=1;
 			viewpager_search.setCurrentItem(1);
 			break;
-		case R.id.bt_search://搜索按钮
+		case R.id.bt_searchs://搜索按钮
 			searchData();
 			break;
 		default:

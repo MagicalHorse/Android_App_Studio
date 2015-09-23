@@ -80,7 +80,7 @@ public class FindFragment extends Fragment{
 	void initView(View v)
 	{
 		
-		bt_search=(Button)v.findViewById(R.id.bt_search);
+		bt_search=(Button)v.findViewById(R.id.bt_searchs);
 		bt_search.setOnClickListener(new OnClickListener() {
 			
 			@Override

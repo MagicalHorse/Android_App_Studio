@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/bg_vertical" >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_for_common" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
+                <Button
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/bt_searchs"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="10dip"
+                    android:background="@drawable/search" />
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_toLeftOf="@+id/bt_searchs"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dip"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:hint="请输入搜索内容"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/black" />
+
+            <ListView
+                android:id="@+id/lv_history"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                android:listSelector="#00000000" >
+            </ListView>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

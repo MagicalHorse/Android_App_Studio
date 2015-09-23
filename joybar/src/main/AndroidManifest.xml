@@ -148,24 +148,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
 
-        <!-- 腾讯SSO授权的Activity注册 -->
-        <activity
-            android:name="com.tencent.tauth.AuthActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="tencent100424468" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.tencent.connect.common.AssistActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!-- 微信支付回调 -->
         <activity
@@ -229,6 +212,11 @@
             android:name="com.shenma.yueba.baijia.activity.FillPersonDataActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.shenma.yueba.baijia.activity.SearchProductActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
         <!-- 找回密码 -->
         <activity
             android:name="com.shenma.yueba.baijia.activity.FindPasswordActivity"

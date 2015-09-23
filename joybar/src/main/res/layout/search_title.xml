@@ -45,7 +45,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/bt_search"
+            android:id="@+id/bt_searchs"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/shop_main_marginleft30_dimen"
             android:background="@drawable/shape_main_color_button"

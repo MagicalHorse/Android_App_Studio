@@ -193,7 +193,7 @@ public class MessageFragmentForYangJia extends BaseFragment implements OnClickLi
 		iv_cursor_left = (ImageView) view.findViewById(R.id.iv_cursor_left);
 		iv_cursor_left.setVisibility(View.VISIBLE);
 		iv_cursor_right = (ImageView) view.findViewById(R.id.iv_cursor_right);
-		bt_search = (Button) view.findViewById(R.id.bt_search);
+		bt_search = (Button) view.findViewById(R.id.bt_searchs);
 		bt_search.setOnClickListener(this);
 		FontManager.changeFonts(getActivity(), tv_msg, tv_dynamic);
 	}

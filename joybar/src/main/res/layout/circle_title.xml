@@ -14,7 +14,7 @@
         android:paddingRight="10dip" >
 
         <Button
-            android:id="@+id/bt_search"
+            android:id="@+id/bt_searchs"
             android:layout_width="@dimen/title_image_with_height"
             android:layout_height="@dimen/title_image_with_height"
             android:background="@drawable/search" />

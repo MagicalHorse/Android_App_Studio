@@ -209,7 +209,7 @@ public class SearchFragment extends BaseFragment implements OnClickListener {
 	private void initViews(LayoutInflater inflater) {
 		view = inflater.inflate(R.layout.search_layout, null);
 		et_search = (EditText) view.findViewById(R.id.et_search);
-		bt_search = (Button) view.findViewById(R.id.bt_search);
+		bt_search = (Button) view.findViewById(R.id.bt_searchs);
 		viewpager_search = (ViewPager) view.findViewById(R.id.viewpager_search);
 		iv_cursor_left = (ImageView) view.findViewById(R.id.iv_cursor_left);
 		iv_cursor_left.setVisibility(View.VISIBLE);

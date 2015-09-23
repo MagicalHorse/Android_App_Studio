@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.baijia.activity.SearchProductActivity;
 import com.shenma.yueba.baijia.modle.FragmentBean;
 import com.shenma.yueba.baijia.view.BaseView;
 import com.shenma.yueba.baijia.view.BuyerStreetView;
@@ -14,6 +15,7 @@ import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.FontManager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -26,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -91,6 +94,10 @@ public class IndexFragmentForBaiJia extends Fragment {
 		fragment_list.add(new FragmentBean("我的买手", -1, myBuyerView));
 		baijia_fragment_tab1_head_linearlayout = (LinearLayout) v
 				.findViewById(R.id.baijia_fragment_tab1_head_linearlayout);
+		Button bt_left = new Button(getActivity());
+		bt_left.setGravity(Gravity.CENTER);
+		bt_left.setBackgroundResource(R.drawable.ic_action_search);
+		baijia_fragment_tab1_head_linearlayout.addView(bt_left);
 		for (int i = 0; i < fragment_list.size(); i++) {
 			RelativeLayout rl = (RelativeLayout) RelativeLayout.inflate(
 					getActivity(), R.layout.tab_line_layout, null);
@@ -113,8 +120,22 @@ public class IndexFragmentForBaiJia extends Fragment {
 			param.weight = 1;
 			param.gravity = Gravity.CENTER;
 			baijia_fragment_tab1_head_linearlayout.addView(rl, param);
+
+
 			footer_list.add(rl);
 		}
+
+		Button bt_right = new Button(getActivity());
+		bt_right.setGravity(Gravity.CENTER);
+		bt_right.setBackgroundResource(R.drawable.ic_action_search);
+		baijia_fragment_tab1_head_linearlayout.addView(bt_right);
+		bt_right.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), SearchProductActivity.class);
+				startActivity(intent);
+			}
+		});
 		baijia_fragment_tab1_pagerview = (ViewPager) v.findViewById(R.id.baijia_fragment_tab1_pagerview);
 	    baijia_fragment_tab1_pagerview.setAdapter(new PagerAdapter() {
 			

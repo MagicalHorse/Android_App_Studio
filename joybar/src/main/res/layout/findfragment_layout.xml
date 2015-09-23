@@ -12,12 +12,12 @@
             android:id="@+id/baijia_fragment_tab1_head_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_toLeftOf="@+id/bt_search"
+            android:layout_toLeftOf="@+id/bt_searchs"
             android:orientation="horizontal" />
 
         <Button
             android:layout_marginRight="@dimen/shop_main_lineheight10_dimen"
-            android:id="@+id/bt_search"
+            android:id="@+id/bt_searchs"
             android:layout_width="@dimen/title_image_with_height"
             android:layout_height="@dimen/title_image_with_height"
             android:layout_alignParentRight="true"
