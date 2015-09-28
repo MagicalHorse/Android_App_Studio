@@ -74,7 +74,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
             }
         });
         lv_history.addFooterView(footView);
-        FontManager.changeFonts(this,tv_history_title,tv_top_title,et_search);
+        FontManager.changeFonts(this,tv_history_title,tv_top_title,et_search,tv_clear);
     }
 
 

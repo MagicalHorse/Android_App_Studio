@@ -188,6 +188,9 @@
             android:name="com.shenma.yueba.baijia.activity.BuyerCertificationActivity1"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.shenma.yueba.baijia.activity.ChooseCityActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.shenma.yueba.baijia.activity.BuyerCertificationActivity2"
             android:screenOrientation="portrait" />
         <activity
