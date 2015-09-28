@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
+import com.shenma.yueba.util.FontManager;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,7 @@ public class SearchHistoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
              View view = View.inflate(ctx,R.layout.search_history_item,null);
         TextView tv_history_item = (TextView)view.findViewById(R.id.tv_history_item);
+        FontManager.changeFonts(ctx,tv_history_item);
         tv_history_item.setText(mList.get(position));
         return view;
     }

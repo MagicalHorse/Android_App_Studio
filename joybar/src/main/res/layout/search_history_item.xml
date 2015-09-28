@@ -18,6 +18,6 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.3dip"
-        android:background="@color/gray" />
+        android:background="@color/lightgray2" />
 
 </LinearLayout>

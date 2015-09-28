@@ -53,7 +53,7 @@
     <color name="black">#000000</color>
     <color name="blue">#4B98DF</color>
     <color name="green">#3DB44B</color>
- <color name="main_color">#EB8551</color>
+ <color name="main_color">#ffa300</color>
     <!-- 灰色 -->
     <color name="gray_bt_background_normal">#494949</color>
     <color name="gray_bt_background_select">#000000</color>

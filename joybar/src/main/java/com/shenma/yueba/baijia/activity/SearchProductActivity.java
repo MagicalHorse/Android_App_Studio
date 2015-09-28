@@ -30,7 +30,9 @@ import java.util.ArrayList;
 public class SearchProductActivity extends BaseActivityWithTopView implements View.OnClickListener, TextWatcher, AdapterView.OnItemClickListener {
     private EditText et_search;
     private ListView lv_history;
-    private Button bt_searchs;
+    private TextView tv_search;
+    private Button bt_delete;
+    private TextView tv_history_title;
     private ArrayList<String> mList = new ArrayList<String>();
     private ArrayList<String> allList = new ArrayList<String>();
     private SearchHistoryAdapter adapter;
@@ -50,25 +52,29 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
         });
         et_search = (EditText) findViewById(R.id.et_search);
         lv_history = (ListView) findViewById(R.id.lv_history);
-        bt_searchs = (Button)findViewById(R.id.bt_searchs);
+        tv_search = (TextView)findViewById(R.id.tv_search);
+        tv_history_title = (TextView)findViewById(R.id.tv_history_title);
+        bt_delete = (Button)findViewById(R.id.bt_delete);
         adapter = new SearchHistoryAdapter(SearchProductActivity.this,mList);
         et_search.addTextChangedListener(this);
-        bt_searchs.setOnClickListener(this);
+        tv_search.setOnClickListener(this);
         lv_history.setAdapter(adapter);
         lv_history.setOnItemClickListener(this);
+        bt_delete.setOnClickListener(this);
         View footView = View.inflate(mContext, R.layout.search_bottom_layout, null);
         TextView tv_clear = (TextView)footView.findViewById(R.id.tv_clear);
         tv_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedUtil.setStringPerfernece(mContext,SharedUtil.search_history,"");
+                tv_history_title.setVisibility(View.GONE);
                 mList.clear();
                 allList.clear();
                 adapter.notifyDataSetChanged();
             }
         });
         lv_history.addFooterView(footView);
-        FontManager.changeFonts(this,tv_top_title,et_search);
+        FontManager.changeFonts(this,tv_history_title,tv_top_title,et_search);
     }
 
 
@@ -80,8 +86,15 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
         mList.clear();
         allList.clear();
         for (int i=0;i<historyArr.length;i++){
-            mList.add(historyArr[i]);
-            allList.add(historyArr[i]);
+            if(!TextUtils.isEmpty(historyArr[i])){
+                mList.add(historyArr[i]);
+                allList.add(historyArr[i]);
+            }
+        }
+        if(mList.size()>0){
+            tv_history_title.setVisibility(View.VISIBLE);
+        }else{
+            tv_history_title.setVisibility(View.GONE);
         }
         adapter.notifyDataSetChanged();
     }
@@ -89,7 +102,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.bt_searchs://搜索
+            case R.id.tv_search://搜索
                 if(TextUtils.isEmpty(et_search.getText().toString().trim())){
                     Toast.makeText(SearchProductActivity.this,"搜索内容不能为空",Toast.LENGTH_SHORT).show();
                 }else {
@@ -130,6 +143,9 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                     }
                 }
                 break;
+            case R.id.bt_delete:
+                et_search.setText("");
+                break;
         }
 
     }
@@ -142,6 +158,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if(s.length()>0){
+            bt_delete.setVisibility(View.VISIBLE);
             mList.clear();
             for (int i=0;i<allList.size();i++){
                 if(allList.get(i).contains(s.toString())){
@@ -149,9 +166,16 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                 }
             }
         }else{
+            bt_delete.setVisibility(View.INVISIBLE);
             mList.clear();
             mList.addAll(allList);
         }
+        if(mList.size()>0){
+            tv_history_title.setVisibility(View.VISIBLE);
+        }else{
+            tv_history_title.setVisibility(View.GONE);
+        }
+
         adapter.notifyDataSetChanged();
     }
 
@@ -162,6 +186,14 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        allList.remove(mList.get(position));
+        allList.add(0,mList.get(position));
+        SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, "");
+        StringBuffer sb = new StringBuffer();
+        for (int i=0;i<allList.size();i++){
+            sb.append(allList.get(i)).append(",");
+        }
+        SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
         Intent intent = new Intent(SearchProductActivity.this, AboutActivity.class);
         startActivity(intent);
     }
