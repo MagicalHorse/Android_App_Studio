@@ -224,6 +224,7 @@ public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClick
          * 颜色的 分类
          *
          * ********************/
+
         for(int i=0;i<10;i++)
         {
             colortypelist.add(new ProductColorTypeBean());
