@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/modulepaddingleftandright_style"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--颜色-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/product_spec_layout_colortype_textview"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="颜色：" />
+
+        <com.shenma.yueba.view.MyGridView
+            android:id="@+id/product_spec_layout_colortype_mygridview"
+            android:numColumns="4"
+            android:verticalSpacing="5dp"
+            android:horizontalSpacing="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@color/color_transparent"
+            android:background="@color/color_transparent"
+            android:listSelector="@color/color_transparent"
+            />
+
+    </LinearLayout>
+
+    <!--尺码-->
+    <LinearLayout
+        android:layout_marginTop="@dimen/shop_main_width15_dimen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/product_spec_layout_dimentype_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="尺码：" />
+
+        <com.shenma.yueba.view.MyGridView
+            android:id="@+id/product_spec_layout_dimentype_mygridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!--数量-->
+    <LinearLayout
+        android:layout_marginTop="@dimen/shop_main_width15_dimen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/product_spec_layout_count_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量：" />
+
+        <include layout="@layout/jiaandjia_layout" />
+
+        <TextView
+            android:id="@+id/product_spec_layout_stock_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:singleLine="true"
+            android:text="库存：111"
+            android:textColor="@color/red_text_color" />
+    </LinearLayout>
+
+    <!--服务-->
+    <LinearLayout
+        android:layout_marginTop="@dimen/shop_main_width15_dimen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/product_spec_layout_serve_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务：由门店提供服务：" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/product_spec_layout_notes_textview"
+        android:layout_marginTop="@dimen/shop_main_lineheight8_dimen"
+        android:textSize="@dimen/textsize10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red_text_color"
+        android:text="注意该商品不支持退货" />
+
+</LinearLayout>

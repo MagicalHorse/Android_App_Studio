@@ -324,68 +324,67 @@ public class BuyerAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				switch (v.getId()) {
-				case R.id.baijia_tab1_item_productcontent_imageview:
-					if (v.getTag() != null && v.getTag() instanceof Integer) {
-						Integer _id = (Integer) v.getTag();
-						ToolsUtil.forwardProductInfoActivity(activity,_id);
-					}
-					break;
-				case R.id.baijia_tab1_item_icon_imageview:// 商铺详细
-					if(!MyApplication.getInstance().isUserLogin(activity))
-					{
-						return;
-					}
-					if (v.getTag() == null || !(v.getTag() instanceof Integer)) {
-						return;
-					}
-					ToolsUtil.forwardShopMainActivity(activity,(Integer)v.getTag());
-					break;
-				case R.id.tv_count:// 商品喜欢/取消喜欢
-					if (!MyApplication.getInstance().isUserLogin(activity)) {
-						return;
-					}
-					if (v.getTag() != null
-							|| v.getTag() instanceof ProductsInfoBean) {
-						ProductsInfoBean bean = (ProductsInfoBean) v.getTag();
-						if (bean.getLikeUsers() != null) {
-							if (bean.getLikeUsers().isIsLike()) {
-								setLikeOrUnLike(bean, 0, (TextView) v);
-							} else {
-								setLikeOrUnLike(bean, 1, (TextView) v);
-							}
+					case R.id.baijia_tab1_item_productcontent_imageview:
+						if (v.getTag() != null && v.getTag() instanceof Integer) {
+							Integer _id = (Integer) v.getTag();
+							ToolsUtil.forwardProductInfoActivity(activity, _id);
 						}
+						break;
+					case R.id.baijia_tab1_item_icon_imageview:// 商铺详细
+						if (!MyApplication.getInstance().isUserLogin(activity)) {
+							return;
+						}
+						if (v.getTag() == null || !(v.getTag() instanceof Integer)) {
+							return;
+						}
+						ToolsUtil.forwardShopMainActivity(activity, (Integer) v.getTag());
+						break;
+					case R.id.tv_count:// 商品喜欢/取消喜欢
+						if (!MyApplication.getInstance().isUserLogin(activity)) {
+							return;
+						}
+						if (v.getTag() != null
+								|| v.getTag() instanceof ProductsInfoBean) {
+							ProductsInfoBean bean = (ProductsInfoBean) v.getTag();
+							if (bean.getLikeUsers() != null) {
+								if (bean.getLikeUsers().isIsLike()) {
+									setLikeOrUnLike(bean, 0, (TextView) v);
+								} else {
+									setLikeOrUnLike(bean, 1, (TextView) v);
+								}
+							}
 
-					}
-					break;
-				case R.id.buyersteetfragmeng_item_siliao_button:// 私聊
-					if (!MyApplication.getInstance().isUserLogin(activity)) {
-						return;
-					}
-					if (v.getTag() != null
-							&& v.getTag() instanceof ProductsInfoBean) {
-						ProductsInfoBean bean = (ProductsInfoBean) v.getTag();
+						}
+						break;
+					case R.id.buyersteetfragmeng_item_siliao_button:// 私聊
+						if (!MyApplication.getInstance().isUserLogin(activity)) {
+							return;
+						}
+						if (v.getTag() != null
+								&& v.getTag() instanceof ProductsInfoBean) {
+							ProductsInfoBean bean = (ProductsInfoBean) v.getTag();
 						/*Intent intentsiliao = new Intent(activity,ChatActivity.class);
 						intentsiliao.putExtra("Chat_NAME", bean.getBuyerName());// 圈子名字
 						intentsiliao.putExtra("toUser_id", bean.getBuyerid());
 						activity.startActivity(intentsiliao);*/
-						ToolsUtil.forwardChatActivity(activity, bean.getBuyerName(), bean.getBuyerid(),0, null,null);
-					}
+							ToolsUtil.forwardChatActivity(activity, bean.getBuyerName(), bean.getBuyerid(), 0, null, null);
+						}
 
-					break;
-				case R.id.buyersteetfragmeng_item_share_button:// 分享
-					if (!MyApplication.getInstance().isUserLogin(activity)) {
-						return;
-					}
-					
-					if (v.getTag() != null && v.getTag() instanceof ProductsInfoBean) {
-						ProductsInfoBean bean = (ProductsInfoBean) v.getTag();
-						String content = ToolsUtil.nullToString(bean.getShareDesc());
-						String url = bean.getShareLink();
-						String icon = ToolsUtil.getImage(ToolsUtil.nullToString(bean.getProductPic().getName()),320, 0);
-						shareUrl(bean.getProductId(), "",content, url, icon);
-					}
+						break;
+					case R.id.buyersteetfragmeng_item_share_button:// 分享
+						if (!MyApplication.getInstance().isUserLogin(activity)) {
+							return;
+						}
 
-					break;
+						if (v.getTag() != null && v.getTag() instanceof ProductsInfoBean) {
+							ProductsInfoBean bean = (ProductsInfoBean) v.getTag();
+							String content = ToolsUtil.nullToString(bean.getShareDesc());
+							String url = bean.getShareLink();
+							String icon = ToolsUtil.getImage(ToolsUtil.nullToString(bean.getProductPic().getName()), 320, 0);
+							ToolsUtil.shareUrl(activity,bean.getProductId(), "", content, url, icon);
+						}
+
+						break;
 				}
 
 			}
@@ -411,23 +410,23 @@ public class BuyerAdapter extends BaseAdapter {
 					public void http_Success(Object obj) {
 						int count = bean.getLikeUsers().getCount();
 						switch (Status) {
-						case 0:
-							v.setSelected(false);
-							count--;
-							if (count < 0) {
-								count = 0;
-							}
-							bean.getLikeUsers().setIsLike(false);
-							bean.getLikeUsers().setCount(count);
-							v.setText(count + "");
-							break;
-						case 1:
-							count++;
-							v.setSelected(true);
-							v.setText(count + "");
-							bean.getLikeUsers().setIsLike(true);
-							bean.getLikeUsers().setCount(count);
-							break;
+							case 0:
+								v.setSelected(false);
+								count--;
+								if (count < 0) {
+									count = 0;
+								}
+								bean.getLikeUsers().setIsLike(false);
+								bean.getLikeUsers().setCount(count);
+								v.setText(count + "");
+								break;
+							case 1:
+								count++;
+								v.setSelected(true);
+								v.setText(count + "");
+								bean.getLikeUsers().setIsLike(true);
+								bean.getLikeUsers().setCount(count);
+								break;
 						}
 					}
 
@@ -444,53 +443,4 @@ public class BuyerAdapter extends BaseAdapter {
 		MyApplication.getInstance().getBitmapUtil().display(iv, url);
 	}
 
-	/********
-	 * 分享
-	 * 
-	 * @param content
-	 *            String 内容提示
-	 * @param url
-	 *            String 链接地址
-	 * @param icon
-	 *            String 图片地址
-	 * ****/
-	void shareUrl(final int productid, String title,String content, String url, String icon) {
-		ShareUtil.shareAll(activity,title, content, url, icon, new ShareListener() {
-
-			@Override
-			public void sharedListener_sucess() {
-				requestShared(productid);
-			}
-
-			@Override
-			public void sharedListener_Fails(String msg) {
-				MyApplication.getInstance().showMessage(activity, msg);
-			}
-		});
-	}
-
-	/*****
-	 * 分享成功后 回调
-	 * ****/
-	void requestShared(int productid) {
-		HttpControl httpControl = new HttpControl();
-		httpControl.createProductShare(productid, false,
-				new HttpCallBackInterface() {
-
-					@Override
-					public void http_Success(Object obj) {
-						if (obj != null && obj instanceof BaseRequest) {
-							MyApplication.getInstance().showMessage(activity,
-									"分享成功");
-						} else {
-							/*MyApplication.getInstance().showMessage(activity,"分享失败");*/
-						}
-					}
-
-					@Override
-					public void http_Fails(int error, String msg) {
-						MyApplication.getInstance().showMessage(activity, msg);
-					}
-				}, activity);
-	}
 }

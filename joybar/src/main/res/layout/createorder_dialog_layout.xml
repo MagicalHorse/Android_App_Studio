@@ -120,7 +120,7 @@
                 android:text="数量："
                 android:textSize="15sp" />
 
-            <include layout="@layout/jiaandjia_layout" />
+            <include layout="@layout/jiaandjia_layout"/>
 
             <TextView
                 android:id="@+id/createorder_dialog_layout_repertory_textview"

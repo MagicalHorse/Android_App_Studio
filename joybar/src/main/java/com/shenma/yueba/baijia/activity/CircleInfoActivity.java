@@ -85,7 +85,6 @@ public class CircleInfoActivity extends BaseActivityWithTopView implements
 		MyApplication.getInstance().addActivity(this);
 		initView();
 		getIntentData();
-		getCircleDetail(cricleId, mContext, true);
 	}
 
 	private void getIntentData() {
@@ -99,6 +98,7 @@ public class CircleInfoActivity extends BaseActivityWithTopView implements
 			
 		}
 		from = getIntent().getStringExtra("from");
+		getCircleDetail(cricleId, mContext, true);
 	}
 
 	private void initView() {

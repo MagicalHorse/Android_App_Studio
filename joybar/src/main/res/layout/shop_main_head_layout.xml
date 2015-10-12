@@ -222,7 +222,6 @@
         android:visibility="gone" />
 
     <View
-        android:id="@+id/shop_main_head_layout_horizontal_line_include"
         style="@style/style_horizontal_line"
         android:layout_marginTop="@dimen/shop_main_width20_dimen" />
     <!-- tab -->
@@ -232,6 +231,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/shop_main_width5_dimen"
+        android:layout_marginBottom="@dimen/shop_main_width5_dimen"
         android:orientation="horizontal" />
+    <View
+         style="@style/style_horizontal_line"/>
 
 </LinearLayout>

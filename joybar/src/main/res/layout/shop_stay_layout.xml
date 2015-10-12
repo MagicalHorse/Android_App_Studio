@@ -19,7 +19,5 @@
         android:id="@+id/shop_stay_layout_tabline_relativelayout"
         style="@style/style_vertical_line"
         android:layout_width="@dimen/shop_main_width3_dimen"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/shop_main_lineheight8_dimen"
-        android:layout_marginTop="@dimen/shop_main_lineheight8_dimen" />
+        android:layout_height="match_parent" />
 </LinearLayout>

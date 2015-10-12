@@ -404,9 +404,15 @@
             android:name="com.shenma.yueba.baijia.activity.MyCollectionActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <!-- 认证买手详情 -->
+        <!-- 认证买手商品详情 -->
         <activity
             android:name="com.shenma.yueba.baijia.activity.ApproveBuyerDetailsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <!-- 专柜买手商品详情 -->
+        <activity
+            android:name="com.shenma.yueba.baijia.activity.ApproveBuyerDetails_ck_Activity"
             android:screenOrientation="portrait" >
         </activity>
 

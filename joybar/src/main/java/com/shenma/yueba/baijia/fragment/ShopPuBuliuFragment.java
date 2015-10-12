@@ -15,12 +15,10 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ShopMainActivity;
-import com.shenma.yueba.baijia.activity.ShopMainActivity.PubuliuFragmentListener;
 import com.shenma.yueba.baijia.modle.MyFavoriteProductListInfo;
 import com.shenma.yueba.baijia.modle.MyFavoriteProductListInfoBean;
 import com.shenma.yueba.baijia.modle.RequestMyFavoriteProductListInfoBean;
 import com.shenma.yueba.baijia.view.PubuliuManager;
-import com.shenma.yueba.baijia.view.PubuliuManager.PubuliuInterfaceListener;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
@@ -33,7 +31,7 @@ import com.umeng.socialize.utils.Log;
  */
 
 @SuppressLint("ValidFragment")
-public class ShopPuBuliuFragment extends Fragment implements PubuliuFragmentListener ,PubuliuInterfaceListener{
+public class ShopPuBuliuFragment extends Fragment implements ShopMainFragment.PubuliuFragmentListener{
 	int currPage = Constants.CURRPAGE_VALUE;
 	int pageSize = Constants.PAGESIZE_VALUE;
 	PubuliuFragmentListener pubuliuFragmentListener;
@@ -45,7 +43,7 @@ public class ShopPuBuliuFragment extends Fragment implements PubuliuFragmentList
 	List<MyFavoriteProductListInfo> item = new ArrayList<MyFavoriteProductListInfo>();
 	boolean ishow=false;
 	/*****
-	 * @param Filter int 0:全部商品,1:上新商品
+	 * @param Filter int 0:全部商品,1:上新商品，2:我收藏的商品（用于买家显示）
 	 * ***/
 	public ShopPuBuliuFragment(int Filter,int userID) {
 		this.Filter = Filter;
@@ -77,7 +75,6 @@ public class ShopPuBuliuFragment extends Fragment implements PubuliuFragmentList
 		if(getActivity()!=null)
 		{
 			pm = new PubuliuManager(getActivity(), parentView);
-			pm.setPubuliuInterfaceListener(this);
 		}
 		
 	}
@@ -335,22 +332,6 @@ public class ShopPuBuliuFragment extends Fragment implements PubuliuFragmentList
 			}
 		}, getActivity());
 	}
-
-	@Override
-	public void FavorSucess(int _id,View v) {
-		if(getActivity()!=null && getActivity() instanceof ShopMainActivity)
-		{
-			((ShopMainActivity)getActivity()).synchronizationData(_id, 0);
-		}
-	}
-
-	@Override
-	public void UnFavorSucess(int _id,View v) {
-		if(getActivity()!=null && getActivity() instanceof ShopMainActivity)
-		{
-		    ((ShopMainActivity)getActivity()).synchronizationData(_id,1);
-		}
-	}
 	
 	/****
 	 * 同步数据 根据  根据商品id 
@@ -361,8 +342,14 @@ public class ShopPuBuliuFragment extends Fragment implements PubuliuFragmentList
 	{
 		for(int i=0;i<item.size();i++)
 		{
+			MyFavoriteProductListInfo info=item.get(i);
 			if(item.get(i).getId()==_id)
 			{
+				//如果当前 数据没有发生改变 则 不处理 直接返回
+				if((type==0 && info.isIsFavorite() || (type==1 && !info.isIsFavorite() )))
+				{
+					return;
+				}
 				switch(type)
 				{
 				case 0:
@@ -409,4 +396,20 @@ public class ShopPuBuliuFragment extends Fragment implements PubuliuFragmentList
 	    }
 	}
 
+
+	/*****
+	 * 下拉刷新监听
+	 * **/
+	public interface PubuliuFragmentListener
+	{
+		/***
+		 * 刷新
+		 * **/
+		void onPuBuliuRefersh();
+
+		/**
+		 * 加载
+		 * **/
+		void onPuBuliuaddData();
+	}
 }

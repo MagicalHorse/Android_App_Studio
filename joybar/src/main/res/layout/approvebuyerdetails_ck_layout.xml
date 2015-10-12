@@ -31,26 +31,28 @@
 
             <!--打样购-->
             <include
+                android:visibility="gone"
+                layout="@layout/dayang_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/shop_main_width15_dimen"
-                layout="@layout/dayang_layout" />
+                android:layout_marginTop="@dimen/shop_main_width15_dimen" />
 
-            <!--商铺信息-->
+            <!--规格尺寸-->
             <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/shop_main_width15_dimen"
-                layout="@layout/produtcdetails_shops_layout"/>
+                layout="@layout/product_spec_layout" />
 
-            <!--导购图-->
-            <ImageView
-                android:layout_marginTop="@dimen/shop_main_width15_dimen"
-                style="@style/modulepaddingleftandright_style"
+            <!--商铺信息-->
+            <include
+                layout="@layout/produtcdetails_shops_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:src="@drawable/productdetails_guide" />
+                android:layout_marginTop="@dimen/shop_main_width15_dimen" />
+
+            <!--导购图-->
+
 
         </LinearLayout>
 

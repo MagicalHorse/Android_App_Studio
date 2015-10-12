@@ -27,7 +27,25 @@ public class ProductsDetailsInfoBean implements Serializable{
 	
 	//活动信息
     ProductsDetailsPromotion Promotion=new ProductsDetailsPromotion();
-	
+	String ShareLink="";//分享链接
+	String ShareDesc="";//分享描述
+	public String getShareDesc() {
+		return ShareDesc;
+	}
+
+	public void setShareDesc(String shareDesc) {
+		ShareDesc = shareDesc;
+	}
+
+	public String getShareLink() {
+		return ShareLink;
+	}
+
+	public void setShareLink(String shareLink) {
+		ShareLink = shareLink;
+	}
+
+
 	
 	public ProductsDetailsPromotion getPromotion() {
 		return Promotion;

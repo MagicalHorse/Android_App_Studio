@@ -14,11 +14,14 @@ import com.shenma.yueba.baijia.modle.ProductsDetailsInfoBean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsPromotion;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagsInfo;
+import com.shenma.yueba.baijia.modle.ProductsInfoBean;
 import com.shenma.yueba.baijia.modle.RequestProductDetailsInfoBean;
 import com.shenma.yueba.baijia.modle.UsersInfoBean;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
+import com.shenma.yueba.util.ShareUtil;
+import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.FixedSpeedScroller;
 import com.shenma.yueba.view.RoundImageView;
@@ -26,6 +29,7 @@ import com.shenma.yueba.view.TagImageView;
 import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -53,8 +57,7 @@ import android.widget.TextView;
  */
 
 @SuppressLint("NewApi")
-public class ApproveBuyerDetailsActivity extends BaseActivityWithTopView
-		implements OnClickListener {
+public class ApproveBuyerDetailsActivity extends Activity implements OnClickListener {
 	// 当前选中的id （ViewPager选中的id）
 	int currid = -1;
 	// 滚动图片
@@ -97,8 +100,8 @@ public class ApproveBuyerDetailsActivity extends BaseActivityWithTopView
 	protected void onCreate(Bundle savedInstanceState) {
 		MyApplication.getInstance().addActivity(this);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.approvebuyerdetails_layout);
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.approvebuyerdetails_layout);
 		productID = this.getIntent().getIntExtra("productID", -1);
 		if (productID < 0) {
 			MyApplication.getInstance().showMessage(this, "数据错误,请重试");
@@ -112,14 +115,43 @@ public class ApproveBuyerDetailsActivity extends BaseActivityWithTopView
 	}
 
 	private void initViews() {
-		TextView tv_top_left = (TextView) findViewById(R.id.tv_top_left);
+		TextView tv_top_left = (TextView)findViewById(R.id.tv_top_left);
+		tv_top_left.setVisibility(View.VISIBLE);
 		tv_top_left.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				ApproveBuyerDetailsActivity.this.finish();
 			}
 		});
-		
+		TextView tv_top_right=(TextView)findViewById(R.id.tv_top_right);
+        tv_top_right.setVisibility(View.VISIBLE);
+		tv_top_right.setBackground(getResources().getDrawable(R.drawable.productshare));
+		tv_top_right.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (!MyApplication.getInstance().isUserLogin(ApproveBuyerDetailsActivity.this)) {
+					return;
+				}
+
+				if(bean!=null)
+				{
+					ProductsDetailsInfoBean productinfobean=bean.getData();
+					if(productinfobean!=null)
+					{
+						String content = ToolsUtil.nullToString(productinfobean.getShareDesc());
+						String url = productinfobean.getShareLink();
+						List<ProductsDetailsTagInfo> piclist=productinfobean.getProductPic();
+						String img_name="";
+						if(piclist.size()>0)
+						{
+							img_name=piclist.get(0).getLogo();
+						}
+						String icon = ToolsUtil.getImage(ToolsUtil.nullToString(img_name),320, 0);
+						ToolsUtil.shareUrl(ApproveBuyerDetailsActivity.this, productinfobean.getProductId(), "", content, url, icon);
+					}
+				}
+			}
+		});
 		// 收藏按钮
 	    approvebuyerdetails_layout_shoucang_linerlayout_textview = (TextView) findViewById(R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview);
 		//头像包裹视图
@@ -279,10 +311,6 @@ public class ApproveBuyerDetailsActivity extends BaseActivityWithTopView
 		initPic(usericon, approvebuyerdetails_icon_imageview);
 		// 自提地址
 		setdataValue(R.id.approvebuyerdetails_addressvalue_textview, address);
-		// 成交数量
-		setdataValue(R.id.appprovebuyerdetails_textvalue1_textview, truncount+ "");
-		// 好评率
-		setdataValue(R.id.appprovebuyerdetails_text2value_textview, haoping);
 
 		setdataValue(R.id.approvebuyerdetails_name_textview, username);
 		// 金额
@@ -290,6 +318,12 @@ public class ApproveBuyerDetailsActivity extends BaseActivityWithTopView
 				"￥" + Double.toString(price));
 		// 商品名称
 		setdataValue(R.id.approvebuyerdetails_producename_textview, productName);
+		//title名字
+		TextView tv_top_title=(TextView)findViewById(R.id.tv_top_title);
+		tv_top_title.setText("商品详情");
+		tv_top_title.setVisibility(View.VISIBLE);
+
+
 		LikeUsersInfoBean likeUsersInfoBean = Data.getLikeUsers();
 		if (likeUsersInfoBean != null) {
 			int linkwidt=ll_attentionpeople_contener.getWidth()-((LinearLayout.LayoutParams)ll_attentionpeople_contener.getLayoutParams()).leftMargin-((LinearLayout.LayoutParams)ll_attentionpeople_contener.getLayoutParams()).rightMargin;
@@ -349,7 +383,7 @@ public class ApproveBuyerDetailsActivity extends BaseActivityWithTopView
 						if (v.getTag()==null || ((Integer)v.getTag()) <= 0) {
 							return;
 						}
-						ToolsUtil.forwardShopMainActivity(mContext, (Integer)v.getTag());
+						ToolsUtil.forwardShopMainActivity(ApproveBuyerDetailsActivity.this, (Integer)v.getTag());
 					}
 				});
 
@@ -482,16 +516,6 @@ public class ApproveBuyerDetailsActivity extends BaseActivityWithTopView
 		setdataValue(R.id.tv_top_title, null);
 		// 设置昵称
 		setdataValue(R.id.approvebuyerdetails_name_textview, null);
-		// 好评率
-		setdataValue(R.id.appprovebuyerdetails_text2value_textview, null);
-		// 成交
-		setdataValue(R.id.appprovebuyerdetails_text1, null);
-		// 成交额
-		setdataValue(R.id.appprovebuyerdetails_textvalue1_textview,null);
-		// 好评
-		setdataValue(R.id.appprovebuyerdetails_text2, null);
-		// 好评值
-		setdataValue(R.id.appprovebuyerdetails_text2value_textview, null);
 		// 金额
 		setdataValue(R.id.approvebuyerdetails_price_textview, null);
 		// 商品名称
@@ -573,7 +597,7 @@ public class ApproveBuyerDetailsActivity extends BaseActivityWithTopView
 			{
 				return;
 			}
-			ToolsUtil.forwardShopMainActivity(mContext,bean.getData().getBuyerId());
+			ToolsUtil.forwardShopMainActivity(ApproveBuyerDetailsActivity.this,bean.getData().getBuyerId());
 			break;
 		case R.id.approvebuyerdetails_layout_siliao_linerlayout_textview:
 			startChatActivity();

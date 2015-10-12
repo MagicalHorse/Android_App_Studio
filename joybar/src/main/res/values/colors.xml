@@ -42,7 +42,7 @@
     <color name="textcolor">#212121</color>
     
     <color name="gray_bg">#ECECEC</color>
-    <color name="red_text_color">#EC1B26</color>
+    <color name="red_text_color">#FB4949</color>
     <color name="text_gray_color">#666666</color>
     <!-- 暗灰色 -->
     <color name="dimgrey">#696969</color>

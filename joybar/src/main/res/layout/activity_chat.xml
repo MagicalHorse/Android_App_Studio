@@ -6,12 +6,13 @@
     android:background="#f2f0eb" >
 
     <include
+        android:visibility="gone"
         android:id="@+id/top_bar"
         layout="@layout/chat_layout_title" />
 
     
     <View 
-        android:layout_below="@id/top_bar"
+        android:layout_below="@+id/chat_alertmsg_linearlayout"
         style="@style/style_horizontal_line"
         android:id="@+id/view_line"
         />
@@ -252,12 +253,13 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <include 
-        android:layout_below="@id/view_line"
+    <include
+        android:layout_below="@id/top_bar"
         android:id="@+id/chat_product_head_layout_include"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/chat_product_head_layout"
+        android:visibility="gone"
         />
     <RelativeLayout
         android:background="@color/main_bg"
@@ -272,7 +274,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_centerHorizontal="true"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/chat_list"
@@ -301,7 +303,40 @@
             android:textSize="@dimen/textsize8sp"
             android:textColor="@color/color_deeoyellow"
             android:text="通信已断开,重新连接中"
+            android:visibility="gone"
             />
     </RelativeLayout>
+
+    <!--提示信息-->
+    <LinearLayout
+        android:layout_below="@+id/top_bar"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="8dp"
+        android:id="@+id/chat_alertmsg_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/color_lightgrey"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gonggao"
+            android:scaleType="fitCenter"
+            />
+        <TextView
+            android:id="@+id/chat_alertmsg_textview"
+            android:layout_marginLeft="8dp"
+            android:lineSpacingExtra="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize11sp"
+            android:text="@string/chat_alertmsg_str"
+            />
+    </LinearLayout>
 
 </RelativeLayout>

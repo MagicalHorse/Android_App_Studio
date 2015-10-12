@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    >
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/productcolor_item_pic_imageview"
+        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/default_pic"
+        android:background="@drawable/productcolortype_background"
+        />
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/productcolor_item_pic_imageview"
+        android:id="@+id/productcolor_item_textview"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="红色"
+        />
+
+</RelativeLayout>

@@ -23,6 +23,8 @@
     <string name="shop_description1_str">夏天眨眼就到了，瘦身，美白，防晒......小月亮门准备好了吗？！</string>
     <string name="shop_description2_str">猫猫出品必出精品。还有没来得及了解纪梵希的亲,赶快加猫猫的圈子,这是个好机会哦。</string>
     <string name="shop_description3_str">群内纪梵希品牌历史演讲。\n时间4月31日 18:00。</string>
+
+    <string name="chat_alertmsg_str">欢迎大家来到我的圈子。在这里，了解商品，了解我。\n请大家在我的店铺里，愉快的购物吧！</string>
     
     <string name="wenxin_appid">wx281aa8c2686c0e7c</string>
     <string name="wenxin_shanghuno">1247257401</string>

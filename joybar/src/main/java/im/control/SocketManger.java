@@ -453,7 +453,7 @@ public class SocketManger {
 	 * ***/
 	void sendBroadcaseToChatAtConnect()
 	{
-		MyApplication.getInstance().getApplicationContext().sendBroadcast(new Intent(ChatActivity.IntentFilterChatAtConnect));
+		MyApplication.getInstance().getApplicationContext().sendBroadcast(new Intent(Constants.IntentFilterChatAtConnect));
 	}
 	
 	/*****
@@ -461,7 +461,7 @@ public class SocketManger {
 	 * ***/
 	void sendBroadcaseToChatAtUnConnect()
 	{
-		MyApplication.getInstance().getApplicationContext().sendBroadcast(new Intent(ChatActivity.IntentFilterChatAtUnConnect));
+		MyApplication.getInstance().getApplicationContext().sendBroadcast(new Intent(Constants.IntentFilterChatAtUnConnect));
 	}
 	
 	

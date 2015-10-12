@@ -139,17 +139,17 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
     private  ImBroadcastReceiver imBroadcastReceiver;
     private boolean isregister=false;
     
-    public final static String IntentFilterChatAtConnect="com.shenma.yueba.ChatActivity.connect";//socketio已连接
-    public final static String IntentFilterChatAtUnConnect="com.shenma.yueba.ChatActivity.unconnect";//socketio已断开
-    
     boolean isRegisterbroadcase=false;
-    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		MyApplication.getInstance().addActivity(this);// 加入回退栈
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
+		//头文件
+		View top_bar=findViewById(R.id.top_bar);
+		top_bar.setVisibility(View.VISIBLE);
+
 		MyApplication.getInstance().addActivity(this);
 		imBroadcastReceiver=new ImBroadcastReceiver(this);//初始化广播监听
 		// 我的 userid
@@ -958,13 +958,11 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
 	synchronized void addListData(boolean isfirst, BaseChatBean... chatBean) {
 		if (chatBean != null && chatBean.length > 0) {
 			for (int i = 0; i < chatBean.length; i++) {
-				if (!(bean_list.contains(chatBean[i]))) {
-					if (isfirst) {
-						bean_list.addFirst(chatBean[i]);
-					} else {
-						bean_list.add(chatBean[i]);
-					}
-
+				BaseChatBean bbean=chatBean[i];
+				if (isfirst) {
+					bean_list.addFirst(chatBean[i]);
+				} else {
+					bean_list.add(chatBean[i]);
 				}
 			}
 		}
@@ -1247,8 +1245,8 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
 		{
 			isRegisterbroadcase=true;
 			IntentFilter intentFilter=new IntentFilter();
-			intentFilter.addAction(IntentFilterChatAtConnect);
-			intentFilter.addAction(IntentFilterChatAtUnConnect);
+			intentFilter.addAction(Constants.IntentFilterChatAtConnect);
+			intentFilter.addAction(Constants.IntentFilterChatAtUnConnect);
 			ChatActivity.this.registerReceiver(broadcastReceiver, intentFilter);
 		}
 	}
@@ -1269,7 +1267,7 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
 		public void onReceive(Context context, Intent intent) {
 			if(intent!=null)
 			{
-				if(intent.getAction().equals(ChatActivity.IntentFilterChatAtConnect) || intent.getAction().equals(ChatActivity.IntentFilterChatAtUnConnect))
+				if(intent.getAction().equals(Constants.IntentFilterChatAtConnect) || intent.getAction().equals(Constants.IntentFilterChatAtUnConnect))
 				{
 					showOrHiddenAlertView();
 				}

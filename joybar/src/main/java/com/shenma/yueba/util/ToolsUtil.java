@@ -33,8 +33,10 @@ import com.shenma.yueba.ChatActivity;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ApproveBuyerDetailsActivity;
+import com.shenma.yueba.baijia.activity.ApproveBuyerDetails_ck_Activity;
 import com.shenma.yueba.baijia.activity.CircleInfoActivity;
 import com.shenma.yueba.baijia.activity.ShopMainActivity;
+import com.shenma.yueba.baijia.modle.BaseRequest;
 import com.shenma.yueba.baijia.modle.RequestProductDetailsInfoBean;
 import com.shenma.yueba.broadcaseReceiver.OrderBroadcaseReceiver;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
@@ -331,7 +333,7 @@ public class ToolsUtil {
 	 * @return
 	 */
 	public static String dateToStrLong(java.util.Date dateDate) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String dateString = formatter.format(dateDate);
 		return dateString;
 	}
@@ -1070,7 +1072,7 @@ public class ToolsUtil {
 	 * ****/
 	public static void forwardProductInfoActivity(Context ctx,int id)
 	{
-		Intent intent =new Intent(ctx,ApproveBuyerDetailsActivity.class);
+		Intent intent =new Intent(ctx,ApproveBuyerDetails_ck_Activity.class);
 		intent.putExtra("productID", id);
 		ctx.startActivity(intent);
 	}
@@ -1115,6 +1117,59 @@ public class ToolsUtil {
 					.show();
 		}
 
+	}
+
+
+
+	/********
+	 * 分享
+	 *
+	 * @param content
+	 *            String 内容提示
+	 * @param url
+	 *            String 链接地址
+	 * @param icon
+	 *            String 图片地址
+	 * ****/
+	public static void shareUrl(final Activity activity,final int productid, String title,String content, String url, String icon) {
+		ShareUtil.shareAll(activity,title, content, url, icon, new ShareUtil.ShareListener() {
+
+			@Override
+			public void sharedListener_sucess() {
+				requestShared(activity,productid);
+			}
+
+			@Override
+			public void sharedListener_Fails(String msg) {
+				MyApplication.getInstance().showMessage(activity, msg);
+			}
+		});
+	}
+
+
+	/*****
+	 * 分享成功后 回调
+	 * ****/
+	public static void requestShared(final Activity activity,int productid) {
+		HttpControl httpControl = new HttpControl();
+		httpControl.createProductShare(productid, false,
+				new HttpCallBackInterface() {
+
+					@Override
+					public void http_Success(Object obj) {
+						if (obj != null && obj instanceof BaseRequest) {
+							MyApplication.getInstance().showMessage(activity,
+									"分享成功");
+						} else {
+							/*MyApplication.getInstance().showMessage(activity,"分享失败");*/
+						}
+					}
+
+					@Override
+					public void http_Fails(int error, String msg) {
+						MyApplication.getInstance().showMessage(activity, msg);
+					}
+				}, activity);
 	}
 
 }
