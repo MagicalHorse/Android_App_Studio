@@ -82,6 +82,7 @@
         android:layout_alignParentBottom="true"
         android:visibility="gone" />
 
+
     <!--悬浮TAB-->
     <LinearLayout
         android:id="@+id/approvebuydetails_ck_suspensiontab_bak_linearlayout"
