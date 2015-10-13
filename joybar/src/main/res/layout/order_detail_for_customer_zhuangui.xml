@@ -5,23 +5,14 @@
     android:background="@color/main_bg"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/baijia_orderdetails_layout_head"
-        layout="@layout/title_for_common" />
-    
-    <View 
-        android:layout_below="@id/baijia_orderdetails_layout_head"
-        android:id="@+id/view_horizontal"
-        style="@style/style_horizontal_line"
+    <include layout="@layout/title_for_common"
+        android:id="@+id/view_title"
         />
-    
-    
+
     <ScrollView
-        android:layout_marginBottom="15dip"
+        android:layout_below="@id/view_title"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/baijia_orderdetails_layout_footer"
-        android:layout_below="@id/baijia_orderdetails_layout_head" >
+        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -52,7 +43,7 @@
                         android:id="@+id/order_no_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -79,7 +70,7 @@
                         android:id="@+id/order_wating_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -106,9 +97,10 @@
                         android:id="@+id/order_money_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/red"
+                        android:text="@null"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
+
                 </LinearLayout>
 
                 <View
@@ -123,7 +115,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="15dp" >
+                    android:padding="15dp">
 
                     <TextView
                         android:id="@+id/order_date_title"
@@ -137,7 +129,7 @@
                         android:id="@+id/order_date_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -157,7 +149,8 @@
                     android:paddingBottom="10dip"
                     android:paddingLeft="15dip"
                     android:paddingRight="15dip"
-                    android:paddingTop="10dip" >
+                    android:paddingTop="10dip"
+                    >
 
                     <TextView
                         android:id="@+id/customer_account_title"
@@ -174,14 +167,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <com.shenma.yueba.view.RoundImageView
                         android:id="@+id/riv_customer_head"
-                        android:layout_width="@dimen/user_config_iconwidth40_dimen"
-                        android:layout_height="@dimen/user_config_iconwidth40_dimen"
+                        android:layout_width="25dip"
+                        android:layout_height="25dip"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/default_pic" />
                 </LinearLayout>
@@ -193,36 +186,34 @@
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:padding="15dp" >
 
                     <TextView
+                        android:layout_centerVertical="true"
                         android:id="@+id/tv_customer_phone_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:text="买手电话："
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tv_customer_phone_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/tv_customer_phone_imageview"
-                        android:layout_toRightOf="@id/tv_customer_phone_title"
-                        android:text=""
+                        android:id="@+id/tv_customer_phone_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:id="@+id/tv_customer_phone_imageview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/phon_icon" />
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/phon_icon"
+                        />
+
                 </RelativeLayout>
 
                 <View
@@ -248,42 +239,79 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingMultiplier="1.2"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
+
+                <View
+                    style="@style/style_horizontal_line"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="15dip" />
+
             </LinearLayout>
 
-            
-                 <ListView
-                android:id="@+id/baijia_orderdetails_layout_lsitview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip" />
-           
+            <include
+                layout="@layout/product_detail_item"/>
 
-           <!--  <com.shenma.yueba.view.NoSrcollListView
-                android:id="@+id/baijia_orderdetails_layout_lsitview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip" /> -->
+
         </LinearLayout>
     </ScrollView>
 
-  <include
-      android:id="@+id/bottom_for_renzheng"
-      android:visibility="gone"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      layout="@layout/order_detail_bottom_for_renzhen"/>
 
-    <include
-        android:id="@+id/bottom_for_zhuangui"
-        android:visibility="gone"
+
+
+
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        layout="@layout/order_detail_bottom_for_zhuangui"/>
+        android:orientation="horizontal"
+
+        android:background="@color/white"
+        >
+        <TextView
+            android:text="联系买手"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/chat"
+            android:id="@+id/tv_connect" />
+
+
+        <View
+            style="@style/style_vertical_line"/>
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:drawableTop="@drawable/saoma"
+            android:id="@+id/tv_get_code"
+            android:drawablePadding="5dip"
+            android:text="提货二维码"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <View
+            style="@style/style_vertical_line"/>
+
+        <TextView
+            android:id="@+id/tv_quit_order"
+            android:drawablePadding="5dip"
+            android:text="取消订单"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+
 
 </RelativeLayout>

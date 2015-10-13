@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:gravity="center_horizontal"
-            android:text="请先关注买手公众号，关注后返回货款收支界面即可提款"
+            android:text="@null"
             android:textColor="@color/text_gray_color"
             android:textSize="15sp" />
 
@@ -33,9 +33,9 @@
             android:layout_below="@id/tv_title"
             android:layout_marginTop="3dip"
             android:gravity="center_horizontal"
-            android:text="（yuemaishou）"
+            android:text="@null"
             android:textColor="@color/text_gray_color"
-            android:textSize="13sp" />
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/iv_code"
@@ -49,13 +49,13 @@
             android:src="@null" />
 
         <TextView
-            android:id="@+id/tv_save"
+            android:id="@+id/tv_tishi"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_code"
             android:layout_marginTop="3dip"
             android:gravity="center_horizontal"
-            android:text="长按二维码保存到图库，进入微信扫一扫，点击右上角相册选择二维码"
+            android:text="@null"
             android:textColor="@color/text_gray_color"
             android:textSize="13sp" />
     </RelativeLayout>

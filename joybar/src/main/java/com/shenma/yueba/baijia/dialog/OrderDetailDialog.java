@@ -1,10 +1,5 @@
 package com.shenma.yueba.baijia.dialog;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -31,19 +26,24 @@ import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.ToolsUtil;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  * @author zkk
  * @version 创建时间：2015-8-04-11:01
  */
 
-public class WeChatDialog extends Dialog implements
-		android.view.View.OnClickListener, OnLongClickListener {
+public class OrderDetailDialog extends Dialog implements
+		View.OnClickListener, OnLongClickListener {
 	Context context;
 	RelativeLayout ll;
 	String qrCodePath;
 	String title;
 	private Bitmap bitmap;
-	public WeChatDialog(Context context, String qrCodePath,String title) {
+	public OrderDetailDialog(Context context, String qrCodePath, String title) {
 		super(context, R.style.MyDialog);
 		requestWindowFeature(getWindow().FEATURE_NO_TITLE);
 		this.context = context;
@@ -59,7 +59,7 @@ public class WeChatDialog extends Dialog implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ll = (RelativeLayout) RelativeLayout.inflate(context,
-				R.layout.wechat_dialog_layout, null);
+				R.layout.yukuan_and_tihuo_qzcode, null);
 		setContentView(ll);
 		initView();
 	}
@@ -67,10 +67,9 @@ public class WeChatDialog extends Dialog implements
 	void initView() {
 		ImageView iv_code = (ImageView) ll.findViewById(R.id.iv_code);
 		iv_code.setOnLongClickListener(this);
-		TextView tv_wechat_name = (TextView) ll.findViewById(R.id.tv_money);
-		TextView tv_save = (TextView) ll.findViewById(R.id.tv_save);
 		TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-		tv_wechat_name.setText("（"+title+"）");
+		TextView tv_money = (TextView) ll.findViewById(R.id.tv_money);
+		TextView tv_tishi = (TextView) ll.findViewById(R.id.tv_tishi);
 		ImageView iv_close = (ImageView) ll.findViewById(R.id.iv_close);
 		iv_close.setOnClickListener(this);
 		LayoutParams params = iv_code.getLayoutParams();
@@ -102,7 +101,7 @@ public class WeChatDialog extends Dialog implements
 				
 			}
 		});
-		FontManager.changeFonts(context, tv_wechat_name, tv_save, tv_save,tv_title);
+		FontManager.changeFonts(context, tv_money, tv_tishi,tv_title);
 	}
 
 	@Override

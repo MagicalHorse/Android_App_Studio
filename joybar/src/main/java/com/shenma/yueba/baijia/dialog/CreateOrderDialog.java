@@ -17,6 +17,7 @@ import com.shenma.yueba.view.XCFlowLayout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ import android.widget.TextView;
  * 程序的简单说明   下单对话框
  */
 
-public class CreateOrderDialog extends AlertDialog implements android.view.View.OnClickListener{
+public class CreateOrderDialog extends Dialog implements android.view.View.OnClickListener{
 	Context context;
 	RelativeLayout ll;
 	EditText createorder_dialog_layout_countvalue_edittext;
@@ -56,14 +57,14 @@ public class CreateOrderDialog extends AlertDialog implements android.view.View.
 	PrioductSizesInfoBean currCheckedFouce=null;
 	Button createorder_dialog_layout_submit_button;
 	List<View> view_array=new ArrayList<View>();
+
 	TextView createorder_dialog_layout_repertoryvalue_textview;
 	List<PrioductSizesInfoBean> size_list=new ArrayList<PrioductSizesInfoBean>();
 	XCFlowLayout flowlayout;
 	
 	public CreateOrderDialog(Context context,RequestProductDetailsInfoBean bean) {
-		super(context, R.style.MyDialog);
-		//super(context);
-		//requestWindowFeature(getWindow().FEATURE_NO_TITLE);
+		super(context,R.style.MyDialog);
+
 		this.context=context;
 		this.bean=bean;
 		setOwnerActivity((Activity)context);

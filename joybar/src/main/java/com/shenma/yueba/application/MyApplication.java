@@ -42,6 +42,7 @@ import com.shenma.yueba.baijia.activity.LoginAndRegisterActivity;
 import com.shenma.yueba.db.DBHelper;
 import com.shenma.yueba.refreshservice.HuoKuanManagerRefreshService;
 import com.shenma.yueba.refreshservice.IndexRefreshService;
+import com.shenma.yueba.util.CustomProgressDialog;
 import com.shenma.yueba.util.LocationUtil;
 import com.shenma.yueba.util.PublishPicUtil;
 import com.shenma.yueba.util.SharedUtil;
@@ -82,8 +83,9 @@ public class MyApplication extends Application {
         initJpush();
         dbHelper = RoboGuice.getBaseApplicationInjector(this).getInstance(
                 DBHelper.class);
-        LocationUtil locationUtil = new LocationUtil(this);
-        locationUtil.getLocation();
+
+
+
     }
 
 

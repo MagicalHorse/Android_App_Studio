@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:background="@color/white"
+        >
+        <TextView
+            android:text="联系买手"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/chat"
+            android:id="@+id/tv_connect" />
+
+
+        <View
+            style="@style/style_vertical_line"/>
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:drawableTop="@drawable/saoma"
+            android:id="@+id/tv_get_code"
+            android:drawablePadding="5dip"
+            android:text="提货二维码"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <View
+            style="@style/style_vertical_line"/>
+
+        <TextView
+            android:id="@+id/tv_quit_order"
+            android:drawablePadding="5dip"
+            android:text="取消订单"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

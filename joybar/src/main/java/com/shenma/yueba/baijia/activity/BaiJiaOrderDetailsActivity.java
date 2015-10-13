@@ -36,6 +36,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**  
@@ -67,6 +68,11 @@ BaijiaOrderDetailsAdapter baijiaOrderDetailsAdapter;
 LinearLayout baijia_orderdetails_footer_right_linearlayout;//按钮的父对象
 OrderBroadcaseReceiver orderBroadcaseReceiver;
 boolean isBroadcase=false;
+private LinearLayout bottom_for_zhuangui;//专柜买手底部布局
+private RelativeLayout bottom_for_renzhen;//认证买手底部布局
+	private TextView tv_connect;//联系顾客
+	private TextView tv_get_code;//提货二维码
+	private TextView tv_quit_order;//取消订单
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +87,7 @@ boolean isBroadcase=false;
 			this.finish();
 			return;
 		}
+
 		orderNo=this.getIntent().getStringExtra("ORDER_ID");
 		initView();
 		requestData();
@@ -91,8 +98,17 @@ boolean isBroadcase=false;
 	void initView()
 	{
 		setTitle("订单详情");
+
+		bottom_for_zhuangui = (LinearLayout)findViewById(R.id.bottom_for_zhuangui);
+		tv_connect = (TextView)findViewById(R.id.tv_connect);
+		tv_get_code = (TextView)findViewById(R.id.tv_get_code);
+		tv_quit_order = (TextView)findViewById(R.id.tv_quit_order);
+
+				bottom_for_renzhen = (RelativeLayout)findViewById(R.id.bottom_for_renzheng);
+		bottom_for_renzhen.setVisibility(View.VISIBLE);
+
 		setLeftTextView(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				BaiJiaOrderDetailsActivity.this.finish();

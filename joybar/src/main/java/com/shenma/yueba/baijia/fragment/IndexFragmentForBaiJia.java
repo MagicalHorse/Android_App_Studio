@@ -16,8 +16,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
@@ -28,6 +32,8 @@ import com.shenma.yueba.baijia.view.BaseView;
 import com.shenma.yueba.baijia.view.BuyerStreetView;
 import com.shenma.yueba.baijia.view.MyBuyerView;
 import com.shenma.yueba.baijia.view.TabViewpagerManager;
+import com.shenma.yueba.inter.LocationBackListner;
+import com.shenma.yueba.util.LocationUtil;
 import com.shenma.yueba.util.ToolsUtil;
 
 import java.lang.reflect.Field;
@@ -93,10 +99,12 @@ public class IndexFragmentForBaiJia extends Fragment {
         // fragment_list.add(new FragmentBean("TA们说", -1, theySayFragment));
         fragment_list.add(new FragmentBean("我的买手", -1, myBuyerView));
         baijia_fragment_tab1_head_linearlayout = (LinearLayout) v.findViewById(R.id.baijia_fragment_tab1_head_linearlayout);
-        TextView tv_city = new TextView(getActivity());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER_VERTICAL;
+        final TextView tv_city = new TextView(getActivity());
+        final ProgressBar progressBar = new ProgressBar(getActivity());
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
         tv_city.setLayoutParams(params);
+        progressBar.setLayoutParams(params);
         Resources res = getResources();
         Drawable myImage = res.getDrawable(R.drawable.arrow_down);
         myImage.setBounds(0, 0, myImage.getMinimumWidth(), myImage.getMinimumHeight());
@@ -105,15 +113,42 @@ public class IndexFragmentForBaiJia extends Fragment {
         tv_city.setCompoundDrawablePadding(10);
         tv_city.setTextColor(getResources().getColor(R.color.gray));
         tv_city.setCompoundDrawables(null, null, myImage, null);
+        progressBar.setPadding(ToolsUtil.dip2px(getActivity(), 10), 0, 0, 0);
+
+
         tv_city.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ChooseCityActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.enter_from_bottom, R.anim.no);
+
             }
         });
-        baijia_fragment_tab1_head_linearlayout.addView(tv_city);
 
+        RelativeLayout LeftParents = new RelativeLayout(getActivity());
+        RelativeLayout.LayoutParams RelativeParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        LeftParents.setLayoutParams(RelativeParams);
+        LeftParents.addView(tv_city);
+        LeftParents.addView(progressBar);
+        tv_city.setVisibility(View.INVISIBLE);
+        LocationUtil locationUtil = new LocationUtil(getActivity());
+        locationUtil.getLocation(new LocationBackListner() {
+            @Override
+            public void callBack(boolean result) {
+                if (result) {
+                    Toast.makeText(getActivity(), "定位成功", Toast.LENGTH_SHORT).show();
+                    //开始调用接口，根据经纬度获取城市名称
+                } else {
+                    Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_SHORT).show();
+                    tv_city.setText("全国");
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+//        baijia_fragment_tab1_head_linearlayout.addView(RelativeParams);
+//        baijia_fragment_tab1_head_linearlayout.addView(tv_city);
+        baijia_fragment_tab1_head_linearlayout.addView(LeftParents);
 
         baijia_fragment_tab1_pagerview = (ViewPager) v.findViewById(R.id.baijia_fragment_tab1_pagerview);
         tabViewpagerManager = new TabViewpagerManager(getActivity(), fragment_list, baijia_fragment_tab1_head_linearlayout, baijia_fragment_tab1_pagerview);

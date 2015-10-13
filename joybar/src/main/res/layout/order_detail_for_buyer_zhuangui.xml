@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/baijia_orderdetails_layout_head"
-        layout="@layout/title_for_common" />
-    
-    <View 
-        android:layout_below="@id/baijia_orderdetails_layout_head"
-        android:id="@+id/view_horizontal"
-        style="@style/style_horizontal_line"
-        />
-    
-    
+    <include layout="@layout/title_for_common" />
+
     <ScrollView
-        android:layout_marginBottom="15dip"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/baijia_orderdetails_layout_footer"
-        android:layout_below="@id/baijia_orderdetails_layout_head" >
+        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -52,7 +40,7 @@
                         android:id="@+id/order_no_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -79,7 +67,7 @@
                         android:id="@+id/order_wating_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -106,14 +94,46 @@
                         android:id="@+id/order_money_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/red"
+                        android:text="@null"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_shifu"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="(实付)"
+                        android:textColor="@color/text_gray_color"
                         android:textSize="14sp" />
                 </LinearLayout>
 
                 <View
                     style="@style/style_horizontal_line"
                     android:layout_marginLeft="15dip" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp" >
+
+                    <TextView
+                        android:id="@+id/order_commission_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="订单佣金："
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/order_commission_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@null"
+                        android:textColor="@color/red"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
                 <View
                     style="@style/style_horizontal_line"
@@ -137,7 +157,7 @@
                         android:id="@+id/order_date_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -164,7 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="买手账号："
+                        android:text="顾客账号："
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -174,56 +194,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <com.shenma.yueba.view.RoundImageView
                         android:id="@+id/riv_customer_head"
-                        android:layout_width="@dimen/user_config_iconwidth40_dimen"
-                        android:layout_height="@dimen/user_config_iconwidth40_dimen"
+                        android:layout_width="25dip"
+                        android:layout_height="25dip"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/default_pic" />
                 </LinearLayout>
-
-                <View
-                    style="@style/style_horizontal_line"
-                    android:layout_marginLeft="15dip" />
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="15dp" >
-
-                    <TextView
-                        android:id="@+id/tv_customer_phone_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="买手电话："
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tv_customer_phone_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/tv_customer_phone_imageview"
-                        android:layout_toRightOf="@id/tv_customer_phone_title"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <ImageView
-                        android:id="@+id/tv_customer_phone_imageview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/phon_icon" />
-                </RelativeLayout>
 
                 <View
                     style="@style/style_horizontal_line"
@@ -236,54 +217,62 @@
                     android:padding="15dp" >
 
                     <TextView
-                        android:id="@+id/tv_get_address_title"
+                        android:id="@+id/tv_customer_phone_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="提货地址："
+                        android:text="顾客电话："
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tv_get_address_content"
+                        android:id="@+id/tv_customer_phone_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:lineSpacingMultiplier="1.2"
-                        android:text=""
+                        android:text="@null"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
+
+                <View
+                    style="@style/style_horizontal_line"
+                    android:layout_marginLeft="15dip" />
+
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                <TextView
+                    android:id="@+id/tv_connection"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="15dip"
+                    android:text="联系顾客 "
+                    android:textColor="@color/blue"
+                    android:textSize="16sp" />
+
+
+                    <View
+                        style="@style/style_vertical_line"/>
+                    <TextView
+                        android:id="@+id/tv_code_retean"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="15dip"
+                        android:text="余款二维码"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
             </LinearLayout>
-
-            
-                 <ListView
-                android:id="@+id/baijia_orderdetails_layout_lsitview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip" />
-           
-
-           <!--  <com.shenma.yueba.view.NoSrcollListView
-                android:id="@+id/baijia_orderdetails_layout_lsitview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip" /> -->
         </LinearLayout>
     </ScrollView>
 
-  <include
-      android:id="@+id/bottom_for_renzheng"
-      android:visibility="gone"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      layout="@layout/order_detail_bottom_for_renzhen"/>
-
-    <include
-        android:id="@+id/bottom_for_zhuangui"
-        android:visibility="gone"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        layout="@layout/order_detail_bottom_for_zhuangui"/>
-
-</RelativeLayout>
+</LinearLayout>

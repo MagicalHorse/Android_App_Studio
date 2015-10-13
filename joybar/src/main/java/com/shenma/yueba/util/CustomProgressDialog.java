@@ -20,6 +20,7 @@ package com.shenma.yueba.util;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
@@ -54,8 +55,9 @@ public class CustomProgressDialog extends Dialog {
       
     public CustomProgressDialog setMessage(String strMessage){ 
         TextView tvMsg = (TextView)customProgressDialog.findViewById(R.id.id_tv_loadingmsg); 
-          
-        if (tvMsg != null){ 
+          FontManager.changeFonts(context,tvMsg);
+        if (tvMsg != null){
+            tvMsg.setVisibility(View.VISIBLE);
             tvMsg.setText(strMessage); 
         } 
           
