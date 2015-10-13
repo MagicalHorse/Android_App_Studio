@@ -446,6 +446,14 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         approvebuydetails_ck_suspensiontab_bak_linearlayout = (LinearLayout) findViewById(R.id.approvebuydetails_ck_suspensiontab_bak_linearlayout);
         approvebuydetails_ck_suspensiontab_bak_linearlayout_view = (View) findViewById(R.id.approvebuydetails_ck_suspensiontab_bak_linearlayout_view);
         suspenstabViewpagerManager = new TabViewpagerManager(this, tab_list, approvebuydetails_ck_suspensiontab_bak_linearlayout, approvebuydetails_ck_bak_viewpager);
+        suspenstabViewpagerManager.setTabOnClickListener(new TabViewpagerManager.TabOnClickListener()
+        {
+
+            @Override
+            public void onTabClick(int i) {
+                scrollToxy();
+            }
+        });
         suspenstabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(), null);
         suspenstabViewpagerManager.setCurrView(0);
 
@@ -455,6 +463,14 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         approvebuydetails_ck_tab_bak_linearlayout = (LinearLayout) findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout);
         approvebuydetails_ck_tab_bak_linearlayout_view = (View) findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout_view);
         tabViewpagerManager = new TabViewpagerManager(this, tab_list, approvebuydetails_ck_tab_bak_linearlayout, approvebuydetails_ck_bak_viewpager);
+        tabViewpagerManager.setTabOnClickListener(new TabViewpagerManager.TabOnClickListener()
+        {
+
+            @Override
+            public void onTabClick(int i) {
+                scrollToxy();
+            }
+        });
         tabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(), null);
         tabViewpagerManager.setCurrView(0);
         approvebuydetails_ck_bak_viewpager.setOnPageChangeListener(new OnPageChangeListener() {
