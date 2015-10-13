@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.view.MyListView;
@@ -25,13 +26,14 @@ public class ProductExtTab1Fragment extends Fragment {
     Activity activity;
     View parentView;
     MyListView productexttab1_layout_listview;
+    TextView tab_textview;
     Random random=new Random();
     int aaa;
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.activity = activity;
-        aaa=random.nextInt(10)+1;
+        aaa=random.nextInt(3)+1;
         Log.i("TAG", "getCount :" + aaa);
     }
 
@@ -54,6 +56,8 @@ public class ProductExtTab1Fragment extends Fragment {
     }
 
     void initView() {
+        tab_textview=(TextView)parentView.findViewById(R.id.tab_textview);
+        tab_textview.setText(aaa+"");
         productexttab1_layout_listview = (MyListView) parentView.findViewById(R.id.productexttab1_layout_listview);
         productexttab1_layout_listview.setAdapter(new BaseAdapter() {
             @Override

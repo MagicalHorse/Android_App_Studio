@@ -1,8 +1,9 @@
 package com.shenma.yueba.baijia.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AdapterView;
@@ -109,10 +111,10 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
     LinearLayout ll_attentionpeople_contener;
     MyGridView product_spec_layout_colortype_mygridview;//颜色的分类
     ProductColorTypeAdapter productColorTypeAdapter;//颜色分类的 适配器
-    List<ProductColorTypeBean>  colortypelist=new ArrayList<ProductColorTypeBean>();//颜色分类对象
+    List<ProductColorTypeBean> colortypelist = new ArrayList<ProductColorTypeBean>();//颜色分类对象
     MyGridView product_spec_layout_dimentype_mygridview;//规格分类
     ProductSPECAdapter productSPECAdapter;//规格分类的适配器
-    List<ProductSPECbean>  spectypelist=new ArrayList<ProductSPECbean>();//规格分类对象
+    List<ProductSPECbean> spectypelist = new ArrayList<ProductSPECbean>();//规格分类对象
     Button create_dialog_jian_button;//加
     Button create_dialog_jia_button;//减
     EditText createorder_dialog_layout_countvalue_edittext;//购买数量
@@ -120,8 +122,18 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
     LinearLayout footer_right_linerlayout;//底部按钮操作对象的父类用于 设置显示或隐藏 按钮
     CustomViewPager approvebuydetails_ck_bak_viewpager;//（图片详情 ，尺码参考 售后服务）
     LinearLayout approvebuydetails_ck_tab_bak_linearlayout;//TAB切换视图父对象
-    List<FragmentBean> tab_list=new ArrayList<FragmentBean>();
+    View approvebuydetails_ck_tab_bak_linearlayout_view;//tab底部横线
+    LinearLayout approvebuydetails_ck_suspensiontab_bak_linearlayout;//悬浮TAB切换视图父对象
+    View approvebuydetails_ck_suspensiontab_bak_linearlayout_view;//悬浮TAB底部横线
+    List<FragmentBean> tab_list = new ArrayList<FragmentBean>();
     TabViewpagerManager tabViewpagerManager;
+    TabViewpagerManager suspenstabViewpagerManager;
+    LinearLayout ll_footer;//按钮对象父视图
+    RelativeLayout product_head_include;//头部视图
+
+    int myScrollViewTop;//scrollY轴滑动的距离
+    int buyLayoutHeight;
+    int buyLayoutTop;
 
 
     @Override
@@ -142,7 +154,20 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         setFont();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        calculateContactHeight();
+
+        buyLayoutHeight = approvebuydetails_ck_tab_bak_linearlayout.getHeight();
+        buyLayoutTop = approvebuydetails_ck_tab_bak_linearlayout.getTop();
+        myScrollViewTop = approvebuyerdetails_srcollview.getTop();
+
+
+    }
+
     private void initViews() {
+        product_head_include = (RelativeLayout) findViewById(R.id.product_head_include);
         TextView tv_top_left = (TextView) findViewById(R.id.tv_top_left);
         tv_top_left.setVisibility(View.VISIBLE);
         tv_top_left.setOnClickListener(new OnClickListener() {
@@ -189,7 +214,30 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         approvebuyerdetails_closeinginfo_textview = (TextView) findViewById(R.id.approvebuyerdetails_closeinginfo_textview);
         approvebuyerdetails_footer = (LinearLayout) findViewById(R.id.approvebuyerdetails_footer);
         approvebuyerdetails_srcollview = (MyScrollView) findViewById(R.id.approvebuyerdetails_srcollview);
+        approvebuyerdetails_srcollview.setOnScrollListener(new MyScrollView.OnScrollListener() {
+            @Override
+            public void onScroll(int scrollY) {
+                Log.i("TAG", "onScroll scrollY:" + scrollY + " buyLayoutTop:" + buyLayoutTop + "  buyLayoutHeight:" + buyLayoutHeight);
+                if (scrollY >= buyLayoutTop) {
+                    if (approvebuydetails_ck_suspensiontab_bak_linearlayout != null) {
+                        approvebuydetails_ck_suspensiontab_bak_linearlayout.setVisibility(View.VISIBLE);
+                        approvebuydetails_ck_suspensiontab_bak_linearlayout_view.setVisibility(View.VISIBLE);
+                        approvebuydetails_ck_tab_bak_linearlayout.setVisibility(View.INVISIBLE);
+                        approvebuydetails_ck_tab_bak_linearlayout_view.setVisibility(View.INVISIBLE);
+                        Log.i("TAG", "onScroll scrollY：悬浮显示 ");
+                    }
+                } else if (scrollY <= buyLayoutTop + buyLayoutHeight) {
+                    if (approvebuydetails_ck_suspensiontab_bak_linearlayout != null) {
+                        approvebuydetails_ck_suspensiontab_bak_linearlayout.setVisibility(View.GONE);
+                        approvebuydetails_ck_suspensiontab_bak_linearlayout_view.setVisibility(View.GONE);
+                        approvebuydetails_ck_tab_bak_linearlayout.setVisibility(View.VISIBLE);
+                        approvebuydetails_ck_tab_bak_linearlayout_view.setVisibility(View.VISIBLE);
+                        Log.i("TAG", "onScroll scrollY: 悬浮隐藏");
+                    }
+                }
 
+            }
+        });
         appprovebuyer_viewpager_footer_linerlayout = (LinearLayout) findViewById(R.id.appprovebuyer_viewpager_footer_linerlayout);
         appprovebuyer_viewpager = (ViewPager) findViewById(R.id.appprovebuyer_viewpager);
         appprovebuyer_viewpager_relativelayout = (RelativeLayout) findViewById(R.id.appprovebuyer_viewpager_relativelayout);
@@ -242,7 +290,7 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         approvebuyerdetails_layout_siliao_linerlayout_textview.setOnClickListener(this);
 
         approvebuyer_addcartbutton = (Button) findViewById(R.id.approvebuyer_addcartbutton);
-        footer_right_linerlayout=(LinearLayout)findViewById(R.id.footer_right_linerlayout);
+        footer_right_linerlayout = (LinearLayout) findViewById(R.id.footer_right_linerlayout);
         approvebuyerbuybutton = (Button) findViewById(R.id.approvebuyerbuybutton);
         approvebuyerbuybutton.setOnClickListener(this);
 
@@ -273,8 +321,8 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         /**********
          * 规格 的 分类
          * *****/
-        product_spec_layout_dimentype_mygridview=(MyGridView)findViewById(R.id.product_spec_layout_dimentype_mygridview);
-        productSPECAdapter=new ProductSPECAdapter(ApproveBuyerDetails_ck_Activity.this,spectypelist);
+        product_spec_layout_dimentype_mygridview = (MyGridView) findViewById(R.id.product_spec_layout_dimentype_mygridview);
+        productSPECAdapter = new ProductSPECAdapter(ApproveBuyerDetails_ck_Activity.this, spectypelist);
         product_spec_layout_dimentype_mygridview.setAdapter(productSPECAdapter);
         product_spec_layout_dimentype_mygridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -285,8 +333,7 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
                 }
                 ProductSPECbean bean = spectypelist.get(position);
                 bean.setIschecked(true);
-                if(productSPECAdapter!=null)
-                {
+                if (productSPECAdapter != null) {
                     productSPECAdapter.notifyDataSetChanged();
                 }
                 isTextButtonEnable();
@@ -297,8 +344,8 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         /*****************
          * 购买数量的设置
          * *******************/
-        product_spec_layout_stockvalue_textview=(TextView)findViewById(R.id.product_spec_layout_stockvalue_textview);//库存
-        createorder_dialog_layout_countvalue_edittext=(EditText)findViewById(R.id.createorder_dialog_layout_countvalue_edittext);
+        product_spec_layout_stockvalue_textview = (TextView) findViewById(R.id.product_spec_layout_stockvalue_textview);//库存
+        createorder_dialog_layout_countvalue_edittext = (EditText) findViewById(R.id.createorder_dialog_layout_countvalue_edittext);
         createorder_dialog_layout_countvalue_edittext.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -343,22 +390,21 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         });
 
         //减
-        create_dialog_jian_button=(Button)findViewById(R.id.create_dialog_jian_button);
+        create_dialog_jian_button = (Button) findViewById(R.id.create_dialog_jian_button);
         create_dialog_jian_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                int value=Integer.parseInt(createorder_dialog_layout_countvalue_edittext.getText().toString());
+                int value = Integer.parseInt(createorder_dialog_layout_countvalue_edittext.getText().toString());
                 value--;
-                if(value<=0)
-                {
-                    value=0;
+                if (value <= 0) {
+                    value = 0;
                 }
                 createorder_dialog_layout_countvalue_edittext.setText(Integer.toString(value));
                 isTextButtonEnable();
             }
         });
         //加
-        create_dialog_jia_button=(Button)findViewById(R.id.create_dialog_jia_button);
+        create_dialog_jia_button = (Button) findViewById(R.id.create_dialog_jia_button);
         create_dialog_jia_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -376,13 +422,40 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         /*********************
          *  备注信息等 设置
          * ************************/
-        tab_list.add(new FragmentBean("图片详情",-1,new ProductExtTab1Fragment()));
-        tab_list.add(new FragmentBean("尺码参考",-1,new ProductExtTab1Fragment()));
-        tab_list.add(new FragmentBean("售后服务",-1,new ProductExtTab1Fragment()));
-        approvebuydetails_ck_tab_bak_linearlayout=(LinearLayout)findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout);
-        approvebuydetails_ck_bak_viewpager=(CustomViewPager)findViewById(R.id.approvebuydetails_ck_bak_viewpager);
-        tabViewpagerManager=new TabViewpagerManager(this,tab_list,approvebuydetails_ck_tab_bak_linearlayout,approvebuydetails_ck_bak_viewpager);
-        tabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(),null);
+        tab_list.add(new FragmentBean("图片详情", -1, new ProductExtTab1Fragment()));
+        tab_list.add(new FragmentBean("尺码参考", -1, new ProductExtTab1Fragment()));
+        tab_list.add(new FragmentBean("售后服务", -1, new ProductExtTab1Fragment()));
+
+        approvebuydetails_ck_bak_viewpager = (CustomViewPager) findViewById(R.id.approvebuydetails_ck_bak_viewpager);
+
+        ViewTreeObserver vto2 = approvebuydetails_ck_bak_viewpager.getViewTreeObserver();
+        vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                calculateContactHeight();
+            }
+        });
+
+
+        approvebuydetails_ck_bak_viewpager.setOffscreenPageLimit(2);
+
+
+        /************
+         * 悬浮TAB切换视图
+         * *********/
+        approvebuydetails_ck_suspensiontab_bak_linearlayout = (LinearLayout) findViewById(R.id.approvebuydetails_ck_suspensiontab_bak_linearlayout);
+        approvebuydetails_ck_suspensiontab_bak_linearlayout_view = (View) findViewById(R.id.approvebuydetails_ck_suspensiontab_bak_linearlayout_view);
+        suspenstabViewpagerManager = new TabViewpagerManager(this, tab_list, approvebuydetails_ck_suspensiontab_bak_linearlayout, approvebuydetails_ck_bak_viewpager);
+        suspenstabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(), null);
+        suspenstabViewpagerManager.setCurrView(0);
+
+        /************
+         * TAB切换视图
+         * *********/
+        approvebuydetails_ck_tab_bak_linearlayout = (LinearLayout) findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout);
+        approvebuydetails_ck_tab_bak_linearlayout_view = (View) findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout_view);
+        tabViewpagerManager = new TabViewpagerManager(this, tab_list, approvebuydetails_ck_tab_bak_linearlayout, approvebuydetails_ck_bak_viewpager);
+        tabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(), null);
         tabViewpagerManager.setCurrView(0);
         approvebuydetails_ck_bak_viewpager.setOnPageChangeListener(new OnPageChangeListener() {
             @Override
@@ -392,16 +465,23 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
 
             @Override
             public void onPageSelected(int position) {
+                suspenstabViewpagerManager.setCurrView(position);
                 tabViewpagerManager.setCurrView(position);
                 View view = approvebuydetails_ck_bak_viewpager.getChildAt(position);
-                if(view!=null)
-                {
-                    int height = view.getMeasuredHeight();
-                    LayoutParams layoutParams = (LinearLayout.LayoutParams)approvebuydetails_ck_bak_viewpager.getLayoutParams();
+                Log.i("TAG", "onPageSelected position:" + position);
+                if (view != null) {
+                    int height = view.getMeasuredHeightAndState();
+                    LayoutParams layoutParams = (LinearLayout.LayoutParams) approvebuydetails_ck_bak_viewpager.getLayoutParams();
                     layoutParams.height = height;
+                    Log.i("TAG", "onPageSelected height:" + height);
+                    /*int smollHeight = calculateContactHeight();
+                    if (height < smollHeight) {
+                        layoutParams.height = smollHeight;
+                    }*/
                     approvebuydetails_ck_bak_viewpager.setLayoutParams(layoutParams);
                 }
-
+                approvebuydetails_ck_bak_viewpager.invalidate();
+                scrollToxy();
             }
 
             @Override
@@ -409,35 +489,92 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
 
             }
         });
+
+
+        /*************
+         * 购买按钮
+         * **************/
+        ll_footer = (LinearLayout) findViewById(R.id.ll_footer);
+
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    /***********
+     * 计算 去掉 状态栏  head内容  footer 内容的高度后  中间主要内容区域的高度
+     **********/
+    int calculateContactHeight() {
+        int footerheight = ll_footer.getHeight();//底部高度
+        int headheight = product_head_include.getHeight();//头部高度
+        int statusheight = ToolsUtil.getStatusHeight(this);//状态栏高度
+        int tabheight = approvebuydetails_ck_tab_bak_linearlayout.getHeight();
+        Log.i("TAG", "calculateContactHeight footerheight:" + footerheight + "  headheight:" + headheight + "  statusheight:" + statusheight + "  tabheight:" + tabheight);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int allHeight = displayMetrics.heightPixels;
+        int contantHeight = allHeight - headheight - statusheight - footerheight - tabheight;
+        Log.i("TAG", "calculateContactHeight contantHeight:" + contantHeight);
+        if (approvebuydetails_ck_bak_viewpager != null) {
+            approvebuydetails_ck_bak_viewpager.setSmallHieght(contantHeight);
+            approvebuydetails_ck_bak_viewpager.invalidate();
+            Log.i("TAG", "calculateContactHeight approvebuydetails_ck_bak_viewpager-height:" + approvebuydetails_ck_bak_viewpager.getHeight());
+        }
+        return contantHeight;
+    }
+
+    /********
+     * 控制scroll 滑动到指定的位置
+     ********/
+    void scrollToxy() {
+        int tabviewTop = approvebuydetails_ck_tab_bak_linearlayout.getTop();//获取当前TAB对象距顶端的距离
+        int srcollY = approvebuyerdetails_srcollview.getScrollY();//获取 当前滚动视图距Y 轴滑动的距离
+        if (approvebuyerdetails_srcollview != null) {
+            if (srcollY < tabviewTop) {
+                Log.i("TAG", "scrollToxy tabviewTop:" + tabviewTop);
+                //自动滑动到顶点
+                approvebuyerdetails_srcollview.smoothScrollTo(0, tabviewTop);
+                //发送通知 判断滑动是否到位
+                handler.sendMessageDelayed(handler.obtainMessage(200), 10);
+            }
+        }
+    }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 200:
+                    scrollToxy();
+                    break;
+            }
+        }
+    };
 
 
     /*****
      * 根据库存 即 商品数量 设置 按钮颜色
-     * ***/
-    void isTextButtonEnable()
-    {
+     ***/
+    void isTextButtonEnable() {
         create_dialog_jian_button.setSelected(true);
         create_dialog_jia_button.setSelected(true);
         //库存
-        int Stock=Integer.valueOf(product_spec_layout_stockvalue_textview.getText().toString().trim());
+        int Stock = Integer.valueOf(product_spec_layout_stockvalue_textview.getText().toString().trim());
         //当前选择的购买数量
-        int count=Integer.valueOf(createorder_dialog_layout_countvalue_edittext.getText().toString().trim());
-        if(Stock<=0)
-        {
+        int count = Integer.valueOf(createorder_dialog_layout_countvalue_edittext.getText().toString().trim());
+        if (Stock <= 0) {
             create_dialog_jian_button.setSelected(false);
             create_dialog_jia_button.setSelected(false);
-        }else if(count<=0)
-        {
+        } else if (count <= 0) {
             create_dialog_jian_button.setSelected(false);
-        }else if(count>=Stock)
-        {
+        } else if (count >= Stock) {
             create_dialog_jia_button.setSelected(false);
         }
 
     }
-
-
 
 
     void startChatActivity() {
@@ -447,7 +584,7 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         }
         if (bean != null) {
             /*Intent intent = new Intent(ApproveBuyerDetailsActivity.this,ChatActivity.class);
-			intent.putExtra("Chat_NAME", bean.getData().getBuyerName());// 圈子名字
+            intent.putExtra("Chat_NAME", bean.getData().getBuyerName());// 圈子名字
 			intent.putExtra("toUser_id", bean.getData().getBuyerId());// 私聊的话需要传对方id
 			intent.putExtra("DATA", bean);
 			startActivity(intent);*/
@@ -505,32 +642,26 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
      * 设置数据
      ****/
     void setDatValue() {
-
         /*******
          * 设置 颜色类型值
          * ******/
-        for(int i=0;i<10;i++)
-        {
+        for (int i = 0; i < 10; i++) {
             colortypelist.add(new ProductColorTypeBean());
         }
 
-        if(productColorTypeAdapter!=null)
-        {
+        if (productColorTypeAdapter != null) {
             productColorTypeAdapter.notifyDataSetChanged();
         }
         /******
          * 设置规格类型值
          * ***/
 
-        for(int i=0;i<10;i++)
-        {
+        for (int i = 0; i < 10; i++) {
             spectypelist.add(new ProductSPECbean());
         }
-        if(productSPECAdapter!=null)
-        {
+        if (productSPECAdapter != null) {
             productSPECAdapter.notifyDataSetChanged();
         }
-
 
 
         // 自提地址
@@ -678,16 +809,18 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
             approvebuyerdetails_closeinginfo_textview.setText(ToolsUtil.nullToString(productsDetailsPromotion.getTipText()));
         }
         setFont();
+
         approvebuyerdetails_srcollview.smoothScrollTo(0, 0);
         footer_right_linerlayout.setVisibility(View.VISIBLE);
         approvebuyerbuybutton.setText(this.getResources().getString(R.string.shop_buy_str));
         approvebuyerbuybutton.setVisibility(View.VISIBLE);
         approvebuyerdetails_layout_siliao_linerlayout_textview.setVisibility(View.VISIBLE);
+        ll_footer.setVisibility(View.VISIBLE);
     }
+
 
     @Override
     protected void onResume() {
-
         super.onResume();
         MobclickAgent.onResume(this);
         startTimeToViewPager();
