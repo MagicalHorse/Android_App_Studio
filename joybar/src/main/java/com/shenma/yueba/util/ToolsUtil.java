@@ -93,7 +93,7 @@ public class ToolsUtil {
 
 	/**
 	 * 判断网络是否可用
-	 * 
+	 *
 	 * @param context
 	 * @return
 	 */
@@ -178,7 +178,7 @@ public class ToolsUtil {
 
 	/**
 	 * 获取当前页面的屏幕宽度
-	 * 
+	 *
 	 * @param cx
 	 * @return
 	 */
@@ -191,7 +191,7 @@ public class ToolsUtil {
 
 	/**
 	 * 获取当前页面的屏幕高度
-	 * 
+	 *
 	 * @param cx
 	 * @return
 	 */
@@ -204,7 +204,7 @@ public class ToolsUtil {
 
 	/**
 	 * 刚进入界面时，隐藏软键盘
-	 * 
+	 *
 	 * @param context
 	 *            上下文
 	 */
@@ -214,7 +214,7 @@ public class ToolsUtil {
 
 	/**
 	 * 判断空间是否可用
-	 * 
+	 *
 	 * @param mContext
 	 * @return
 	 */
@@ -236,7 +236,7 @@ public class ToolsUtil {
 
 	/**
 	 * 空闲区限制不能小于5M
-	 * 
+	 *
 	 * @param mContext
 	 * @return
 	 */
@@ -286,7 +286,7 @@ public class ToolsUtil {
 
 	/**
 	 * 解析表情
-	 * 
+	 *
 	 * @param message
 	 *            传入的需要处理的String
 	 * @return
@@ -321,7 +321,7 @@ public class ToolsUtil {
 
 	/**
 	 * 获取当前时间的字符串
-	 * 
+	 *
 	 * @return
 	 */
 	public static String getCurrentTime() {
@@ -330,7 +330,7 @@ public class ToolsUtil {
 
 	/**
 	 * 将长时间格式时间转换为字符串 yyyy-MM-dd HH:mm:ss
-	 * 
+	 *
 	 * @param dateDate
 	 * @return
 	 */
@@ -342,7 +342,7 @@ public class ToolsUtil {
 
 	/**
 	 * 设置textView字体颜色
-	 * 
+	 *
 	 * @param tv
 	 *            textView控件
 	 * @param str1
@@ -364,7 +364,7 @@ public class ToolsUtil {
 
 	/**
 	 * 设置红色字在前，黑色字在后
-	 * 
+	 *
 	 * @param tv
 	 *            TextView控件
 	 * @param redStr
@@ -379,7 +379,7 @@ public class ToolsUtil {
 
 	/**
 	 * 选中的文字变色
-	 * 
+	 *
 	 * @param tv
 	 *            TextView控件
 	 *            红颜色字
@@ -392,7 +392,7 @@ public class ToolsUtil {
 
 	/**
 	 * 设置黑色字在前，红色字在后
-	 * 
+	 *
 	 * @param tv
 	 * @param normalStr
 	 *            黑颜色字
@@ -406,7 +406,7 @@ public class ToolsUtil {
 
 	/**
 	 * 设置字体颜色为红色
-	 * 
+	 *
 	 * @param tv
 	 *            红颜色字
 	 */
@@ -416,7 +416,7 @@ public class ToolsUtil {
 
 	/**
 	 * 获取红色的字体
-	 * 
+	 *
 	 * @param redStr
 	 *            红颜色字
 	 */
@@ -462,7 +462,7 @@ public class ToolsUtil {
 	// }
 	/**
 	 * 传入大小获取网络图片
-	 * 
+	 *
 	 * @return
 	 */
 	public static String getImage(String url, int with, int height) {
@@ -501,7 +501,7 @@ public class ToolsUtil {
 
 	/******
 	 * 设置字体样式
-	 * 
+	 *
 	 * @param context
 	 *            Context
 	 * @param v
@@ -523,7 +523,7 @@ public class ToolsUtil {
 
 	/******
 	 * 设置字体样式
-	 * 
+	 *
 	 * @param context
 	 *            Context
 	 * @param v
@@ -574,7 +574,7 @@ public class ToolsUtil {
 
 			@Override
 			public void http_Fails(int error, String msg) {
-				
+
 
 			}
 		}, ctx);
@@ -627,7 +627,7 @@ public class ToolsUtil {
 
 	/*******
 	 * 返回带小数点后两位的值
-	 * 
+	 *
 	 * @param d
 	 *            double 数据
 	 * @return String
@@ -649,7 +649,7 @@ public class ToolsUtil {
 
 	/**
 	 * 判断小数是否合法
-	 * 
+	 *
 	 * @param price
 	 * @return
 	 */
@@ -665,7 +665,7 @@ public class ToolsUtil {
 
 	/**
 	 * 是否是两位小数
-	 * 
+	 *
 	 * @return
 	 */
 	public static boolean isPointTwo(String price) {
@@ -698,7 +698,7 @@ public class ToolsUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param activity
 	 * @return > 0 success; <= 0 fail
 	 */
@@ -735,7 +735,7 @@ public class ToolsUtil {
 
 	/****
 	 * 显示 或隐藏 无数据试图
-	 * 
+	 *
 	 * @param activity
 	 *            Activity 俯视图
 	 * @param status
@@ -765,7 +765,7 @@ public class ToolsUtil {
 
 	/****
 	 * 显示 或隐藏 无数据试图
-	 * 
+	 *
 	 * @param activity
 	 *            Activity 俯视图
 	 * @param status
@@ -949,8 +949,8 @@ public class ToolsUtil {
 			}, 500);
 		}
 	}
-	
-	
+
+
 	/*******
 	 * 发送 订单通知 刷新 广播
 	 * ****/
@@ -960,9 +960,9 @@ public class ToolsUtil {
 		MyApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
 
-	
-	
-	
+
+
+
 	/**
 	 * 判断当前应用程序处于前台还是后台
 	 * @return true 在前台  false不在前台
@@ -979,9 +979,9 @@ public class ToolsUtil {
 		}
 		return false;
 	}
-	
-	
-	
+
+
+
 	/*****
 	 * 发送 接收到新消息广播  （ 广播通知 显示 状态栏通知）
 	 * ***/
@@ -1002,14 +1002,14 @@ public class ToolsUtil {
 			 {
 				 MyApplication.getInstance().getApplicationContext().sendBroadcast(notificationintent);
 			 }
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
-	
-	
+
+
 	/****
 	 * 发送 通知 广播  通知消息 更新数据
 	 * ***/
@@ -1020,8 +1020,8 @@ public class ToolsUtil {
 		intent.putExtra("Data", bean);
 		MyApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
-	
-	
+
+
 	/****
 	 * 发送 通知 广播  通知消息 更新数据
 	 * ***/
@@ -1032,8 +1032,8 @@ public class ToolsUtil {
 		intent.putExtra("Data", bean);
 		MyApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
-	
-	
+
+
 	/******
 	 * @param id int
 	 * ****/
@@ -1043,8 +1043,8 @@ public class ToolsUtil {
 		intent.putExtra("userID", id);
 		ctx.startActivity(intent);
 	}
-	
-	
+
+
 	/*****
 	 *  跳转到聊天界面
 	 * @param Chat_NAME String  圈子名称  没有 传 null
@@ -1065,9 +1065,9 @@ public class ToolsUtil {
 		intent.putExtra("DATA",bean);
 		ctx.startActivity(intent);
 	}
-	
-	
-	
+
+
+
 	/******
 	 * 跳转到商品详情
 	 * @param id int
@@ -1078,7 +1078,7 @@ public class ToolsUtil {
 		intent.putExtra("productID", id);
 		ctx.startActivity(intent);
 	}
-	
+
 	/******
 	 * 跳转到圈子详情
 	 * @param id int
@@ -1095,7 +1095,7 @@ public class ToolsUtil {
 		{
 			ctx.startActivity(intent);
 		}
-		
+
 	}
 
 

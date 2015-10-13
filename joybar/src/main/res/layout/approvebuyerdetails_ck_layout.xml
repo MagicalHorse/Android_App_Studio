@@ -9,7 +9,7 @@
         android:id="@+id/product_head_include"
         layout="@layout/top_layout" />
 
-    <ScrollView
+    <com.shenma.yueba.view.scroll.MyScrollView
         android:id="@+id/approvebuyerdetails_srcollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,26 +23,25 @@
             android:orientation="vertical">
 
             <!--循环滚动图片-->
-            <include
-                layout="@layout/productdetails_loop_layout" />
+            <include layout="@layout/productdetails_loop_layout" />
 
             <!--商品 信息-->
             <include layout="@layout/productdetails_head_layout" />
 
             <!--打样购-->
             <include
-                android:visibility="gone"
                 layout="@layout/dayang_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/shop_main_width15_dimen" />
+                android:layout_marginTop="@dimen/shop_main_width15_dimen"
+                android:visibility="gone" />
 
             <!--规格尺寸-->
             <include
+                layout="@layout/product_spec_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/shop_main_width15_dimen"
-                layout="@layout/product_spec_layout" />
+                android:layout_marginTop="@dimen/shop_main_width15_dimen" />
 
             <!--商铺信息-->
             <include
@@ -51,12 +50,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/shop_main_width15_dimen" />
 
-            <!--导购图-->
+            <!--备注信息-->
+            <LinearLayout
+                android:id="@+id/approvebuydetails_ck_tab_bak_linearlayout"
+                style="@style/modulepaddingleftandright_style"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="@dimen/shop_main_width15_dimen"
+                android:orientation="horizontal" />
+
+            <View style="@style/style_horizontal_line"/>
+
+            <com.shenma.yueba.view.CustomViewPager
+                android:layout_marginTop="3dp"
+                android:background="@color/white"
+                android:id="@+id/approvebuydetails_ck_bak_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
 
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.shenma.yueba.view.scroll.MyScrollView>
 
     <include
         layout="@layout/productdetails_footer_layout"

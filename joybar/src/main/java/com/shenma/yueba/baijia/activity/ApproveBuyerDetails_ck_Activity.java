@@ -3,8 +3,13 @@ package com.shenma.yueba.baijia.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.Spannable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,33 +21,40 @@ import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.ProductColorTypeAdapter;
+import com.shenma.yueba.baijia.adapter.ProductSPECAdapter;
 import com.shenma.yueba.baijia.adapter.ScrollViewPagerAdapter;
+import com.shenma.yueba.baijia.fragment.ProductExtTab1Fragment;
+import com.shenma.yueba.baijia.modle.FragmentBean;
 import com.shenma.yueba.baijia.modle.LikeUsersInfoBean;
 import com.shenma.yueba.baijia.modle.ProductColorTypeBean;
+import com.shenma.yueba.baijia.modle.ProductSPECbean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsInfoBean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsPromotion;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagsInfo;
 import com.shenma.yueba.baijia.modle.RequestProductDetailsInfoBean;
 import com.shenma.yueba.baijia.modle.UsersInfoBean;
+import com.shenma.yueba.baijia.view.TabViewpagerManager;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.util.ToolsUtil;
+import com.shenma.yueba.view.CustomViewPager;
 import com.shenma.yueba.view.FixedSpeedScroller;
 import com.shenma.yueba.view.MyGridView;
 import com.shenma.yueba.view.RoundImageView;
 import com.shenma.yueba.view.TagImageView;
+import com.shenma.yueba.view.scroll.MyScrollView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Field;
@@ -57,7 +69,7 @@ import java.util.TimerTask;
  */
 
 @SuppressLint("NewApi")
-public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClickListener {
+public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements OnClickListener {
     // 当前选中的id （ViewPager选中的id）
     int currid = -1;
     // 滚动图片
@@ -66,7 +78,7 @@ public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClick
     LinearLayout appprovebuyer_viewpager_footer_linerlayout;
 
     // 滚动视图 主要内容
-    ScrollView approvebuyerdetails_srcollview;
+    MyScrollView approvebuyerdetails_srcollview;
     // 底部购物车父视图
     LinearLayout approvebuyerdetails_footer;
     TextView approvebuyerdetails_closeingtime_textview;// 打烊时间
@@ -98,6 +110,19 @@ public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClick
     MyGridView product_spec_layout_colortype_mygridview;//颜色的分类
     ProductColorTypeAdapter productColorTypeAdapter;//颜色分类的 适配器
     List<ProductColorTypeBean>  colortypelist=new ArrayList<ProductColorTypeBean>();//颜色分类对象
+    MyGridView product_spec_layout_dimentype_mygridview;//规格分类
+    ProductSPECAdapter productSPECAdapter;//规格分类的适配器
+    List<ProductSPECbean>  spectypelist=new ArrayList<ProductSPECbean>();//规格分类对象
+    Button create_dialog_jian_button;//加
+    Button create_dialog_jia_button;//减
+    EditText createorder_dialog_layout_countvalue_edittext;//购买数量
+    TextView product_spec_layout_stockvalue_textview;//库存数量
+    LinearLayout footer_right_linerlayout;//底部按钮操作对象的父类用于 设置显示或隐藏 按钮
+    CustomViewPager approvebuydetails_ck_bak_viewpager;//（图片详情 ，尺码参考 售后服务）
+    LinearLayout approvebuydetails_ck_tab_bak_linearlayout;//TAB切换视图父对象
+    List<FragmentBean> tab_list=new ArrayList<FragmentBean>();
+    TabViewpagerManager tabViewpagerManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +188,7 @@ public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClick
         // 打烊信息
         approvebuyerdetails_closeinginfo_textview = (TextView) findViewById(R.id.approvebuyerdetails_closeinginfo_textview);
         approvebuyerdetails_footer = (LinearLayout) findViewById(R.id.approvebuyerdetails_footer);
-        approvebuyerdetails_srcollview = (ScrollView) findViewById(R.id.approvebuyerdetails_srcollview);
+        approvebuyerdetails_srcollview = (MyScrollView) findViewById(R.id.approvebuyerdetails_srcollview);
 
         appprovebuyer_viewpager_footer_linerlayout = (LinearLayout) findViewById(R.id.appprovebuyer_viewpager_footer_linerlayout);
         appprovebuyer_viewpager = (ViewPager) findViewById(R.id.appprovebuyer_viewpager);
@@ -217,6 +242,7 @@ public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClick
         approvebuyerdetails_layout_siliao_linerlayout_textview.setOnClickListener(this);
 
         approvebuyer_addcartbutton = (Button) findViewById(R.id.approvebuyer_addcartbutton);
+        footer_right_linerlayout=(LinearLayout)findViewById(R.id.footer_right_linerlayout);
         approvebuyerbuybutton = (Button) findViewById(R.id.approvebuyerbuybutton);
         approvebuyerbuybutton.setOnClickListener(this);
 
@@ -225,31 +251,194 @@ public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClick
          *
          * ********************/
 
-        for(int i=0;i<10;i++)
-        {
-            colortypelist.add(new ProductColorTypeBean());
-        }
-
-                productColorTypeAdapter = new ProductColorTypeAdapter(ApproveBuyerDetails_ck_Activity.this, colortypelist);
+        productColorTypeAdapter = new ProductColorTypeAdapter(ApproveBuyerDetails_ck_Activity.this, colortypelist);
         product_spec_layout_colortype_mygridview = (MyGridView) findViewById(R.id.product_spec_layout_colortype_mygridview);
         product_spec_layout_colortype_mygridview.setAdapter(productColorTypeAdapter);
         product_spec_layout_colortype_mygridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("TAG", "onItemSelected position=" + position);
-                for(int i=0;i<colortypelist.size();i++)
-                {
+                for (int i = 0; i < colortypelist.size(); i++) {
                     colortypelist.get(i).setIsChecked(false);
                 }
-                ProductColorTypeBean bean=colortypelist.get(position);
+                ProductColorTypeBean bean = colortypelist.get(position);
                 bean.setIsChecked(true);
-                if(productColorTypeAdapter!=null)
-                {
+                if (productColorTypeAdapter != null) {
                     productColorTypeAdapter.notifyDataSetChanged();
                 }
             }
         });
+
+
+        /**********
+         * 规格 的 分类
+         * *****/
+        product_spec_layout_dimentype_mygridview=(MyGridView)findViewById(R.id.product_spec_layout_dimentype_mygridview);
+        productSPECAdapter=new ProductSPECAdapter(ApproveBuyerDetails_ck_Activity.this,spectypelist);
+        product_spec_layout_dimentype_mygridview.setAdapter(productSPECAdapter);
+        product_spec_layout_dimentype_mygridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("TAG", "onItemSelected position=" + position);
+                for (int i = 0; i < spectypelist.size(); i++) {
+                    spectypelist.get(i).setIschecked(false);
+                }
+                ProductSPECbean bean = spectypelist.get(position);
+                bean.setIschecked(true);
+                if(productSPECAdapter!=null)
+                {
+                    productSPECAdapter.notifyDataSetChanged();
+                }
+                isTextButtonEnable();
+            }
+        });
+
+
+        /*****************
+         * 购买数量的设置
+         * *******************/
+        product_spec_layout_stockvalue_textview=(TextView)findViewById(R.id.product_spec_layout_stockvalue_textview);//库存
+        createorder_dialog_layout_countvalue_edittext=(EditText)findViewById(R.id.createorder_dialog_layout_countvalue_edittext);
+        createorder_dialog_layout_countvalue_edittext.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int maxValue = Integer.parseInt(product_spec_layout_stockvalue_textview.getText().toString().trim());
+                CharSequence text = createorder_dialog_layout_countvalue_edittext.getText();
+                if (text instanceof Spannable) {
+                    Spannable spanText = (Spannable) text;
+                    Selection.setSelection(spanText, text.length());
+                }
+                if (s.toString().equals("")) {
+                    createorder_dialog_layout_countvalue_edittext.setText(0 + "");
+                    return;
+                }
+                int value = Integer.parseInt(s.toString());
+                if (value < 0) {
+                    createorder_dialog_layout_countvalue_edittext.setText(0 + "");
+                    approvebuyerbuybutton.setEnabled(false);
+                } else if (value > maxValue) {
+                    createorder_dialog_layout_countvalue_edittext.setText(Integer.toString(maxValue));
+                    approvebuyerbuybutton.setEnabled(true);
+                }
+                if (s.toString().length() > 1)//如果位数大于1位
+                {
+                    char c = s.toString().charAt(0);
+                    if (c == 0) {
+                        createorder_dialog_layout_countvalue_edittext.setText(Integer.toString(value));
+                    }
+                }
+                isTextButtonEnable();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        //减
+        create_dialog_jian_button=(Button)findViewById(R.id.create_dialog_jian_button);
+        create_dialog_jian_button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int value=Integer.parseInt(createorder_dialog_layout_countvalue_edittext.getText().toString());
+                value--;
+                if(value<=0)
+                {
+                    value=0;
+                }
+                createorder_dialog_layout_countvalue_edittext.setText(Integer.toString(value));
+                isTextButtonEnable();
+            }
+        });
+        //加
+        create_dialog_jia_button=(Button)findViewById(R.id.create_dialog_jia_button);
+        create_dialog_jia_button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int values = Integer.parseInt(createorder_dialog_layout_countvalue_edittext.getText().toString());
+                int maxValue = Integer.parseInt(product_spec_layout_stockvalue_textview.getText().toString());
+                values++;
+                if (values >= maxValue) {
+                    values = maxValue;
+                }
+                createorder_dialog_layout_countvalue_edittext.setText(Integer.toString(values));
+                isTextButtonEnable();
+            }
+        });
+
+        /*********************
+         *  备注信息等 设置
+         * ************************/
+        tab_list.add(new FragmentBean("图片详情",-1,new ProductExtTab1Fragment()));
+        tab_list.add(new FragmentBean("尺码参考",-1,new ProductExtTab1Fragment()));
+        tab_list.add(new FragmentBean("售后服务",-1,new ProductExtTab1Fragment()));
+        approvebuydetails_ck_tab_bak_linearlayout=(LinearLayout)findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout);
+        approvebuydetails_ck_bak_viewpager=(CustomViewPager)findViewById(R.id.approvebuydetails_ck_bak_viewpager);
+        tabViewpagerManager=new TabViewpagerManager(this,tab_list,approvebuydetails_ck_tab_bak_linearlayout,approvebuydetails_ck_bak_viewpager);
+        tabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(),null);
+        tabViewpagerManager.setCurrView(0);
+        approvebuydetails_ck_bak_viewpager.setOnPageChangeListener(new OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                tabViewpagerManager.setCurrView(position);
+                View view = approvebuydetails_ck_bak_viewpager.getChildAt(position);
+                if(view!=null)
+                {
+                    int height = view.getMeasuredHeight();
+                    LayoutParams layoutParams = (LinearLayout.LayoutParams)approvebuydetails_ck_bak_viewpager.getLayoutParams();
+                    layoutParams.height = height;
+                    approvebuydetails_ck_bak_viewpager.setLayoutParams(layoutParams);
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
+
+
+    /*****
+     * 根据库存 即 商品数量 设置 按钮颜色
+     * ***/
+    void isTextButtonEnable()
+    {
+        create_dialog_jian_button.setSelected(true);
+        create_dialog_jia_button.setSelected(true);
+        //库存
+        int Stock=Integer.valueOf(product_spec_layout_stockvalue_textview.getText().toString().trim());
+        //当前选择的购买数量
+        int count=Integer.valueOf(createorder_dialog_layout_countvalue_edittext.getText().toString().trim());
+        if(Stock<=0)
+        {
+            create_dialog_jian_button.setSelected(false);
+            create_dialog_jia_button.setSelected(false);
+        }else if(count<=0)
+        {
+            create_dialog_jian_button.setSelected(false);
+        }else if(count>=Stock)
+        {
+            create_dialog_jia_button.setSelected(false);
+        }
+
+    }
+
+
+
 
     void startChatActivity() {
         if (!MyApplication.getInstance().isUserLogin(
@@ -316,6 +505,33 @@ public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClick
      * 设置数据
      ****/
     void setDatValue() {
+
+        /*******
+         * 设置 颜色类型值
+         * ******/
+        for(int i=0;i<10;i++)
+        {
+            colortypelist.add(new ProductColorTypeBean());
+        }
+
+        if(productColorTypeAdapter!=null)
+        {
+            productColorTypeAdapter.notifyDataSetChanged();
+        }
+        /******
+         * 设置规格类型值
+         * ***/
+
+        for(int i=0;i<10;i++)
+        {
+            spectypelist.add(new ProductSPECbean());
+        }
+        if(productSPECAdapter!=null)
+        {
+            productSPECAdapter.notifyDataSetChanged();
+        }
+
+
 
         // 自提地址
         String address = ToolsUtil.nullToString(Data.getPickAddress());
@@ -463,7 +679,10 @@ public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClick
         }
         setFont();
         approvebuyerdetails_srcollview.smoothScrollTo(0, 0);
+        footer_right_linerlayout.setVisibility(View.VISIBLE);
+        approvebuyerbuybutton.setText(this.getResources().getString(R.string.shop_buy_str));
         approvebuyerbuybutton.setVisibility(View.VISIBLE);
+        approvebuyerdetails_layout_siliao_linerlayout_textview.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -536,6 +755,7 @@ public class ApproveBuyerDetails_ck_Activity extends Activity implements OnClick
         setdataValue(R.id.product_spec_layout_dimentype_textview, null);
         setdataValue(R.id.product_spec_layout_count_textview, null);
         setdataValue(R.id.product_spec_layout_stock_textview, null);
+        setdataValue(R.id.product_spec_layout_stockvalue_textview, null);
         setdataValue(R.id.product_spec_layout_serve_textview, null);
         setdataValue(R.id.product_spec_layout_notes_textview, null);
 

@@ -22,7 +22,7 @@
             android:id="@+id/product_spec_layout_colortype_mygridview"
             android:numColumns="4"
             android:verticalSpacing="5dp"
-            android:horizontalSpacing="5dp"
+            android:horizontalSpacing="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:cacheColorHint="@color/color_transparent"
@@ -40,15 +40,22 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginTop="5dp"
             android:id="@+id/product_spec_layout_dimentype_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="尺码：" />
 
         <com.shenma.yueba.view.MyGridView
+            android:columnWidth="62dp"
+            android:numColumns="auto_fit"
             android:id="@+id/product_spec_layout_dimentype_mygridview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:listSelector="@color/color_transparent"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="5dp"
+            />
 
     </LinearLayout>
 
@@ -74,7 +81,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:singleLine="true"
-            android:text="库存：111"
+            android:text="库存："
+            android:textColor="@color/red_text_color" />
+
+        <TextView
+            android:id="@+id/product_spec_layout_stockvalue_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="5"
             android:textColor="@color/red_text_color" />
     </LinearLayout>
 
@@ -89,7 +104,7 @@
             android:id="@+id/product_spec_layout_serve_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="服务：由门店提供服务：" />
+            android:text="服务：由门店提供服务" />
 
     </LinearLayout>
 
