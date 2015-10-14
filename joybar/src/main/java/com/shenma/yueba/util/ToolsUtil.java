@@ -440,26 +440,7 @@ public class ToolsUtil {
 		}
 	}
 
-	// /**
-	// * 传入大小获取网络图片
-	// * @return
-	// */
-	// public static String getImage(String url,int with,int height){
-	// StringBuffer sb = new StringBuffer();
-	// if(TextUtils.isEmpty(url)){
-	// Log.w("ImageWarn", "图片url为空！");
-	// return "";
-	// }else if(TextUtils.isEmpty(with+"")){
-	// Log.w("ImageWarn", "图片宽度为空！");
-	// return "";
-	// }else if(TextUtils.isEmpty(height+"")){
-	// Log.w("ImageWarn", "图片高度为空！");
-	// return "";
-	// }else{
-	// return
-	// sb.append(url).append("_").append(with).append("x").append(height).toString()+".jpg";
-	// }
-	// }
+
 	/**
 	 * 传入大小获取网络图片
 	 *
@@ -469,35 +450,6 @@ public class ToolsUtil {
 		return url;
 	}
 
-	public static String getTime(String oldtime) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		try {
-			Date olddate = sdf.parse(oldtime);
-			Date newdate = new Date();
-			long value = newdate.getTime() - olddate.getTime();
-			if (value <= (60 * 1000)) {
-				return "刚刚";
-			} else if (value <= (5 * 60 * 1000)) {
-				return "5分钟以前";
-			} else if (value <= (10 * 60 * 1000)) {
-				return "10分钟以前";
-			} else if (value <= (30 * 60 * 1000)) {
-				return "半小时以前";
-			} else if (value <= (60 * 60 * 1000)) {
-				return "1小时以前";
-			} else if (value <= (12 * 60 * 60 * 1000)) {
-				return "1天以前";
-			} else if (value <= (3 * 12 * 60 * 60 * 1000)) {
-				return "3天以前";
-			} else {
-				return "很久以前";
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
-	}
 
 	/******
 	 * 设置字体样式

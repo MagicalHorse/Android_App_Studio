@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/shop_main_width15_dimen" />
 
-            <!--备注信息-->
+            <!--    Tab备注信息-->
             <LinearLayout
                 android:id="@+id/approvebuydetails_ck_tab_bak_linearlayout"
                 style="@style/modulepaddingleftandright_style"
@@ -59,15 +59,16 @@
                 android:layout_marginTop="@dimen/shop_main_width15_dimen"
                 android:orientation="horizontal" />
 
-            <View style="@style/style_horizontal_line"/>
+            <View
+                android:id="@+id/approvebuydetails_ck_tab_bak_linearlayout_view"
+                style="@style/style_horizontal_line" />
 
             <com.shenma.yueba.view.CustomViewPager
-                android:layout_marginTop="3dp"
-                android:background="@color/white"
                 android:id="@+id/approvebuydetails_ck_bak_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:background="@color/white" />
 
 
         </LinearLayout>
@@ -78,6 +79,23 @@
         layout="@layout/productdetails_footer_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
+
+
+    <!--悬浮TAB-->
+    <LinearLayout
+        android:id="@+id/approvebuydetails_ck_suspensiontab_bak_linearlayout"
+        style="@style/modulepaddingleftandright_style"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/product_head_include"
+        android:orientation="horizontal"
+        android:visibility="gone" />
+
+    <View
+        android:layout_below="@+id/approvebuydetails_ck_suspensiontab_bak_linearlayout"
+        android:id="@+id/approvebuydetails_ck_suspensiontab_bak_linearlayout_view"
+        style="@style/style_horizontal_line" />
 
 </RelativeLayout>

@@ -33,6 +33,16 @@ public class TabViewpagerManager {
     int currid = -1;//当前选中的tab
     LinearLayout parentView;
     ViewPager viewpager;
+    TabOnClickListener tabOnClickListener;
+    public TabOnClickListener getTabOnClickListener() {
+        return tabOnClickListener;
+    }
+
+    public void setTabOnClickListener(TabOnClickListener tabOnClickListener) {
+        this.tabOnClickListener = tabOnClickListener;
+    }
+
+
 
     public TabViewpagerManager(Activity activity, List<FragmentBean> bean, LinearLayout parentView, ViewPager viewpager) {
         this.activity = activity;
@@ -56,6 +66,10 @@ public class TabViewpagerManager {
                 @Override
                 public void onClick(View v) {
                     int i = (Integer) v.getTag();
+                    if(tabOnClickListener!=null)
+                    {
+                        tabOnClickListener.onTabClick(i);
+                    }
                     setCurrView(i);
                 }
             });
@@ -160,5 +174,10 @@ public class TabViewpagerManager {
             }
 
         }
+    }
+
+    public interface TabOnClickListener
+    {
+       void onTabClick(int i);
     }
 }
