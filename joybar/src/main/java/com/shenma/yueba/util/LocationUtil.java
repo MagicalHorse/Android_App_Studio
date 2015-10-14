@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.inter.LocationBackListner;
 
 public class LocationUtil {
@@ -34,9 +35,8 @@ public class LocationUtil {
 					&& 0 != location.getLongitude()) {
 				latitude = location.getLatitude();
 				longitude = location.getLongitude();
-				SharedUtil.setStringPerfernece(ctx, "latitude", latitude + "");
-				SharedUtil
-						.setStringPerfernece(ctx, "longitude", longitude + "");
+				SharedUtil.setStringPerfernece(ctx, Constants.LATITUDE, latitude + "");
+				SharedUtil.setStringPerfernece(ctx, Constants.LONGITUDE, longitude + "");
 				Log.i("location", latitude + "----" + longitude);
 				listner.callBack(true);
 			}else{
@@ -46,8 +46,8 @@ public class LocationUtil {
 						&& locationNetWork.getLongitude() != 0) {
 					latitude = locationNetWork.getLatitude(); // 经度
 					longitude = locationNetWork.getLongitude(); // 纬度
-					SharedUtil.setStringPerfernece(ctx, "latitude", latitude + "");
-					SharedUtil.setStringPerfernece(ctx, "longitude", longitude + "");
+					SharedUtil.setStringPerfernece(ctx, Constants.LATITUDE, latitude + "");
+					SharedUtil.setStringPerfernece(ctx, Constants.LONGITUDE, longitude + "");
 					Log.i("location", latitude + "----" + longitude);
 					listner.callBack(true);
 				}else{

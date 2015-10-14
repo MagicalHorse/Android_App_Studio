@@ -12,7 +12,10 @@ import com.shenma.yueba.baijia.fragment.IndexFragmentForBaiJia;
 import com.shenma.yueba.baijia.fragment.MeFragmentForBaiJia;
 import com.shenma.yueba.baijia.fragment.MessageFragment;
 import com.shenma.yueba.baijia.modle.CheckVersionBackBean;
+import com.shenma.yueba.baijia.modle.CityListItembean;
 import com.shenma.yueba.baijia.modle.FragmentBean;
+import com.shenma.yueba.constants.Constants;
+import com.shenma.yueba.inter.CityChangeRefreshInter;
 import com.shenma.yueba.inter.LocationBackListner;
 import com.shenma.yueba.util.AlartMangerUtil;
 import com.shenma.yueba.util.HttpControl;
@@ -21,6 +24,7 @@ import com.shenma.yueba.util.LocationUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.umeng.analytics.MobclickAgent;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -380,5 +384,6 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 		// TODO Auto-generated method stub
 		//super.onSaveInstanceState(outState);//禁止应用保持fragment 的数据
 	}
-	
+
+
 }

@@ -57,7 +57,8 @@ public class SharedUtil {
 	private static final String session_id = "session_id";
 	private static final String key = "key";// 阿里云需要的key 
 	private static final String sign = "sign";//阿里云需要的sign
-	
+
+	private static final String current_city_id = "current_city_id";//当前城市ID
 	public static String getStringPerfernece(Context context,String str) {
 		return getSharedPreferences(context).getString(str, "");
 	}
@@ -324,6 +325,20 @@ public class SharedUtil {
 	 */
 	private static SharedPreferences getSharedPreferences(Context context) {
 		return MyPreference.getPreference(context);
+	}
+
+
+
+	public  static void setCurrentCityId(Context context, String cityId){
+		if (cityId != null) {
+			getSharedPreferences(context).edit()
+					.putString(current_city_id, cityId).commit();
+		}
+	}
+
+	public static String getCurrentCityId(Context context){
+		return getSharedPreferences(context).getString(current_city_id, "");
+
 	}
 
 }

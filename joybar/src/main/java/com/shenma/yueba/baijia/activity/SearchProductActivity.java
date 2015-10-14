@@ -18,6 +18,7 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.SearchHistoryAdapter;
 import com.shenma.yueba.util.FontManager;
+import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.yangjia.activity.AboutActivity;
 
@@ -70,6 +71,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                 tv_history_title.setVisibility(View.GONE);
                 mList.clear();
                 allList.clear();
+                lv_history.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -77,6 +79,24 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
         FontManager.changeFonts(this,tv_history_title,tv_top_title,et_search,tv_clear);
     }
 
+
+
+
+
+    private void getProductListByKey(){
+        HttpControl httpControl = new HttpControl();
+        httpControl.getProductListByKey(new HttpControl.HttpCallBackInterface() {
+            @Override
+            public void http_Success(Object obj) {
+
+            }
+
+            @Override
+            public void http_Fails(int error, String msg) {
+
+            }
+        },mContext,et_search.getText().toString(),SharedUtil.getCurrentCityId(mContext),"1","0");
+    }
 
     @Override
     protected void onResume() {
@@ -93,8 +113,10 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
         }
         if(mList.size()>0){
             tv_history_title.setVisibility(View.VISIBLE);
+            lv_history.setVisibility(View.VISIBLE);
         }else{
             tv_history_title.setVisibility(View.GONE);
+            lv_history.setVisibility(View.GONE);
         }
         adapter.notifyDataSetChanged();
     }
@@ -103,9 +125,6 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_search://搜索
-                if(TextUtils.isEmpty(et_search.getText().toString().trim())){
-                    Toast.makeText(SearchProductActivity.this,"搜索内容不能为空",Toast.LENGTH_SHORT).show();
-                }else {
                     String historyStr = SharedUtil.getStringPerfernece(SearchProductActivity.this, SharedUtil.search_history);
                     if(TextUtils.isEmpty(historyStr)){
                         SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, et_search.getText().toString().trim());
@@ -140,8 +159,8 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                             SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
                         }
 
-                    }
                 }
+                getProductListByKey();
                 break;
             case R.id.bt_delete:
                 et_search.setText("");
@@ -172,8 +191,10 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
         }
         if(mList.size()>0){
             tv_history_title.setVisibility(View.VISIBLE);
+            lv_history.setVisibility(View.VISIBLE);
         }else{
             tv_history_title.setVisibility(View.GONE);
+            lv_history.setVisibility(View.GONE);
         }
 
         adapter.notifyDataSetChanged();

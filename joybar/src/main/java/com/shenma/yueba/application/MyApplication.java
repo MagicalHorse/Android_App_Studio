@@ -40,6 +40,8 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.activity.LoginAndRegisterActivity;
 import com.shenma.yueba.db.DBHelper;
+import com.shenma.yueba.inter.CityChangeRefreshInter;
+import com.shenma.yueba.refreshservice.CityChangeRefreshService;
 import com.shenma.yueba.refreshservice.HuoKuanManagerRefreshService;
 import com.shenma.yueba.refreshservice.IndexRefreshService;
 import com.shenma.yueba.util.CustomProgressDialog;
@@ -50,6 +52,7 @@ import com.shenma.yueba.util.SharedUtil;
 public class MyApplication extends Application {
 
 
+    private CityChangeRefreshService cityChangeRefreshService;//切换城市后的刷新
     private IndexRefreshService indexRefreshService;//养家首页刷新工具
     private HuoKuanManagerRefreshService huoKuanManagerRefreshService;//货款页面刷新工具
     private static List<Activity> activityList = new LinkedList<Activity>();//activity对象缓存
@@ -72,6 +75,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        cityChangeRefreshService = new CityChangeRefreshService();
         indexRefreshService = new IndexRefreshService();
         huoKuanManagerRefreshService = new HuoKuanManagerRefreshService();
         SocketManger.the().contentSocket();
@@ -89,6 +93,16 @@ public class MyApplication extends Application {
     }
 
 
+    /**
+     * 切换城市后的刷新
+     */
+
+    public CityChangeRefreshService getCityChangeRefreshService(){
+        if (cityChangeRefreshService == null) {
+            return new CityChangeRefreshService();
+        }
+        return cityChangeRefreshService;
+    }
     /**
      * 养家首页的刷新
      *

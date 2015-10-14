@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -27,13 +28,19 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ChooseCityActivity;
 import com.shenma.yueba.baijia.activity.SearchProductActivity;
+import com.shenma.yueba.baijia.modle.CityInfoBackBean;
+import com.shenma.yueba.baijia.modle.CityListItembean;
 import com.shenma.yueba.baijia.modle.FragmentBean;
 import com.shenma.yueba.baijia.view.BaseView;
 import com.shenma.yueba.baijia.view.BuyerStreetView;
 import com.shenma.yueba.baijia.view.MyBuyerView;
 import com.shenma.yueba.baijia.view.TabViewpagerManager;
+import com.shenma.yueba.constants.Constants;
+import com.shenma.yueba.inter.CityChangeRefreshInter;
 import com.shenma.yueba.inter.LocationBackListner;
+import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.LocationUtil;
+import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
 
 import java.lang.reflect.Field;
@@ -44,7 +51,8 @@ import java.util.List;
  * @author gyj
  * @date 2015-05-19 买手主页Fragment 主要布局采用viewPager+Linerlayout实现TAB效果切换数据
  ****/
-public class IndexFragmentForBaiJia extends Fragment {
+public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefreshInter {
+
     // 存储切换的数据
     List<FragmentBean> fragment_list = new ArrayList<FragmentBean>();
     // 存储Tab切换的视图对象
@@ -55,7 +63,7 @@ public class IndexFragmentForBaiJia extends Fragment {
     FragmentManager fragmentManager;
     View v;
     TabViewpagerManager tabViewpagerManager;
-
+    TextView tv_city;//当前城市
     @Override
     public void onAttach(Activity activity) {
         // TODO Auto-generated method stub
@@ -80,7 +88,7 @@ public class IndexFragmentForBaiJia extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        MyApplication.getInstance().getCityChangeRefreshService().addToList(this);
         super.onCreate(savedInstanceState);
     }
 
@@ -99,7 +107,7 @@ public class IndexFragmentForBaiJia extends Fragment {
         // fragment_list.add(new FragmentBean("TA们说", -1, theySayFragment));
         fragment_list.add(new FragmentBean("我的买手", -1, myBuyerView));
         baijia_fragment_tab1_head_linearlayout = (LinearLayout) v.findViewById(R.id.baijia_fragment_tab1_head_linearlayout);
-        final TextView tv_city = new TextView(getActivity());
+        tv_city = new TextView(getActivity());
         final ProgressBar progressBar = new ProgressBar(getActivity());
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -120,7 +128,7 @@ public class IndexFragmentForBaiJia extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ChooseCityActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, Constants.REQUESTCODE);
                 getActivity().overridePendingTransition(R.anim.enter_from_bottom, R.anim.no);
 
             }
@@ -139,6 +147,25 @@ public class IndexFragmentForBaiJia extends Fragment {
                 if (result) {
                     Toast.makeText(getActivity(), "定位成功", Toast.LENGTH_SHORT).show();
                     //开始调用接口，根据经纬度获取城市名称
+                    HttpControl httpControl=new HttpControl();
+                    httpControl.getCityInfoById(new HttpControl.HttpCallBackInterface() {
+                        @Override
+                        public void http_Success(Object obj) {
+                            CityInfoBackBean back = (CityInfoBackBean) obj;
+                            String str = back.getData().getName();
+                            progressBar.setVisibility(View.GONE);
+                            tv_city.setVisibility(View.VISIBLE);
+                            tv_city.setText(str);
+                            SharedUtil.setCurrentCityId(getActivity(),back.getData().getId());
+                        }
+
+                        @Override
+                        public void http_Fails(int error, String msg) {
+                            progressBar.setVisibility(View.GONE);
+                            tv_city.setVisibility(View.VISIBLE);
+                            tv_city.setText("全国");
+                        }
+                    },getActivity(),SharedUtil.getStringPerfernece(getActivity(),Constants.LONGITUDE), SharedUtil.getStringPerfernece(getActivity(), Constants.LATITUDE));
                 } else {
                     Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_SHORT).show();
                     tv_city.setText("全国");
@@ -229,5 +256,10 @@ public class IndexFragmentForBaiJia extends Fragment {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void refresh(CityListItembean bean) {
+        tv_city.setText(bean.getName());
     }
 }

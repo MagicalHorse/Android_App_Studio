@@ -6,9 +6,9 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 
 public class Constants {
-    //public static final String PublishStatus = "1";//开发环境
+    public static final String PublishStatus = "1";//开发环境
     //public static final String PublishStatus = "2";//生产环境
-    public static final String PublishStatus = "3";//测试环境
+   // public static final String PublishStatus = "3";//测试环境
 
 
     public static final String aliyunDirForDev = "apprss";//阿里云目录，开发环境
@@ -70,6 +70,7 @@ public class Constants {
     public static final String INCOMETRANSFERSTATUS = "IncomeTransferStatus";// 收入明细状态
     public static final String PAGESIZE = "Pagesize";// 页size
     public static final String LONGITUDE = "Longitude";//经度
+    public static final String SORT = "sort";//排序方式
     public static final String LATITUDE = "Latitude";//维度
     public static final String ID = "Id";
     public static final String USERIDSTR = "useridstr";

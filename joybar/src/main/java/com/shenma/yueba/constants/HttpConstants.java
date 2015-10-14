@@ -85,6 +85,18 @@ public class HttpConstants {
 	 * 获取城市列表
 	 */
 	public static String METHOD_GETCITYLIST = COMMONURLFORREAD + "GetCityList";
+
+	/**
+	 * 根据经纬度获取城市
+	 */
+
+	public static String METHOD_GETCITYBYID = COMMONURLFORREAD+"GetCityByCoord";
+
+
+	/**
+	 * 获取所有开通shopping的城市列表
+	 */
+	public static String GETALLSHOPPINGCITY = COMMONURLFORREAD+"GetAllShoopingCity";
 	/**
 	/**
 	 * 获取阿里云key
@@ -168,6 +180,10 @@ public class HttpConstants {
 	 */
 	public static String METHOD_BRANDMANAGEER_DETAIL = PRODUCTFORREAD + "GetProductListByBrandId";
 
+	/**
+	 * 根据关键字获取商品
+	 */
+	public static String METHOD_GET_PRODUCT_BY_KEY = PRODUCTFORREAD + "Search";
 	
 	/**
 	 * 复制商品

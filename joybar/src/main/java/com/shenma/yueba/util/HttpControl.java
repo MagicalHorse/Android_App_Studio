@@ -39,6 +39,7 @@ import com.shenma.yueba.baijia.modle.BaseRequest;
 import com.shenma.yueba.baijia.modle.BrandDetailInfoBean;
 import com.shenma.yueba.baijia.modle.BuyerIndexInfoBean;
 import com.shenma.yueba.baijia.modle.CheckVersionBackBean;
+import com.shenma.yueba.baijia.modle.CityInfoBackBean;
 import com.shenma.yueba.baijia.modle.CityListBackBean;
 import com.shenma.yueba.baijia.modle.CityListRequestBean;
 import com.shenma.yueba.baijia.modle.GetUserFlowStatusBackBean;
@@ -98,7 +99,6 @@ import com.shenma.yueba.yangjia.modle.TastRewardListBackBean;
  *          {@link HttpCallBackInterface}
  * @see #getCityList(HttpCallBackInterface, Context)
  * @see #getAllCityList(HttpCallBackInterface, Context)
- * @see #sendPhoeCode(String, HttpCallBackInterface, Context)
  * @see #setLoginInfo(Context, UserRequestBean)
  * @see #createContactAddress(HttpCallBackInterface, Context,
  *      ContactsAddressResponseBean)
@@ -153,10 +153,12 @@ public class HttpControl {
 				BaseRequest.class, true, false);
 	}
 
-	
+
 	/**
 	 * 修改昵称
-	 * @param str
+	 * @param nickname
+	 * @param showDialog
+	 * @param isCancal
 	 * @param httpCallBack
 	 * @param context
 	 */
@@ -171,9 +173,9 @@ public class HttpControl {
 	
 	/**
 	 * 修改用户头像
-	 * @param str
 	 * @param httpCallBack
 	 * @param context
+	 *
 	 */
 	public void modifyUserLogo(String logo,boolean showDialog,boolean isCancal,
 			final HttpCallBackInterface httpCallBack, Context context) {
@@ -221,7 +223,26 @@ public class HttpControl {
 				httpCallBack, CityListRequestBean.class, true, false);
 	}
 
-	
+	/**
+	 *  根据经纬度获取城市信息
+	 */
+
+	public void getCityInfoById(final HttpCallBackInterface httpCallBack,Context context,String longitude,String latitude){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put(Constants.LONGITUDE,longitude);//经度
+		map.put(Constants.LATITUDE,latitude);//维度
+		BasehttpSend(map, context, HttpConstants.METHOD_GETCITYBYID,
+				httpCallBack, CityInfoBackBean.class, false, false);
+	}
+	/**
+	 *  获取开通SHOPPING的城市列表
+	 */
+
+	public void getShoppingCityList(final HttpCallBackInterface httpCallBack,Context context){
+		Map<String, String> map = new HashMap<String, String>();
+		BasehttpSend(map, context, HttpConstants.GETALLSHOPPINGCITY,
+				httpCallBack, CityListBackBean.class, true, false);
+	}
 
 	/**
 	 * 版本检查更新
@@ -560,15 +581,10 @@ public class HttpControl {
 
 	/**
 	 * 获取品牌信息详细
-	 * 
 	 * @param httpCallBack
-	 *            HttpCallBackInterface 回调接口
 	 * @param context
-	 *            Context
-	 * @param Id
-	 *            int
-	 * @return void
-	 * **/
+	 * @param BrandId
+	 */
 	public void getBrandDetailInfo(final HttpCallBackInterface httpCallBack,
 			Context context, int BrandId) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -576,19 +592,40 @@ public class HttpControl {
 		BasehttpSend(map, context, HttpConstants.METHOD_BRANDMANAGEER_DETAIL,
 				httpCallBack, BrandDetailInfoBean.class, true, false);
 	}
-	
-	
+
+
+	/**
+	 * 根据关键字搜索商品
+	 * 0：销量从小到大
+	 1：销量从大到小
+	 2：价格从低到高
+	 3：价格从高到低
+	 4：创建时间正序,先创建的在最后
+	 5：创建时间倒序,先创建的在前面
+
+	 */
+	public void getProductListByKey(final HttpCallBackInterface httpCallBack,
+									Context context, String key,String cityId,String page,String sort){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put(Constants.PAGE, page);
+		map.put(Constants.PAGESIZE, Constants.PageSize);
+		map.put(Constants.SORT,sort);
+		map.put(Constants.CITYID,cityId);
+		map.put(Constants.KEY,key);
+		BasehttpSend(map, context, HttpConstants.METHOD_GET_PRODUCT_BY_KEY,
+				httpCallBack, BrandDetailInfoBean.class, true, false);
+
+	}
+
+
 	/**
 	 * 根据名称搜索标签
-	 * 
+	 * @param name
+	 * @param type
 	 * @param httpCallBack
-	 *            HttpCallBackInterface 回调接口
 	 * @param context
-	 *            Context
-	 * @param Id
-	 *            int
-	 * @return void
-	 * **/
+	 * @param BrandId
+	 */
 	public void getProductTag(String name,String type,final HttpCallBackInterface httpCallBack,
 			Context context, int BrandId) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -600,15 +637,11 @@ public class HttpControl {
 
 	/**
 	 * 获取品牌列表
-	 * 
 	 * @param httpCallBack
-	 *            HttpCallBackInterface 回调接口
 	 * @param context
-	 *            Context
-	 * @param Id
-	 *            int
-	 * @return void
-	 * **/
+	 * @param type
+	 * @param refreshts
+	 */
 	public void getBrandList(final HttpCallBackInterface httpCallBack,
 			Context context, String type, String refreshts) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -620,15 +653,11 @@ public class HttpControl {
 
 	/**
 	 * 按照时间获取传入时间后的品牌列表
-	 * 
 	 * @param httpCallBack
-	 *            HttpCallBackInterface 回调接口
 	 * @param context
-	 *            Context
-	 * @param Id
-	 *            int
-	 * @return void
-	 * **/
+	 * @param type
+	 * @param refreshts
+	 */
 	public void getRecentBrandList(final HttpCallBackInterface httpCallBack,
 			Context context, String type, String refreshts) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -658,15 +687,11 @@ public class HttpControl {
 
 	/**
 	 * 买手首页统计信息
-	 * 
 	 * @param httpCallBack
-	 *            HttpCallBackInterface 回调接口
 	 * @param context
-	 *            Context
-	 * @param Id
-	 *            int
-	 * @return void
-	 * **/
+	 * @param refresh
+	 * @param canCancle
+	 */
 	public void getBuyerIndexInfo(final HttpCallBackInterface httpCallBack,
 			Context context, boolean refresh, boolean canCancle) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -676,8 +701,7 @@ public class HttpControl {
 
 	/**
 	 * 获取门店列表
-	 * 
-	 * @param bean
+	 *
 	 * @param httpCallBack
 	 * @param context
 	 */
@@ -687,13 +711,13 @@ public class HttpControl {
 		BasehttpSend(map, context, HttpConstants.METHOD_BUYER_GET_STORE_LIST,
 				httpCallBack, StoreListBackBean.class, refresh, canCancle);
 	}
-	
+
 	/**
 	 * 货款管理信息
-	 * 
-	 * @param bean
 	 * @param httpCallBack
 	 * @param context
+	 * @param refresh
+	 * @param canCancle
 	 */
 	public void getHuoKuanManagerInfo(final HttpCallBackInterface httpCallBack,
 			Context context, boolean refresh, boolean canCancle) {
@@ -702,13 +726,15 @@ public class HttpControl {
 				httpCallBack, HuoKuanManagerBackBean.class, refresh, canCancle);
 	}
 
-	
+
 	/**
 	 * 货款管理列表
-	 * 
-	 * @param bean
+	 * @param page
+	 * @param status
 	 * @param httpCallBack
 	 * @param context
+	 * @param refresh
+	 * @param canCancle
 	 */
 	public void getHuoKuanList(int page,String status,final HttpCallBackInterface httpCallBack,
 			Context context, boolean refresh, boolean canCancle) {
@@ -720,19 +746,13 @@ public class HttpControl {
 				httpCallBack, HuoKuanListBackBean.class, refresh, canCancle);
 	}
 
-	
-	
+
 	/**
 	 * 申请认证买手的接口
-	 * 
+	 * @param bean
 	 * @param httpCallBack
-	 *            HttpCallBackInterface 回调接口
 	 * @param context
-	 *            Context
-	 * @param Id
-	 *            int
-	 * @return void
-	 * **/
+	 */
 	public void getAppliyAuthBuyer(ApplyAuthBuyerBean bean,
 			final HttpCallBackInterface httpCallBack, Context context) {
 		String responsejsonstr = BaseGsonUtils.getObjectToJson(bean);
@@ -740,23 +760,20 @@ public class HttpControl {
 			httpCallBack.http_Fails(500, "发送数据错误");
 		}
 		//basehttpSendToJson(responsejsonstr, null, context,HttpConstants.METHOD_BUYER_CREATE_AUTH_BUYER, httpCallBack,BaseRequest.class, true, false);
-		basehttpSendToJson(responsejsonstr, null, context,HttpConstants.METHOD_BUYER_CREATE_AUTH_BUYER, httpCallBack,BaseRequest.class, true, false);
+		basehttpSendToJson(responsejsonstr, null, context, HttpConstants.METHOD_BUYER_CREATE_AUTH_BUYER, httpCallBack, BaseRequest.class, true, false);
 	}
 
-	
-	
-	
+
 	/**
 	 * 获取买手在线商品列表（买手）
-	 * 
+	 * @param page
+	 * @param pageSize
+	 * @param status
 	 * @param httpCallBack
-	 *            HttpCallBackInterface 回调接口
 	 * @param context
-	 *            Context
-	 * @param Id
-	 *            int
-	 * @return void
-	 * **/
+	 * @param refresh
+	 * @param canCancle
+	 */
 	public void getBuyerProductListForOnLine(String page, String pageSize,
 			int status, final HttpCallBackInterface httpCallBack,
 			Context context, boolean refresh, boolean canCancle) {
@@ -776,8 +793,6 @@ public class HttpControl {
 	 *            HttpCallBackInterface 回调接口
 	 * @param context
 	 *            Context
-	 * @param Id
-	 *            int
 	 * @return void
 	 * **/
 	public void setProductOnLineOrOffLine(String id, int status,
@@ -820,8 +835,6 @@ public class HttpControl {
 	 *            HttpCallBackInterface 回调接口
 	 * @param context
 	 *            Context
-	 * @param Id
-	 *            int
 	 * @return void
 	 * **/
 	public void deleteProduct(String id,
@@ -1441,8 +1454,7 @@ public class HttpControl {
 	
 	/**
 	 * 获取败家订单详情
-	 * 
-	 * @param OrderNo String 订单号
+	 *
 	 * @return void
 	 * **/
 	public void getBaijiaOrderDetails(String orderNo,boolean showDialog, final HttpCallBackInterface httpCallBack,
@@ -1456,8 +1468,7 @@ public class HttpControl {
 	
 	/**
 	 * 败家  获取用户是否可以养家等操作
-	 * 
-	 * @param OrderNo String 订单号
+	 *
 	 * @return void
 	 * **/
 	public void getCheckBuyerStatus(boolean showDialog, final HttpCallBackInterface httpCallBack,Context context) {
@@ -1727,8 +1738,6 @@ public class HttpControl {
 	 *            int 当前页
 	 * @param pageSize
 	 *            int 条数
-	 * @param CityId
-	 *            int 城市编号 int 条数
 	 * @return void
 	 * **/
 	public void getMyFavoriteProductList(int currPage, int pageSize,boolean showDialog, final HttpCallBackInterface httpCallBack,Context context) {
@@ -1746,7 +1755,6 @@ public class HttpControl {
 	 * @param userid int 用户id
 	 * @param currPage int 当前页
 	 * @param pageSize int 条数
-	 * @param CityId int 城市编号 int 条数
 	 * @return void
 	 * **/
 	public void getUserFavoriteProductList(int userid,int currPage, int pageSize,boolean showDialog, final HttpCallBackInterface httpCallBack,Context context) {
@@ -1799,7 +1807,6 @@ public class HttpControl {
 	
 	/**
 	 *  分享商品
-	 * @param  parentshareid int  此分享的父分享编号 可空
      * @param  productid int  商品编号
 	 * @param httpCallBack HttpCallBackInterface 回调接口
 	 * @param context  Context
@@ -1815,7 +1822,6 @@ public class HttpControl {
 	
 	/**
 	 *  现金分享 分享订单分享订单可获得红包
-	 * @param  ParentShareId int  分享来源的分享编号 可为空
      * @param  OrderNo String  商品编号
 	 * @param httpCallBack HttpCallBackInterface 回调接口
 	 * @param context  Context
@@ -1876,7 +1882,6 @@ public class HttpControl {
 	 * 
 	 * @param httpCallBack HttpCallBackInterface 回调接口
 	 * @param context  Context
-	 * @param FavoriteId  被关注的人的Id
 	 * @param Status   1表示关注   0表示取消关注
 	 * @return void
 	 * **/
@@ -1892,8 +1897,7 @@ public class HttpControl {
 
 	/********
 	 * 基础Http传递json数据通用类
-	 * 
-	 * @param isaddData boolean 是否在签名中 加载数据 true是 false否
+	 *
 	 * @param responsejsonstr
 	 *            String JSON类型数据
 	 * @param map
@@ -2083,8 +2087,7 @@ public class HttpControl {
 	 *            Map<String, String> 上传的参数 k-V
 	 * @param method
 	 *            String 方法名
-	 * @param requestCallBack
-	 *            RequestCallBack<T> 回调
+
 	 * @param classzz
 	 *            Class<T> 泛型即相应成功后 返回的对象类型<T extends BaseRequest> 且
 	 *            只能是BaseRequest 或 BaseRequest的 子类
@@ -2213,13 +2216,9 @@ public class HttpControl {
 	 *            String json类型的字符串
 	 * @param map
 	 *            Map<String, String> 传递的参数
-	 * @param RequestParams
-	 *            params传输的 数据
 	 * @param context
 	 *            Context
 	 * @param method
-	 *            String 方法名
-	 * @param requestCallBack
 	 *            RequestCallBack<T> 回调
 	 * @param httpRequestDataInterface
 	 *            HttpRequestDataInterface http接口
@@ -2492,11 +2491,7 @@ public class HttpControl {
 
 	/**
 	 * 微信登录
-	 * 
-	 * @param phone
-	 *            String手机号码
-	 * @param password
-	 *            String 密码
+	 *
 	 * @param httpCallBack
 	 *            HttpCallBackInterface回调接口
 	 * @param context
@@ -2518,10 +2513,7 @@ public class HttpControl {
 	/**
 	 * 绑定微信
 	 * 
-	 * @param phone
-	 *            String手机号码
-	 * @param password
-	 *            String 密码
+
 	 * @param httpCallBack
 	 *            HttpCallBackInterface回调接口
 	 * @param context
@@ -2543,10 +2535,7 @@ public class HttpControl {
 	/**
 	 * 
 	 * 
-	 * @param phone
-	 *            String手机号码
-	 * @param password
-	 *            String 密码
+
 	 * @param httpCallBack
 	 *            HttpCallBackInterface回调接口
 	 * @param context
@@ -2567,10 +2556,7 @@ public class HttpControl {
 	/**
 	 * 绑定手机号
 	 * 
-	 * @param phone
-	 *            String手机号码
-	 * @param password
-	 *            String 密码
+
 	 * @param httpCallBack
 	 *            HttpCallBackInterface回调接口
 	 * @param context
