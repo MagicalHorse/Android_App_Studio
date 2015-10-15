@@ -613,7 +613,7 @@ public class HttpControl {
 		map.put(Constants.CITYID,cityId);
 		map.put(Constants.KEY,key);
 		BasehttpSend(map, context, HttpConstants.METHOD_GET_PRODUCT_BY_KEY,
-				httpCallBack, BrandDetailInfoBean.class, true, false);
+				httpCallBack, RequestProductListInfoBean.class, true, false);
 
 	}
 

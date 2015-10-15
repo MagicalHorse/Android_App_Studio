@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="main_bg">#E9EDF1</color>
+	<color name="main_bg">#F1F1F1</color>
     <color name="common_top_bar_blue">#4ebcd3</color>
     <color name="btn_login_normal">#007086</color>
     <color name="btn_login_pressed">#303744</color>
@@ -34,7 +34,7 @@
     <color name="gray_normal">#666667</color>
     <color name="grid_state_pressed">#1Affffff</color>
     <color name="grid_state_focused">#80000000</color>
-    <color name="top_bg">#ebeef0</color>
+    <color name="top_bg">#FCFBFB</color>
     <color name="white">#ffffff</color>
     <color name="order_dialog_bg">#66333333</color>
     <color name="choose_eara_item_press_color">#f4f4f4</color>

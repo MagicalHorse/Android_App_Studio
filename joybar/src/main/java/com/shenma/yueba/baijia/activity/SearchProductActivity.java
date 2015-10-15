@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.SearchHistoryAdapter;
+import com.shenma.yueba.baijia.modle.RequestProductListInfoBean;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.SharedUtil;
@@ -83,20 +84,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
 
 
 
-    private void getProductListByKey(){
-        HttpControl httpControl = new HttpControl();
-        httpControl.getProductListByKey(new HttpControl.HttpCallBackInterface() {
-            @Override
-            public void http_Success(Object obj) {
 
-            }
-
-            @Override
-            public void http_Fails(int error, String msg) {
-
-            }
-        },mContext,et_search.getText().toString(),SharedUtil.getCurrentCityId(mContext),"1","0");
-    }
 
     @Override
     protected void onResume() {
@@ -132,6 +120,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                         allList.add(et_search.getText().toString().trim());
                     }else if(et_search.getText().toString().trim().contains(",")){
                         Toast.makeText(SearchProductActivity.this,"搜索内容不能包含分号",Toast.LENGTH_SHORT).show();
+                        break;
                     }else{
                         if(!allList.contains(et_search.getText().toString().trim())){
                             if(allList.size()<10){
@@ -158,9 +147,10 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                             }
                             SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
                         }
-
                 }
-                getProductListByKey();
+                Intent intent = new Intent(mContext,SearchProductResultActivity.class);
+                intent.putExtra("key",et_search.getText().toString().trim());
+                startActivity(intent);
                 break;
             case R.id.bt_delete:
                 et_search.setText("");

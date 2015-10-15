@@ -15,6 +15,7 @@
         android:visibility="gone" />
     <!-- 无数据视图 -->
 
-    <include layout="@layout/nodata_layout" />
+    <include layout="@layout/nodata_layout"
+        />
 
 </RelativeLayout>
