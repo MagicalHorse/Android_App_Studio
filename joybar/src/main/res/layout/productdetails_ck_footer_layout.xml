@@ -19,11 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/approvebuyerdetails_layout_siliao_linerlayout_textview"
                 android:layout_width="55dp"
                 android:layout_height="wrap_content"
@@ -35,13 +34,14 @@
 
             <TextView
                 android:id="@+id/approvebuyerdetails_layout_shoucang_linerlayout_textview"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:drawableLeft="@drawable/collect_backgroud"
+                android:drawablePadding="3dip"
+                android:drawableTop="@drawable/collect_backgroud"
                 android:gravity="center"
                 android:text="收藏"
-                android:textSize="15dip" />
+                android:textSize="@dimen/textsize12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,7 +68,7 @@
                 android:layout_margin="1dip"
                 android:background="@drawable/nowbuy_background"
                 android:gravity="center"
-                android:text="我要买"
+                android:text="@string/shop_buy_str"
                 android:textColor="@color/white"
                 android:textSize="15dip"
                 android:visibility="visible" />

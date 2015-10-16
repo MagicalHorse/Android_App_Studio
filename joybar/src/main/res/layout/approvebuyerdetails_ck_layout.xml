@@ -76,7 +76,7 @@
     </com.shenma.yueba.view.scroll.MyScrollView>
 
     <include
-        layout="@layout/productdetails_footer_layout"
+        layout="@layout/productdetails_ck_footer_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

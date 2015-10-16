@@ -66,7 +66,7 @@ public class MyScrollView extends ScrollView {
         }
     }
 
-    @Override
+    /*@Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (onScrollListener != null) {
             onScrollListener.onScroll(lastScrollY = this.getScrollY());
@@ -78,7 +78,7 @@ public class MyScrollView extends ScrollView {
         }
 
         return super.onTouchEvent(ev);
-    }
+    }*/
 
 
     private Handler handler = new Handler() {

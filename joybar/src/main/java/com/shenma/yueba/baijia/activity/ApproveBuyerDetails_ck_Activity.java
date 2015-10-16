@@ -828,7 +828,6 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
 
         approvebuyerdetails_srcollview.smoothScrollTo(0, 0);
         footer_right_linerlayout.setVisibility(View.VISIBLE);
-        approvebuyerbuybutton.setText(this.getResources().getString(R.string.shop_buy_str));
         approvebuyerbuybutton.setVisibility(View.VISIBLE);
         approvebuyerdetails_layout_siliao_linerlayout_textview.setVisibility(View.VISIBLE);
         ll_footer.setVisibility(View.VISIBLE);
