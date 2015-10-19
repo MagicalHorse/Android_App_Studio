@@ -1,9 +1,11 @@
 package com.shenma.yueba.baijia.activity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -36,6 +38,7 @@ import com.shenma.yueba.baijia.adapter.ProductColorTypeAdapter;
 import com.shenma.yueba.baijia.adapter.ProductSPECAdapter;
 import com.shenma.yueba.baijia.adapter.ScrollViewPagerAdapter;
 import com.shenma.yueba.baijia.fragment.ProductExtTab1Fragment;
+import com.shenma.yueba.baijia.modle.CKProductDeatilsInfoBean;
 import com.shenma.yueba.baijia.modle.FragmentBean;
 import com.shenma.yueba.baijia.modle.LikeUsersInfoBean;
 import com.shenma.yueba.baijia.modle.ProductColorTypeBean;
@@ -44,7 +47,8 @@ import com.shenma.yueba.baijia.modle.ProductsDetailsInfoBean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsPromotion;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagsInfo;
-import com.shenma.yueba.baijia.modle.RequestProductDetailsInfoBean;
+import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
+import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
 import com.shenma.yueba.baijia.modle.UsersInfoBean;
 import com.shenma.yueba.baijia.view.TabViewpagerManager;
 import com.shenma.yueba.util.FontManager;
@@ -93,7 +97,7 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
     HttpControl httpControl = new HttpControl();
     RelativeLayout appprovebuyer_viewpager_relativelayout;
     // 商品信息对象
-    ProductsDetailsInfoBean Data;
+    CKProductDeatilsInfoBean Data;
     // 头像
     RoundImageView approvebuyerdetails_icon_imageview;
     // 私聊
@@ -107,7 +111,7 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
     List<View> viewlist = new ArrayList<View>();
     LinearLayout approvebuyerdetails_closeingtime_linearlayout;
     Timer timer;
-    RequestProductDetailsInfoBean bean;
+    RequestCKProductDeatilsInfo bean;
     LinearLayout ll_attentionpeople_contener;
     MyGridView product_spec_layout_colortype_mygridview;//颜色的分类
     ProductColorTypeAdapter productColorTypeAdapter;//颜色分类的 适配器
@@ -134,7 +138,8 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
     int myScrollViewTop;//scrollY轴滑动的距离
     int buyLayoutHeight;
     int buyLayoutTop;
-
+    RequestCk_SPECDetails requestCk_SPECDetails;//产品的颜色规格信息对象
+    boolean isSucess = false;//是否加载完成
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +153,7 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
             this.finish();
             return;
         }
-        // productID = 12947;
+        productID = 13430;
         initViews();
         initData();
         setFont();
@@ -167,6 +172,12 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
     }
 
     private void initViews() {
+        //设置隐藏 喜欢人的列表
+        View approvebuyerdetails_attention_linearlayout = findViewById(R.id.approvebuyerdetails_attention_linearlayout);
+        approvebuyerdetails_attention_linearlayout.setVisibility(View.GONE);
+        //隐藏 只支持字体的文字
+        View approvebuyerdatails_layout_desc1_textview = findViewById(R.id.approvebuyerdatails_layout_desc1_textview);
+        approvebuyerdatails_layout_desc1_textview.setVisibility(View.GONE);
         product_head_include = (RelativeLayout) findViewById(R.id.product_head_include);
         TextView tv_top_left = (TextView) findViewById(R.id.tv_top_left);
         tv_top_left.setVisibility(View.VISIBLE);
@@ -306,14 +317,7 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("TAG", "onItemSelected position=" + position);
-                for (int i = 0; i < colortypelist.size(); i++) {
-                    colortypelist.get(i).setIsChecked(false);
-                }
-                ProductColorTypeBean bean = colortypelist.get(position);
-                bean.setIsChecked(true);
-                if (productColorTypeAdapter != null) {
-                    productColorTypeAdapter.notifyDataSetChanged();
-                }
+                setSpecColorOnCheck(position);
             }
         });
 
@@ -327,16 +331,8 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         product_spec_layout_dimentype_mygridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setSpecdimentOnCheck(position);
                 Log.i("TAG", "onItemSelected position=" + position);
-                for (int i = 0; i < spectypelist.size(); i++) {
-                    spectypelist.get(i).setIschecked(false);
-                }
-                ProductSPECbean bean = spectypelist.get(position);
-                bean.setIschecked(true);
-                if (productSPECAdapter != null) {
-                    productSPECAdapter.notifyDataSetChanged();
-                }
-                isTextButtonEnable();
             }
         });
 
@@ -419,100 +415,66 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
             }
         });
 
-        /*********************
-         *  备注信息等 设置
-         * ************************/
-        tab_list.add(new FragmentBean("图片详情", -1, new ProductExtTab1Fragment()));
-        tab_list.add(new FragmentBean("尺码参考", -1, new ProductExtTab1Fragment()));
-        tab_list.add(new FragmentBean("售后服务", -1, new ProductExtTab1Fragment()));
-
-        approvebuydetails_ck_bak_viewpager = (CustomViewPager) findViewById(R.id.approvebuydetails_ck_bak_viewpager);
-
-        ViewTreeObserver vto2 = approvebuydetails_ck_bak_viewpager.getViewTreeObserver();
-        vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                calculateContactHeight();
-            }
-        });
-
-
-        approvebuydetails_ck_bak_viewpager.setOffscreenPageLimit(2);
-
-
-        /************
-         * 悬浮TAB切换视图
-         * *********/
-        approvebuydetails_ck_suspensiontab_bak_linearlayout = (LinearLayout) findViewById(R.id.approvebuydetails_ck_suspensiontab_bak_linearlayout);
-        approvebuydetails_ck_suspensiontab_bak_linearlayout_view = (View) findViewById(R.id.approvebuydetails_ck_suspensiontab_bak_linearlayout_view);
-        suspenstabViewpagerManager = new TabViewpagerManager(this, tab_list, approvebuydetails_ck_suspensiontab_bak_linearlayout, approvebuydetails_ck_bak_viewpager);
-        suspenstabViewpagerManager.setTabOnClickListener(new TabViewpagerManager.TabOnClickListener()
-        {
-
-            @Override
-            public void onTabClick(int i) {
-                scrollToxy();
-            }
-        });
-        suspenstabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(), null);
-        suspenstabViewpagerManager.setCurrView(0);
-
-        /************
-         * TAB切换视图
-         * *********/
-        approvebuydetails_ck_tab_bak_linearlayout = (LinearLayout) findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout);
-        approvebuydetails_ck_tab_bak_linearlayout_view = (View) findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout_view);
-        tabViewpagerManager = new TabViewpagerManager(this, tab_list, approvebuydetails_ck_tab_bak_linearlayout, approvebuydetails_ck_bak_viewpager);
-        tabViewpagerManager.setTabOnClickListener(new TabViewpagerManager.TabOnClickListener()
-        {
-
-            @Override
-            public void onTabClick(int i) {
-                scrollToxy();
-            }
-        });
-        tabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(), null);
-        tabViewpagerManager.setCurrView(0);
-        approvebuydetails_ck_bak_viewpager.setOnPageChangeListener(new OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                suspenstabViewpagerManager.setCurrView(position);
-                tabViewpagerManager.setCurrView(position);
-                View view = approvebuydetails_ck_bak_viewpager.getChildAt(position);
-                Log.i("TAG", "onPageSelected position:" + position);
-                if (view != null) {
-                    int height = view.getMeasuredHeightAndState();
-                    LayoutParams layoutParams = (LinearLayout.LayoutParams) approvebuydetails_ck_bak_viewpager.getLayoutParams();
-                    layoutParams.height = height;
-                    Log.i("TAG", "onPageSelected height:" + height);
-                    /*int smollHeight = calculateContactHeight();
-                    if (height < smollHeight) {
-                        layoutParams.height = smollHeight;
-                    }*/
-                    approvebuydetails_ck_bak_viewpager.setLayoutParams(layoutParams);
-                }
-                approvebuydetails_ck_bak_viewpager.invalidate();
-                scrollToxy();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-
         /*************
          * 购买按钮
          * **************/
         ll_footer = (LinearLayout) findViewById(R.id.ll_footer);
 
     }
+
+
+    /**********
+     * 设置当前选中的颜色
+     ************/
+    void setSpecColorOnCheck(int position) {
+        if (colortypelist != null) {
+            for (int i = 0; i < colortypelist.size(); i++) {
+                colortypelist.get(i).setIsChecked(false);
+            }
+            if (position <= colortypelist.size() - 1) {
+                ProductColorTypeBean bean = colortypelist.get(position);
+                bean.setIsChecked(true);
+                //根据选择的颜色 设置尺寸
+                spectypelist.clear();
+                ;
+                spectypelist.addAll(bean.getSize());
+
+            }
+
+        }
+        if (productColorTypeAdapter != null) {
+            productColorTypeAdapter.notifyDataSetChanged();
+        }
+        if (productSPECAdapter != null) {
+            productSPECAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+
+    /**********
+     * 设置当前选中的规格
+     ************/
+    void setSpecdimentOnCheck(int position) {
+        if (spectypelist != null) {
+            for (int i = 0; i < spectypelist.size(); i++) {
+                spectypelist.get(i).setIschecked(false);
+            }
+            if (position <= spectypelist.size() - 1) {
+                ProductSPECbean bean = spectypelist.get(position);
+                bean.setIschecked(true);
+
+                product_spec_layout_stockvalue_textview.setText(Integer.toString(bean.getInventory()));
+                isTextButtonEnable();
+            }
+
+        }
+        if (productSPECAdapter != null) {
+            productSPECAdapter.notifyDataSetChanged();
+        }
+
+    }
+
 
     @Override
     protected void onStart() {
@@ -593,9 +555,12 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
     }
 
 
+    /*******
+     * 跳转到订单确认页面
+     ****/
     void startChatActivity() {
-        if (!MyApplication.getInstance().isUserLogin(
-                ApproveBuyerDetails_ck_Activity.this)) {
+        //如果 用户没有登录 或者 当前页面的数据没有加载完成 则直接返回
+        if (!MyApplication.getInstance().isUserLogin(ApproveBuyerDetails_ck_Activity.this) || !isSucess) {
             return;
         }
         if (bean != null) {
@@ -604,7 +569,7 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
 			intent.putExtra("toUser_id", bean.getData().getBuyerId());// 私聊的话需要传对方id
 			intent.putExtra("DATA", bean);
 			startActivity(intent);*/
-            ToolsUtil.forwardChatActivity(ApproveBuyerDetails_ck_Activity.this, bean.getData().getBuyerName(), bean.getData().getBuyerId(), 0, null, bean);
+            //ToolsUtil.forwardChatActivity(ApproveBuyerDetails_ck_Activity.this, bean.getData().getBuyerName(), bean.getData().getBuyerId(), 0, null, bean);
         }
     }
 
@@ -626,14 +591,14 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
 
     // 加载数据
     public void initData() {
-        httpControl.getMyBuyerProductDetails(productID,
+        httpControl.getCkrProductDetails(productID,
                 new HttpCallBackInterface() {
 
                     @Override
                     public void http_Success(Object obj) {
                         if (obj != null
-                                && obj instanceof RequestProductDetailsInfoBean) {
-                            bean = (RequestProductDetailsInfoBean) obj;
+                                && obj instanceof RequestCKProductDeatilsInfo) {
+                            bean = (RequestCKProductDeatilsInfo) obj;
                             if (bean.getData() == null) {
                                 http_Fails(500, "商品信息不存在");
                                 ApproveBuyerDetails_ck_Activity.this.finish();
@@ -641,6 +606,8 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
                             }
                             Data = bean.getData();
                             setDatValue();
+                            //获取商品规格信息
+                            getCkrProductSPECDetails();
                         }
 
                     }
@@ -654,31 +621,172 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
                 }, ApproveBuyerDetails_ck_Activity.this);
     }
 
+
+    /**********
+     * 获取商品规格信息
+     ******/
+    void getCkrProductSPECDetails() {
+        httpControl.getCkrProductSPECDetails(productID, new HttpCallBackInterface() {
+            @Override
+            public void http_Success(Object obj) {
+                if (obj instanceof RequestCk_SPECDetails) {
+                    requestCk_SPECDetails = (RequestCk_SPECDetails) obj;
+                    setPSECValue();//设置规格尺寸数据
+                }
+            }
+
+            @Override
+            public void http_Fails(int error, String msg) {
+
+            }
+        }, this, true, true);
+    }
+
+
+    /***************
+     * 设置 产品的 颜色 规格尺寸
+     **************/
+    void setPSECValue() {
+        if (requestCk_SPECDetails == null || requestCk_SPECDetails.getData() == null) {
+            return;
+        } else {
+            colortypelist.clear();
+            colortypelist.addAll(requestCk_SPECDetails.getData());
+            if (colortypelist != null && colortypelist.size() > 0) {
+                for (int i = 0; i < colortypelist.size(); i++) {
+                    ProductColorTypeBean productColorTypeBean = colortypelist.get(i);
+                    if (productColorTypeBean.getSize() != null && productColorTypeBean.getSize().size() > 0) {
+                        for (int j = 0; i < productColorTypeBean.getSize().size(); j++) {
+                            ProductSPECbean productSPECbean = productColorTypeBean.getSize().get(j);
+                            if (productSPECbean.getInventory() > 0) {
+                                setSpecColorOnCheck(i);
+                                setSpecdimentOnCheck(j);
+                                isSucess = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    /********
+     * 根据类型 返回 对应视图的fragment
+     ***/
+    Fragment getFragment(ProductExtTab1Fragment.Type type) {
+        ProductExtTab1Fragment productExtTab1Fragment = new ProductExtTab1Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ProductDetails_data", bean);
+        bundle.putSerializable("type", type);
+        productExtTab1Fragment.setArguments(bundle);
+        return productExtTab1Fragment;
+    }
+
+    /***********
+     * 初始化 tab 视图与Fragment的信息
+     ****/
+    void initTabView() {
+        tab_list.add(new FragmentBean("图片详情", -1, getFragment(ProductExtTab1Fragment.Type.Img_details)));
+        tab_list.add(new FragmentBean("尺码参考", -1, getFragment(ProductExtTab1Fragment.Type.Size_explare)));
+        tab_list.add(new FragmentBean("售后服务", -1, getFragment(ProductExtTab1Fragment.Type.Aftermarket_Server)));
+
+
+        /*********************
+         *  备注信息等 设置
+         * ************************/
+        approvebuydetails_ck_bak_viewpager = (CustomViewPager) findViewById(R.id.approvebuydetails_ck_bak_viewpager);
+
+        ViewTreeObserver vto2 = approvebuydetails_ck_bak_viewpager.getViewTreeObserver();
+        vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                calculateContactHeight();
+            }
+        });
+
+
+        approvebuydetails_ck_bak_viewpager.setOffscreenPageLimit(2);
+
+
+        /************
+         * 悬浮TAB切换视图
+         * *********/
+        approvebuydetails_ck_suspensiontab_bak_linearlayout = (LinearLayout) findViewById(R.id.approvebuydetails_ck_suspensiontab_bak_linearlayout);
+        approvebuydetails_ck_suspensiontab_bak_linearlayout_view = (View) findViewById(R.id.approvebuydetails_ck_suspensiontab_bak_linearlayout_view);
+        suspenstabViewpagerManager = new TabViewpagerManager(this, tab_list, approvebuydetails_ck_suspensiontab_bak_linearlayout, approvebuydetails_ck_bak_viewpager);
+        suspenstabViewpagerManager.setTabOnClickListener(new TabViewpagerManager.TabOnClickListener() {
+
+            @Override
+            public void onTabClick(int i) {
+                scrollToxy();
+            }
+        });
+        suspenstabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(), null);
+        suspenstabViewpagerManager.setCurrView(0);
+
+        /************
+         * TAB切换视图
+         * *********/
+        approvebuydetails_ck_tab_bak_linearlayout = (LinearLayout) findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout);
+        approvebuydetails_ck_tab_bak_linearlayout_view = (View) findViewById(R.id.approvebuydetails_ck_tab_bak_linearlayout_view);
+        tabViewpagerManager = new TabViewpagerManager(this, tab_list, approvebuydetails_ck_tab_bak_linearlayout, approvebuydetails_ck_bak_viewpager);
+        tabViewpagerManager.setTabOnClickListener(new TabViewpagerManager.TabOnClickListener() {
+
+            @Override
+            public void onTabClick(int i) {
+                scrollToxy();
+            }
+        });
+        tabViewpagerManager.initFragmentViewPager(getSupportFragmentManager(), null);
+        tabViewpagerManager.setCurrView(0);
+        approvebuydetails_ck_bak_viewpager.setOnPageChangeListener(new OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                suspenstabViewpagerManager.setCurrView(position);
+                tabViewpagerManager.setCurrView(position);
+                View view = approvebuydetails_ck_bak_viewpager.getChildAt(position);
+                Log.i("TAG", "onPageSelected position:" + position);
+                if (view != null) {
+                    int height = view.getMeasuredHeightAndState();
+                    LayoutParams layoutParams = (LinearLayout.LayoutParams) approvebuydetails_ck_bak_viewpager.getLayoutParams();
+                    layoutParams.height = height;
+                    Log.i("TAG", "onPageSelected height:" + height);
+                    /*int smollHeight = calculateContactHeight();
+                    if (height < smollHeight) {
+                        layoutParams.height = smollHeight;
+                    }*/
+                    approvebuydetails_ck_bak_viewpager.setLayoutParams(layoutParams);
+                }
+                approvebuydetails_ck_bak_viewpager.invalidate();
+                scrollToxy();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        if (customPagerAdapter != null) {
+            customPagerAdapter.notifyDataSetChanged();
+        }
+
+    }
+
     /*****
-     * 设置数据
+     * 设置商品基础数据
      ****/
     void setDatValue() {
-        /*******
-         * 设置 颜色类型值
-         * ******/
-        for (int i = 0; i < 10; i++) {
-            colortypelist.add(new ProductColorTypeBean());
-        }
 
-        if (productColorTypeAdapter != null) {
-            productColorTypeAdapter.notifyDataSetChanged();
-        }
-        /******
-         * 设置规格类型值
-         * ***/
-
-        for (int i = 0; i < 10; i++) {
-            spectypelist.add(new ProductSPECbean());
-        }
-        if (productSPECAdapter != null) {
-            productSPECAdapter.notifyDataSetChanged();
-        }
-
+        initTabView();
 
         // 自提地址
         String address = ToolsUtil.nullToString(Data.getPickAddress());
@@ -702,17 +810,30 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         initPic(usericon, approvebuyerdetails_icon_imageview);
         // 自提地址
         setdataValue(R.id.approvebuyerdetails_addressvalue_textview, address);
+        //隐藏提货地址
+        View approvebuyerdetails_addressvalue_textview = findViewById(R.id.approvebuyerdetails_addressvalue_textview);
+        //approvebuyerdetails_addressvalue_textview.setVisibility(View.GONE);
+        View approvebuyerdetails_address_textview = findViewById(R.id.approvebuyerdetails_address_textview);
+        //approvebuyerdetails_address_textview.setVisibility(View.GONE);
 
         setdataValue(R.id.approvebuyerdetails_name_textview, username);
         // 金额
         setdataValue(R.id.approvebuyerdetails_price_textview,
                 "￥" + Double.toString(price));
+        //吊牌价
+        setdataValue(R.id.hangtag_price_textview, "￥" + Double.toString(Data.getUnitPrice()));
+        TextView hangtag_price_textview = (TextView) findViewById(R.id.hangtag_price_textview);
+        hangtag_price_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        hangtag_price_textview.setVisibility(View.VISIBLE);
+
         // 商品名称
         setdataValue(R.id.approvebuyerdetails_producename_textview, productName);
         //title名字
         TextView tv_top_title = (TextView) findViewById(R.id.tv_top_title);
         tv_top_title.setText("商品详情");
         tv_top_title.setVisibility(View.VISIBLE);
+        //设置服务描述
+        setdataValue(R.id.product_spec_layout_serve_textview, "服务:" + ToolsUtil.nullToString(Data.getStoreService()));
 
 
         LikeUsersInfoBean likeUsersInfoBean = Data.getLikeUsers();
@@ -1089,11 +1210,10 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
     /****
      * 提交收藏与取消收藏商品
      *
-     * @param type              int 0表示取消收藏 1表示收藏
-     * @param brandCityWideInfo BrandCityWideInfo 商品对象
+     * @param Status int 0表示取消收藏 1表示收藏
+     * @param bean   ProductsDetailsInfoBean 商品对象
      **/
-    void submitAttention(final int Status, final ProductsDetailsInfoBean bean,
-                         final View v) {
+    void submitAttention(final int Status, final ProductsDetailsInfoBean bean, final View v) {
         httpControl.setFavor(bean.getProductId(), Status,
                 new HttpCallBackInterface() {
 

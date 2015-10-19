@@ -81,7 +81,7 @@ public class ShopMainFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.activity = activity;
-        userID = activity.getIntent().getIntExtra("userID", -1);
+        userID = getArguments().getInt("userID", -1);
         layoutInflater = LayoutInflater.from(activity);
         fragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
     }

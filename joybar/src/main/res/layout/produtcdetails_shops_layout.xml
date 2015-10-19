@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:text="ONLY"
+            android:text=""
             android:textColor="@color/color_deeoyellow" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right|center_vertical"
-            android:text="北京" />
+            android:text="" />
     </LinearLayout>
 
     <View style="@style/style_horizontal_line" />
@@ -66,7 +66,7 @@
                 android:layout_weight="1"
                 android:gravity="left|bottom"
                 android:singleLine="true"
-                android:text="神马"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/textsize15sp" />
 
@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="地址"
+                    android:text=""
                     android:textSize="@dimen/textsize13sp" />
             </LinearLayout>
 

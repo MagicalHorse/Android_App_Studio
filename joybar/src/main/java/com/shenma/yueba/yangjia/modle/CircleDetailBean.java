@@ -9,6 +9,17 @@ public class CircleDetailBean {
 	private String MemberCount;
 	boolean IsOwer=false; // 是否为创建者
 	boolean IsMember=false; // 是否已经加入圈子
+	String GroupId;//圈子id
+
+	public String getGroupId() {
+		return GroupId;
+	}
+
+	public void setGroupId(String groupId) {
+		GroupId = groupId;
+	}
+
+
 
 	public boolean isIsOwer() {
 		return IsOwer;

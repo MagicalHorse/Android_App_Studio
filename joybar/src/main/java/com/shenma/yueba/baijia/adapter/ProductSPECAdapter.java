@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.modle.ProductSPECbean;
+import com.shenma.yueba.util.ToolsUtil;
 
 import java.util.List;
 
@@ -45,8 +46,8 @@ public class ProductSPECAdapter extends BaseAdapter {
             convertView= LayoutInflater.from(activity).inflate(R.layout.productspectype_layout,null);
         }
         TextView tv=(TextView)convertView.findViewById(R.id.layout_spec_textview);
-        tv.setText("X");
         ProductSPECbean speCbean=bean.get(position);
+        tv.setText(ToolsUtil.nullToString(speCbean.getSizeName()));
         if(speCbean.ischecked())
         {
             tv.setSelected(true);

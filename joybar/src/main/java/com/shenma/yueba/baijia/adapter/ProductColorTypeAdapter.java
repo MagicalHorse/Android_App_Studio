@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
+import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.ProductColorTypeBean;
+import com.shenma.yueba.util.ToolsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +67,8 @@ public class ProductColorTypeAdapter extends BaseAdapter {
     void setValue(Holder holder,int position)
     {
         ProductColorTypeBean productColorTypeBean= bean.get(position);
+        MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(productColorTypeBean.getPic()),holder.iv,MyApplication.getInstance().getDisplayImageOptions());
+        holder.tv.setText(ToolsUtil.nullToString(productColorTypeBean.getColorName()));
         if(productColorTypeBean.isChecked())
         {
             holder.iv.setSelected(true);

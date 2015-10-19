@@ -53,6 +53,8 @@ import com.shenma.yueba.baijia.modle.RequestBrandCityWideInfoBean;
 import com.shenma.yueba.baijia.modle.RequestBrandInfoBean;
 import com.shenma.yueba.baijia.modle.RequestBrandInfoInfoBean;
 import com.shenma.yueba.baijia.modle.RequestBrandSearchInfoBean;
+import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
+import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
 import com.shenma.yueba.baijia.modle.RequestComputeAmountInfoBean;
 import com.shenma.yueba.baijia.modle.RequestCreatOrderInfoBean;
 import com.shenma.yueba.baijia.modle.RequestImMessageInfoBean;
@@ -1020,8 +1022,42 @@ public class HttpControl {
 				httpCallBack, RequestProductDetailsInfoBean.class, true, false);
 	}
 
-	
-	
+
+	/**
+	 * 获取专柜商品信息详情(获取商品详情(败家))
+	 *
+	 * @param httpCallBack  HttpCallBackInterface 回调接口
+	 * @param context  Context
+	 * @param productId int商品编号
+	 * @return void
+	 * **/
+	public void getCkrProductDetails(int productId, final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("productId", Integer.toString(productId));
+		map.put("UserId", ToolsUtil.nullToString(SharedUtil.getStringPerfernece(context, SharedUtil.user_id)));
+		BasehttpSend(map, context, HttpConstants.METHOD_CK_PRODUCTMANAGER_DETAIL,
+				httpCallBack, RequestCKProductDeatilsInfo.class, true, false);
+	}
+
+
+	/**
+	 * 获取专柜商品规格信息详情(获取商品详情(败家))
+	 *
+	 * @param httpCallBack  HttpCallBackInterface 回调接口
+	 * @param context  Context
+	 * @param productId int商品编号
+	 * @param isshow boolean 是否显示等待对话框
+	 * @param iscancel boolean 是否可以取消对话框
+	 * @return void
+	 * **/
+	public void getCkrProductSPECDetails(int productId, final HttpCallBackInterface httpCallBack, Context context,final boolean isshow,final boolean iscancel) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("productId", Integer.toString(productId));
+		map.put("UserId", ToolsUtil.nullToString(SharedUtil.getStringPerfernece(context, SharedUtil.user_id)));
+		BasehttpSend(map, context, HttpConstants.METHOD_CK_SPEC_PRODUCTMANAGER_DETAIL,
+				httpCallBack, RequestCk_SPECDetails.class, isshow, iscancel);
+	}
+
 	
 
 	/**
@@ -1207,6 +1243,25 @@ public class HttpControl {
 				HttpConstants.METHOD_CIRCLE_GETBUYERGROUPDETAIL, httpCallBack,
 				CircleDetailBackBean.class, showDialog, false);
 	}
+
+
+
+	/**
+	 * 获取用户基础圈子详情
+	 * @param  buyerId String
+	 * @param  userId String
+	 * @return void
+	 * **/
+	public void getBaseCircleDetailByUserID(String buyerId,String userId, boolean showDialog,
+								final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("buyerId", buyerId);
+		map.put("userId", userId);
+		BasehttpSend(map, context,
+				HttpConstants.METHOD_CIRCLE_GETBUYERGROUPDETAIL, httpCallBack,
+				CircleDetailBackBean.class, showDialog, false);
+	}
+
 
 	/**
 	 * 邀请粉丝加入圈子

@@ -248,7 +248,19 @@ public class HttpConstants {
 	 * 获取商品详情(败家)
 	 */
 	public static String METHOD_PRODUCTMANAGER_DETAIL = PRODUCTFORREAD + "GetProductDetail";
-	
+
+	/**
+	 * 获取专柜商品详情(败家)
+	 */
+	public static String METHOD_CK_PRODUCTMANAGER_DETAIL = PRODUCTFORREAD + "GetProductDetailV2";
+
+
+	/**
+	 * 获取专柜商品规格详情(败家)
+	 */
+	public static String METHOD_CK_SPEC_PRODUCTMANAGER_DETAIL = PRODUCTFORREAD + "GetProductSku";
+
+
 	/**
 	 * 上传商品信息(买手)
 	 */
@@ -654,6 +666,14 @@ public class HttpConstants {
 	 *充值并退款微信回调地址
 	 * **/
 	public static String METHOD_PayAndDoRmaResult = weixinPAYCallBackUrl+ "PayAndDoRmaResult";
+
+
+
+
+	/*****
+	 *获取买手的基本圈子
+	 * **/
+	public static String METHOD_GetBuyerBaseCircle = CircleFORREAD+ "GetBuyerBaseGroup";
 	
 	
 	

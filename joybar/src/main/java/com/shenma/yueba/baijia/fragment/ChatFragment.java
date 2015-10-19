@@ -49,6 +49,7 @@ import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.SoftKeyboardUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.faceview.FaceView;
+import com.shenma.yueba.yangjia.modle.CircleDetailBackBean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,12 +105,13 @@ public class ChatFragment extends Fragment {
     private RequestRoomInfo requestRoomInfo;//房间信息对象
     private List<Integer> int_array=new ArrayList<Integer>();
     boolean isPrepare=false;//是否准备完成 即 是否已经获取到 房间号
-
+    Bundle bundle;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         layoutInflater = LayoutInflater.from(activity);
+        bundle=getArguments();
         Log.i(TAG, "ChatFragment--->>onAttach ");
     }
 
@@ -118,6 +120,8 @@ public class ChatFragment extends Fragment {
         if (parentView == null) {
             parentView = layoutInflater.inflate(R.layout.activity_chat, null);
             initView();
+            //获取用户默认圈子信息
+            getDefaultCircle(null,null);
         }
         Log.i(TAG, "ChatFragment--->>onCreateView ");
         ViewGroup vg = (ViewGroup) parentView.getParent();
@@ -936,5 +940,35 @@ public class ChatFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.i(TAG, "ChatFragment--->>onActivityCreated ");
+    }
+
+
+    void getDefaultCircle(String buyerId,String userId)
+    {
+        HttpControl HttpControl=new HttpControl();
+        HttpControl.getBaseCircleDetailByUserID(buyerId, userId, false, new HttpControl.HttpCallBackInterface() {
+            @Override
+            public void http_Success(Object obj) {
+                if(obj!=null && obj instanceof CircleDetailBackBean)
+                {
+                    CircleDetailBackBean bean=(CircleDetailBackBean)obj;
+                    if(bean.getData()==null)
+                    {
+                        http_Fails(500,"数据信息不存在");
+                    }else
+                    {
+                        //bean.getData().get
+                    }
+                }else
+                {
+                    http_Fails(500,"获取数据失败");
+                }
+            }
+
+            @Override
+            public void http_Fails(int error, String msg) {
+                MyApplication.getInstance().showMessage(getActivity(),msg);
+            }
+        },getActivity());
     }
 }

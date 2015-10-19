@@ -14,83 +14,66 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
+import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
+import com.shenma.yueba.baijia.view.Product_ck_AftermaketServerView;
+import com.shenma.yueba.baijia.view.Product_ck_ImginfoView;
+import com.shenma.yueba.baijia.view.Product_ck_SizeExampleView;
 import com.shenma.yueba.view.MyListView;
 
 import java.util.Random;
 
 /**
  * Created by Administrator on 2015/10/12.
+ * 专柜商品详情页 底部 TAB 切换 fragment
+ * 根据 Type 类型 返回对应视图
  */
 public class ProductExtTab1Fragment extends Fragment {
-
+    RequestCKProductDeatilsInfo bean;
+    Type type;
+    public enum Type
+    {
+        Img_details,//图片详细
+        Size_explare,//尺码参考
+        Aftermarket_Server//售后服务
+    }
     Activity activity;
     View parentView;
-    MyListView productexttab1_layout_listview;
-    TextView tab_textview;
-    Random random=new Random();
-    int aaa;
+
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.activity = activity;
-        aaa=random.nextInt(3)+1;
-        Log.i("TAG", "getCount :" + aaa);
+        Bundle bundle=getArguments();
+        bean=(RequestCKProductDeatilsInfo)bundle.getSerializable("ProductDetails_data");
+        type=(Type)bundle.getSerializable("type");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (parentView == null) {
-            parentView = inflater.inflate(R.layout.productexttab1_layout, null);
-            initView();
+            parentView = getViewByType();
         }
-        if(parentView.getParent()!=null )
-        {
-            ((ViewGroup)parentView.getParent()).removeView(parentView);
+        if (parentView.getParent() != null) {
+            ((ViewGroup) parentView.getParent()).removeView(parentView);
         }
         return parentView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    void initView() {
-        tab_textview=(TextView)parentView.findViewById(R.id.tab_textview);
-        tab_textview.setText(aaa+"");
-        productexttab1_layout_listview = (MyListView) parentView.findViewById(R.id.productexttab1_layout_listview);
-        productexttab1_layout_listview.setAdapter(new BaseAdapter() {
-            @Override
-            public int getCount() {
-
-                return aaa;
-
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                if (convertView == null) {
-                    convertView=new ImageView(activity);
-                }
-                ((ImageView)convertView).setImageResource(R.drawable.default_pic);
-                DisplayMetrics dm=new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-                ((ImageView)convertView).setScaleType(ImageView.ScaleType.CENTER_CROP);
-                convertView.setLayoutParams(new AbsListView.LayoutParams(dm.widthPixels, dm.widthPixels));
-                return convertView;
-            }
-        });
-
-
-    }
+  View getViewByType()
+  {
+      View v=new View(activity);
+      switch(type)
+      {
+          case Img_details:
+              v= new Product_ck_ImginfoView(getActivity(),bean).getShowData();
+          break;
+          case Size_explare:
+              v=new Product_ck_SizeExampleView(getActivity(),bean).getShowData();
+              break;
+          case Aftermarket_Server:
+              v=new Product_ck_AftermaketServerView(getActivity(),bean).getShowData();
+      }
+      return v;
+  }
 }
