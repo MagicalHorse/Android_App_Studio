@@ -52,6 +52,12 @@ import com.shenma.yueba.util.SharedUtil;
 public class MyApplication extends Application {
 
 
+
+
+
+
+
+
     private CityChangeRefreshService cityChangeRefreshService;//切换城市后的刷新
     private IndexRefreshService indexRefreshService;//养家首页刷新工具
     private HuoKuanManagerRefreshService huoKuanManagerRefreshService;//货款页面刷新工具

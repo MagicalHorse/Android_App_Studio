@@ -2178,6 +2178,7 @@ public class HttpControl {
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {
 
+
 						if (httpCallBack != null) {
 							Log.i("result", responseInfo.result);
 							BaseRequest bean = BaseGsonUtils.getJsonToObject(classzz, responseInfo.result);

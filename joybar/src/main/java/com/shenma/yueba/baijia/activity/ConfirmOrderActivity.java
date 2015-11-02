@@ -13,6 +13,7 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.util.FontManager;
 
 /**
+ * 订单确认界面--专柜买手
  * Created by a on 2015/9/30.
  */
 public class ConfirmOrderActivity extends BaseActivityWithTopView {

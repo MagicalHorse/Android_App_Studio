@@ -59,7 +59,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     List<View> footer_list = new ArrayList<View>();
     ViewPager baijia_fragment_tab1_pagerview;
     LinearLayout baijia_fragment_tab1_head_linearlayout;
-
+    BuyerStreetView buyerStreetView;
     FragmentManager fragmentManager;
     View v;
     TabViewpagerManager tabViewpagerManager;
@@ -97,7 +97,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
      ***/
     void initView(View v) {
         fragmentManager = ((FragmentActivity) getActivity()).getSupportFragmentManager();
-        BuyerStreetView buyerStreetView = new BuyerStreetView(getActivity());
+        buyerStreetView = new BuyerStreetView(getActivity());
         MyBuyerView myBuyerView = new MyBuyerView(getActivity());
 
         if (fragment_list != null) {
@@ -156,7 +156,8 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                             progressBar.setVisibility(View.GONE);
                             tv_city.setVisibility(View.VISIBLE);
                             tv_city.setText(str);
-                            SharedUtil.setCurrentCityId(getActivity(),back.getData().getId());
+                            SharedUtil.setCurrentCityId(getActivity(), back.getData().getId());
+                            buyerStreetView.requestFalshData();
                         }
 
                         @Override
@@ -164,10 +165,12 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                             progressBar.setVisibility(View.GONE);
                             tv_city.setVisibility(View.VISIBLE);
                             tv_city.setText("全国");
+                            SharedUtil.setCurrentCityId(getActivity(),"");
                         }
                     },getActivity(),SharedUtil.getStringPerfernece(getActivity(),Constants.LONGITUDE), SharedUtil.getStringPerfernece(getActivity(), Constants.LATITUDE));
                 } else {
                     Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_SHORT).show();
+                    SharedUtil.setCurrentCityId(getActivity(), "");
                     tv_city.setText("全国");
                     progressBar.setVisibility(View.INVISIBLE);
                 }
@@ -261,5 +264,6 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     @Override
     public void refresh(CityListItembean bean) {
         tv_city.setText(bean.getName());
+        buyerStreetView.requestFalshData();
     }
 }
