@@ -12,6 +12,7 @@
         android:layout_marginBottom="@dimen/shop_main_lineheight8_dimen"
         android:orientation="horizontal">
 
+        <!--品牌名称-->
         <TextView
             android:id="@+id/brand_name_textview"
             android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:gravity="left|center_vertical"
             android:text=""
             android:textColor="@color/color_deeoyellow" />
-
+        <!--所在地址-->
         <TextView
             android:id="@+id/address_name_textview"
             android:layout_width="match_parent"

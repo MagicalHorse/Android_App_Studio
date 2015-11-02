@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <declare-styleable name="roundedimageview">
         <attr name="border_thickness" format="dimension" />
         <attr name="border_inside_color" format="color" />

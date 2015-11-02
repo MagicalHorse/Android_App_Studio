@@ -17,6 +17,27 @@ public class CKProductDeatilsInfoBean extends ProductsDetailsInfoBean {
     String StoreService;//门店服务信息
     String SizeContrastPic;//尺码图
     List<CkProductInfoBean> InterestedProduct = new ArrayList<CkProductInfoBean>();//可能感兴趣的商品
+    String CityId;// 商品所在城市
+    String CityName;// 商品所在城市
+
+    public String getCityName() {
+        return CityName;
+    }
+
+    public void setCityName(String cityName) {
+        CityName = cityName;
+    }
+
+    public String getCityId() {
+        return CityId;
+    }
+
+    public void setCityId(String cityId) {
+        CityId = cityId;
+    }
+
+
+
 
     public List<CkProductInfoBean> getInterestedProduct() {
         return InterestedProduct;

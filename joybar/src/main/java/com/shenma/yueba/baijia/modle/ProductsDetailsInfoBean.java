@@ -22,7 +22,7 @@ public class ProductsDetailsInfoBean implements Serializable{
 	int ProductId; //产品编号
 	String BuyerMobile="";//手机号
 	boolean IsFavorite=false;//是否收藏
-	String StoreName="";//商店名字
+	String StoreName="";//门店名称/商场名称
 	int StoreId  ;//店铺id
 	
 	//活动信息
