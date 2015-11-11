@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    android:orientation="vertical"
+    android:padding="10dip">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip">
+
+
+        <CheckBox
+            android:id="@+id/cb"
+            style="@style/text_middle_black_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:button="@drawable/checkbox_selector"
+            android:checked="false"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dip"
+            android:text="80.00元" />
+
+        <TextView
+            android:id="@+id/tv_yuan"
+            style="@style/text_middle_black_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="15dip"
+            android:text="元" />
+
+        <EditText
+            android:id="@+id/et_need"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/tv_yuan"
+            android:background="@drawable/shape_edittext_bg"
+            android:hint="输入使用金额"
+            android:padding="5dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textSize="@dimen/big_size" />
+
+
+    </RelativeLayout>
+
+
+    <View style="@style/style_horizontal_line" />
+
+    <TextView
+        style="@style/text_middle_grey_style"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="null" />
+
+</LinearLayout>

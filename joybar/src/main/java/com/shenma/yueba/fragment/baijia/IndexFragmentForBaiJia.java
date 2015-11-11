@@ -70,7 +70,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             parentView = inflater.inflate(R.layout.baijia_indexfragment_layout, null);
             initTitle(parentView);
             initView(parentView);
-            //baijia_fragment_tab1_pagerview.setOffscreenPageLimit(0);
+            initTabImage();
         }
         ViewGroup vp = (ViewGroup) parentView.getParent();
         if (vp != null) {
@@ -152,7 +152,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         {
             array_str.add("http://c.hiphotos.baidu.com/image/pic/item/b03533fa828ba61e5a8540284334970a304e594a.jpg");
         }
-        TabViewPgerImageManager tabViewPgerImageManager = new TabViewPgerImageManager(getActivity(), null);
+        TabViewPgerImageManager tabViewPgerImageManager = new TabViewPgerImageManager(getActivity(), array_str);
         //将 视图加入到 listview的 head中
         baijia_contact_listview.getRefreshableView().addHeaderView(tabViewPgerImageManager.getTabView());
         //通知 数据更新 刷新视图

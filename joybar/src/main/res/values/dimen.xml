@@ -9,4 +9,5 @@
     <dimen name="contentpadding">10dp</dimen>
     <dimen name="item_margin">5dp</dimen>
     <dimen name="branditem_margin">3dp</dimen>
+    <dimen name="bottom_button_height">40dip</dimen>
 </resources>

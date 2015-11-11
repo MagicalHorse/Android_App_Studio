@@ -23,10 +23,7 @@
         <item name="android:padding">@dimen/padding_style</item>
     </style>
 
-    <!--头部标题-->
-    <style name="titlestyle" parent="backgroundstyle">
-        <item name="android:padding">@dimen/titlepadding</item>
-    </style>
+
 
 
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
@@ -56,6 +53,16 @@
         <item name="android:background">@color/color_deeoyellow</item>
         <item name="android:textColor">@color/color_white</item>
         <item name="android:textSize">11sp</item>
+    </style>
+    
+    <style name="text_middle_black_style" parent="AppTheme">
+        <item name="android:textSize">@dimen/big_size</item>
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+
+    <style name="text_middle_grey_style"  parent="AppTheme">
+        <item name="android:textSize">@dimen/big_size</item>
+        <item name="android:textColor">@color/color_grey_text</item>
     </style>
 
 </resources>

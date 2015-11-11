@@ -38,7 +38,10 @@ public class TabViewPgerImageManager {
     public TabViewPgerImageManager(Activity activity, List<String> array_str) {
         this.activity = activity;
         layoutInflater = LayoutInflater.from(activity);
-        this.array_str = array_str;
+        if(array_str!=null)
+        {
+            this.array_str = array_str;
+        }
         init();
     }
 
@@ -48,6 +51,11 @@ public class TabViewPgerImageManager {
     void init() {
         tabview = layoutInflater.inflate(R.layout.tab_viewpaer_linearlayout_layout, null);
         appprovebuyer_viewpager = (ViewPager) tabview.findViewById(R.id.appprovebuyer_viewpager);
+        RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams)appprovebuyer_viewpager.getLayoutParams();
+        int width=ToolsUtil.getDisplayWidth(activity);
+        int height=width/2;
+        params.width=width;
+        params.height=height;
         appprovebuyer_viewpager_footer_linerlayout = (LinearLayout) tabview.findViewById(R.id.appprovebuyer_viewpager_footer_linerlayout);
         appprovebuyer_viewpager.setOnTouchListener(new View.OnTouchListener() {
 
@@ -103,6 +111,7 @@ public class TabViewPgerImageManager {
             RelativeLayout rl = new RelativeLayout(activity);
             ImageView iv = new ImageView(activity);
             iv.setBackgroundColor(activity.getResources().getColor(R.color.color_lightgrey));
+            iv.setImageResource(R.mipmap.default_pic);
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             rl.addView(iv, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
             viewlist.add(rl);

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <include
+        layout="@layout/title_layout"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/baijia_contact_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/color_transparent"
+        android:dividerHeight="15dp"/>
+
+    <!-- 无数据视图 -->
+
+    <include
+        layout="@layout/nodata_layout"
+        />
+    </RelativeLayout>
+
+</LinearLayout>

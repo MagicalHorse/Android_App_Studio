@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/titleheight"
+    android:background="@color/common_title_bg"
+    >
+
+    <TextView
+        android:id="@+id/title_layout_left_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/title_view_left_back_padding_left"
+        android:drawablePadding="5dp"
+        android:drawableRight="@mipmap/back"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/title_layout_titlename_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/title_layout_right_textview"
+        android:layout_toRightOf="@id/title_layout_left_textview"
+        android:gravity="center"
+        android:text="@null" />
+
+    <TextView
+        android:id="@+id/title_layout_right_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/title_view_left_back_padding_right"
+        android:drawablePadding="5dp" />
+
+    <View
+        style="@style/style_horizontal_line"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
