@@ -41,6 +41,7 @@ import com.umeng.analytics.MobclickAgent;
 
 public class AffirmOrderActivity extends BaseActivityWithTopView implements
 		OnClickListener {
+
 	// 头像
 	RoundImageView affirmorder_layout_icon_roundimageview;
 	// 拨打电话
