@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android_App_Studio.iml" filepath="$PROJECT_DIR$/Android_App_Studio.iml" />
       <module fileurl="file://$PROJECT_DIR$/cameraLibrary/cameraLibrary.iml" filepath="$PROJECT_DIR$/cameraLibrary/cameraLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/joybar/joybar.iml" filepath="$PROJECT_DIR$/joybar/joybar.iml" />
       <module fileurl="file://$PROJECT_DIR$/refreshlibrary/refreshlibrary.iml" filepath="$PROJECT_DIR$/refreshlibrary/refreshlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wwww.iml" filepath="$PROJECT_DIR$/wwww.iml" />
       <module fileurl="file://$PROJECT_DIR$/xUtilLibrary/xUtilLibrary.iml" filepath="$PROJECT_DIR$/xUtilLibrary/xUtilLibrary.iml" />
     </modules>
   </component>
