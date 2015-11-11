@@ -1,38 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="top_title_height">50dip</dimen>
-    <dimen name="title_text_size">17dip</dimen>
-    <dimen name="margin_left_and_right">15dip</dimen>
-    <dimen name="item_height">45dip</dimen>
-    <dimen name="margin_left_or_right">15dip</dimen>
-    <dimen name="default_button_height">45dip</dimen>
-    <dimen name="title_image_with_height">25dip</dimen>
-    <dimen name="center_text_size">16sp</dimen>
-    <dimen name="little_text_size">14sp</dimen>
-    <dimen name="more_little_text_size">12sp</dimen>
-    <dimen name="index_big_size_font">16sp</dimen>
-    <dimen name="index_center_size_font">17sp</dimen>
-    <dimen name="index_little_size_font">14sp</dimen>
-    <dimen name="corsur_margin">10dip</dimen>
-    <dimen name="bottom_item_height">60dip</dimen>
-
-    <dimen name="title_text_normal_size">17sp</dimen>
-    <dimen name="title_text_selected_size">20sp</dimen>
-
-
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="thumbnail_imageview_size">41.0dip</dimen>
-    <dimen name="bottom_bar_height">105.0dip</dimen>
-    <dimen name="top_menu_bar_height">105.0dip</dimen>
-    <dimen name="shutter_bottom_size">62.0dip</dimen>
-    <dimen name="album_header_bar_height">50.0dip</dimen>
-    <dimen name="title_view_left_back_padding_left">12.0dip</dimen>
-    <dimen name="title_view_left_back_padding_right">12.0dip</dimen>
-    <dimen name="album_header_btn_width">48.0dip</dimen>
-    <dimen name="album_rooter_bar_height">48.0dip</dimen>
-    <dimen name="album_rooter_bar_text_size">16.0sp</dimen>
-    <dimen name="videodetails_textsize_time">13.0dip</dimen>
-    <dimen name="video_bottom_bar_height">40.0dip</dimen>
+    <dimen name="padding_style">5dp</dimen>
+    <dimen name="notdatatextsize">18sp</dimen>
+    <dimen name="round_width">8dp</dimen>
+    <dimen name="round_margin">3dp</dimen>
+    <dimen name="titlepadding">3dp</dimen>
+    <dimen name="titleheight">50dp</dimen>
+    <dimen name="contentpadding">10dp</dimen>
+    <dimen name="item_margin">5dp</dimen>
+    <dimen name="branditem_margin">3dp</dimen>
 </resources>

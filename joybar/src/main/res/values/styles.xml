@@ -1,264 +1,33 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    -->
-    <!-- Application theme. -->
-    <style name="style_horizontal_line">
+    <style name="style_horizontal_line" parent="AppTheme">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.1dip</item>
         <item name="android:background">#66999999</item>
     </style>
 
-    <style name="style_vertical_line">
-        <item name="android:layout_width">0.1dip</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">#66999999</item>
-    </style>
-
-    <style name="title_text_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">@dimen/title_text_size</item>
-    </style>
-
-    <!-- 背景样式 -->
-    <style name="bg_vertical">
+    <style name="backgroundstyle" parent="AppTheme">
+        <item name="android:background">@color/color_lightgrey</item>
+        <item name="android:layout_height">@dimen/titleheight</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:background">@color/main_bg</item>
     </style>
 
 
-    <style name="login_regist_text">
-        <item name="android:layout_width">0dip</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:paddingTop">10dip</item>
-        <item name="android:paddingBottom">15dip</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textSize">17sp</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:gravity">center</item>
+    <!--主页 底部按钮-->
+    <style name="background_gray" parent="backgroundstyle">
+        <item name="android:padding">@dimen/padding_style</item>
     </style>
 
-    <style name="dialog_Translucent_NoTitle" parent="android:style/Theme.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:background">#00000000</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
+    <!--头部标题-->
+    <style name="titlestyle" parent="backgroundstyle">
+        <item name="android:padding">@dimen/titlepadding</item>
     </style>
 
-    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
-        <item name="android:isIndicator">false</item>
-        <item name="android:minHeight">@null</item>
-    </style>
-
-    <style name="footbar">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:ellipsize">marquee</item>
-        <item name="android:gravity">center</item>
-        <item name="android:button">@null</item>
-        <item name="android:paddingBottom">10.0dip</item>
-        <item name="android:paddingTop">10.0dip</item>
-    </style>
-
-    <style name="AnimBottom" parent="@android:style/Animation">
-        <item name="android:windowEnterAnimation">@anim/push_bottom_in2</item>
-        <item name="android:windowExitAnimation">@anim/push_bottom_out2</item>
-    </style>
-
-    <style name="textView">
-        <item name="android:layout_width">0.0dip</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1.0</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:text">@null</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="switch_parent_style">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">@dimen/item_height</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:background">@color/white</item>
-        <item name="android:paddingLeft">15dip</item>
-        <item name="android:paddingRight">15dip</item>
-    </style>
-
-    <style name="switch_text_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="switch_image_style">
-        <item name="android:layout_width">50dip</item>
-        <item name="android:layout_height">30dip</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:background">@drawable/off</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="categray_item_style">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">10dip</item>
-        <item name="android:drawablePadding">10dip</item>
-        <item name="android:drawableRight">@drawable/arrow_right</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="order_categray_item">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_marginRight">5dip</item>
-        <item name="android:paddingLeft">5dip</item>
-        <item name="android:paddingRight">5dip</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:visibility">gone</item>
-        <item name="android:background">@drawable/shape_red_point</item>
-    </style>
-
-    <style name="textView2">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:text">@null</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="text_normal_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_gray_color</item>
-        <item name="android:text">@null</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="text_title_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:text">@null</item>
-        <item name="android:textSize">13sp</item>
-    </style>
-
-    <style name="textView3">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:text">@null</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="productinfo_item">
-        <item name="android:background">@color/white</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingLeft">10dip</item>
-        <item name="android:paddingRight">10dip</item>
-        <item name="android:paddingTop">12dip</item>
-        <item name="android:paddingBottom">12dip</item>
-    </style>
-
-    <style name="tv">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingLeft">3dip</item>
-        <item name="android:paddingRight">3dip</item>
-        <item name="android:paddingTop">0.5dip</item>
-        <item name="android:paddingBottom">0.5dip</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">13sp</item>
-    </style>
-
-    <style name="styleText">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="ActionBarHomeLogo">
-        <item name="android:layout_marginRight">1px</item>
-        <item name="android:layout_marginLeft">0px</item>
-    </style>
-
-    <style name="ActionBarProgressBar" parent="@android:style/Widget.ProgressBar.Small"></style>
-
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-
-
-
-
-
-
-
-
-
-
-
-    -->
-
-    <!-- Application theme. -->
-    <style name="MyDialog" parent="android:Theme.Dialog">
-        <!-- <item name="android:windowAnimationStyle">@style/AnimTop2</item> -->
-        <item name="android:windowFrame">@null</item>
-        <!-- 边框 -->
-        <item name="android:windowIsFloating">true</item>
-        <!-- 是否浮现在activity之上 -->
-        <item name="android:windowIsTranslucent">false</item>
-        <!-- 半透明 -->
-        <item name="android:windowNoTitle">true</item>
-        <!-- 无标题 -->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!-- 背景透明 -->
-        <item name="android:backgroundDimEnabled">true</item>
-        <!-- 模糊 -->
-    </style>
-
-    <style name="DialogWindowTitle">
-        <item name="android:textSize">22sp</item>
-    </style>
-
-    <style name="DialogWindowTitle.DeviceDefault">
-        <item name="android:maxLines">1</item>
-        <item name="android:scrollHorizontally">true</item>
-        <item name="android:textAppearance">@style/DialogWindowTitle</item>
-    </style>
 
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -274,235 +43,19 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="edittext_style_for_input">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_gray_color</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:paddingLeft">10dip</item>
-        <item name="android:paddingRight">10dip</item>
-        <item name="android:paddingTop">10dip</item>
-        <item name="android:paddingBottom">10dip</item>
-        <item name="android:background">@color/white</item>
-        <item name="android:drawableLeft">@drawable/star</item>
-        <item name="android:gravity">center_vertical</item>
+    <!--定义 内容视图距离俯视图的距离-->
+    <style name="contentpadding" parent="AppTheme">
+        <item name="android:background">@drawable/rect_blacksoild_while_background</item>
     </style>
 
-    <style name="Animation_dropdown" mce_bogus="1" parent="@android:style/Animation.Dialog">
-        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
-        <item name="android:windowExitAnimation">@anim/popup_exit</item>
-    </style>
-
-    <style name="Chat_Content_Msg_Style">
-        <item name="android:gravity">left|center</item>
-        <item name="android:textColor">#000000</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:lineSpacingExtra">2dp</item>
-    </style>
-
-
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-
-        -->
-    </style>
-
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
-
-
-    <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
-        <item name="android:typeface">monospace</item>
-        <item name="android:textColor">@drawable/selector_tabtext</item>
-    </style>
-
-
-    <style name="CheckBoxStyle">
-        <item name="android:layout_width">28.0dip</item>
-        <item name="android:layout_height">28.0dip</item>
-        <item name="android:layout_marginRight">20.0dip</item>
-        <item name="android:button">@null</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_centerVertical">true</item>
-    </style>
-
-    <style name="video_detail_player_bottom_btn">
+    <!--定义 倒计时 时间 的样式-->
+    <style name="timestyle" parent="AppTheme">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">fill_parent</item>
-    </style>
-
-    <style name="chat_text_style">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:text">@null</item>
-    </style>
-
-    <style name="chat_name_time_style">
-        <item name="android:textColor">@color/text_gray_color</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:text">@null</item>
-    </style>
-
-    <style name="video_detail_player">
-        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/padding_style</item>
+        <item name="android:background">@color/color_deeoyellow</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
-
-    <style name="NumberProgressBar_Default">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-
-        <item name="max">100</item>
-        <item name="progress">0</item>
-
-        <item name="progress_unreached_color">#CCCCCC</item>
-        <item name="progress_reached_color">#3498DB</item>
-
-        <item name="progress_text_size">10sp</item>
-        <item name="progress_text_color">#3498DB</item>
-
-        <item name="progress_reached_bar_height">1.5dp</item>
-        <item name="progress_unreached_bar_height">0.75dp</item>
-    </style>
-
-    <style name="NumberProgressBar_Passing_Green">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-
-        <item name="max">100</item>
-        <item name="progress">0</item>
-
-        <item name="progress_unreached_color">#CCCCCC</item>
-        <item name="progress_reached_color">#70A800</item>
-
-        <item name="progress_text_size">10sp</item>
-        <item name="progress_text_color">#70A800</item>
-
-        <item name="progress_reached_bar_height">1.5dp</item>
-        <item name="progress_unreached_bar_height">0.75dp</item>
-    </style>
-
-    <style name="NumberProgressBar_Beauty_Red">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-
-        <item name="max">100</item>
-        <item name="progress">0</item>
-
-        <item name="progress_unreached_color">#CCCCCC</item>
-        <item name="progress_reached_color">#FF3D7F</item>
-        <item name="progress_text_size">10sp</item>
-        <item name="progress_text_color">#FF3D7F</item>
-
-        <item name="progress_reached_bar_height">1.5dp</item>
-        <item name="progress_unreached_bar_height">0.75dp</item>
-    </style>
-
-    <style name="NumberProgressBar_Warning_Red">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-
-        <item name="max">100</item>
-        <item name="progress">0</item>
-
-        <item name="progress_unreached_color">#CCCCCC</item>
-        <item name="progress_reached_color">#E74C3C</item>
-        <item name="progress_text_size">10sp</item>
-        <item name="progress_text_color">#E74C3C</item>
-
-        <item name="progress_reached_bar_height">1.5dp</item>
-        <item name="progress_unreached_bar_height">0.75dp</item>
-    </style>
-
-    <style name="NumberProgressBar_Relax_Blue">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-
-        <item name="max">100</item>
-        <item name="progress">0</item>
-
-        <item name="progress_unreached_color">#CCCCCC</item>
-        <item name="progress_reached_color">#6DBCDB</item>
-        <item name="progress_text_size">10sp</item>
-        <item name="progress_text_color">#6DBCDB</item>
-
-        <item name="progress_reached_bar_height">1.5dp</item>
-        <item name="progress_unreached_bar_height">0.75dp</item>
-    </style>
-
-    <style name="NumberProgressBar_Grace_Yellow">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-
-        <item name="max">100</item>
-        <item name="progress">0</item>
-
-        <item name="progress_unreached_color">#CCCCCC</item>
-        <item name="progress_reached_color">#FFC73B</item>
-        <item name="progress_text_size">10sp</item>
-        <item name="progress_text_color">#FFC73B</item>
-
-        <item name="progress_reached_bar_height">1.5dp</item>
-        <item name="progress_unreached_bar_height">0.75dp</item>
-    </style>
-
-    <style name="NumberProgressBar_Funny_Orange">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-
-        <item name="max">100</item>
-        <item name="progress">0</item>
-
-        <item name="progress_unreached_color">#CCCCCC</item>
-        <item name="progress_reached_color">#FF530D</item>
-        <item name="progress_text_size">10sp</item>
-        <item name="progress_text_color">#FF530D</item>
-
-        <item name="progress_reached_bar_height">1.5dp</item>
-        <item name="progress_unreached_bar_height">0.75dp</item>
-    </style>
-
-    <style name="NumberProgressBar_Twinkle_Night">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-
-        <item name="max">100</item>
-        <item name="progress">0</item>
-
-        <item name="progress_unreached_color">#CCCCCC</item>
-        <item name="progress_reached_color">#ECF0F1</item>
-        <item name="progress_text_size">10sp</item>
-        <item name="progress_text_color">#ECF0F1</item>
-
-        <item name="progress_reached_bar_height">1.5dp</item>
-        <item name="progress_unreached_bar_height">0.75dp</item>
-    </style>
-
-    <style name="module_style" parent="AppBaseTheme">
-        <item name="android:paddingBottom">@dimen/shop_main_lineheight8_dimen</item>
-        <item name="android:paddingTop">@dimen/shop_main_lineheight8_dimen</item>
-    </style>
-
-    <style name="modulepaddingleftandright_style" parent="module_style">
-        <item name="android:paddingLeft">@dimen/shop_main_width15_dimen</item>
-        <item name="android:paddingRight">@dimen/shop_main_width15_dimen</item>
-        <item name="android:background">@color/white</item>
-    </style>
-    <style name="RadiobuttonStyle">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:button">@null</item>
-        <item name="android:drawableLeft">@drawable/checkbox_selector</item>
-    </style>
 </resources>

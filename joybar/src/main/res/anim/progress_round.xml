@@ -3,46 +3,46 @@
     android:oneshot="false" >
 
     <item
-        android:drawable="@drawable/loading_1"
+        android:drawable="@mipmap/loading_1"
         android:duration="200"/>
 
     <item
-        android:drawable="@drawable/loading_2"
+        android:drawable="@mipmap/loading_2"
         android:duration="200"/>
 
     <item
-        android:drawable="@drawable/loading_3"
+        android:drawable="@mipmap/loading_3"
         android:duration="200"/>
 
     <item
-        android:drawable="@drawable/loading_4"
+        android:drawable="@mipmap/loading_4"
         android:duration="200"/>
 
     <item
-        android:drawable="@drawable/loading_5"
+        android:drawable="@mipmap/loading_5"
         android:duration="200"/>
 
     <item
-        android:drawable="@drawable/loading_6"
+        android:drawable="@mipmap/loading_6"
         android:duration="200"/>
 
     <item
-        android:drawable="@drawable/loading_7"
+        android:drawable="@mipmap/loading_7"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/loading_8"
+        android:drawable="@mipmap/loading_8"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/loading_9"
+        android:drawable="@mipmap/loading_9"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/loading_10"
+        android:drawable="@mipmap/loading_10"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/loading_11"
+        android:drawable="@mipmap/loading_11"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/loading_12"
+        android:drawable="@mipmap/loading_12"
         android:duration="200"/>
 
 

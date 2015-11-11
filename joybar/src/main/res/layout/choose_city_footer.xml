@@ -5,7 +5,7 @@
 
     <TextView
         android:id="@+id/tv_more_city"
-        android:background="@color/main_bg"
+        android:background="@color/color_white"
         android:text="更多城市敬请期待"
         android:padding="10dip"
         android:gravity="center"

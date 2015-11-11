@@ -1,87 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="main_bg">#F1F1F1</color>
-    <color name="common_top_bar_blue">#4ebcd3</color>
-    <color name="btn_login_normal">#007086</color>
-    <color name="btn_login_pressed">#303744</color>
-    <color name="btn_logout_normal">#d33f3f</color>
-    <color name="btn_logout_pressed">#DA5A4D</color>
-    <color name="btn_register_normal">#2dafa3</color>
-    <color name="btn_register_pressed">#4ebcd3</color>
-    <color name="common_bottom_bar_normal_bg">#2d2f31</color>
-    <color name="common_bottom_bar_selected_bg">#161718</color>
-    <color name="common_botton_bar_blue">#2ea7e0</color>
-    <color name="common_bg">#fcfcfc</color>
-    <color name="btn_pressed_green_solid">#B6DA53</color>
-    <color name="divider_list">#cccccc</color>
-    <color name="top_bar_normal_bg">#4ebcd3</color>
-    <color name="error_item_color">#F6EBE6</color>
-    <color name="bottom_bar_normal_bg">#2D2F31</color>
-     <color name="accent_1">#ff29549f</color>
-    <color name="bottom_text_color_normal">#ffffff</color>
-    <color name="btn_white_normal">#f7f8f8</color>
-    <color name="btn_white_pressed">#b5b5b6</color>
-    <color name="btn_green_noraml">#68C270</color>
-    <color name="btn_green_pressed">#6FCD78</color>
-    <color name="btn_gray_normal">#c0c0c0</color>
-    <color name="btn_gray_pressed_status">#b5b5b6</color>
-    <color name="btn_gray_pressed">#666667</color>
-    <color name="btn_blue_normal">#1e90ff</color>
-    <color name="btn_blue_pressed">#0066FF</color>
-    <color name="splash1">#EE6A55</color>
-    <color name="orange">#FFA500</color>
-    <color name="gray_pressed">#b5b5b6</color>
-    <color name="gray_normal">#666667</color>
-    <color name="grid_state_pressed">#1Affffff</color>
-    <color name="grid_state_focused">#80000000</color>
-    <color name="top_bg">#FCFBFB</color>
-    <color name="white">#ffffff</color>
-    <color name="order_dialog_bg">#66333333</color>
-    <color name="choose_eara_item_press_color">#f4f4f4</color>
-    <color name="transparent">#00000000</color>
-    <color name="textcolor">#212121</color>
-    
-    <color name="gray_bg">#ECECEC</color>
-    <color name="red_text_color">#FB4949</color>
-    <color name="text_gray_color">#666666</color>
-    <!-- 暗灰色 -->
-    <color name="dimgrey">#696969</color>
-    <!-- 天蓝色 -->
-    <color name="gray">#808080</color>
-    <!-- 雪白色 -->
-    <color name="floralwhite">#FFFAF0</color>
-    <color name="black">#000000</color>
-    <color name="blue">#4B98DF</color>
-    <color name="green">#3DB44B</color>
- <color name="main_color">#ffa300</color>
-    <!-- 灰色 -->
-    <color name="gray_bt_background_normal">#494949</color>
-    <color name="gray_bt_background_select">#000000</color>
-    <color name="gray_bt_background_normal_noborder">#8B8682</color>
-    <color name="gray_bt_background_select_noborder">#494949</color>
-    <color name="lightgray">#66666666</color>
-    <color name="lightgray2">#33666666</color>
-    <color name="lightgray3">#22666666</color>
-    <color name="lightgray4">#22999999</color>
-<!-- 透明黑色 -->
-     <color name="lightblack">#10000000</color>
-     
-     
-         <color name="main_menu_bg">#aa111213</color>
-    <color name="common_title_bg">#aa111213</color>
-    <color name="primary_title_text_color">#ff888888</color>
-    <color name="common_title_text">#ff565555</color>
-    <color name="common_text_yellow">#ffffe049</color>
-    <color name="album_item_bg">#fffcfcfd</color>
-    <color name="video_playter_bg">#333333</color>
-    
-    
-    <color name="black_95">#d6000000</color>
-    <color name="red">#ff0000</color>
-    <color name="blank_bg">#cc000000</color>
-    <color name="line_color">#dadae5</color>
-    <color name="common_gray">#999999</color>
-    <color name="black_10">#19000000</color>
-    <color name="background_color">#e7e7ee</color>
-    <color name="common_black">#656074</color>
+    <color name="color_lightgrey">#F1F1F1</color>
+    <color name="color_bilodgrey">#BBBBBB</color>
+    <color name="round_color">#ffa300</color>
+    <color name="color_deeoyellow">#FFA300</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_black">#000000</color>
+    <color name="color_transparent">#00000000</color>
 </resources>

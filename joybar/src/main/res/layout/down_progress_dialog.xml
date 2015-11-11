@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="300dip"
         android:layout_height="40dp"
-        android:background="@drawable/title"
+        android:background="@mipmap/title"
         android:orientation="vertical" >
 
         <TextView
@@ -18,7 +18,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@null"
-            android:textColor="@color/white"
+            android:textColor="@color/color_white"
             android:textSize="20dip" >
         </TextView>
     </RelativeLayout>
@@ -26,7 +26,7 @@
     <LinearLayout
         android:layout_width="300dip"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/color_white"
         android:orientation="vertical"
         android:padding="10dp" >
 
@@ -44,7 +44,7 @@
         android:layout_width="300dip"
         android:layout_height="wrap_content"
         android:layout_below="@+id/content"
-        android:background="@drawable/alert_bottom_bg"
+        android:background="@mipmap/alert_bottom_bg"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:padding="10dip" >
@@ -57,7 +57,7 @@
             android:background="@drawable/join_info_btn_selecter"
             android:gravity="center"
             android:text="取消"
-            android:textColor="@color/black"
+            android:textColor="@color/color_black"
             android:textSize="18sp" >
         </Button>
 
@@ -70,7 +70,7 @@
             android:background="@drawable/join_info_btn_selecter"
             android:gravity="center"
             android:text="后台更新"
-            android:textColor="@color/black"
+            android:textColor="@color/color_black"
             android:textSize="18sp" >
         </Button>
     </LinearLayout>
