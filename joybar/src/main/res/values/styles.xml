@@ -505,4 +505,15 @@
         <item name="android:button">@null</item>
         <item name="android:drawableLeft">@drawable/checkbox_selector</item>
     </style>
+
+
+    <style name="text_middle_black_style" parent="AppTheme">
+        <item name="android:textSize">@dimen/center_text_size</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="text_middle_grey_style"  parent="AppTheme">
+        <item name="android:textSize">@dimen/center_text_size</item>
+        <item name="android:textColor">@color/text_gray_color</item>
+    </style>
 </resources>
