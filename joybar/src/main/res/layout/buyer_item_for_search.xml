@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dip"
+    android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/tv_buyer_name"
+        android:layout_width="wrap_content"
+        android:text="买手名字"
+        android:layout_height="wrap_content" />
+
+
+    <View
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="5dip"
+        style="@style/style_horizontal_line"
+        />
+
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+
+
+    <com.shenma.yueba.view.RoundImageView
+        android:id="@+id/riv_circle_head"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="22dp"
+        android:layout_toLeftOf="@+id/imageView2"
+        android:scaleType="fitXY"
+        android:src="@drawable/default_pic" />
+
+
+    <TextView
+
+        android:layout_toRightOf="@+id/riv_circle_head"
+        android:layout_alignTop="@+id/riv_circle_head"
+        android:text="华宇商场导购"
+        android:textSize="@dimen/center_text_size"
+        android:id="@+id/tv_shop_name"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/text_gray_color"
+        android:drawableLeft="@drawable/address"
+        android:textSize="@dimen/little_text_size"
+        android:text="中关村南大街6号"
+        android:layout_toRightOf="@+id/riv_circle_head"
+        android:layout_alignBottom="@+id/riv_circle_head"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+
+
+        <TextView
+            android:textColor="@color/text_gray_color"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_shop_name"
+            android:text="粉丝：9999"
+            android:textSize="@dimen/little_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+    <View
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="5dip"
+        style="@style/style_horizontal_line"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/ll_images_container"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

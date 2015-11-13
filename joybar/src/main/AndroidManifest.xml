@@ -121,13 +121,13 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name="com.shenma.yueba.application.MyApplication"
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.shenma.yueba.baijia.activity.ConfirmOrderForZhuanGui"
+            android:name=".baijia.activity.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -148,8 +148,6 @@
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
 
-
-
         <!-- 微信支付回调 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -164,98 +162,96 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.MainActivityForYangJia"
+            android:name=".yangjia.activity.MainActivityForYangJia"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.BigImageShowActivity"
+            android:name=".yangjia.activity.BigImageShowActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.GuideActivity"
+            android:name=".GuideActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.BoradRewardActivity"
+            android:name=".yangjia.activity.BoradRewardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.ModifyNickNameActivity"
+            android:name=".yangjia.activity.ModifyNickNameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.OpenRewardActivity"
+            android:name=".yangjia.activity.OpenRewardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.OrderRewardActivity"
+            android:name=".yangjia.activity.OrderRewardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.baijia.activity.BuyerCertificationActivity1"
+            android:name=".baijia.activity.BuyerCertificationActivity1"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.baijia.activity.ChooseCityActivity"
+            android:name=".baijia.activity.ChooseCityActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.baijia.activity.SearchProductResultActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.shenma.yueba.baijia.activity.SplashActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.shenma.yueba.baijia.activity.BuyerCertificationActivity2"
+            android:name=".baijia.activity.SearchProductResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.baijia.activity.ApplyResultActivity"
+            android:name=".baijia.activity.ConfirmOrderForZhuanGui"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.baijia.activity.CircleInfoActivity"
+            android:name=".baijia.activity.BuyerCertificationActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shenma.yueba.baijia.activity.WebActivity"
+            android:name=".baijia.activity.ApplyResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".baijia.activity.CircleInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".baijia.activity.WebActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.view.imageshow.ImageShowActivity"
+            android:name=".view.imageshow.ImageShowActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.baijia.activity.MainActivityForBaiJia"
+            android:name=".baijia.activity.MainActivityForBaiJia"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.baijia.activity.FillPersonDataActivity"
+            android:name=".baijia.activity.FillPersonDataActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.baijia.activity.SearchProductActivity"
+            android:name=".baijia.activity.SearchProductActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 找回密码 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.FindPasswordActivity"
+            android:name=".baijia.activity.FindPasswordActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 登录注册 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.LoginAndRegisterActivity"
+            android:name=".baijia.activity.LoginAndRegisterActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 设置新密码 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.SetNewPasswordActivity"
+            android:name=".baijia.activity.SetNewPasswordActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 收益管理 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.EarningManagerActivity"
+            android:name=".yangjia.activity.EarningManagerActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 货款收支 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.HuoKuanIncomingAndOutgoingsActivity"
+            android:name=".yangjia.activity.HuoKuanIncomingAndOutgoingsActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 货款收支 -->
         <activity
-            android:name="com.shenma.yueba.camera2.ActivityCapture"
+            android:name=".camera2.ActivityCapture"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
@@ -263,40 +259,40 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.HuoKuanManagerActivity"
+            android:name=".yangjia.activity.HuoKuanManagerActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.SalesManagerForSupperManActivity"
+            android:name=".yangjia.activity.SalesManagerForSupperManActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.KaiXiaoPiaoActivity"
+            android:name=".yangjia.activity.KaiXiaoPiaoActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.EditPicActivity"
+            android:name=".yangjia.activity.EditPicActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.AddTagActivity"
+            android:name=".yangjia.activity.AddTagActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.CircleInvitectivity"
+            android:name=".yangjia.activity.CircleInvitectivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.AboutActivity"
+            android:name=".yangjia.activity.AboutActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.ProductManagerActivity"
+            android:name=".yangjia.activity.ProductManagerActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.crop.CropActivity"
+            android:name=".crop.CropActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.CROP" />
@@ -305,91 +301,91 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.SalesManagerForBuyerActivity"
+            android:name=".yangjia.activity.SalesManagerForBuyerActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.baijia.activity.SearchActivity"
+            android:name=".baijia.activity.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.baijia.activity.CityListActivity"
+            android:name=".baijia.activity.CityListActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.PublishProductsActivity"
+            android:name=".yangjia.activity.PublishProductsActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 败家订单列表页面 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.BaiJiaOrderListActivity"
+            android:name=".baijia.activity.BaiJiaOrderListActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 败家订单确认页面 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.AffirmOrderActivity"
+            android:name=".baijia.activity.AffirmOrderActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 败家订单详细页面 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.BaiJiaOrderDetailsActivity"
+            android:name=".baijia.activity.BaiJiaOrderDetailsActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 败家订单申请退页面 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.ApplyForRefundActivity"
+            android:name=".baijia.activity.ApplyForRefundActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 
         <!-- 败家订单申诉页面 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.OrderAppealActivity"
+            android:name=".baijia.activity.OrderAppealActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 
         <!-- 败家订单申诉中页面 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.BaijiaAppealLoadingActivity"
+            android:name=".baijia.activity.BaijiaAppealLoadingActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 修改圈子名称 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.ModifyCircleNameActivity"
+            android:name=".yangjia.activity.ModifyCircleNameActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 重置密码 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.ResetPasswordActivity"
+            android:name=".baijia.activity.ResetPasswordActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 用户中心 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.UserConfigActivity"
+            android:name=".baijia.activity.UserConfigActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 买手主页 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.ShopMainActivity"
+            android:name=".baijia.activity.ShopMainActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 分享列表页 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.BaiJiaShareDataActivity"
+            android:name=".baijia.activity.BaiJiaShareDataActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 支付方式选择页面 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.BaijiaPayActivity"
+            android:name=".baijia.activity.BaijiaPayActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
@@ -404,115 +400,115 @@
 
         <!-- 圈子 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.CircleListActivity"
+            android:name=".baijia.activity.CircleListActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 我的收藏 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.MyCollectionActivity"
+            android:name=".baijia.activity.MyCollectionActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 认证买手商品详情 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.ApproveBuyerDetailsActivity"
+            android:name=".baijia.activity.ApproveBuyerDetailsActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 专柜买手商品详情 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.ApproveBuyerDetails_ck_Activity"
+            android:name=".baijia.activity.ApproveBuyerDetails_ck_Activity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 品牌详细页面 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.BaijiaBrandListActivity"
+            android:name=".baijia.activity.BaijiaBrandListActivity"
             android:screenOrientation="portrait" />
 
         <!-- 败家 粉丝  关注列表 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.AttationListActivity"
+            android:name=".baijia.activity.AttationListActivity"
             android:screenOrientation="portrait" />
 
         <!-- 败家 图片放大 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.TouchImageViewActivity"
+            android:name=".baijia.activity.TouchImageViewActivity"
             android:screenOrientation="portrait" />
 
         <!-- 聊天界面 -->
         <activity
-            android:name="com.shenma.yueba.ChatActivity"
+            android:name=".ChatActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 店铺介绍界面 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.StoreIntroduceActivity"
+            android:name=".yangjia.activity.StoreIntroduceActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 社交界面 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.SocialManagerActivity"
+            android:name=".yangjia.activity.SocialManagerActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 选择优惠券 -->
         <activity
-            android:name="com.shenma.yueba.baijia.activity.ChooseCouponActivity"
+            android:name=".baijia.activity.ChooseCouponActivity"
             android:screenOrientation="portrait" />
         <!-- 订单详情 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.OrderDetailActivity"
+            android:name=".yangjia.activity.OrderDetailActivity"
             android:screenOrientation="portrait" />
         <!-- 订单详情 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.PublishProductForRenZhenActivity"
+            android:name=".yangjia.activity.PublishProductForRenZhenActivity"
             android:screenOrientation="portrait" />
         <!-- 收入明细 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.IncomeDetailActivity"
+            android:name=".yangjia.activity.IncomeDetailActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 提现历史 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.WithdrawHistoryActivity"
+            android:name=".yangjia.activity.WithdrawHistoryActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 发布商品 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.PublishProductActivity"
+            android:name=".yangjia.activity.PublishProductActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 添加圈子 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.AddCircleActivity"
+            android:name=".yangjia.activity.AddCircleActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 奖励详情 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.RewardDetailActivity"
+            android:name=".yangjia.activity.RewardDetailActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 申请提现 -->
         <activity
-            android:name="com.shenma.yueba.yangjia.activity.ApplyWithdrawActivity"
+            android:name=".yangjia.activity.ApplyWithdrawActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 网络状态变化的广播 -->
         <receiver
-            android:name="com.shenma.yueba.receiver.ConnectionChangeReceiver"
+            android:name=".receiver.ConnectionChangeReceiver"
             android:label="NetworkConnection" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <!-- 闹钟的自定义广播 -->
-        <receiver android:name="com.shenma.yueba.receiver.MyAlertReciver" >
+        <receiver android:name=".receiver.MyAlertReciver" >
             <intent-filter>
                 <action android:name="HeartSocket" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.shenma.yueba.receiver.BatteryReceiver" >
+        <receiver android:name=".receiver.BatteryReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_CHANGED" />
                 <action android:name="android.intent.action.BATTERY_OKAY" />
@@ -521,7 +517,7 @@
         </receiver>
 
         <!-- 系统启动的广播 -->
-        <receiver android:name="com.shenma.yueba.receiver.BootReceiver" >
+        <receiver android:name=".receiver.BootReceiver" >
             <intent-filter>
 
                 <!-- 开机广播 -->
@@ -529,7 +525,7 @@
             </intent-filter>
         </receiver>
         <!-- 解锁广播 -->
-        <receiver android:name="com.shenma.yueba.receiver.UnLockReceiver" >
+        <receiver android:name=".receiver.UnLockReceiver" >
             <intent-filter>
 
                 <!-- 解锁广播 -->
@@ -537,7 +533,7 @@
             </intent-filter>
         </receiver>
         <!-- 锁屏事件的广播 -->
-        <receiver android:name="com.shenma.yueba.receiver.LockScreenReceiver" >
+        <receiver android:name=".receiver.LockScreenReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_ON" />
                 <action android:name="android.intent.action.SCREEN_OFF" />
@@ -611,40 +607,22 @@
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
-            android:name="com.shenma.yueba.broadcaseReceiver.MyReceiver"
+            android:name=".broadcaseReceiver.MyReceiver"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
  Required  用户注册SDK的intent
-
-
-
                 <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
  Required  用户接收SDK消息的intent
-
-
-
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
  Required  用户接收SDK通知栏信息的intent
-
-
-
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
  Required  用户打开自定义通知栏的intent
-
-
-
                 <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
  Optional 用户接受Rich Push Javascript 回调函数的intent
-
-
-
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
 接收网络变化 连接/断开 since 1.6.3
-
-
-
                 <category android:name="com.shenma.yueba" />
             </intent-filter>
         </receiver>
@@ -676,6 +654,11 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="3f6d5f186c19271a004b248e" />
+
+        <activity
+            android:name=".baijia.activity.SearchResultActivity"
+            android:label="@string/title_activity_search_result" >
+        </activity>
     </application>
 
 </manifest>
