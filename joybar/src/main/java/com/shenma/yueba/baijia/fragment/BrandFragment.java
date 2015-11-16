@@ -43,6 +43,7 @@ public class BrandFragment extends BaseFragment{
 	int state=0;
 	String key="";
 	int currPage=0;
+
 	boolean ishowStatus=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
