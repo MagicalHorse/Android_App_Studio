@@ -5,7 +5,7 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <com.shenma.yueba.views.RoundImageView
+    <com.shenma.yueba.view.RoundImageView
         android:id="@+id/authentication_item_head_guide_roundimageveiew"
         android:layout_width="60dp"
         android:layout_height="60dp"
