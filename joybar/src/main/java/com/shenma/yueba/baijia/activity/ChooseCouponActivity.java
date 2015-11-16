@@ -3,17 +3,14 @@ package com.shenma.yueba.baijia.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.adapter.ChooseCouponAdapter;
 import com.shenma.yueba.baijia.modle.ChooseCouponListBean;
-import com.shenma.yueba.baijia.modle.CityListBackBean;
 import com.shenma.yueba.util.HttpControl;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChooseCouponActivity extends BaseActivityWithTopView {
 

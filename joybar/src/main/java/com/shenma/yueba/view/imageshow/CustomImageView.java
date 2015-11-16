@@ -1,13 +1,13 @@
 package com.shenma.yueba.view.imageshow;
-/**  
- * @author gyj  
- * @version 创建时间：2015-5-19 下午5:37:07  
- * 程序的简单说明  
+/**
+ * @author gyj
+ * @version 创建时间：2015-5-19 下午5:37:07
+ * 程序的简单说明
  */
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -16,19 +16,16 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 
 import com.shenma.yueba.R;
 
 /**
- * 自定义View，实现圆角，圆形等效果
- * 
+ * �Զ���View��ʵ��Բ�ǣ�Բ�ε�Ч��
+ *
  * @author zhy
- * 
  */
-public class CustomImageView extends View
-{
+public class CustomImageView extends View {
 
 	/**
 	 * TYPE_CIRCLE / TYPE_ROUND
@@ -38,105 +35,84 @@ public class CustomImageView extends View
 	private static final int TYPE_ROUND = 1;
 
 	/**
-	 * 图片
+	 * ͼƬ
 	 */
 	private Bitmap mSrc;
 
 	/**
-	 * 圆角的大小
+	 * Բ�ǵĴ�С
 	 */
-	private int mRadius;
+	private float mRadius;
 
 	/**
-	 * 控件的宽度
+	 * �ؼ��Ŀ��
 	 */
 	private int mWidth;
 	/**
-	 * 控件的高度
+	 * �ؼ��ĸ߶�
 	 */
 	private int mHeight;
 
-	public CustomImageView(Context context, AttributeSet attrs)
-	{
+	public CustomImageView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public CustomImageView(Context context)
-	{
+	public CustomImageView(Context context) {
 		this(context, null);
 	}
 
 	/**
-	 * 初始化一些自定义的参数
-	 * 
+	 * ��ʼ��һЩ�Զ���Ĳ���
+	 *
 	 * @param context
 	 * @param attrs
 	 * @param defStyle
 	 */
-	public CustomImageView(Context context, AttributeSet attrs, int defStyle)
-	{
+	public CustomImageView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 
 		TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomImageView, defStyle, 0);
-
+		mRadius=a.getDimension(R.styleable.CustomImageView_borderRadius, 1);
 		int n = a.getIndexCount();
-		for (int i = 0; i < n; i++)
-		{
+		for (int i = 0; i < n; i++) {
 			int attr = a.getIndex(i);
-			switch (attr)
-			{
-			case R.styleable.CustomImageView_src:
-				mSrc = BitmapFactory.decodeResource(getResources(), a.getResourceId(attr, 0));
-				break;
-			case R.styleable.CustomImageView_type:
-				type = a.getInt(attr, 0);// 默认为Circle
-				break;
-			case R.styleable.CustomImageView_borderRadius:
-				type = a.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f,
-						getResources().getDisplayMetrics()));// 默认为10DP
-				break;
+			switch (attr) {
+				case R.styleable.CustomImageView_src:
+					mSrc = BitmapFactory.decodeResource(getResources(), a.getResourceId(attr, 0));
+					break;
+				case R.styleable.CustomImageView_type:
+					type = a.getInt(attr, 0);// Ĭ��ΪCircle
+					break;
+				case R.styleable.CustomImageView_borderRadius:
+
+					break;
 			}
 		}
 		a.recycle();
 	}
 
-	/*****
-	 * 设置显示的图片 即显示的样式
-	 * @param type int 0圆形
-	 * @param  image int图片的id
-	 * ***/
-	public void setSrc(Context context,int image,int type)
+
+	public void setBitmap(Bitmap bitmap)
 	{
-		this.type=type;
-		BitmapDrawable db=(BitmapDrawable)context.getResources().getDrawable(image);
-		mSrc=db.getBitmap();
-		invalidate();
-	}
-	
-	
-	/*****
-	 * 设置显示的图片 即显示的样式
-	 * @param context Context
-	 * @param bitmap Bitmap
-	 * @param type int 0圆形
-	 * ***/
-	public void setSrc(Context context,Bitmap bitmap,int type)
-	{
-		this.type=type;
+		if(bitmap==null)
+		{
+			BitmapDrawable db=(BitmapDrawable)this.getResources().getDrawable(R.drawable.default_pic);
+			bitmap=db.getBitmap();
+
+		}
 		mSrc=bitmap;
-		invalidate();
+		postInvalidate();
 	}
-	
+
 	/**
-	 * 计算控件的高度和宽度
+	 * ����ؼ��ĸ߶ȺͿ��
 	 */
 	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-	{
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		// super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
 		/**
-		 * 设置宽度
+		 * ���ÿ��
 		 */
 		int specMode = MeasureSpec.getMode(widthMeasureSpec);
 		int specSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -144,9 +120,8 @@ public class CustomImageView extends View
 		if (specMode == MeasureSpec.EXACTLY)// match_parent , accurate
 		{
 			mWidth = specSize;
-		} else
-		{
-			// 由图片决定的宽
+		} else {
+			// ��ͼƬ�����Ŀ�
 			int desireByImg = getPaddingLeft() + getPaddingRight() + mSrc.getWidth();
 			if (specMode == MeasureSpec.AT_MOST)// wrap_content
 			{
@@ -155,7 +130,7 @@ public class CustomImageView extends View
 		}
 
 		/***
-		 * 设置高度
+		 * ���ø߶�
 		 */
 
 		specMode = MeasureSpec.getMode(heightMeasureSpec);
@@ -163,8 +138,7 @@ public class CustomImageView extends View
 		if (specMode == MeasureSpec.EXACTLY)// match_parent , accurate
 		{
 			mHeight = specSize;
-		} else
-		{
+		} else {
 			int desire = getPaddingTop() + getPaddingBottom() + mSrc.getHeight();
 			if (specMode == MeasureSpec.AT_MOST)// wrap_content
 			{
@@ -176,78 +150,76 @@ public class CustomImageView extends View
 	}
 
 	/**
-	 * 绘制
+	 * ����
 	 */
 	@Override
-	protected void onDraw(Canvas canvas)
-	{
+	protected void onDraw(Canvas canvas) {
 
-		switch (type)
-		{
-		// 如果是TYPE_CIRCLE绘制圆形
-		case TYPE_CIRCLE:
+		switch (type) {
+			// �����TYPE_CIRCLE����Բ��
+			case TYPE_CIRCLE:
 
-			int min = Math.min(mWidth, mHeight);
-			/**
-			 * 长度如果不一致，按小的值进行压缩
-			 */
-			mSrc = Bitmap.createScaledBitmap(mSrc, min, min, false);
+				int min = Math.min(mWidth, mHeight);
+				/**
+				 * ���������һ�£���С��ֵ����ѹ��
+				 */
+				mSrc = Bitmap.createScaledBitmap(mSrc, min, min, false);
 
-			canvas.drawBitmap(createCircleImage(mSrc, min), 0, 0, null);
-			break;
-		case TYPE_ROUND:
-			canvas.drawBitmap(createRoundConerImage(mSrc), 0, 0, null);
-			break;
+				canvas.drawBitmap(createCircleImage(mSrc, min), 0, 0, null);
+				break;
+			case TYPE_ROUND:
+				int mins = Math.min(mWidth, mHeight);
+				mSrc = Bitmap.createScaledBitmap(mSrc, mins, mins, false);
+				canvas.drawBitmap(createRoundConerImage(mSrc), 0, 0, null);
+				break;
 
 		}
 
 	}
 
 	/**
-	 * 根据原图和变长绘制圆形图片
-	 * 
+	 * ����ԭͼ�ͱ䳤����Բ��ͼƬ
+	 *
 	 * @param source
 	 * @param min
 	 * @return
 	 */
-	private Bitmap createCircleImage(Bitmap source, int min)
-	{
+	private Bitmap createCircleImage(Bitmap source, int min) {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
-		Bitmap target = Bitmap.createBitmap(min, min, Config.ARGB_8888);
+		Bitmap target = Bitmap.createBitmap(min, min, Bitmap.Config.ARGB_8888);
 		/**
-		 * 产生一个同样大小的画布
+		 * ����һ��ͬ����С�Ļ���
 		 */
 		Canvas canvas = new Canvas(target);
 		/**
-		 * 首先绘制圆形
+		 * ���Ȼ���Բ��
 		 */
 		canvas.drawCircle(min / 2, min / 2, min / 2, paint);
 		/**
-		 * 使用SRC_IN，参考上面的说明
+		 * ʹ��SRC_IN���ο������˵��
 		 */
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 		/**
-		 * 绘制图片
+		 * ����ͼƬ
 		 */
 		canvas.drawBitmap(source, 0, 0, paint);
 		return target;
 	}
 
 	/**
-	 * 根据原图添加圆角
-	 * 
+	 * ����ԭͼ���Բ��
+	 *
 	 * @param source
 	 * @return
 	 */
-	private Bitmap createRoundConerImage(Bitmap source)
-	{
+	private Bitmap createRoundConerImage(Bitmap source) {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
-		Bitmap target = Bitmap.createBitmap(mWidth, mHeight, Config.ARGB_8888);
+		Bitmap target = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(target);
 		RectF rect = new RectF(0, 0, source.getWidth(), source.getHeight());
-		canvas.drawRoundRect(rect, 50f, 50f, paint);
+		canvas.drawRoundRect(rect, 20f, 20f, paint);
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 		canvas.drawBitmap(source, 0, 0, paint);
 		return target;

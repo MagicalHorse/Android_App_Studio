@@ -1,11 +1,11 @@
 package com.shenma.yueba.refreshservice;
 
 import com.shenma.yueba.baijia.modle.CityListItembean;
-import com.shenma.yueba.inter.CityChangeRefreshInter;
-import com.shenma.yueba.inter.IndexRefreshInter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import interfaces.CityChangeRefreshInter;
 
 public class CityChangeRefreshService {
 

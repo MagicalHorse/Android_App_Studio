@@ -2,68 +2,49 @@ package com.shenma.yueba.baijia.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ChooseCityActivity;
-import com.shenma.yueba.baijia.activity.SearchProductActivity;
-import com.shenma.yueba.baijia.modle.CityInfoBackBean;
+import com.shenma.yueba.baijia.adapter.HomeAdapter;
 import com.shenma.yueba.baijia.modle.CityListItembean;
-import com.shenma.yueba.baijia.modle.FragmentBean;
-import com.shenma.yueba.baijia.view.BaseView;
-import com.shenma.yueba.baijia.view.BuyerStreetView;
-import com.shenma.yueba.baijia.view.MyBuyerView;
-import com.shenma.yueba.baijia.view.TabViewpagerManager;
-import com.shenma.yueba.constants.Constants;
-import com.shenma.yueba.inter.CityChangeRefreshInter;
-import com.shenma.yueba.inter.LocationBackListner;
-import com.shenma.yueba.util.HttpControl;
+import com.shenma.yueba.baijia.modle.newmodel.Request_CityInfo;
+import com.shenma.yueba.util.CityChangeRefreshObserver;
 import com.shenma.yueba.util.LocationUtil;
-import com.shenma.yueba.util.SharedUtil;
-import com.shenma.yueba.util.ToolsUtil;
+import com.shenma.yueba.util.PerferneceUtil;
+import com.shenma.yueba.util.TabViewPgerImageManager;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import config.PerferneceConfig;
+import https.CommonHttpControl;
+import interfaces.CityChangeRefreshInter;
+import interfaces.HttpCallBackInterface;
+import interfaces.LocationBackListner;
 
 /******
  * @author gyj
  * @date 2015-05-19 买手主页Fragment 主要布局采用viewPager+Linerlayout实现TAB效果切换数据
  ****/
 public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefreshInter {
-
-    // 存储切换的数据
-    List<FragmentBean> fragment_list = new ArrayList<FragmentBean>();
-    // 存储Tab切换的视图对象
-    List<View> footer_list = new ArrayList<View>();
-    ViewPager baijia_fragment_tab1_pagerview;
-    LinearLayout baijia_fragment_tab1_head_linearlayout;
-
     FragmentManager fragmentManager;
-    View v;
-    TabViewpagerManager tabViewpagerManager;
     TextView tv_city;//当前城市
+    View parentView;
+    PullToRefreshListView baijia_contact_listview;
+    boolean isRunning=false;//访问网络是否进行中
+    boolean isSuncess=false;//数据是否加载完成
+    HomeAdapter homeAdapter;
     @Override
     public void onAttach(Activity activity) {
         // TODO Auto-generated method stub
@@ -71,181 +52,160 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser)
+        {
+            if(!isSuncess)
+            {
+                refreshDataByHttp();
+            }
 
-        if (v == null) {
-            v = inflater.inflate(R.layout.indexfragmentforbaijia_layout, null);
-            initView(v);
-            //baijia_fragment_tab1_pagerview.setOffscreenPageLimit(0);
         }
-        ViewGroup vp = (ViewGroup) v.getParent();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+
+        if (parentView == null) {
+            parentView = inflater.inflate(R.layout.baijia_indexfragment_layout, null);
+            initTitle(parentView);
+            initView(parentView);
+            initTabImage();
+        }
+        ViewGroup vp = (ViewGroup) parentView.getParent();
         if (vp != null) {
-            vp.removeView(v);
+            vp.removeView(parentView);
         }
-        return v;
+        return parentView;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        MyApplication.getInstance().getCityChangeRefreshService().addToList(this);
+        //MyApplication.getInstance().getCityChangeRefreshService().addToList(this);
         super.onCreate(savedInstanceState);
+        fragmentManager = getActivity().getSupportFragmentManager();
     }
+
+
+    /*********
+     * 从网络加载数据
+     * *********/
+    void refreshDataByHttp()
+    {
+        if(isRunning)
+        {
+            return;
+        }
+        isRunning=true;
+        //模拟加载
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                SystemClock.sleep(5000);
+                isRunning=false;
+                isSuncess=true;
+            }
+        }.start();
+    }
+
+
+    /*********
+     * 初始化 标题
+     ********/
+    void initTitle(View v) {
+        //左侧地址
+        tv_city = (TextView) v.findViewById(R.id.tv_top_left);
+        tv_city.setVisibility(View.VISIBLE);
+        tv_city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChooseCityActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.enter_from_bottom, R.anim.no);
+            }
+        });
+        tv_city.setText("全国");
+        tv_city.setCompoundDrawablesWithIntrinsicBounds(null, null, this.getResources().getDrawable(R.drawable.arrow_down), null);
+        //标题
+        TextView title_layout_titlename_textview = (TextView) v.findViewById(R.id.tv_top_title);
+        title_layout_titlename_textview.setText("Shopping");
+        //右侧搜索
+        TextView title_layout_right_textview = (TextView) v.findViewById(R.id.bt_top_right);
+        title_layout_right_textview.setBackgroundColor(getActivity().getResources().getColor(R.color.color_transparent));
+        title_layout_right_textview.setVisibility(View.VISIBLE);
+        title_layout_right_textview.setCompoundDrawablesWithIntrinsicBounds(null, null, this.getResources().getDrawable(R.drawable.search), null);
+        title_layout_right_textview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+
+    /************************
+     * 初始化图片循环滚动视图 并添加到当前页面中
+     ************/
+    void initTabImage()
+    {
+        List<String> array_str=new ArrayList<String>();
+        for(int i=0;i<5;i++)
+        {
+            array_str.add("http://c.hiphotos.baidu.com/image/pic/item/b03533fa828ba61e5a8540284334970a304e594a.jpg");
+        }
+        TabViewPgerImageManager tabViewPgerImageManager = new TabViewPgerImageManager(getActivity(), array_str);
+        //将 视图加入到 listview的 head中
+        baijia_contact_listview.getRefreshableView().addHeaderView(tabViewPgerImageManager.getTabView());
+        //通知 数据更新 刷新视图
+        tabViewPgerImageManager.notification();
+    }
+
 
     /***
      * 初始化视图
      ***/
     void initView(View v) {
-        fragmentManager = ((FragmentActivity) getActivity()).getSupportFragmentManager();
-        BuyerStreetView buyerStreetView = new BuyerStreetView(getActivity());
-        MyBuyerView myBuyerView = new MyBuyerView(getActivity());
-
-        if (fragment_list != null) {
-            fragment_list.clear();
-        }
-        fragment_list.add(new FragmentBean("买手街", -1, buyerStreetView));
-        // fragment_list.add(new FragmentBean("TA们说", -1, theySayFragment));
-        fragment_list.add(new FragmentBean("我的买手", -1, myBuyerView));
-        baijia_fragment_tab1_head_linearlayout = (LinearLayout) v.findViewById(R.id.baijia_fragment_tab1_head_linearlayout);
-        tv_city = new TextView(getActivity());
-        final ProgressBar progressBar = new ProgressBar(getActivity());
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT);
-        tv_city.setLayoutParams(params);
-        progressBar.setLayoutParams(params);
-        Resources res = getResources();
-        Drawable myImage = res.getDrawable(R.drawable.arrow_down);
-        myImage.setBounds(0, 0, myImage.getMinimumWidth(), myImage.getMinimumHeight());
-        tv_city.setText("北京");
-        tv_city.setPadding(ToolsUtil.dip2px(getActivity(), 10), 0, 0, 0);
-        tv_city.setCompoundDrawablePadding(10);
-        tv_city.setTextColor(getResources().getColor(R.color.gray));
-        tv_city.setCompoundDrawables(null, null, myImage, null);
-        progressBar.setPadding(ToolsUtil.dip2px(getActivity(), 10), 0, 0, 0);
-
-
-        tv_city.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChooseCityActivity.class);
-                startActivityForResult(intent, Constants.REQUESTCODE);
-                getActivity().overridePendingTransition(R.anim.enter_from_bottom, R.anim.no);
-
-            }
-        });
-
-        RelativeLayout LeftParents = new RelativeLayout(getActivity());
-        RelativeLayout.LayoutParams RelativeParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        LeftParents.setLayoutParams(RelativeParams);
-        LeftParents.addView(tv_city);
-        LeftParents.addView(progressBar);
-        tv_city.setVisibility(View.INVISIBLE);
-        LocationUtil locationUtil = new LocationUtil(getActivity());
-        locationUtil.getLocation(new LocationBackListner() {
+        homeAdapter=new HomeAdapter(getActivity());
+        baijia_contact_listview = (PullToRefreshListView) parentView.findViewById(R.id.baijia_contact_listview);
+        baijia_contact_listview.setAdapter(homeAdapter);
+        CityChangeRefreshObserver.getInstance().addObserver(this);
+        LocationUtil.getLocation(getActivity(), new LocationBackListner() {
             @Override
             public void callBack(boolean result) {
                 if (result) {
                     Toast.makeText(getActivity(), "定位成功", Toast.LENGTH_SHORT).show();
                     //开始调用接口，根据经纬度获取城市名称
-                    HttpControl httpControl=new HttpControl();
-                    httpControl.getCityInfoById(new HttpControl.HttpCallBackInterface() {
+                    CommonHttpControl.getCityNameByGPS(new HttpCallBackInterface<Request_CityInfo>() {
                         @Override
-                        public void http_Success(Object obj) {
-                            CityInfoBackBean back = (CityInfoBackBean) obj;
+                        public void http_Success(Request_CityInfo back) {
                             String str = back.getData().getName();
-                            progressBar.setVisibility(View.GONE);
-                            tv_city.setVisibility(View.VISIBLE);
                             tv_city.setText(str);
-                            SharedUtil.setCurrentCityId(getActivity(),back.getData().getId());
+                            PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, back.getData().getId());
                         }
 
                         @Override
                         public void http_Fails(int error, String msg) {
-                            progressBar.setVisibility(View.GONE);
-                            tv_city.setVisibility(View.VISIBLE);
                             tv_city.setText("全国");
+                            PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, "");
                         }
-                    },getActivity(),SharedUtil.getStringPerfernece(getActivity(),Constants.LONGITUDE), SharedUtil.getStringPerfernece(getActivity(), Constants.LATITUDE));
+                    });
                 } else {
                     Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_SHORT).show();
+                    PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, "");
                     tv_city.setText("全国");
-                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
-//        baijia_fragment_tab1_head_linearlayout.addView(RelativeParams);
-//        baijia_fragment_tab1_head_linearlayout.addView(tv_city);
-        baijia_fragment_tab1_head_linearlayout.addView(LeftParents);
 
-        baijia_fragment_tab1_pagerview = (ViewPager) v.findViewById(R.id.baijia_fragment_tab1_pagerview);
-        tabViewpagerManager = new TabViewpagerManager(getActivity(), fragment_list, baijia_fragment_tab1_head_linearlayout, baijia_fragment_tab1_pagerview);
-        tabViewpagerManager.initViewPager();
-        baijia_fragment_tab1_pagerview
-                .setOnPageChangeListener(new OnPageChangeListener() {
-
-                    @Override
-                    public void onPageSelected(int arg0) {
-                        //currid = arg0;
-                        //setTextColor(arg0);
-                        switch (arg0) {
-                            case 0:
-                                tabViewpagerManager.setCurrView(0);
-                                ((BaseView) fragment_list.get(arg0).getFragment()).firstInitData();
-                                break;
-                            case 1:
-                                if (!MyApplication.getInstance().isUserLogin(
-                                        getActivity())) {
-                                    baijia_fragment_tab1_pagerview.setCurrentItem(0, false);
-                                } else {
-                                    baijia_fragment_tab1_pagerview.setCurrentItem(1, true);
-                                    tabViewpagerManager.setCurrView(1);
-
-                                    ((BaseView) fragment_list.get(arg0).getFragment()).firstInitData();
-                                }
-                                break;
-                        }
-                    }
-
-                    @Override
-                    public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int arg0) {
-
-                    }
-                });
-
-
-
-        Button bt_right = new Button(getActivity());
-        LinearLayout.LayoutParams paramsA = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        paramsA.height = ToolsUtil.dip2px(getActivity(), 16);
-        paramsA.width = ToolsUtil.dip2px(getActivity(), 16);
-        paramsA.gravity = Gravity.CENTER_VERTICAL;
-        paramsA.setMargins(0, 0, ToolsUtil.dip2px(getActivity(), 10), 0);
-        bt_right.setLayoutParams(paramsA);
-        bt_right.setBackgroundResource(R.drawable.search);
-        baijia_fragment_tab1_head_linearlayout.addView(bt_right);
-        bt_right.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchProductActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-        tabViewpagerManager.setCurrView(0);
 
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        try {
+        /*try {
             Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
             childFragmentManager.setAccessible(true);
             childFragmentManager.set(this, null);
@@ -254,12 +214,34 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
     }
 
+    /********
+     * 城市选择回调刷新
+     ****/
     @Override
     public void refresh(CityListItembean bean) {
         tv_city.setText(bean.getName());
+        //判断是否需要刷新数据
+        MyApplication.getInstance().showMessage(getActivity(), "获取到城市信息 需要判断当前的 城市与 选择是的 城市是否未同一个");
+    }
+
+    /********
+     * 显示或隐藏  无数据 提示 视图
+     *
+     * @param status booelan true 显示  false隐藏
+     *********/
+    void showNoData(boolean status) {
+        TextView nodata_layout_textview = (TextView) parentView.findViewById(R.id.nodata_layout_textview);
+        if (status) {
+            nodata_layout_textview.setVisibility(View.VISIBLE);
+            baijia_contact_listview.setVisibility(View.GONE);
+        } else {
+            nodata_layout_textview.setVisibility(View.GONE);
+            baijia_contact_listview.setVisibility(View.VISIBLE);
+        }
+
     }
 }

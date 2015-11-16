@@ -1,10 +1,8 @@
 package com.shenma.yueba.baijia.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,7 +15,6 @@ import com.shenma.yueba.baijia.modle.CityInfoBackBean;
 import com.shenma.yueba.baijia.modle.CityListBackBean;
 import com.shenma.yueba.baijia.modle.CityListItembean;
 import com.shenma.yueba.constants.Constants;
-import com.shenma.yueba.inter.LocationBackListner;
 import com.shenma.yueba.util.CustomProgressDialog;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
@@ -26,6 +23,8 @@ import com.shenma.yueba.util.SharedUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import interfaces.LocationBackListner;
 
 /**
  * 开通SHOPPING的城市列表
@@ -108,8 +107,7 @@ public class ChooseCityActivity extends BaseActivityWithTopView {
       final CustomProgressDialog dialog = new CustomProgressDialog(mContext).createDialog(mContext);
        dialog.setMessage("定位中...");
        dialog.show();
-       LocationUtil locationUtil = new LocationUtil(mContext);
-       locationUtil.getLocation(new LocationBackListner() {
+       LocationUtil.getLocation(this, new LocationBackListner() {
            @Override
            public void callBack(boolean result) {
                if (result) {

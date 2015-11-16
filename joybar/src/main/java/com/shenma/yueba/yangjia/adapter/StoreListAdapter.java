@@ -5,16 +5,12 @@ import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.adapter.BaseAdapterWithUtil;
-import com.shenma.yueba.baijia.modle.CityListItembean;
 import com.shenma.yueba.baijia.modle.StoreItem;
 import com.shenma.yueba.util.FontManager;
-import com.shenma.yueba.yangjia.modle.IdentificationBuyerListBean;
 
 public class StoreListAdapter extends BaseAdapterWithUtil {
 	private List<StoreItem> mList;

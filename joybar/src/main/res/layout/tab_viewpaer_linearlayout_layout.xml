@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><!--循环滚动图片-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/appprovebuyer_viewpager_relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/appprovebuyer_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <!-- 图片的 原点 -->
+
+        <LinearLayout
+            android:id="@+id/appprovebuyer_viewpager_footer_linerlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal" />
+    </RelativeLayout>
+</RelativeLayout>

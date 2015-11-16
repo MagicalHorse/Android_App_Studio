@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res/com.shenma.yueba"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+
+    <com.shenma.yueba.view.imageshow.CustomImageView
+        android:id="@+id/home_item_top_layout_icon_customimageview"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        zhy:borderRadius="2dp"
+        zhy:src="@drawable/splash"
+        zhy:type="round" />
+
+
+    <!--倒计时-->
+    <TextView
+        android:id="@+id/home_item_top_layout_time_textview"
+        style="@style/style_horizontal_line"
+        android:layout_alignParentRight="true"
+        android:text="结束距离：1天 23:34:12" />
+
+    <!--名称-->
+    <TextView
+        android:id="@+id/home_item_top_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/home_item_top_layout_time_textview"
+        android:layout_toRightOf="@+id/home_item_top_layout_icon_customimageview"
+        android:singleLine="true"
+        android:text="BELLE"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/home_item_top_name_textview"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/home_item_top_layout_icon_customimageview"
+        android:padding="0dp">
+
+        <ImageView
+            android:id="@+id/home_item_top_desp_imageview"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:src="@drawable/dingwei" />
+        <!--描述-->
+        <TextView
+            android:id="@+id/home_item_top_desp_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/home_item_top_destance_textview"
+            android:layout_toRightOf="@+id/home_item_top_desp_imageview"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="实上的扣扣扣扣扣哈我上的扣扣扣扣哈我看大"
+            android:textSize="11sp" />
+
+        <!--距离-->
+        <TextView
+            android:id="@+id/home_item_top_destance_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:maxWidth="80dp"
+            android:singleLine="true"
+            android:text="114Km"
+            android:textSize="11sp" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

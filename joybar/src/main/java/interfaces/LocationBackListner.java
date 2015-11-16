@@ -1,4 +1,4 @@
-package com.shenma.yueba.inter;
+package interfaces;
 
 public interface LocationBackListner {
 	public abstract void callBack(boolean result);

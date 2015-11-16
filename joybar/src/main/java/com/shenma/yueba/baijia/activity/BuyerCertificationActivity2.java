@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.ApplyAuthBuyerBean;
-import com.shenma.yueba.baijia.modle.CardBean;
 import com.shenma.yueba.baijia.modle.CityListBackBean;
 import com.shenma.yueba.baijia.modle.CityListItembean;
 import com.shenma.yueba.baijia.modle.StoreItem;

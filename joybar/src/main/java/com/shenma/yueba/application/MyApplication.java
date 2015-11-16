@@ -40,12 +40,9 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.activity.LoginAndRegisterActivity;
 import com.shenma.yueba.db.DBHelper;
-import com.shenma.yueba.inter.CityChangeRefreshInter;
 import com.shenma.yueba.refreshservice.CityChangeRefreshService;
 import com.shenma.yueba.refreshservice.HuoKuanManagerRefreshService;
 import com.shenma.yueba.refreshservice.IndexRefreshService;
-import com.shenma.yueba.util.CustomProgressDialog;
-import com.shenma.yueba.util.LocationUtil;
 import com.shenma.yueba.util.PublishPicUtil;
 import com.shenma.yueba.util.SharedUtil;
 

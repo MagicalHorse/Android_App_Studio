@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <!--顶部图片 -->
+    <include layout="@layout/baijia_marketmain_head_layout" />
+    <!--品牌-->
+    <LinearLayout
+        android:id="@+id/baijia_authencationmain_brand_linearlayout"
+        android:paddingTop="@dimen/contentpadding"
+        android:paddingBottom="@dimen/contentpadding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        >
+    </LinearLayout>
+</LinearLayout>

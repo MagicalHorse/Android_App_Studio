@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/baijia_marketmain_head_background_layout_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_pic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/baijia_marketmain_head_name_layout_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="金鹰商场"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/baijia_marketmain_head_address_layout_imageview"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/dingwei" />
+
+            <TextView
+                android:id="@+id/baijia_marketmain_head_address_layout_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/baijia_marketmain_head_address_layout_imageview"
+                android:text="北京 中关村南大街"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

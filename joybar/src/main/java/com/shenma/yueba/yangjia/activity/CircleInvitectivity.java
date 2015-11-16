@@ -317,11 +317,9 @@ public class CircleInvitectivity extends BaseActivityWithTopView implements
 	 * 添加fansToCircle
 	 * 
 	 * @param ctx
-	 * @param isRefresh
 	 * @param showDialog
 	 */
-	public void addFansToCircle(String circleId, String ids, Context ctx,
-			boolean showDialog) {
+	public void addFansToCircle(String circleId, String ids, Context ctx,boolean showDialog) {
 		HttpControl httpControl = new HttpControl();
 		httpControl.addFansToCircle(circleId, ids, showDialog,
 				new HttpCallBackInterface() {

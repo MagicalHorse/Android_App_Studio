@@ -1050,6 +1050,12 @@ public class ToolsUtil {
 
 	}
 
+	public static void forwardActivity(Context activity,Class classz)
+	{
+		Intent intent=new Intent(activity,classz);
+		activity.startActivity(intent);
+	}
+
 
 	/**
 	 * 跳转到微信

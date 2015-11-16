@@ -40,4 +40,11 @@
     <dimen name="textsize16sp">17sp</dimen>
     <dimen name="textsize18sp">18sp</dimen>
     <dimen name="textsize20sp">20sp</dimen>
+    <dimen name="branditem_margin">3dp</dimen>
+    <dimen name="item_margin">5dp</dimen>
+    <dimen name="contentpadding">10dp</dimen>
+    <dimen name="text_Lmoreauthentication_textsize">11sp</dimen>
+    <dimen name="text_authentication_textsize">15sp</dimen>
+    <dimen name="round_width">8dp</dimen>
+    <dimen name="round_margin">3dp</dimen>
 </resources>

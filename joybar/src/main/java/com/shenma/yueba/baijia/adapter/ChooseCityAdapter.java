@@ -6,16 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.activity.ChooseCityActivity;
 import com.shenma.yueba.baijia.modle.CityListItembean;
 import com.shenma.yueba.util.FontManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

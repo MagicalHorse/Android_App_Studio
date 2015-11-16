@@ -494,6 +494,25 @@
             android:name=".yangjia.activity.ApplyWithdrawActivity"
             android:screenOrientation="portrait" >
         </activity>
+
+
+        <!--败家商场首页-->
+        <activity
+            android:name="com.shenma.yueba.baijia.activity.MarketMainActivity"
+            android:screenOrientation="portrait" />
+
+        <!--败家认证买手首页-->
+        <activity
+            android:name="com.shenma.yueba.baijia.activity.AuthenticationBuyerMainActivity"
+            android:screenOrientation="portrait" />
+
+        <!--败家品牌详情首页-->
+        <activity
+            android:name="com.shenma.yueba.baijia.activity.BrandListActivity"
+            android:screenOrientation="portrait" />
+
+
+
         <!-- 网络状态变化的广播 -->
         <receiver
             android:name=".receiver.ConnectionChangeReceiver"

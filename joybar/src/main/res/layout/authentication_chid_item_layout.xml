@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/authentication_child_iten_layout_pic_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_pic" />
+
+    <TextView
+        android:background="@drawable/gray_transparent_background"
+        android:id="@+id/authentication_child_iten_layout_price_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="left|center_vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="5dp"
+        android:singleLine="true"
+        android:text="￥28000" />
+
+
+</RelativeLayout>
