@@ -1,10 +1,26 @@
 package com.shenma.yueba.baijia.view;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.widget.AbsListView;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -28,29 +44,13 @@ import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.FixedSpeedScroller;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.widget.AbsListView;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class BuyerStreetView extends BaseView {
+public class BrandAndProductSearchView extends BaseView {
 	List<FragmentBean> fragment_list = new ArrayList<FragmentBean>();
 	// 当前选中的id （ViewPager选中的id）
 	int currid = -1;
@@ -83,12 +83,12 @@ public class BuyerStreetView extends BaseView {
 	LinearLayout head_ll;
 	Activity activity;
 	boolean isruning=false;
-	public BuyerStreetView(Activity activity)
+	public BrandAndProductSearchView(Activity activity)
 	{
 		this.activity=activity;
 		if (parentview == null) {
 			inflater=activity.getLayoutInflater();
-			parentview = inflater.inflate(R.layout.buyersteetfragment_layout,null);
+			parentview = inflater.inflate(R.layout.brand_and_product_search_layout,null);
 			initPullView();
 			initView(parentview);
 			requestFalshData();

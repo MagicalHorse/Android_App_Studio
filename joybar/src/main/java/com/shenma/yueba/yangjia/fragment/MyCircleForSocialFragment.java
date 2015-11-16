@@ -126,14 +126,14 @@ public class MyCircleForSocialFragment extends BaseFragment {
 						mList.addAll(bean.getData().getItems());
 						adapter.notifyDataSetChanged();
 					}else{
-						Toast.makeText(getActivity(), "没有更多数据了...", 1000).show();
+						Toast.makeText(getActivity(), "没有更多数据了...", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
 			
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(getActivity(),msg, 1000).show();
+				Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
 				
 			}
 		}, ctx);
