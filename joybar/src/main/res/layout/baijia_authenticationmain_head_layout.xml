@@ -10,8 +10,7 @@
     <!--品牌-->
     <LinearLayout
         android:id="@+id/baijia_authencationmain_brand_linearlayout"
-        android:paddingTop="@dimen/contentpadding"
-        android:paddingBottom="@dimen/contentpadding"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"

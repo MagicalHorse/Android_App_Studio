@@ -13,6 +13,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
+import com.shenma.yueba.util.AbsBrandListManager;
+import com.shenma.yueba.util.AutoBrandListManager;
 import com.shenma.yueba.util.BrandListManager;
 import com.shenma.yueba.util.PubuliuManager;
 import com.shenma.yueba.util.ToolsUtil;
@@ -37,7 +39,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
     //品牌父视图
     LinearLayout baijia_authencationmain_brand_linearlayout;;
     //品牌列表 管理
-    BrandListManager bm;
+    AbsBrandListManager bm;
     //瀑布流管理
     PubuliuManager pubuliuManager;
     List<PubuliuBeanInfo> item;
@@ -114,7 +116,8 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         for (int i = 0; i < 13; i++) {
             list.add("品牌" + i);
         }
-        bm = new BrandListManager(list, this, 6, baijia_authencationmain_brand_linearlayout);
+
+        bm = new AutoBrandListManager(this,baijia_authencationmain_brand_linearlayout);
         bm.setChildMargin(getResources().getDimensionPixelSize(R.dimen.branditem_margin));
         bm.setLastText("更多品牌", R.dimen.text_authentication_textsize);
         bm.settextSize(R.dimen.text_authentication_textsize);
@@ -131,6 +134,6 @@ public class MarketMainActivity extends BaseActivityWithTopView {
                 MyApplication.getInstance().showMessage(MarketMainActivity.this, "更多别点击了");
             }
         });
-        bm.nofication();
+        bm.nofication(list);
     }
 }

@@ -12,9 +12,7 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.shenma.yueba.R;
 
-import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,72 +20,39 @@ import java.util.List;
  * Created by Administrator on 2015/11/12.
  * 品牌列表管理类
  */
-public class BrandListManager {
+public class BrandListManager extends  AbsBrandListManager{
     //最多显示的品牌数
     int maxShowCoun=6;
-    //每个品牌之间的距离
-    int marginvalue=0;
     //总宽度
     int ll_width;
     int parentPaddingLeft=0;
     int parentPaddingRight=0;
     //品牌数据列表对象
     List<String> array_list;
-    Activity activity;
-    String more="更多品牌...";
+
     LinearLayout ll=null;
-    //最后文字 大小
-    int LasttextSize_id=R.dimen.text_Lmoreauthentication_textsize;
-    //品牌信息文字大小
-    int textSize_id=R.dimen.text_authentication_textsize;
+
     List<TextView> view_array=new ArrayList<TextView>();
-    //点击回调
-    OnBrandItemListener onBrandItemListener;
-
-    public void settextSize(int textSizeResource_id)
-    {
-        this.textSize_id=textSizeResource_id;
-    }
-
 
     /*******
      * @param  maxShowCoun int 每行显示的最多个数
      * @param  _ll  LinearLayout
      * *******/
-    public BrandListManager(List<String> array_list,Activity activity,int maxShowCoun,LinearLayout _ll)
+    public BrandListManager(Activity activity,int maxShowCoun,LinearLayout _ll)
     {
-        this.array_list=array_list;
-        this.activity=activity;
+        super(activity);
         this.maxShowCoun=maxShowCoun;
         this.ll=_ll;
         addLinearLayout();
     }
 
-    /********
-     * 品牌间距赋值
-     * ***/
-    public void setChildMargin(int marginvalue)
-    {
-        this.marginvalue=marginvalue;
-    }
-
-    /********
-     * 设置 最后显示的文字信息以及文字大小
-     * ****/
-    public void setLastText(String s,int LasttextSizeResource_id)
-    {
-        if(s!=null)
-        {
-            more=s;
-        }
-        this.LasttextSize_id=LasttextSizeResource_id;
-    }
 
     /******
      * 通知刷新刷新数据
      * ****/
-    public void nofication()
+    public void nofication(List<String> array_list)
     {
+        this.array_list=array_list;
         setValue();
     }
 
@@ -164,7 +129,7 @@ public class BrandListManager {
             ll.removeAllViews();
             view_array.clear();
             //获取文字的宽度
-            int textwidth=getMoreTextWidth();
+            int textwidth=getMoreTextWidth(more,LasttextSize_id);
             //计算每个文本控件的宽度
             int width = (ll_width-parentPaddingLeft+parentPaddingRight) - (2 * marginvalue)-textwidth;
 
@@ -210,46 +175,5 @@ public class BrandListManager {
                 });
             }
         }
-    }
-
-    /*******
-     * 计算文字的宽度
-     * *****/
-    int getMoreTextWidth()
-    {
-        //计算“更多品牌”文字所占用的空间
-        Paint paint=new Paint();
-        //paint.setTextSize(textSize_id);
-        int textsize=activity.getResources().getDimensionPixelSize(LasttextSize_id);
-        paint.setTextSize(textsize);
-        Rect rect=new Rect();
-        paint.getTextBounds(more, 0, more.length(), rect);
-        int textwidth=rect.width();
-        textwidth=textwidth+marginvalue*2;
-        return textwidth;
-    }
-
-    public void setOnClickListener(OnBrandItemListener onBrandItemListener)
-    {
-        this.onBrandItemListener=onBrandItemListener;
-    }
-
-    /*********
-     * 点击回调接口
-     * *****/
-    public interface OnBrandItemListener
-    {
-        void onItemClick(View v, int i);
-        void OnLastItemClick(View v);
-    }
-
-    /******
-     * 根据资源id 获取 对应的像素值
-     * ****/
-    int getTextSize(int _textsize)
-    {
-        TypedValue typedValue=new TypedValue();
-        activity.getResources().getValue(_textsize, typedValue, true);
-        return (int) TypedValue.complexToFloat(typedValue.data);
     }
 }

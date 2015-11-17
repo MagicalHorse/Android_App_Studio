@@ -14,6 +14,8 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.AuthenticationMainAdapter;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
+import com.shenma.yueba.util.AbsBrandListManager;
+import com.shenma.yueba.util.AutoBrandListManager;
 import com.shenma.yueba.util.BrandListManager;
 import com.shenma.yueba.util.PubuliuManager;
 import com.shenma.yueba.util.ToolsUtil;
@@ -39,7 +41,7 @@ public class AuthenticationBuyerMainActivity extends BaseActivityWithTopView {
     LinearLayout baijia_authencationmain_brand_linearlayout;
     AuthenticationMainAdapter authenticationMainAdapter;
     //品牌列表 管理
-    BrandListManager bm;
+    AbsBrandListManager bm;
     //瀑布流管理
     PubuliuManager pubuliuManager;
     List<PubuliuBeanInfo> item;
@@ -116,14 +118,16 @@ public class AuthenticationBuyerMainActivity extends BaseActivityWithTopView {
         List<String> list = new ArrayList<String>();
         for (int i = 0; i < 13; i++) {
             list.add("品牌" + i);
+            //list.add("更多品牌");
         }
-        bm = new BrandListManager(list, this, 6, baijia_authencationmain_brand_linearlayout);
+        bm = new AutoBrandListManager(this,baijia_authencationmain_brand_linearlayout);
         bm.setChildMargin(getResources().getDimensionPixelSize(R.dimen.branditem_margin));
         bm.setLastText("更多品牌", R.dimen.text_authentication_textsize);
         bm.settextSize(R.dimen.text_authentication_textsize);
         bm.setOnClickListener(new BrandListManager.OnBrandItemListener() {
             @Override
             public void onItemClick(View v, int i) {
+                //MyApplication.getInstance().showMessage(MarketMainActivity.this, "数据" + i);
                 Intent intent = new Intent(AuthenticationBuyerMainActivity.this, BrandListActivity.class);
                 startActivity(intent);
             }
@@ -133,6 +137,6 @@ public class AuthenticationBuyerMainActivity extends BaseActivityWithTopView {
                 MyApplication.getInstance().showMessage(AuthenticationBuyerMainActivity.this, "更多别点击了");
             }
         });
-        bm.nofication();
+        bm.nofication(list);
     }
 }
