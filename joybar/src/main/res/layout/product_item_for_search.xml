@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dip"
+    android:padding="10dip">
+
+
+    <ImageView
+        android:id="@+id/iv_product"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
+        android:background="@drawable/default_pic" />
+
+
+    <TextView
+        android:id="@+id/tv_introduce"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_toRightOf="@id/iv_product"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_introduce"
+        android:layout_alignParentBottom="true"
+        android:text="$899"
+        android:textColor="@color/red_text_color" />
+
+
+    <ImageView
+        android:id="@+id/iv_collection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/collect_backgroud" />
+
+</RelativeLayout>

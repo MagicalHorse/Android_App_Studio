@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dip">
+
+
+
+
+
+
+        <ImageView
+            android:id="@+id/iv_market_head"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:layout_toLeftOf="@+id/imageView2"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_pic" />
+
+
+        <TextView
+
+            android:id="@+id/tv_shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_market_head"
+            android:layout_toRightOf="@+id/iv_market_head"
+            android:text="华宇商场导购"
+            android:textColor="@color/black"
+            android:textSize="@dimen/center_text_size" />
+
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_market_head"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dip"
+            android:text="粉丝：9999"
+            android:textColor="@color/text_gray_color"
+            android:textSize="@dimen/little_text_size" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_market_head"
+            android:layout_marginRight="10dip"
+            android:layout_toLeftOf="@id/tv_distance"
+            android:layout_toRightOf="@+id/iv_market_head"
+            android:drawableLeft="@drawable/address"
+            android:singleLine="true"
+            android:text="中关村南大街6号aaaaaaaaaaaaaaaaaaaaaaaaa"
+            android:textColor="@color/text_gray_color"
+            android:textSize="@dimen/little_text_size" />
+
+
+
+
+
+
+
+</RelativeLayout>

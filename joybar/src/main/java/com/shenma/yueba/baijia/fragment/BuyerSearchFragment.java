@@ -12,6 +12,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
+import com.shenma.yueba.baijia.adapter.BuyerSearchAdapter;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
@@ -32,7 +33,7 @@ import java.util.List;
 public class BuyerSearchFragment extends BaseFragment {
 
 	private PullToRefreshListView pull_refresh_list;
-	private MyAttentionAndFansForSocialAdapter adapter;
+	private BuyerSearchAdapter adapter;
 	private List<AttationAndFansItemBean> mList = new ArrayList<AttationAndFansItemBean>();
 	private int page = 1;
 	private boolean isRefresh = true;
@@ -53,8 +54,7 @@ public class BuyerSearchFragment extends BaseFragment {
 				.findViewById(R.id.pull_refresh_list);
 		tv_nodata = (TextView) view
 				.findViewById(R.id.tv_nodata);
-		adapter = new MyAttentionAndFansForSocialAdapter(getActivity(),
-				mList);
+		adapter = new BuyerSearchAdapter(getActivity());
 		pull_refresh_list.setAdapter(adapter);
 		pull_refresh_list.setOnRefreshListener(new OnRefreshListener2() {
 
@@ -108,7 +108,7 @@ public class BuyerSearchFragment extends BaseFragment {
 						mList.clear();
 						mList.addAll(bean.getData().getItems());
 						tv_nodata.setVisibility(View.GONE);
-						adapter = new MyAttentionAndFansForSocialAdapter(getActivity(), mList);
+						adapter = new BuyerSearchAdapter(getActivity());
 						pull_refresh_list.setAdapter(adapter);
 					}else{
 						tv_nodata.setVisibility(View.VISIBLE);

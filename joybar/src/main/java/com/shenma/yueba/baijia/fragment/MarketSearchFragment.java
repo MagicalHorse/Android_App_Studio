@@ -16,6 +16,7 @@ import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.util.SharedUtil;
+import com.shenma.yueba.yangjia.adapter.MarketForSearchAdapter;
 import com.shenma.yueba.yangjia.adapter.MyAttentionAndFansForSocialAdapter;
 import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
 import com.shenma.yueba.yangjia.modle.AttationAndFansListBackBean;
@@ -32,7 +33,7 @@ import java.util.List;
 public class MarketSearchFragment extends BaseFragment {
 
 	private PullToRefreshListView pull_refresh_list;
-	private MyAttentionAndFansForSocialAdapter adapter;
+	private MarketForSearchAdapter adapter;
 	private List<AttationAndFansItemBean> mList = new ArrayList<AttationAndFansItemBean>();
 	private int page = 1;
 	private boolean isRefresh = true;
@@ -53,7 +54,7 @@ public class MarketSearchFragment extends BaseFragment {
 				.findViewById(R.id.pull_refresh_list);
 		tv_nodata = (TextView) view
 				.findViewById(R.id.tv_nodata);
-		adapter = new MyAttentionAndFansForSocialAdapter(getActivity(),
+		adapter = new MarketForSearchAdapter(getActivity(),
 				mList);
 		pull_refresh_list.setAdapter(adapter);
 		pull_refresh_list.setOnRefreshListener(new OnRefreshListener2() {
@@ -108,7 +109,7 @@ public class MarketSearchFragment extends BaseFragment {
 						mList.clear();
 						mList.addAll(bean.getData().getItems());
 						tv_nodata.setVisibility(View.GONE);
-						adapter = new MyAttentionAndFansForSocialAdapter(getActivity(), mList);
+						adapter = new MarketForSearchAdapter(getActivity(), mList);
 						pull_refresh_list.setAdapter(adapter);
 					}else{
 						tv_nodata.setVisibility(View.VISIBLE);
