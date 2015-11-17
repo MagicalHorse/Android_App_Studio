@@ -24,23 +24,23 @@ public class TimerDownUtils {
 	private long startTime, finishTime;
 	Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			if (msg.what == 0) {// ÒÑ¾­¿ªÊ¼ÁË
+			if (msg.what == 0) {// å·²ç»å¼€å§‹äº†
 				finishTime -= 1000;
 				if (finishTime > 0) {
-					tv.setText("¾àÀë½áÊøÊ±¼ä£º" + millSecendToStr(finishTime));
+					tv.setText("è·ç¦»ç»“æŸæ—¶é—´ï¼š" + millSecendToStr(finishTime));
 				} else {
-					tv.setText("»î¶¯ÒÑ½áÊø");
+					tv.setText("æ´»åŠ¨å·²ç»“æŸ");
 				}
-			} else if (msg.what == 1) {// »¹Ã»ÓĞ¿ªÊ¼
+			} else if (msg.what == 1) {// è¿˜æ²¡æœ‰å¼€å§‹
 				startTime -= 1000;
 				if (startTime > 0) {
-					tv.setText("¾àÀë¿ªÊ¼Ê±¼ä£º" + millSecendToStr(startTime));
+					tv.setText("è·ç¦»å¼€å§‹æ—¶é—´ï¼š" + millSecendToStr(startTime));
 				} else {
 					if (finishTime > 0) {
-						tv.setText("¾àÀë½áÊøÊ±¼ä£º" + millSecendToStr(finishTime));
+						tv.setText("è·ç¦»ç»“æŸæ—¶é—´ï¼š" + millSecendToStr(finishTime));
 						finishTime -= 1000;
 					} else {
-						tv.setText("»î¶¯ÒÑ½áÊø");
+						tv.setText("æ´»åŠ¨å·²ç»“æŸ");
 					}
 				}
 
@@ -75,7 +75,7 @@ public class TimerDownUtils {
 	}
 
 	public void timerDown(TextView tv, final boolean hasStarted,
-			long startTime, long finishTime) {
+						  long startTime, long finishTime) {
 		this.tv = tv;
 		this.hasStarted = hasStarted;
 		this.startTime = startTime;
