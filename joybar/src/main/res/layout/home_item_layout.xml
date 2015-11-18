@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rect_blacksoild_while_background"
+    android:paddingTop="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingRight="@dimen/item_margin"
-    android:paddingLeft="@dimen/item_margin"
-    android:paddingTop="15dp"
-    >
-    <!--不能设置为gone-->
+    android:orientation="vertical">
+    <!---->
     <include
-        android:visibility="visible"
-        android:id="@+id/home_item_layout_include1"
-        layout="@layout/home_item1_layout"
+        android:id="@+id/home_item_top_layout_include"
+        layout="@layout/home_item_top_layout" />
+    <!--品牌列表-->
+    <LinearLayout
+        android:layout_marginLeft="@dimen/contentpadding"
+        android:layout_marginRight="@dimen/contentpadding"
+        android:id="@+id/home_item_layout_brand_linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <include
-        android:visibility="visible"
-        android:id="@+id/home_item_layout_include2"
-        layout="@layout/home_item2_layout"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        />
+    <View
+        style="@style/style_horizontal_line"
+        android:layout_marginLeft="@dimen/contentpadding"
+        android:layout_marginRight="@dimen/contentpadding"
+        android:layout_marginTop="8dp"
+        android:background="@color/color_lightgrey" />
+    <!--商品列表信息-->
+    <LinearLayout
+        android:id="@+id/recommendproduct_linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="@dimen/contentpadding"
+        android:layout_marginRight="@dimen/contentpadding"
+        android:orientation="horizontal"/>
 </LinearLayout>

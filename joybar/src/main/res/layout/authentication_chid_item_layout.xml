@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="100dp">
 
     <ImageView
         android:id="@+id/authentication_child_iten_layout_pic_imageview"
@@ -10,18 +10,36 @@
         android:scaleType="centerCrop"
         android:src="@drawable/default_pic" />
 
-    <TextView
+    <LinearLayout
         android:background="@drawable/gray_transparent_background"
-        android:id="@+id/authentication_child_iten_layout_price_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="left|center_vertical"
         android:paddingBottom="5dp"
         android:paddingLeft="3dp"
         android:paddingTop="5dp"
-        android:singleLine="true"
-        android:text="￥28000" />
-
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_weight="0.4"
+            android:background="@color/color_transparent"
+            android:id="@+id/authentication_child_iten_layout_price_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
+            android:textSize="@dimen/textsize13sp"
+            android:text="￥28000" />
+        <TextView
+            android:layout_weight="0.6"
+            android:background="@color/color_transparent"
+            android:id="@+id/authentication_child_iten_layout_oldprice_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
+            android:textSize="@dimen/textsize10sp"
+            android:text="￥28000" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import com.shenma.yueba.util.CityChangeRefreshObserver;
 import com.shenma.yueba.util.LocationUtil;
 import com.shenma.yueba.util.PerferneceUtil;
 import com.shenma.yueba.util.TabViewPgerImageManager;
+import com.shenma.yueba.view.RoundImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +46,10 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     TextView tv_city;//当前城市
     View parentView;
     PullToRefreshListView baijia_contact_listview;
-    boolean isRunning=false;//访问网络是否进行中
-    boolean isSuncess=false;//数据是否加载完成
+    boolean isRunning = false;//访问网络是否进行中
+    boolean isSuncess = false;//数据是否加载完成
     HomeAdapter homeAdapter;
+
     @Override
     public void onAttach(Activity activity) {
         // TODO Auto-generated method stub
@@ -54,10 +59,8 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser)
-        {
-            if(!isSuncess)
-            {
+        if (isVisibleToUser) {
+            if (!isSuncess) {
                 refreshDataByHttp();
             }
 
@@ -65,7 +68,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         if (parentView == null) {
             parentView = inflater.inflate(R.layout.baijia_indexfragment_layout, null);
@@ -90,22 +93,20 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
 
     /*********
      * 从网络加载数据
-     * *********/
-    void refreshDataByHttp()
-    {
-        if(isRunning)
-        {
+     *********/
+    void refreshDataByHttp() {
+        if (isRunning) {
             return;
         }
-        isRunning=true;
+        isRunning = true;
         //模拟加载
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 super.run();
                 SystemClock.sleep(5000);
-                isRunning=false;
-                isSuncess=true;
+                isRunning = false;
+                isSuncess = true;
             }
         }.start();
     }
@@ -130,7 +131,8 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         tv_city.setCompoundDrawablesWithIntrinsicBounds(null, null, this.getResources().getDrawable(R.drawable.arrow_down), null);
         //标题
         TextView title_layout_titlename_textview = (TextView) v.findViewById(R.id.tv_top_title);
-        title_layout_titlename_textview.setText("Shopping");
+        title_layout_titlename_textview.setVisibility(View.VISIBLE);
+        title_layout_titlename_textview.setText("打样购");
         //右侧搜索
         TextView title_layout_right_textview = (TextView) v.findViewById(R.id.bt_top_right);
         title_layout_right_textview.setBackgroundColor(getActivity().getResources().getColor(R.color.color_transparent));
@@ -148,16 +150,20 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     /************************
      * 初始化图片循环滚动视图 并添加到当前页面中
      ************/
-    void initTabImage()
-    {
-        List<String> array_str=new ArrayList<String>();
-        for(int i=0;i<5;i++)
-        {
+    void initTabImage() {
+        List<String> array_str = new ArrayList<String>();
+        for (int i = 0; i < 5; i++) {
             array_str.add("http://c.hiphotos.baidu.com/image/pic/item/b03533fa828ba61e5a8540284334970a304e594a.jpg");
         }
         TabViewPgerImageManager tabViewPgerImageManager = new TabViewPgerImageManager(getActivity(), array_str);
         //将 视图加入到 listview的 head中
-        baijia_contact_listview.getRefreshableView().addHeaderView(tabViewPgerImageManager.getTabView());
+        //LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT
+        LinearLayout ll = new LinearLayout(getActivity());
+        ll.removeAllViews();
+        ll.setOrientation(LinearLayout.VERTICAL);
+        ll.addView(tabViewPgerImageManager.getTabView());
+        ll.addView(getScrollRoundView());
+        baijia_contact_listview.getRefreshableView().addHeaderView(ll);
         //通知 数据更新 刷新视图
         tabViewPgerImageManager.notification();
     }
@@ -167,7 +173,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
      * 初始化视图
      ***/
     void initView(View v) {
-        homeAdapter=new HomeAdapter(getActivity());
+        homeAdapter = new HomeAdapter(getActivity());
         baijia_contact_listview = (PullToRefreshListView) parentView.findViewById(R.id.baijia_contact_listview);
         baijia_contact_listview.setAdapter(homeAdapter);
         CityChangeRefreshObserver.getInstance().addObserver(this);
@@ -244,4 +250,38 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         }
 
     }
+
+    /********
+     * 生成 顶部 圆形  滚动 视图
+     * **********/
+    View getScrollRoundView() {
+        List round_array = new ArrayList();
+        for (int i = 0; i < 10; i++) {
+            round_array.add(null);
+        }
+        HorizontalScrollView horizontalScrollView = new HorizontalScrollView(getActivity());
+        horizontalScrollView.setVerticalScrollBarEnabled(false);
+        horizontalScrollView.setHorizontalScrollBarEnabled(false);
+        horizontalScrollView.setPadding(0,20,0,20);
+        LinearLayout ll = new LinearLayout(getActivity());
+        HorizontalScrollView.LayoutParams params = new HorizontalScrollView.LayoutParams(HorizontalScrollView.LayoutParams.MATCH_PARENT, HorizontalScrollView.LayoutParams.WRAP_CONTENT);
+        horizontalScrollView.addView(ll, params);
+        for (int i = 0; i < round_array.size(); i++) {
+            RoundImageView riv = new RoundImageView(getActivity());
+            riv.setImageResource(R.drawable.default_pic);
+            int width=getActivity().getResources().getDimensionPixelOffset(R.dimen.dimen_scrollwidth);
+            LinearLayout.LayoutParams chidparam = new LinearLayout.LayoutParams(width, width);
+            chidparam.leftMargin = 3;
+            ll.addView(riv, chidparam);
+            riv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MyApplication.getInstance().showMessage(getActivity(),"点击事件");
+                }
+            });
+        }
+        return horizontalScrollView;
+    }
+
+
 }

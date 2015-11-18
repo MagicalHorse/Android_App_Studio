@@ -47,4 +47,5 @@
     <dimen name="text_authentication_textsize">15sp</dimen>
     <dimen name="round_width">8dp</dimen>
     <dimen name="round_margin">3dp</dimen>
+    <dimen name="dimen_scrollwidth">80dp</dimen>
 </resources>
