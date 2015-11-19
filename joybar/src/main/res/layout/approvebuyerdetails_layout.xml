@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
 
     <!--头文件-->
     <include
@@ -29,23 +31,23 @@
             <!--商品 信息-->
             <include layout="@layout/productdetails_head_layout" />
 
+
             <!--打样购-->
             <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/shop_main_width15_dimen"
                 layout="@layout/dayang_layout" />
 
             <!--商铺信息-->
             <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/shop_main_width15_dimen"
                 layout="@layout/produtcdetails_shops_layout"/>
+
 
             <!--导购图-->
             <ImageView
-                android:layout_marginTop="@dimen/shop_main_width15_dimen"
+                android:layout_marginTop="@dimen/shop_main_width3_dimen"
                 style="@style/modulepaddingleftandright_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
