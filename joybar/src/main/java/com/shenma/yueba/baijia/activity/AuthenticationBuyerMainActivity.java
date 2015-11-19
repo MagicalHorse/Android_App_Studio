@@ -134,6 +134,8 @@ public class AuthenticationBuyerMainActivity extends BaseActivityWithTopView {
 
             @Override
             public void OnLastItemClick(View v) {
+                Intent intent=new Intent(AuthenticationBuyerMainActivity.this, SearchBrandListActivity.class);
+                AuthenticationBuyerMainActivity.this.startActivity(intent);
                 MyApplication.getInstance().showMessage(AuthenticationBuyerMainActivity.this, "更多别点击了");
             }
         });

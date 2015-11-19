@@ -131,6 +131,8 @@ public class MarketMainActivity extends BaseActivityWithTopView {
 
             @Override
             public void OnLastItemClick(View v) {
+                Intent intent=new Intent(MarketMainActivity.this, SearchBrandListActivity.class);
+                MarketMainActivity.this.startActivity(intent);
                 MyApplication.getInstance().showMessage(MarketMainActivity.this, "更多别点击了");
             }
         });

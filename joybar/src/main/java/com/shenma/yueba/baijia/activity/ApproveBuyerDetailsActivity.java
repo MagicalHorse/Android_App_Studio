@@ -85,7 +85,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 	// 私聊
 	TextView approvebuyerdetails_layout_siliao_linerlayout_textview;
 	TextView approvebuyerdetails_layout_shoucang_linerlayout_textview;//收藏
-	
+
 	// 加入购物车
 	Button approvebuyer_addcartbutton;
 	// 直接购买
@@ -180,12 +180,12 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 			public boolean onTouch(View v, MotionEvent event) {
 
 				switch (event.getAction()) {
-				case MotionEvent.ACTION_DOWN:
-					stopTimerToViewPager();
-					break;
-				case MotionEvent.ACTION_UP:
-					startTimeToViewPager();
-					break;
+					case MotionEvent.ACTION_DOWN:
+						stopTimerToViewPager();
+						break;
+					case MotionEvent.ACTION_UP:
+						startTimeToViewPager();
+						break;
 				}
 				return false;
 			}
@@ -219,6 +219,9 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 		approvebuyer_addcartbutton = (Button) findViewById(R.id.approvebuyer_addcartbutton);
 		approvebuyerbuybutton = (Button) findViewById(R.id.approvebuyerbuybutton);
 		approvebuyerbuybutton.setOnClickListener(this);
+		//喜欢的人的 头像列表
+		LinearLayout approvebuyerdetails_attention_linearlayout=(LinearLayout)findViewById(R.id.approvebuyerdetails_attention_linearlayout);
+		approvebuyerdetails_attention_linearlayout.setVisibility(View.GONE);
 	}
 
 	void startChatActivity() {
@@ -698,10 +701,10 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 	/****
 	 * 提交收藏与取消收藏商品
 	 * 
-	 * @param type
+	 * @param Status
 	 *            int 0表示取消收藏 1表示收藏
-	 * @param brandCityWideInfo
-	 *            BrandCityWideInfo 商品对象
+	 * @param bean
+	 *            ProductsDetailsInfoBean 商品对象
 	 * **/
 	void submitAttention(final int Status, final ProductsDetailsInfoBean bean,
 			final View v) {

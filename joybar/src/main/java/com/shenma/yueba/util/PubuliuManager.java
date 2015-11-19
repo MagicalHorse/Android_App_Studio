@@ -40,7 +40,7 @@ public class PubuliuManager {
     int rightHeight;//右侧高度
     LayoutInflater layoutInflater;
     List<PubuliuBeanInfo> item=new ArrayList<PubuliuBeanInfo>();
-    int countAnimationTime=3000;
+    int countAnimationTime=2000;
 
     public PubuliuManager(Activity activity, ViewGroup parent) {
         this.activity = activity;
@@ -175,12 +175,12 @@ public class PubuliuManager {
                 //根据 左右高度判断
                 if (leftHeight <= rightHeight) {
                     leftHeight += height;
-                    pubuliy_left_linearlayout.addView(parentview, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    pubuliy_left_linearlayout.addView(parentview, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     //动画
                     startAnimationn(parentview, i, item.size(),leftHeight);
                 } else {
                     rightHeight += height;
-                    pubuliy_right_linearlayout.addView(parentview, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    pubuliy_right_linearlayout.addView(parentview, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     //动画
                     startAnimationn(parentview, i, item.size(), rightHeight);
                 }
@@ -193,19 +193,19 @@ public class PubuliuManager {
 
     void startAnimationn(View view,int i,int count,int height)
     {
-        int a_time=countAnimationTime/count;
+        /*int a_time=countAnimationTime/count;
         AlphaAnimation alphaAnimation=new AlphaAnimation(0f,1f);
         //alphaAnimation.setDuration(a_time * (i + 1));
 
-        TranslateAnimation translateAnimation=new TranslateAnimation(0,0,height,0);
+        //TranslateAnimation translateAnimation=new TranslateAnimation(0,0,height,0);
 
 
         AnimationSet as=new AnimationSet(true);
         as.setDuration(a_time * (i + 1));
         as.addAnimation(alphaAnimation);
-        as.addAnimation(translateAnimation);
+        //as.addAnimation(translateAnimation);
         as.setFillAfter(true);
-        view.startAnimation(as);
+        view.startAnimation(as);*/
 
     }
 
@@ -246,6 +246,11 @@ public class PubuliuManager {
      * @param v      View  商品对象
      **/
     void submitAttention(final int Status, final PubuliuBeanInfo bean, final View v) {
+        if(bean.isruning())
+        {
+            return;
+        }
+        bean.setIsruning(true);
         CommonHttpControl.setFavor(Integer.toString(Status), bean.getId(), new HttpCallBackInterface<BaseRequest>() {
             @Override
             public void http_Success(BaseRequest obj) {
@@ -281,7 +286,7 @@ public class PubuliuManager {
                             }
                             break;
                     }
-
+                    bean.setIsruning(false);
                 }
 
                 switch (Status) {
@@ -296,6 +301,7 @@ public class PubuliuManager {
 
             @Override
             public void http_Fails(int error, String msg) {
+                bean.setIsruning(false);
                 MyApplication.getInstance().showMessage(activity, msg);
             }
         });

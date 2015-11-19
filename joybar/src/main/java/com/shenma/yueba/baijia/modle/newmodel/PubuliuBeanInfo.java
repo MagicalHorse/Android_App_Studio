@@ -8,11 +8,22 @@ public class PubuliuBeanInfo {
 
     String id="";
     String name="";//商品名称
-    String picurl="http://d.hiphotos.baidu.com/image/pic/item/0b46f21fbe096b63edff42510e338744eaf8acc8.jpg";//图片地址
+    String picurl="";//图片地址
     boolean iscollection=false;//是否收藏
     double price;//价格
     float ration=1;//图片的 宽高比
     int favoriteCount;
+    //该数据是否正在运行中 （true 表示 数据正在网络通信中）
+    boolean isruning=false;
+    public boolean isruning() {
+        return isruning;
+    }
+
+    public void setIsruning(boolean isruning) {
+        this.isruning = isruning;
+    }
+
+
 
     public int getFavoriteCount() {
         return favoriteCount;

@@ -19,6 +19,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ChooseCityActivity;
+import com.shenma.yueba.baijia.activity.SearchProductActivity;
 import com.shenma.yueba.baijia.adapter.HomeAdapter;
 import com.shenma.yueba.baijia.modle.CityListItembean;
 import com.shenma.yueba.baijia.modle.newmodel.Request_CityInfo;
@@ -141,7 +142,8 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         title_layout_right_textview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(getActivity(),SearchProductActivity.class);
+                startActivity(intent);
             }
         });
     }
