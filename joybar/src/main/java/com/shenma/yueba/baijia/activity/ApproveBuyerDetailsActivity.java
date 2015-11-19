@@ -453,8 +453,6 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 		super.onResume();
 		  MobclickAgent.onResume(this);
 		startTimeToViewPager();
-
-		MyApplication.getInstance().showMessage(this,ToolsUtil.getDisplayWidth(this)+"");
 	}
 
 	@Override
