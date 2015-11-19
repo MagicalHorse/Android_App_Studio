@@ -3,14 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:padding="10dip">
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_style"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_bg"
+        android:paddingBottom="10dip"
+        android:paddingLeft="10dip"
+        android:paddingTop="20dip"
+        android:text="可用店内优惠券"
+        android:textSize="@dimen/center_text_size" />
 
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dip">
+        android:padding="10dip">
 
 
         <CheckBox
@@ -52,14 +63,18 @@
     </RelativeLayout>
 
 
-    <View style="@style/style_horizontal_line" />
+    <View style="@style/style_horizontal_line"
+
+        />
 
     <TextView
+        android:id="@+id/tv_introduce"
         style="@style/text_middle_grey_style"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
-        android:text="null"
-        android:id="@+id/tv_introduce" />
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:text="null" />
 
 </LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_launcher" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip">
+
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$1000"
+            android:textColor="@color/red_text_color"
+            android:textSize="@dimen/center_text_size" />
+
+        <ImageView
+            android:id="@+id/iv_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/collect_backgroud"
+            android:textSize="@dimen/center_text_size" />
+
+
+        <TextView
+            android:id="@+id/tv_introduce"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_price"
+            android:layout_marginTop="10dip"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述"
+            android:textSize="@dimen/center_text_size" />
+    </RelativeLayout>
+
+</LinearLayout>

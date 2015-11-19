@@ -48,6 +48,7 @@ public class ChooseCouponAdapter extends BaseAdapter {
             holder.cb = (CheckBox)convertView.findViewById(R.id.cb);
             holder.et_need = (EditText) convertView.findViewById(R.id.et_need);
             holder.tv_introduce = (TextView) convertView.findViewById(R.id.tv_introduce);
+            holder.tv_style = (TextView)convertView.findViewById(R.id.tv_style);
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
@@ -62,6 +63,7 @@ public class ChooseCouponAdapter extends BaseAdapter {
         CheckBox cb;
         EditText et_need;
         TextView tv_introduce;
+        TextView tv_style;
 
     }
 }

@@ -10,6 +10,7 @@
         android:id="@+id/title"
         layout="@layout/title_for_common" />
 
+
     <LinearLayout
         android:id="@+id/ll_search_textview"
         android:layout_below="@id/title"

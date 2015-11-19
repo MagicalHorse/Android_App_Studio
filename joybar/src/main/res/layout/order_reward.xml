@@ -7,13 +7,12 @@
 
     <include layout="@layout/title_for_common" />
 
-    <View
-        style="@style/style_horizontal_line"
-        android:layout_marginTop="10dip" />
+
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/pulltorefreshscrollview"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dip"
         android:layout_height="match_parent" >
 
         <LinearLayout

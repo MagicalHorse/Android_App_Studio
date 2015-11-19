@@ -5,8 +5,7 @@
     android:orientation="vertical" >
 
     <include layout="@layout/title_for_common" />
-
-    <View style="@style/style_horizontal_line" />
+    
 
     <include layout="@layout/soical_manager_title" />
 

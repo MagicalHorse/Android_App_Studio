@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dip">
+
+
+    <TextView
+        android:id="@+id/tv_tishi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="店铺什么都没有，戳TA一下，提醒上新" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_tishi"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/yellow_background"
+        android:paddingBottom="10dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingTop="10dip"
+        android:text="提醒上新"
+        android:textColor="@color/white" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tv_other_buyer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="该商场其他买手推荐" />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_other_buyer"
+            android:layout_marginTop="15dip"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/guanzhu_head_item"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1" />
+
+            <include
+                layout="@layout/guanzhu_head_item"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1" />
+
+            <include
+                layout="@layout/guanzhu_head_item"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

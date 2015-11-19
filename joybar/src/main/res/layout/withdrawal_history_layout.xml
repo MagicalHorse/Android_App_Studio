@@ -6,7 +6,6 @@
 
     <include layout="@layout/title_for_common" />
 
-    <View style="@style/style_horizontal_line" />
 
     <include layout="@layout/withdrawal_history_title" />
   <View 

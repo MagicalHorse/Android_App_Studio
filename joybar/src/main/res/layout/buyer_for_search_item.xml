@@ -10,7 +10,8 @@
 
 
     <!--导购头像信息-->
-    <include layout="@layout/authentication_item_head_layouy" />
+    <include layout="@layout/authentication_item_head_layouy"
+         />
 
     <View
         android:id="@+id/authentication_item_layout_line_view"

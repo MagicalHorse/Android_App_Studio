@@ -12,6 +12,9 @@ import com.shenma.yueba.util.HttpControl;
 
 import java.util.ArrayList;
 
+/**
+ * 选择优惠券
+ */
 public class ChooseCouponActivity extends BaseActivityWithTopView {
 
 

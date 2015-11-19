@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.shenma.yueba.view.BuyerView
+        android:id="@+id/ll_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.shenma.yueba.view.BuyerView>
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="20dip"
+        android:paddingBottom="20dip"
+        android:text="GIVENCHY" />
+
+
+    <View style="@style/style_horizontal_line" />
+    <!--导购头像信息-->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip">
+
+        <com.shenma.yueba.view.RoundImageView
+            android:id="@+id/riv_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/default_pic" />
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/riv_head"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_toLeftOf="@id/tv_attention"
+            android:layout_toRightOf="@id/riv_head"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="华语商场买手" />
+
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:textColor="@color/text_gray_color"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/riv_head"
+            android:layout_marginRight="10dip"
+            android:layout_toLeftOf="@id/tv_attention"
+            android:layout_toRightOf="@id/riv_head"
+            android:drawableLeft="@drawable/address"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="中关村大街6号" />
+
+
+        <TextView
+            android:id="@+id/tv_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/yellow_background"
+            android:padding="10dip"
+            android:text="关注"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</LinearLayout>

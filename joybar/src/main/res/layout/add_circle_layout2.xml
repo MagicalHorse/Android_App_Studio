@@ -12,7 +12,6 @@
 
         <include layout="@layout/title_for_common" />
 
-        <View style="@style/style_horizontal_line" />
 
         <LinearLayout
             android:id="@+id/ll_logo"

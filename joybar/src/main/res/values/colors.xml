@@ -34,7 +34,7 @@
     <color name="gray_normal">#666667</color>
     <color name="grid_state_pressed">#1Affffff</color>
     <color name="grid_state_focused">#80000000</color>
-    <color name="top_bg">#FCFBFB</color>
+    <color name="top_bg">#FBFBFB</color>
     <color name="white">#ffffff</color>
     <color name="order_dialog_bg">#66333333</color>
     <color name="choose_eara_item_press_color">#f4f4f4</color>

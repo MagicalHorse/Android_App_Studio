@@ -1,6 +1,5 @@
 package com.shenma.yueba.baijia.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -44,7 +43,7 @@ public class FindPasswordActivity extends BaseActivityWithTopView implements
 	protected void onCreate(Bundle savedInstanceState) {
 		MyApplication.getInstance().addActivity(this);// 加入回退栈
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.find_password_layout);
+		setContentView(R.layout.get_identifying_code_layout);
 		super.onCreate(savedInstanceState);
 		MyApplication.getInstance().addActivity(this);
 		initView();

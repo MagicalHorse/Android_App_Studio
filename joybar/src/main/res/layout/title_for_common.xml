@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="@dimen/top_title_height"
     android:background="@color/top_bg" >
@@ -78,3 +87,6 @@
         android:singleLine="true"
          />
 </RelativeLayout>
+
+<View style="@style/style_horizontal_line"/>
+    </LinearLayout>
