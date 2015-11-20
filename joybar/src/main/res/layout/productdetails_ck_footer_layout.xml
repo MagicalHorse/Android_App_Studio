@@ -12,10 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:layout_weight="1"
+        >
 
         <LinearLayout
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -48,7 +50,7 @@
             android:id="@+id/footer_right_linerlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="0.4">
 
             <Button
                 android:id="@+id/approvebuyer_addcartbutton"

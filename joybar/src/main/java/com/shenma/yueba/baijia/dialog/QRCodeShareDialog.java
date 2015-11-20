@@ -79,12 +79,17 @@ public class QRCodeShareDialog extends Dialog implements
 		tv_share = (TextView) ll.findViewById(R.id.tv_share);
 		tv_share.setOnClickListener(this);
 		qzcodeshare_layouyt_close_imageview.setOnClickListener(this);
-		qzcodeshare_layouyt_name_textview
-				.setText("商品名：" + obj.getProductName());
-		qzcodeshare_layouyt_count_textview.setText("￥" + obj.getAmount());
+		qzcodeshare_layouyt_name_textview.setText(obj.getProductName());
+		if(obj.getAmount()==null)
+		{
+			qzcodeshare_layouyt_count_textview.setVisibility(View.GONE);
+		}else
+		{
+			qzcodeshare_layouyt_count_textview.setText("￥" + obj.getAmount());
+		}
+
 		byte[] bytes = Base64Coder.decode(obj.getQrCode());
-		LayoutParams params = qzcodeshare_layout_content_imageview
-				.getLayoutParams();
+		LayoutParams params = qzcodeshare_layout_content_imageview.getLayoutParams();
 		params.width = ToolsUtil.getDisplayWidth(context) / 4 * 3;
 		params.height = ToolsUtil.getDisplayWidth(context) / 4 * 3;
 		qzcodeshare_layout_content_imageview.setLayoutParams(params);

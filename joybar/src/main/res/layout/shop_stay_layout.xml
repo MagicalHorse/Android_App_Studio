@@ -18,6 +18,8 @@
     <View
         android:id="@+id/shop_stay_layout_tabline_relativelayout"
         style="@style/style_vertical_line"
-        android:layout_width="@dimen/shop_main_width3_dimen"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_width="0.5dp"
         android:layout_height="match_parent" />
 </LinearLayout>

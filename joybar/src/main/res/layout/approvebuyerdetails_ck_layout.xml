@@ -33,22 +33,19 @@
                 layout="@layout/dayang_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/shop_main_width15_dimen"
                 android:visibility="gone" />
 
             <!--规格尺寸-->
             <include
                 layout="@layout/product_spec_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/shop_main_width15_dimen" />
+                android:layout_height="wrap_content"/>
 
             <!--商铺信息-->
             <include
                 layout="@layout/produtcdetails_shops_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/shop_main_width15_dimen" />
+                android:layout_height="wrap_content"/>
 
             <!--    Tab备注信息-->
             <LinearLayout
@@ -56,7 +53,6 @@
                 style="@style/modulepaddingleftandright_style"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_marginTop="@dimen/shop_main_width15_dimen"
                 android:orientation="horizontal" />
 
             <View

@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginTop="2dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:layout_marginTop="2dp"
+    android:background="@color/white">
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/shop_main_layout_title_pulltorefreshscrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/shop_main_siliao_imagebutton">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/shop_main_layout_head_relativelayout"
+                layout="@layout/shop_main_head_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/shop_main_layout_title_relativelayout"
-                layout="@layout/shop_main_head_layout" />
+                android:layout_below="@id/shop_main_layout_title_relativelayout" />
 
             <FrameLayout
                 android:id="@+id/shop_main_layout_tabcontent_framelayout"
@@ -28,5 +29,16 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+    <Button
+        android:id="@+id/shop_main_siliao_imagebutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/yellow_background"
+        android:gravity="center"
+        android:text="私聊"
+        android:textColor="@color/white"
+        android:textSize="15dip" />
 
 </RelativeLayout>

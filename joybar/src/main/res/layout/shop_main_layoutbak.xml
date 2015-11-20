@@ -6,7 +6,6 @@
 
     <include
         android:id="@+id/shop_main_layout_title_relativelayout"
-        android:layout_alignParentTop="true"
         layout="@layout/top_layout" />
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
@@ -24,7 +23,6 @@
             layout="@layout/pubuliu_layout" />
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
-    <include 
-        android:layout_centerInParent="true"
+    <include
         layout="@layout/nodata_layout"/>
 </RelativeLayout>

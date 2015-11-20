@@ -7,14 +7,14 @@
     android:paddingBottom="15dip"
     android:paddingLeft="@dimen/margin_left_and_right"
     android:paddingRight="@dimen/margin_left_and_right"
-    android:paddingTop="15dip" >
+    android:paddingTop="15dip">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/shop_main_lineheight10_dimen"
         android:background="@color/color_lightgrey"
-        android:padding="10dip" >
+        android:padding="10dip">
 
         <com.shenma.yueba.view.RoundImageView
             android:id="@+id/qzcodeshare_layouyt_customview"
@@ -22,7 +22,7 @@
             android:layout_height="60dip"
             android:src="@drawable/default_pic" />
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/qacodeshare_headn_relativelayout"
             android:layout_width="match_parent"
             android:layout_height="60dip"
@@ -30,28 +30,32 @@
             android:layout_toRightOf="@id/qzcodeshare_layouyt_customview"
             android:paddingBottom="5dip"
             android:paddingLeft="5dip"
-            android:paddingTop="5dip" >
+            android:paddingTop="5dip"
+            android:orientation="vertical"
+            >
 
             <TextView
+                android:gravity="left|center_vertical"
+                android:layout_weight="1"
                 android:id="@+id/qzcodeshare_layouyt_name_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:singleLine="true"
                 android:text="@null"
                 android:textColor="@color/text_gray_color"
                 android:textSize="15sp" />
 
             <TextView
+                android:gravity="left|center_vertical"
+                android:layout_weight="1"
                 android:id="@+id/qzcodeshare_layouyt_count_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:singleLine="true"
                 android:text="@null"
                 android:textColor="@color/red_text_color"
                 android:textSize="15sp" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/qzcodeshare_layout_content_imageview"
@@ -65,13 +69,13 @@
 
         <TextView
             android:id="@+id/tv_share"
-            android:textSize="@dimen/center_text_size"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/qzcodeshare_layout_content_imageview"
             android:layout_marginTop="10dip"
             android:gravity="center_horizontal"
-            android:text="分享给好友" />
+            android:text="分享给好友"
+            android:textSize="@dimen/center_text_size" />
     </RelativeLayout>
 
     <ImageView

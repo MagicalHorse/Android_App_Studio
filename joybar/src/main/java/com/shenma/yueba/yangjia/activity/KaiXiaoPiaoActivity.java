@@ -129,6 +129,7 @@ public class KaiXiaoPiaoActivity extends BaseActivityWithTopView implements
 					public void http_Success(Object obj) {
 						KaiXiaoPiaoBackBean back = (KaiXiaoPiaoBackBean) obj;
 						kaixiaoPiaoBean bean = back.getData();
+						bean.setProductName("商品名："+bean.getProductName());
 						QRCodeShareDialog dialog = new QRCodeShareDialog(mContext, bean);
 						dialog.show();
 					}

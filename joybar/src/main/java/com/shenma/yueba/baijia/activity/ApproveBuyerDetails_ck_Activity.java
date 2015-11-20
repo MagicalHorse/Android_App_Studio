@@ -1,6 +1,7 @@
 package com.shenma.yueba.baijia.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -153,7 +154,7 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
             this.finish();
             return;
         }
-        productID = 13430;
+        productID = 22149;
         initViews();
         initData();
         setFont();
@@ -564,6 +565,9 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
             return;
         }
         if (bean != null) {
+            Intent intent=new Intent(this,ConfirmOrderForZhuanGui.class);
+            startActivity(intent);
+
             /*Intent intent = new Intent(ApproveBuyerDetailsActivity.this,ChatActivity.class);
             intent.putExtra("Chat_NAME", bean.getData().getBuyerName());// 圈子名字
 			intent.putExtra("toUser_id", bean.getData().getBuyerId());// 私聊的话需要传对方id
@@ -637,7 +641,9 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
 
             @Override
             public void http_Fails(int error, String msg) {
-
+                MyApplication.getInstance().showMessage(
+                        ApproveBuyerDetails_ck_Activity.this, msg);
+                finish();
             }
         }, this, true, true);
     }

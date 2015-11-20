@@ -130,8 +130,47 @@
                     style="@style/style_horizontal_line"
                     android:layout_marginLeft="10dip" />
 
+
+                <!--圈子二维码-->
                 <RelativeLayout
-                       android:paddingRight="10dip"
+                    android:paddingRight="10dip"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip" >
+
+                    <TextView
+                        android:id="@+id/tv_cirlce_head_erweima_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:padding="10dip"
+                        android:text="圈子二维码"
+                        android:textColor="@color/text_gray_color"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView2_erweima"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@+id/riv_circle_head_erweima_imageview"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="22dp"
+                        android:layout_toLeftOf="@+id/imageView2_erweima"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/default_pic" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:paddingRight="10dip"
                     android:id="@+id/rl_head"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -168,6 +207,8 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/default_pic" />
                 </RelativeLayout>
+
+
 
                 <View
                     style="@style/style_horizontal_line"

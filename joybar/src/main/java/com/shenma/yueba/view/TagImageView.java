@@ -74,10 +74,8 @@ public class TagImageView extends RelativeLayout {
 	 * @updateAuthor
 	 * @updateInfo
 	 * @param content
-	 * @param x
-	 *            x轴的位置
-	 * @param y
-	 *            y轴的位置
+	 * @param tagX int 轴的位置
+	 * @param tagY int 轴的位置
 	 */
 	public void addTextTag(String content, int tagX, int tagY,int tagId,String tagType) {
 		if (tagViewList == null)
@@ -133,11 +131,9 @@ public class TagImageView extends RelativeLayout {
 	 * @updateAuthor
 	 * @updateInfo
 	 * @param content
-	 * @param x
-	 *            x轴的位置
-	 * @param y
-	 *            y轴的位置
-	 * @param bj  Object 数据对象
+	 * @param tagX int 轴的位置
+	 * @param tagY int 轴的位置
+	 * @param obj  Object 数据对象
 	 */
 	public void addTextTagCanNotMove(String content, int tagX, int tagY,Object obj) {
 		if (tagViewList == null)
@@ -275,11 +271,9 @@ public class TagImageView extends RelativeLayout {
 	 * @createAuthor zhou wan
 	 * @updateAuthor
 	 * @updateInfo
-	 * @param v
-	 * @param dx
-	 *            x方向移动距离
-	 * @param dy
-	 *            y方向移动的距离
+	 * @param tagView View
+	 * @param dx x方向移动距离
+	 * @param dy y方向移动的距离
 	 */
 	private void setTagViewPosition(View tagView, int dx, int dy) {
 		
@@ -334,7 +328,7 @@ public class TagImageView extends RelativeLayout {
 	 * @createAuthor zhou wan
 	 * @updateAuthor
 	 * @updateInfo
-	 * @param v
+	 * @param tagView view
 	 * @param dx
 	 *            x方向移动距离
 	 * @param dy

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shop_main_head_layout_head_linearlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/white"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <!-- 头像 -->
 
@@ -18,14 +20,27 @@
         android:src="@drawable/default_pic" />
     <!-- 店名 -->
 
-    <TextView
-        android:id="@+id/shop_main_layout_name_textview"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
-        android:gravity="center"
-        android:text="买手"
-        android:textSize="@dimen/textsize18sp" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/shop_main_layout_name_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
+            android:gravity="center"
+            android:text="买手"
+            android:textSize="@dimen/textsize18sp" />
+
+        <TextView
+            android:id="@+id/shop_main_attention_imagebutton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toRightOf="@id/shop_main_layout_name_textview"
+            android:src="@drawable/default_pic" />
+    </RelativeLayout>
 
     <!-- 商场 -->
 
@@ -39,157 +54,6 @@
         android:textColor="@color/color_textgray"
         android:textSize="@dimen/textsize13sp" />
 
-    <!-- 按钮 -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/shop_main_width20_dimen"
-        android:gravity="center" >
-
-        <TextView
-            android:id="@+id/shop_main_siliao_imagebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/skyblue_background"
-            android:drawableLeft="@drawable/shop_siliao"
-            android:drawablePadding="@dimen/shop_main_width5_dimen"
-            android:gravity="center"
-            android:paddingBottom="7dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="7dp"
-            android:text="私聊"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/shop_main_attention_imagebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/shop_main_marginleft30_dimen"
-            android:background="@drawable/yellow_background"
-            android:drawableLeft="@drawable/shop_guanzhu"
-            android:drawablePadding="@dimen/shop_main_width5_dimen"
-            android:gravity="center"
-            android:paddingBottom="7dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="7dp"
-            android:text="关注"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/shop_main_width15_dimen"
-        android:gravity="center" >
-
-        <!-- 圆形 -->
-
-        <LinearLayout
-            android:id="@+id/shop_main_attention_linearlayout"
-            android:layout_width="@dimen/user_config_iconwidth70_dimen"
-            android:layout_height="@dimen/user_config_iconwidth70_dimen"
-            android:background="@drawable/round_background"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <!-- 关注 -->
-
-            <TextView
-                android:id="@+id/shop_main_attentionvalue_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="bottom"
-                android:hint="0"
-                android:textColor="@color/color_textgray"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/shop_main_attention_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/shop_main_width3_dimen"
-                android:layout_weight="1"
-                android:gravity="top"
-                android:textColor="@color/color_textgray"
-                android:hint="@string/shop_attention_str"
-                android:textSize="@dimen/textsize12sp" />
-        </LinearLayout>
-
-        <!-- 圆形 -->
-
-        <LinearLayout
-            android:id="@+id/shop_main_fans_linearlayout"
-            android:layout_width="@dimen/user_config_iconwidth70_dimen"
-            android:layout_height="@dimen/user_config_iconwidth70_dimen"
-            android:layout_marginLeft="@dimen/shop_main_lineheight10_dimen"
-            android:background="@drawable/round_background"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <!-- 粉丝 -->
-
-            <TextView
-                android:id="@+id/shop_main_fansvalue_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="bottom"
-                android:textColor="@color/color_textgray"
-                android:hint="0"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/shop_main_fans_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/shop_main_width3_dimen"
-                android:layout_weight="1"
-                android:gravity="top"
-                android:textColor="@color/color_textgray"
-                android:hint="@string/shop_fans_str"
-                android:textSize="@dimen/textsize12sp" />
-        </LinearLayout>
-
-        <!-- 圆形 -->
-
-        <LinearLayout
-            android:id="@+id/shop_main_circle_layout"
-            android:layout_width="@dimen/user_config_iconwidth70_dimen"
-            android:layout_height="@dimen/user_config_iconwidth70_dimen"
-            android:layout_marginLeft="@dimen/shop_main_lineheight10_dimen"
-            android:background="@drawable/round_background"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <!-- 赞 -->
-
-            <TextView
-                android:id="@+id/shop_main_praisevalue_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="bottom"
-                android:textColor="@color/color_textgray"
-                android:hint="0"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/shop_main_praise_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/shop_main_width3_dimen"
-                android:layout_weight="1"
-                android:textColor="@color/color_textgray"
-                android:gravity="top"
-                android:hint="@string/shop_circle_str"
-                android:textSize="@dimen/textsize12sp" />
-        </LinearLayout>
-    </LinearLayout>
-
     <TextView
         android:id="@+id/shap_main_description1_textview"
         android:layout_width="match_parent"
@@ -197,8 +61,8 @@
         android:layout_marginTop="@dimen/shop_main_width15_dimen"
         android:paddingLeft="@dimen/margin_left_and_right"
         android:paddingRight="@dimen/margin_left_and_right"
-        android:textColor="@color/color_textgray"
         android:text=""
+        android:textColor="@color/color_textgray"
         android:textSize="@dimen/textsize13sp" />
 
     <TextView
@@ -208,8 +72,7 @@
         android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
         android:hint="@string/shop_description2_str"
         android:paddingLeft="@dimen/margin_left_and_right"
-        android:paddingRight="@dimen/margin_left_and_right"
-        android:visibility="gone" />
+        android:paddingRight="@dimen/margin_left_and_right" />
 
     <TextView
         android:id="@+id/shap_main_description3_textview"
@@ -218,22 +81,48 @@
         android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
         android:hint="@string/shop_description3_str"
         android:paddingLeft="@dimen/margin_left_and_right"
+        android:paddingRight="@dimen/margin_left_and_right" />
+
+    <RelativeLayout
+        android:paddingLeft="@dimen/margin_left_and_right"
         android:paddingRight="@dimen/margin_left_and_right"
-        android:visibility="gone" />
+        android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="2dp"
+            android:id="@+id/shop_main_head_layout_address_imageview"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/dingwei" />
+
+        <TextView
+            android:layout_toRightOf="@id/shop_main_head_layout_address_imageview"
+            android:id="@+id/shop_main_head_layout_address_textview"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/color_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="新中关购物中心"
+            />
+
+    </RelativeLayout>
 
     <View
         style="@style/style_horizontal_line"
         android:layout_marginTop="@dimen/shop_main_width20_dimen" />
-    <!-- tab -->
+        <!-- tab -->
 
-    <LinearLayout
-        android:id="@+id/shop_main_head_layout_tab_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/shop_main_width5_dimen"
-        android:layout_marginBottom="@dimen/shop_main_width5_dimen"
-        android:orientation="horizontal" />
-    <View
-         style="@style/style_horizontal_line"/>
+        <LinearLayout
+            android:id="@+id/shop_main_head_layout_tab_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/shop_main_width5_dimen"
+            android:layout_marginTop="@dimen/shop_main_width5_dimen"
+            android:orientation="horizontal" />
 
-</LinearLayout>
+        <View style="@style/style_horizontal_line" />
+
+    </LinearLayout>

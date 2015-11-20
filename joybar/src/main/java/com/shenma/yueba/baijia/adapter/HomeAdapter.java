@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ApproveBuyerDetailsActivity;
+import com.shenma.yueba.baijia.activity.ApproveBuyerDetails_ck_Activity;
 import com.shenma.yueba.baijia.activity.MarketMainActivity;
 import com.shenma.yueba.baijia.activity.SearchBrandListActivity;
 import com.shenma.yueba.baijia.modle.newmodel.Abs_HomeItemInfo;
@@ -173,6 +174,7 @@ public class HomeAdapter extends BaseAdapter {
             authentication_child_iten_layout_pic_imageview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //Intent intent=new Intent(activity, ApproveBuyerDetailsActivity.class);
                     Intent intent=new Intent(activity, ApproveBuyerDetailsActivity.class);
                     intent.putExtra("productID",12985);
                     activity.startActivity(intent);

@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,17 +50,13 @@ public class ShopMainFragment extends Fragment {
     //商场名称
     TextView shop_main_layout_market_textview;
     //私聊按钮
-    TextView shop_main_siliao_imagebutton;
+    Button shop_main_siliao_imagebutton;
     //关注按钮
     TextView shop_main_attention_imagebutton;
-    //关注 值
-    TextView shop_main_attentionvalue_textview;
-    //粉丝值
-    TextView shop_main_fansvalue_textview;
-    //赞值
-    TextView shop_main_praisevalue_textview;
     //主要内容
     FrameLayout shop_main_layout_tabcontent_framelayout;
+    //地址
+    TextView shop_main_head_layout_address_textview;
     //商品描述
     TextView shap_main_description1_textview, shap_main_description2_textview, shap_main_description3_textview;
     LinearLayout shop_main_head_layout_tab_linearlayout;
@@ -67,8 +64,7 @@ public class ShopMainFragment extends Fragment {
     List<FragmentBean> fragmentBean_list = new ArrayList<FragmentBean>();
     List<View> view_list = new ArrayList<View>();
     PullToRefreshScrollView shop_main_layout_title_pulltorefreshscrollview;
-    LinearLayout shop_main_fans_linearlayout;//粉丝
-    LinearLayout shop_main_attention_linearlayout;//关注
+
     ProductFavorBroadcase productFavorBroadcase;//商品收藏广播监听
     boolean isregisterProductFavorListener = false;//是否注册商品收藏广播监听 true是  false 否
     int currId = -1;
@@ -123,7 +119,7 @@ public class ShopMainFragment extends Fragment {
         TextView shop_main_attention_textview = (TextView) contantView.findViewById(R.id.shop_main_attention_textview);
         TextView shop_main_fans_textview = (TextView) contantView.findViewById(R.id.shop_main_fans_textview);
         TextView shop_main_praise_textview = (TextView) contantView.findViewById(R.id.shop_main_praise_textview);
-        FontManager.changeFonts(activity, shop_main_layout_name_textview, shop_main_layout_market_textview, shop_main_attentionvalue_textview, shop_main_fansvalue_textview, shop_main_praisevalue_textview, shap_main_description1_textview, shap_main_description2_textview, shap_main_description3_textview, shop_main_attention_textview, shop_main_fans_textview, shop_main_praise_textview, shop_main_attention_imagebutton, shop_main_siliao_imagebutton);
+        FontManager.changeFonts(activity, shop_main_layout_name_textview, shop_main_layout_market_textview, shap_main_description1_textview, shap_main_description2_textview, shap_main_description3_textview, shop_main_attention_textview, shop_main_fans_textview, shop_main_praise_textview, shop_main_attention_imagebutton, shop_main_siliao_imagebutton);
 
     }
 
@@ -160,24 +156,11 @@ public class ShopMainFragment extends Fragment {
         shop_main_layout_icon_imageview = (RoundImageView) contantView.findViewById(R.id.shop_main_layout_icon_imageview);//用户头像
         shop_main_layout_name_textview = (TextView) contantView.findViewById(R.id.shop_main_layout_name_textview);//名称
         shop_main_layout_market_textview = (TextView) contantView.findViewById(R.id.shop_main_layout_market_textview);//地址
-        shop_main_siliao_imagebutton = (TextView) contantView.findViewById(R.id.shop_main_siliao_imagebutton);//私聊按钮
+        shop_main_siliao_imagebutton = (Button) contantView.findViewById(R.id.shop_main_siliao_imagebutton);//私聊按钮
         shop_main_siliao_imagebutton.setOnClickListener(onClickListener);
         shop_main_attention_imagebutton = (TextView) contantView.findViewById(R.id.shop_main_attention_imagebutton);//关注按钮
         shop_main_attention_imagebutton.setOnClickListener(onClickListener);
-
-
-        /********************************************
-         *  关注 粉丝  圈子  的 信息
-         * ******************************************/
-        shop_main_attention_linearlayout = (LinearLayout) contantView.findViewById(R.id.shop_main_attention_linearlayout);//关注圆
-        shop_main_attention_linearlayout.setOnClickListener(onClickListener);
-        shop_main_fans_linearlayout = (LinearLayout) contantView.findViewById(R.id.shop_main_fans_linearlayout);//粉丝圆
-        shop_main_fans_linearlayout.setOnClickListener(onClickListener);
-        LinearLayout shop_main_circle_layout = (LinearLayout) contantView.findViewById(R.id.shop_main_circle_layout);//圈子圆
-        shop_main_circle_layout.setOnClickListener(onClickListener);
-        shop_main_attentionvalue_textview = (TextView) contantView.findViewById(R.id.shop_main_attentionvalue_textview);//关注的值
-        shop_main_fansvalue_textview = (TextView) contantView.findViewById(R.id.shop_main_fansvalue_textview);//粉丝的值
-        shop_main_praisevalue_textview = (TextView) contantView.findViewById(R.id.shop_main_praisevalue_textview);//圈子的值
+        shop_main_head_layout_address_textview=(TextView)contantView.findViewById(R.id.shop_main_head_layout_address_textview);//地址
 
         /********************************************
          *  店铺 描述的信息
@@ -218,28 +201,8 @@ public class ShopMainFragment extends Fragment {
                     break;
                 case R.id.shop_stay_layout_parent_linearlayout:
                     if (v.getTag() != null && v.getTag() instanceof Integer) {
-                        setItem(false, (Integer) v.getTag());//瀑布流tab按键
+                        //setItem(false, (Integer) v.getTag());//瀑布流tab按键
                     }
-                    break;
-                case R.id.shop_main_circle_layout://圈子
-                    if (!MyApplication.getInstance().isUserLogin(getActivity())) {
-                        return;
-                    }
-                    Intent intent = new Intent(getActivity(), CircleListActivity.class);
-                    intent.putExtra("userID", userID);
-                    startActivity(intent);
-                    break;
-                case R.id.shop_main_fans_linearlayout://粉丝
-                    Intent fansintent = new Intent(getActivity(), AttationListActivity.class);
-                    fansintent.putExtra("TYPE", AttationListActivity.TYPE_FANS);
-                    fansintent.putExtra("userID", userID);
-                    startActivity(fansintent);
-                    break;
-                case R.id.shop_main_attention_linearlayout://关注
-                    Intent attentionintent = new Intent(getActivity(), AttationListActivity.class);
-                    attentionintent.putExtra("TYPE", AttationListActivity.TYPE_ATTATION);
-                    attentionintent.putExtra("userID", userID);
-                    startActivity(attentionintent);
                     break;
                 case R.id.shop_main_attention_imagebutton://关注
                     if (!MyApplication.getInstance().isUserLogin(getActivity())) {
@@ -280,8 +243,8 @@ public class ShopMainFragment extends Fragment {
             TextView tv2 = (TextView) parent.findViewById(R.id.shop_stay_layout_item_textview2);
             View shop_stay_layout_item_line_view = (View) parent.findViewById(R.id.shop_stay_layout_item_line_view);
             if (i == currId) {
-                tv1.setTextColor(this.getResources().getColor(R.color.color_deeoyellow));
-                tv2.setTextColor(this.getResources().getColor(R.color.color_deeoyellow));
+                tv1.setTextColor(this.getResources().getColor(R.color.color_gray));
+                tv2.setTextColor(this.getResources().getColor(R.color.color_gray));
                 shop_stay_layout_item_line_view.setVisibility(View.GONE);
             } else {
                 tv1.setTextColor(this.getResources().getColor(R.color.color_gray));
@@ -405,19 +368,11 @@ public class ShopMainFragment extends Fragment {
         MyApplication.getInstance().getBitmapUtil().display(shop_main_layout_icon_imageview, ToolsUtil.nullToString(userInfoBean.getLogo()));
         shop_main_layout_name_textview.setText(ToolsUtil.nullToString(userInfoBean.getUserName()));
         shop_main_layout_market_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
-        shop_main_attentionvalue_textview.setText(ToolsUtil.nullToString(userInfoBean.getFollowingCount() + ""));
-        shop_main_fansvalue_textview.setText(ToolsUtil.nullToString(userInfoBean.getFollowerCount() + ""));
-        shop_main_praisevalue_textview.setText(ToolsUtil.nullToString(userInfoBean.getCommunityCount() + ""));
+
         shap_main_description1_textview.setText(ToolsUtil.nullToString(userInfoBean.getDescription()));
 
         fragmentBean_list.clear();
-        if (userInfoBean.isIsBuyer())//认证买手
-        {
-            initBuyerPuBu();
-        } else //普通买手
-        {
-            initUserPuBu();
-        }
+        initBuyerPuBu();
 
         for (int i = 0; i < fragmentBean_list.size(); i++) {
             FragmentBean bean = fragmentBean_list.get(i);
@@ -462,17 +417,9 @@ public class ShopMainFragment extends Fragment {
      **/
     void initBuyerPuBu() {
         ShopPuBuliuFragment shopPuBuliuFragment1 = new ShopPuBuliuFragment(0, userID);
-        ShopPuBuliuFragment ShopPuBuliuFragment2 = new ShopPuBuliuFragment(1, userID);
         fragmentBean_list.add(new FragmentBean("商品", userInfoBean.getProductCount(), shopPuBuliuFragment1));
-        fragmentBean_list.add(new FragmentBean("上新", userInfoBean.getNewProductCount(), ShopPuBuliuFragment2));
-    }
-
-    /*****
-     * 加载普通用户瀑布显示信息
-     **/
-    void initUserPuBu() {
-        ShopPuBuliuFragment shopPuBuliuFragment3 = new ShopPuBuliuFragment(2, userID);
-        fragmentBean_list.add(new FragmentBean("我的收藏", userInfoBean.getFavoriteCount(), shopPuBuliuFragment3));
+        fragmentBean_list.add(new FragmentBean("粉丝", userInfoBean.getFollowerCount(),null));
+        fragmentBean_list.add(new FragmentBean("成交", 0, null));
     }
 
 
