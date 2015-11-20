@@ -23,7 +23,6 @@
 
         <TextView
             android:layout_marginLeft="5dp"
-            android:visibility="gone"
             android:layout_alignParentBottom="true"
             android:textSize="@dimen/textsize13sp"
             android:layout_toRightOf="@+id/approvebuyerdetails_price_textview"
@@ -31,6 +30,7 @@
             android:id="@+id/hangtag_price_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@null"
             android:singleLine="true"
             />
 
@@ -54,7 +54,14 @@
         android:layout_height="wrap_content"
         android:lineSpacingExtra="2dip"
         android:textColor="@color/color_textgray"
-        android:textSize="@dimen/textsize13sp" />
+        android:text="@null"
+        android:textSize="@dimen/textsize16sp" />
+
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        style="@style/style_horizontal_line"
+        />
 
     <!-- 提货地址 -->
 
@@ -107,4 +114,8 @@
             android:layout_marginLeft="10dp"
             android:orientation="horizontal"></LinearLayout>
     </LinearLayout>
+    <View
+        android:layout_marginTop="15dp"
+        style="@style/style_horizontal_line"
+        />
 </LinearLayout>

@@ -23,22 +23,23 @@
             android:orientation="horizontal">
 
             <TextView
-                android:visibility="gone"
+                android:layout_weight="1"
                 android:id="@+id/approvebuyerdetails_layout_siliao_linerlayout_textview"
-                android:layout_width="55dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="3dip"
                 android:drawableTop="@drawable/circle_default3"
                 android:gravity="center"
                 android:text="私聊"
-                android:textSize="@dimen/textsize12sp" />
+                android:textSize="15dip" />
 
             <TextView
+                android:layout_weight="1"
                 android:id="@+id/approvebuyerdetails_layout_shoucang_linerlayout_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:drawableLeft="@drawable/collect_backgroud"
+                android:drawablePadding="3dip"
+                android:drawableTop="@drawable/collect_backgroud"
                 android:gravity="center"
                 android:text="收藏"
                 android:textSize="15dip" />

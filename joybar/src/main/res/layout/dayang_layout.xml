@@ -54,4 +54,8 @@
             android:text="@null"
             android:textSize="@dimen/textsize13sp" />
     </LinearLayout>
+    <View
+        android:layout_marginTop="15dp"
+        style="@style/style_horizontal_line"
+        />
 </LinearLayout>

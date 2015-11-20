@@ -2,22 +2,64 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <devices>
+          <device id="Nexus 5" />
+          <device id="Nexus 9" />
+          <device id="Nexus 10" />
+        </devices>
+        <target>android-21</target>
+      </config>
     </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/joybar/src/main/res/layout/brandlist_layout.xml">
+        <config>
+          <state>Portrait</state>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/joybar/src/main/res/layout/home_item_layout.xml">
+        <config>
+          <state>Portrait</state>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_head_layout.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/joybar/src/main/res/layout/searchbrandlist_layout.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+    </layouts>
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9224f642-6712-433f-a0b1-cd7ee7392ef1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cameraLibrary/cameraLibrary.iml" afterPath="$PROJECT_DIR$/cameraLibrary/cameraLibrary.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android_App_Studio.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="DELETED" beforePath="D:\Android_App_Studio\joybar\src\main\res\drawable-hdpi\productdetails_guide.9.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\Android_App_Studio\joybar\src\main\res\drawable-mdpi\productdetails_guide.9.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\Android_App_Studio\joybar\src\main\res\drawable-xhdpi\productdetails_guide.9.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\Android_App_Studio\joybar\src\main\res\drawable-xxhdpi\productdetails_guide.9.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/ApproveBuyerDetailsActivity.java" afterPath="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/ApproveBuyerDetailsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/joybar/src/main/res/layout/approvebuyerdetails_layout.xml" afterPath="$PROJECT_DIR$/joybar/src/main/res/layout/approvebuyerdetails_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/joybar/src/main/res/layout/dayang_layout.xml" afterPath="$PROJECT_DIR$/joybar/src/main/res/layout/dayang_layout.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/joybar/joybar.iml" afterPath="$PROJECT_DIR$/joybar/joybar.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/refreshlibrary/refreshlibrary.iml" afterPath="$PROJECT_DIR$/refreshlibrary/refreshlibrary.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_19_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_19_1_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_footer_layout.xml" afterPath="$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_footer_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_head_layout.xml" afterPath="$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_head_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/joybar/src/main/res/layout/produtcdetails_shops_layout.xml" afterPath="$PROJECT_DIR$/joybar/src/main/res/layout/produtcdetails_shops_layout.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xUtilLibrary/xUtilLibrary.iml" afterPath="$PROJECT_DIR$/xUtilLibrary/xUtilLibrary.iml" />
     </list>
     <ignored path="androidapp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,51 +87,128 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AddCircleActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/activity/AddCircleActivity.java">
+      <file leaf-file-name="IndexFragmentForBaiJia.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/fragment/IndexFragmentForBaiJia.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="56" column="46" selection-start-line="56" selection-start-column="46" selection-end-line="56" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gradle-wrapper.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/joybar/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ToolsUtil.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/ToolsUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.87761194">
-              <caret line="377" column="5" selection-start-line="377" selection-start-column="5" selection-end-line="377" selection-end-column="5" />
+              <caret line="145" column="38" selection-start-line="145" selection-start-column="38" selection-end-line="145" selection-end-column="38" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#14926#15278#0" expanded="true" />
-                <element signature="e#15277#15278#0" expanded="true" />
+                <element signature="e#3728#4062#0" expanded="true" />
+                <element signature="e#4061#4062#0" expanded="true" />
+                <element signature="e#4959#5199#0" expanded="true" />
+                <element signature="e#5198#5199#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="HomeAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/adapter/HomeAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="176" column="55" selection-start-line="176" selection-start-column="55" selection-end-line="176" selection-end-column="55" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1741#1742#0" expanded="false" />
+                <element signature="e#1779#1780#0" expanded="false" />
+                <element signature="e#1836#1837#0" expanded="false" />
+                <element signature="e#1863#1864#0" expanded="false" />
+                <element signature="e#1920#1921#0" expanded="false" />
+                <element signature="e#1951#1952#0" expanded="false" />
+                <element signature="e#2615#2616#0" expanded="false" />
+                <element signature="e#2672#2673#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApproveBuyerDetailsActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/ApproveBuyerDetailsActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.3965516">
+              <caret line="103" column="53" selection-start-line="103" selection-start-column="53" selection-end-line="103" selection-end-column="53" />
+              <folding>
+                <element signature="e#3234#3240#0" expanded="true" />
+                <element signature="e#13286#13667#0" expanded="true" />
+                <element signature="e#13666#13667#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TabViewPgerImageManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/TabViewPgerImageManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="102" column="14" selection-start-line="102" selection-start-column="14" selection-end-line="102" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="productdetails_head_layout.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_head_layout.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.733333">
+              <caret line="117" column="39" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductsDetailsInfoBean.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/ProductsDetailsInfoBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="91" column="40" selection-start-line="91" selection-start-column="40" selection-end-line="91" selection-end-column="40" />
+              <folding>
+                <element signature="e#2122#2123#0" expanded="true" />
+                <element signature="e#2146#2147#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="approvebuyerdetails_layout.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/approvebuyerdetails_layout.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.501182">
+              <caret line="50" column="62" selection-start-line="50" selection-start-column="62" selection-end-line="50" selection-end-column="62" />
+              <folding>
+                <element signature="e#1565#1596#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="productdetails_footer_layout.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_footer_layout.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-12.133333">
+              <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="resourceFile" />
+      </list>
+    </option>
   </component>
   <component name="GenerateSignedApkSettings">
     <option name="KEY_STORE_PATH" value="C:\Users\a\Desktop\joybar.keystore" />
@@ -2929,10 +3048,11 @@
     </option>
     <option name="modificationStamps">
       <map>
+        <entry key="$PROJECT_DIR$" value="8650592315526" />
+        <entry key="D:\Android_App_Studio" value="8685872578827" />
         <entry key="F:/androidstudio_workspace/android-open-project-demo" value="4324518803565" />
         <entry key="F:/androidstudio_workspace/android-saripaar" value="8646061903715" />
         <entry key="F:\wwww" value="8649256890600" />
-        <entry key="$PROJECT_DIR$" value="8650592315526" />
         <entry key="G:\2015-11-11 shopping 第二版本备份\Android_App_Studio" value="8683278468578" />
       </map>
     </option>
@@ -3504,68 +3624,157 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/album/view/ThumbnaiImageView.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/camera/view/CameraContainer.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/camera/view/CameraOperation.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/camera/view/CameraView.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/camera/view/FocusImageView.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/camera/view/TempImageView.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/imageloader/DisplayImageOptions.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/imageloader/DownloadImgUtils.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/imageloader/ImageLoader.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/imageloader/ImageSizeUtil.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/imageloader/displayer/BitmapDisplayer.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/imageloader/displayer/MatrixBitmapDisplayer.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/imageloader/displayer/RoundedBitmapDisplayer.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/video/view/VideoPlayerContainer.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/video/view/VideoPlayerOperation.java" />
-        <option value="$PROJECT_DIR$/cameraLibrary/src/main/java/com/linj/video/view/VideoPlayerView.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/view/scroll/PullToRefreshView.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/BaiJiaShareInfoBean.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/ChatActivity.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/values/dimen.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/application/MyApplication.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/interfaces/CityChangeRefreshInter.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/ChooseCityActivity.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/newmodel/Request_AliYunKeyBackInfo.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/newmodel/Request_CityInfo.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/newmodel/Request_CheckAppVersionInfo.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/newmodel/Request_CityListInfo.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/https/CommonHttpControl.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/CityListActivity.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/CreateAutoSizeViewManager.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/adapter/AuthenticationMainAdapter.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/authentication_item_head_layouy.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/authentication_item_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/activity/CircleInvitectivity.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/CityChangeRefreshObserver.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/BrandListManager.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/AbsBrandListManager.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/baijia_authenticationmain_head_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/AutoBrandListManager.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/home_item2_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/newmodel/HomeItem_2_Info.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/baijia_indexfragment_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/drawable-xhdpi/rect_blacksoild_while_background.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/home_item_img_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/AverageViewManager.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/gudie_item_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/home_item_top_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/authentication_chid_item_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/home_item_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/TimerDownUtils.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/newmodel/Abs_HomeItemInfo.java" />
         <option value="$PROJECT_DIR$/joybar/src/main/res/values/dimen_gyj.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/values/umeng_socialize_strings.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/net/sourceforge/simcpux/AppRegister.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/BaiJiaShareDataActivity.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/activity/PublishProductActivity.java" />
-        <option value="$PROJECT_DIR$/captures/SystemInfo_2015.09.09_09.38.05.txt" />
-        <option value="$PROJECT_DIR$/captures/SystemInfo_2015.09.09_09.38.39.txt" />
-        <option value="$PROJECT_DIR$/joybar/joybar.iml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/imagetext_item_layout.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/wechat_dialog_layout.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/applyforrefund_layout.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/qzcodeshare_layout.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/product_manager_list_item.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/attation_pop_layout.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/buyer_certification_layout2.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/publish_products_layout.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/crop/CropImageView.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/setting_layout.xml" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/fragment/BaiJiaOrderListFragment.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/dialog/QRCodeShareDialog.java" />
-        <option value="$PROJECT_DIR$/joybar/build.gradle" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/activity/AboutActivity.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/activity/AddCircleActivity.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/SplashActivity.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/GuideActivity.java" />
-        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/ToolsUtil.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/drawable/search_background.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/AuthenticationBuyerMainActivity.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/MarketMainActivity.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/drawable/search_focus_background.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/drawable/search_unfocus_background.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/searchbrandlist_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/SearchBrandListActivity.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/BrandListActivity.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/brand_list_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/newmodel/PubuliuBeanInfo.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/PubuliuManager.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/adapter/HomeAdapter.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/fragment/IndexFragmentForBaiJia.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_footer_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_head_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/dayang_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/produtcdetails_shops_layout.xml" />
+        <option value="$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/ApproveBuyerDetailsActivity.java" />
+        <option value="$PROJECT_DIR$/joybar/src/main/res/layout/approvebuyerdetails_layout.xml" />
       </list>
     </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState />
   </component>
   <component name="NamedScopeManager">
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1592" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1456" />
-    <option name="height" value="916" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Android Lint</id>
+          </State>
+          <State>
+            <id>C/C++</id>
+          </State>
+          <State>
+            <id>Code style issuesJava</id>
+          </State>
+          <State>
+            <id>Control flow issuesJava</id>
+          </State>
+          <State>
+            <id>Data flow analysisC/C++</id>
+          </State>
+          <State>
+            <id>Data flow issuesJava</id>
+          </State>
+          <State>
+            <id>Error handlingJava</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>ImportsJava</id>
+          </State>
+          <State>
+            <id>Initialization issuesJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Javadoc issuesJava</id>
+          </State>
+          <State>
+            <id>Portability issuesJava</id>
+          </State>
+          <State>
+            <id>Probable bugsGroovy</id>
+          </State>
+          <State>
+            <id>Probable bugsJava</id>
+          </State>
+          <State>
+            <id>Serialization issuesJava</id>
+          </State>
+          <State>
+            <id>Threading issuesGroovy</id>
+          </State>
+          <State>
+            <id>Threading issuesJava</id>
+          </State>
+          <State>
+            <id>XML</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Android</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -3590,7 +3799,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -3601,6 +3809,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3619,27 +3830,192 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android_App_Studio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="joybar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="android.sdk.path" value="E:/tools/android/sdk/sdk" />
     <property name="android.project.structure.last.selected" value="joybar" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="7N2SSE1539007613" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_22" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="71fe4422" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/joybar.keystore" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
     <property name="ExportApk.ApkPath" value="C:\Users\a\Desktop" />
     <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="release" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Android_App_Studio\joybar\src\main\res\drawable" />
+      <recent name="D:\Android_App_Studio\joybar\src\main\res\layout" />
+      <recent name="D:\Android_App_Studio\joybar\src\main\res\drawable-xhdpi" />
+      <recent name="D:\Android_App_Studio\joybar\src\main\java\com\shenma\yueba\baijia\modle" />
+      <recent name="D:\Android_App_Studio\joybar\src\main\java\com\shenma\yueba\baijia\modle\newmodel" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.shenma.yueba.util" />
+      <recent name="com.shenma.yueba.baijia.adapter" />
+      <recent name="https" />
+      <recent name="com.shenma.yueba.baijia.modle" />
+      <recent name="com.shenma.yueba.baijia.activity" />
+    </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/AffirmOrderActivity.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/ChooseCouponActivity.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/ConfirmOrderForZhuanGui.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/FindPasswordActivity.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/adapter/ChooseCouponAdapter.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/about_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/add_circle_layout2.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/buyer_for_search_item.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/choose_coupon_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/confirm_order_for_zhuangui.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/item_choose_coupon_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/order_reward.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/search_product_result_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/social_manager_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/title_for_common.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/web_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/withdrawal_history_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/values/colors.xml</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/view/BuyerView.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/attention_item_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/get_identifying_code_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/guanzhu_head_item.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/shopping_guide_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/shopping_guide_wsx_layout.xml</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/layout/find_password_layout.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/values-sw600dp/dimens.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/joybar/src/main/res/values-sw720dp-land/dimens.xml</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Android Application.joybar">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -3821,7 +4197,7 @@
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="true" />
       <option name="PREFERRED_AVD" value="" />
       <option name="USE_COMMAND_LINE" value="true" />
       <option name="COMMAND_LINE" value="" />
@@ -3900,7 +4276,31 @@
       <option name="project" value="LOCAL" />
       <updated>1442200183448</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="新增  主页 专柜主页   商城主页   品牌列表页">
+      <created>1447660760961</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1447660760961</updated>
+    </task>
+    <task id="LOCAL-00007" summary="新增 品牌 按 文字大小自动 显示的功能">
+      <created>1447732116998</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1447732116998</updated>
+    </task>
+    <task id="LOCAL-00008" summary="主页 效果 设计完毕">
+      <created>1447830023458</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1447830023458</updated>
+    </task>
+    <task id="LOCAL-00009" summary="新增  品牌列表页 以及 品牌下的商品列表页">
+      <created>1447922201113</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1447922201113</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3913,37 +4313,66 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1592" y="-8" width="1456" height="916" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.48971722" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08344924" sideWeight="0.4029563" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2503477" sideWeight="0.4029563" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21658097" sideWeight="0.5072464" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.5893316" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.49485862" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.48457584" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32969153" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962447" sideWeight="0.49485862" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.48200515" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34149855" sideWeight="0.48457584" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27816412" sideWeight="0.43316194" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.07905138" sideWeight="0.5970437" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25358167" sideWeight="0.5665236" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2892907" sideWeight="0.43059126" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27816412" sideWeight="0.5694087" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26413882" sideWeight="0.55876684" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25358167" sideWeight="0.4334764" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25321338" sideWeight="0.44123313" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991655" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41307372" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21658097" sideWeight="0.5072464" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.5893316" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32969153" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991655" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.48971722" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2503477" sideWeight="0.4029563" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.49485862" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.48200515" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34149855" sideWeight="0.48457584" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2892907" sideWeight="0.43059126" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27816412" sideWeight="0.5694087" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26413882" sideWeight="0.55876684" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41307372" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25321338" sideWeight="0.44123313" order="4" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -3959,7 +4388,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="modify for the package APK error" />
     <MESSAGE value="modify" />
-    <option name="LAST_COMMIT_MESSAGE" value="modify" />
+    <MESSAGE value="新增  主页 专柜主页   商城主页   品牌列表页" />
+    <MESSAGE value="新增 品牌 按 文字大小自动 显示的功能" />
+    <MESSAGE value="主页 效果 设计完毕" />
+    <MESSAGE value="新增  品牌列表页 以及 品牌下的商品列表页" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增  品牌列表页 以及 品牌下的商品列表页" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3970,379 +4403,145 @@
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/newmodel/Abs_HomeItemInfo.java</url>
+          <properties />
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/SearchBrandListActivity.java</url>
+          <line>213</line>
+          <properties />
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/SearchBrandListActivity.java</url>
+          <line>221</line>
+          <properties />
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/BrandListActivity.java</url>
+          <line>158</line>
+          <properties />
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/PubuliuManager.java</url>
+          <line>248</line>
+          <properties />
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/PubuliuManager.java</url>
+          <line>303</line>
+          <properties />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/PubuliuManager.java</url>
+          <line>262</line>
+          <properties />
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/PubuliuManager.java</url>
+          <line>261</line>
+          <properties />
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/adapter/HomeAdapter.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="2" />
+      <option name="time" value="47" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/joybar/build.gradle">
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/adapter/MarketForSearchAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.25986078">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/brandlist_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15151516">
+          <caret line="15" column="61" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="61" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/ToolsUtil.java">
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.36363637">
+          <caret line="467" column="82" selection-start-line="467" selection-start-column="59" selection-end-line="467" selection-end-column="82" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#14926#15278#0" expanded="true" />
-            <element signature="e#15277#15278#0" expanded="true" />
+            <element signature="e#7442#7460#0" expanded="true" />
+            <element signature="e#7605#7623#0" expanded="true" />
+            <element signature="e#17390#17412#0" expanded="true" />
+            <element signature="e#27923#27961#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/drawable-hdpi/search_bar_icon_normal.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/AuthenticationBuyerMainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+          <caret line="137" column="75" selection-start-line="137" selection-start-column="75" selection-end-line="137" selection-end-column="75" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/view/scroll/PullToRefreshView.java">
+    <entry file="file://C:/tools/android/sdk/sdk/sources/android-19/java/lang/Override.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="486" column="19" selection-start-line="486" selection-start-column="19" selection-end-line="486" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.8235294">
+          <caret line="32" column="18" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="77" selection-start-line="13" selection-start-column="77" selection-end-line="13" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/BaiJiaShareInfoBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33182845">
-          <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/adapter/ChattingAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33182845">
-          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/PhotoUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.268623">
-          <caret line="172" column="22" selection-start-line="172" selection-start-column="22" selection-end-line="172" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/ChatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="685" column="57" selection-start-line="685" selection-start-column="57" selection-end-line="685" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.833333">
-          <caret line="83" column="44" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/values/dimen.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="55" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/values/dimen_gyj.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.1478262">
-          <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/application/MyApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="244" column="46" selection-start-line="244" selection-start-column="46" selection-end-line="244" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="240" column="19" selection-start-line="240" selection-start-column="19" selection-end-line="240" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/values/umeng_socialize_strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/drawable-hdpi/search_bar_edit_normal.9.png">
-      <provider selected="true" editor-type-id="ninepatcheditor">
-        <state />
-      </provider>
-      <provider editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/drawable/search_bar_edit_selector.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/net/sourceforge/simcpux/AppRegister.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/BaiJiaShareDataActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0">
-          <caret line="219" column="9" selection-start-line="219" selection-start-column="9" selection-end-line="219" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/activity/PublishProductActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="892" column="16" selection-start-line="892" selection-start-column="16" selection-end-line="892" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/constants/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22608696">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/refreshlibrary/src/main/java/com/handmark/pulltorefresh/library/PullToRefreshBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="1582" column="11" selection-start-line="1582" selection-start-column="11" selection-end-line="1582" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/fragment/ProductManagerFragmentForOnLine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="154" column="48" selection-start-line="154" selection-start-column="45" selection-end-line="154" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/MainActivityForBaiJia.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12582782">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/joybar.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66887414">
-          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/imagetext_item_layout.xml">
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/refresh_gridview_without_title_layout.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.8">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.44848484">
+          <caret line="18" column="47" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/wechat_dialog_layout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/xUtilLibrary/src/main/java/com/lidroid/xutils/BitmapUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08962264">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.2173913">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/applyforrefund_layout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/BaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24111675">
-          <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/qzcodeshare_layout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1833334">
-          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/product_manager_list_item.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3857868">
-          <caret line="58" column="32" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/attation_pop_layout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/buyer_certification_layout2.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="277" column="0" selection-start-line="277" selection-start-column="0" selection-end-line="277" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/publish_products_layout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/crop/CropImageView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/setting_layout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/dialog/QRCodeShareDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/fragment/BaiJiaOrderListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="49" column="53" selection-start-line="49" selection-start-column="53" selection-end-line="49" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/ad53343e57ae0969aaf451a19eef381abe2ad3a1/butterknife-7.0.1-sources.jar!/butterknife/internal/ViewBinding.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12555066">
-          <caret line="3" column="21" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.64927536">
+          <caret line="25" column="43" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/BaseActivityWithTopView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="17" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/baijia_main_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/activity/AboutActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="47" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/GuideActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2451613">
-          <caret line="49" column="68" selection-start-line="49" selection-start-column="68" selection-end-line="49" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/SplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6591837">
-          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/yangjia/activity/AddCircleActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="46" selection-start-line="56" selection-start-column="46" selection-end-line="56" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -4350,29 +4549,383 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/wxapi/utils/UtilsTool.java">
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/MainActivityForBaiJia.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37959182">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.58787876">
+          <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/joybar/build.gradle">
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/MarketMainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+          <caret line="50" column="52" selection-start-line="50" selection-start-column="52" selection-end-line="50" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/title_for_common.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16969697">
+          <caret line="4" column="37" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/drawable/search_focus_background.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4057971">
+          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/nodata_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.57575756">
+          <caret line="15" column="47" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/drawable/search_background.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12173913">
+          <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/drawable/search_unfocus_background.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4057971">
+          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/ToolsUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.87761194">
-          <caret line="377" column="5" selection-start-line="377" selection-start-column="5" selection-end-line="377" selection-end-column="5" />
+        <state vertical-scroll-proportion="-0.6405797">
+          <caret line="821" column="47" selection-start-line="821" selection-start-column="47" selection-end-line="821" selection-end-column="47" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#14926#15278#0" expanded="true" />
-            <element signature="e#15277#15278#0" expanded="true" />
+            <element signature="e#23364#23420#0" expanded="false" />
+            <element signature="e#26696#26801#0" expanded="false" />
+            <element signature="e#26800#26801#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/TimerDownUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3325062">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/refreshlibrary/src/main/java/com/handmark/pulltorefresh/library/PullToRefreshGridView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.04057971">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/findfragment_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.3333335">
+          <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/baijia_market_main_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.5333333">
+          <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/searchbrandlist_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5666666">
+          <caret line="10" column="60" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="60" />
+          <folding>
+            <element signature="e#470#495#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/tools/android/sdk/sdk/sources/android-19/android/view/inputmethod/InputMethodManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="966" column="19" selection-start-line="966" selection-start-column="19" selection-end-line="966" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/BrandInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/SearchBrandListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.3333335">
+          <caret line="191" column="9" selection-start-line="191" selection-start-column="9" selection-end-line="191" selection-end-column="9" />
+          <folding>
+            <element signature="e#2976#3603#0" expanded="false" />
+            <element signature="e#3602#3603#0" expanded="false" />
+            <element signature="e#3799#4071#0" expanded="false" />
+            <element signature="e#4070#4071#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/fragment/FindFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4647303">
+          <caret line="91" column="67" selection-start-line="91" selection-start-column="67" selection-end-line="91" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/HttpControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30290458">
+          <caret line="1660" column="16" selection-start-line="1660" selection-start-column="16" selection-end-line="1660" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/BrandInfoInfoBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47717842">
+          <caret line="20" column="30" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/BaijiaBrandListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11504425">
+          <caret line="303" column="9" selection-start-line="303" selection-start-column="9" selection-end-line="303" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/BrandInfoInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12863071">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/view/BrandListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2987552">
+          <caret line="86" column="71" selection-start-line="86" selection-start-column="71" selection-end-line="86" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/brand_list_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9292035">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/newmodel/PubuliuBeanInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4647303">
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/PubuliuManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6460177">
+          <caret line="201" column="0" selection-start-line="201" selection-start-column="0" selection-end-line="201" selection-end-column="0" />
+          <folding>
+            <element signature="e#7856#8508#0" expanded="false" />
+            <element signature="e#8507#8508#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/BrandListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45228216">
+          <caret line="106" column="25" selection-start-line="106" selection-start-column="25" selection-end-line="106" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1200#1217#0" expanded="false" />
+            <element signature="e#2706#2871#0" expanded="false" />
+            <element signature="e#2870#2871#0" expanded="false" />
+            <element signature="e#5179#5240#0" expanded="false" />
+            <element signature="e#6464#6524#0" expanded="false" />
+            <element signature="e#6935#6952#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/adapter/HomeAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="176" column="55" selection-start-line="176" selection-start-column="55" selection-end-line="176" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1741#1742#0" expanded="false" />
+            <element signature="e#1779#1780#0" expanded="false" />
+            <element signature="e#1836#1837#0" expanded="false" />
+            <element signature="e#1863#1864#0" expanded="false" />
+            <element signature="e#1920#1921#0" expanded="false" />
+            <element signature="e#1951#1952#0" expanded="false" />
+            <element signature="e#2615#2616#0" expanded="false" />
+            <element signature="e#2672#2673#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/modle/ProductsDetailsInfoBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="91" column="40" selection-start-line="91" selection-start-column="40" selection-end-line="91" selection-end-column="40" />
+          <folding>
+            <element signature="e#2122#2123#0" expanded="true" />
+            <element signature="e#2146#2147#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/fragment/IndexFragmentForBaiJia.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="145" column="38" selection-start-line="145" selection-start-column="38" selection-end-line="145" selection-end-column="38" />
+          <folding>
+            <element signature="e#3728#4062#0" expanded="true" />
+            <element signature="e#4061#4062#0" expanded="true" />
+            <element signature="e#4959#5199#0" expanded="true" />
+            <element signature="e#5198#5199#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_footer_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.133333">
+          <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37391305">
+          <caret line="508" column="71" selection-start-line="508" selection-start-column="48" selection-end-line="508" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_loop_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.36283186">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/util/TabViewPgerImageManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="102" column="14" selection-start-line="102" selection-start-column="14" selection-end-line="102" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/productdetails_head_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.733333">
+          <caret line="117" column="39" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/dayang_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38053098">
+          <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/produtcdetails_shops_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31858408">
+          <caret line="113" column="69" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
+          <folding>
+            <element signature="e#4435#4471#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/java/com/shenma/yueba/baijia/activity/ApproveBuyerDetailsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.3965516">
+          <caret line="103" column="53" selection-start-line="103" selection-start-column="53" selection-end-line="103" selection-end-column="53" />
+          <folding>
+            <element signature="e#3234#3240#0" expanded="true" />
+            <element signature="e#13286#13667#0" expanded="true" />
+            <element signature="e#13666#13667#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/values/dimen_gyj.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45507246">
+          <caret line="12" column="39" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/joybar/src/main/res/layout/approvebuyerdetails_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.501182">
+          <caret line="50" column="62" selection-start-line="50" selection-start-column="62" selection-end-line="50" selection-end-column="62" />
+          <folding>
+            <element signature="e#1565#1596#0" expanded="true" />
           </folding>
         </state>
       </provider>

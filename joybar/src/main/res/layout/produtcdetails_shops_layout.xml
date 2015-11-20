@@ -110,4 +110,9 @@
 
     </RelativeLayout>
 
+    <View
+        android:layout_marginTop="@dimen/shop_main_lineheight8_dimen"
+        style="@style/style_horizontal_line"
+        />
+
 </LinearLayout>
