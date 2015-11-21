@@ -12,58 +12,63 @@
         android:layout_marginRight="@dimen/shop_main_lineheight10_dimen"
         android:src="@drawable/default_pic" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dip"
-        android:paddingTop="8dip" 
-        android:paddingBottom="8dip"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         >
-
         <TextView
             android:id="@+id/affirmorder_item_productname_textview"
+            android:gravity="left|center_vertical"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@null"
+            android:text=""
             android:textSize="@dimen/textsize13sp" />
 
         <TextView
             android:id="@+id/affirmorder_item_productsize_textview"
+            android:gravity="left|center_vertical"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:ellipsize="end"
             android:layout_centerVertical="true"
             android:singleLine="true"
-            android:text="@null"
+            android:text=""
             android:textColor="@color/text_gray_color"
             android:textSize="@dimen/textsize13sp" />
 
-        <TextView
-            android:id="@+id/affirmorder_item_productprice_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text="@null"
-            android:textColor="@color/red_text_color"
-            android:textSize="@dimen/textsize13sp" />
-
-        <TextView
-            android:id="@+id/affirmorder_item_productcount_textview"
-            android:layout_alignTop="@id/affirmorder_item_productcount_textview"
+        <RelativeLayout
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/affirmorder_item_productsize_textview"
-            android:layout_toRightOf="@id/affirmorder_item_productprice_textview"
-            android:ellipsize="end"
-            android:layout_marginLeft="10dip"
-            android:gravity="right"
-            android:singleLine="true"
-            android:text="@null"
-            android:textSize="@dimen/textsize14sp" />
-    </RelativeLayout>
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/affirmorder_item_productprice_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="@dimen/textsize13sp" />
 
+            <TextView
+                android:id="@+id/affirmorder_item_productcount_textview"
+                android:layout_alignTop="@id/affirmorder_item_productcount_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/affirmorder_item_productprice_textview"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="@dimen/textsize13sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
 </LinearLayout>

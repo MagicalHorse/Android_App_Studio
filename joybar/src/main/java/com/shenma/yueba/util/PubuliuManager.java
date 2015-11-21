@@ -1,6 +1,7 @@
 package com.shenma.yueba.util;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -20,7 +21,9 @@ import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.umeng.socialize.utils.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import https.CommonHttpControl;
 import interfaces.HttpCallBackInterface;
@@ -31,7 +34,7 @@ import interfaces.HttpCallBackInterface;
  *          程序的简单说明  瀑布流管理
  */
 
-public class PubuliuManager {
+public class PubuliuManager implements CollectobserverManage.ObserverListener {
     Activity activity;
     ViewGroup parent;
     //瀑布流 左右布局
@@ -41,6 +44,8 @@ public class PubuliuManager {
     LayoutInflater layoutInflater;
     List<PubuliuBeanInfo> item=new ArrayList<PubuliuBeanInfo>();
     int countAnimationTime=2000;
+    //存储收藏的视图对象 key -商品id   value --视图中的 收藏视图对象
+    Map<String,LinearLayout> collect_map=new HashMap<String,LinearLayout>();
 
     public PubuliuManager(Activity activity, ViewGroup parent) {
         this.activity = activity;
@@ -80,7 +85,7 @@ public class PubuliuManager {
     {
         Message msg=handler.obtainMessage(200);
         msg.obj=obj;
-        handler.sendMessageDelayed(msg,200);
+        handler.sendMessageDelayed(msg, 200);
     }
 
     /****
@@ -90,10 +95,12 @@ public class PubuliuManager {
      ***/
     public void onResher(List<PubuliuBeanInfo> _item) {
         item.clear();
+        collect_map.clear();
         if(item!=null)
         {
             item.addAll(_item);
         }
+
         leftHeight = 0;
         rightHeight = 0;
         pubuliy_left_linearlayout.removeAllViews();
@@ -145,7 +152,7 @@ public class PubuliuManager {
                 pubuliu_item_layout_like_imageview.setSelected(bean.iscollection());
                 //pubuliu_item_layout_like_textview.setText(Integer.toString(bean.getFavoriteCount()));
                 pubuliu_item_layout_like_linearlayout.setTag(bean);
-
+                collect_map.put(bean.getId(),pubuliu_item_layout_like_linearlayout);
                 ImageView iv = (ImageView) parentview.findViewById(R.id.pubuliu_item_layout_imageview);
                 if (height > 0) {
                     Log.i("TAG", "height=" + height + " witdh=" + witdh + "ration=" + bean.getRation());
@@ -255,9 +262,6 @@ public class PubuliuManager {
             @Override
             public void http_Success(BaseRequest obj) {
                 if (v != null) {
-                    TextView pubuliu_item_layout_like_textview = (TextView) v.findViewById(R.id.pubuliu_item_layout_like_textview);
-                    ImageView pubuliu_item_layout_like_imageview = (ImageView) v.findViewById(R.id.pubuliu_item_layout_like_imageview);
-                    //MyFavoriteProductListLikeUser myFavoriteProductListLikeUser=bean.getLikeUser();
                     int count = bean.getFavoriteCount();
                     switch (Status) {
                         case 0:
@@ -266,36 +270,16 @@ public class PubuliuManager {
                                 count = 0;
                             }
                             bean.setFavoriteCount(count);
-                            if (pubuliu_item_layout_like_imageview != null) {
-                                pubuliu_item_layout_like_imageview.setSelected(false);
-                            }
-                            if (pubuliu_item_layout_like_textview != null) {
-                                pubuliu_item_layout_like_textview.setText(count + "");
-                            }
                             bean.setIscollection(false);
                             break;
                         case 1:
                             count++;
                             bean.setFavoriteCount(count);
                             bean.setIscollection(true);
-                            if (pubuliu_item_layout_like_imageview != null) {
-                                pubuliu_item_layout_like_imageview.setSelected(true);
-                            }
-                            if (pubuliu_item_layout_like_textview != null) {
-                                pubuliu_item_layout_like_textview.setText(count + "");
-                            }
                             break;
                     }
+                    setDataChange(bean, v);
                     bean.setIsruning(false);
-                }
-
-                switch (Status) {
-                    case 0:
-                        //sendBroadcase(bean.getId(), false);
-                        break;
-                    case 1:
-                        //sendBroadcase(bean.getId(), true);
-                        break;
                 }
             }
 
@@ -306,6 +290,31 @@ public class PubuliuManager {
             }
         });
     }
+
+
+    /*********
+     * 设置 收藏的样式 以及收藏的个数
+     * *****/
+    void setDataChange(PubuliuBeanInfo bean,View parentView)
+    {
+        TextView pubuliu_item_layout_like_textview = (TextView) parentView.findViewById(R.id.pubuliu_item_layout_like_textview);
+        ImageView pubuliu_item_layout_like_imageview = (ImageView)parentView.findViewById(R.id.pubuliu_item_layout_like_imageview);
+
+
+        pubuliu_item_layout_like_textview.setText(bean.getFavoriteCount() + "");
+        if(pubuliu_item_layout_like_imageview!=null)
+        {
+            if(bean.iscollection())
+            {
+                pubuliu_item_layout_like_imageview.setSelected(true);
+            }else
+            {
+                pubuliu_item_layout_like_imageview.setSelected(false);
+            }
+        }
+    }
+
+
 
     /*******
      * 发送广播 通知 收藏商品 或取消 收藏商品成功
@@ -318,5 +327,30 @@ public class PubuliuManager {
         intent.putExtra("product_id", product_id);
         intent.putExtra("isFavor", isFavor);
         MyApplication.getInstance().sendBroadcast(intent);*/
+    }
+
+
+    /**************
+     *当 监测到 被观察的信息 有改变的时候  即 被观察的商品对象 进行了 收藏或取消收藏的 成功操作后 把 操作的商品对象 传递给 观察者
+     * 观察者 根据 商品的id   从 collect_map 中获取到 对应的 视图信息  进行赋值 确保显示的信息一致性
+     * ***********/
+    @Override
+    public void observerCallNotification(PubuliuBeanInfo pubuliuBeanInfo) {
+        if(pubuliuBeanInfo!=null)
+        {
+            String product_id=pubuliuBeanInfo.getId();
+            if(collect_map.get(collect_map)!=null)
+            {
+                LinearLayout ll=collect_map.get(product_id);
+                if(ll!=null  && ll.getTag()!=null)
+                {
+                    PubuliuBeanInfo info=(PubuliuBeanInfo)ll.getTag();
+                    info.setIsruning(false);
+                    info.setIscollection(pubuliuBeanInfo.iscollection());
+                    info.setFavoriteCount(pubuliuBeanInfo.getFavoriteCount());
+                    setDataChange(pubuliuBeanInfo, ll);
+                }
+            }
+        }
     }
 }

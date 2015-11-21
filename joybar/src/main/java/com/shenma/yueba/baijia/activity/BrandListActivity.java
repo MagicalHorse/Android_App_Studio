@@ -16,6 +16,7 @@ import com.shenma.yueba.baijia.modle.BrandInfoInfo;
 import com.shenma.yueba.baijia.modle.RequestBrandInfoInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.shenma.yueba.constants.Constants;
+import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.PubuliuManager;
 import com.shenma.yueba.util.ToolsUtil;
@@ -83,6 +84,8 @@ public class BrandListActivity extends BaseActivityWithTopView {
         //瀑布流的父类
         LinearLayout brand_list_layout_pubuliy_linearlayout = (LinearLayout) findViewById(R.id.brand_list_layout_pubuliy_linearlayout);
         pubuliuManager = new PubuliuManager(this, brand_list_layout_pubuliy_linearlayout);
+        //添加观察者
+        CollectobserverManage.getInstance().addObserver(pubuliuManager);
     }
 
 
@@ -221,6 +224,13 @@ public class BrandListActivity extends BaseActivityWithTopView {
             }
         }
         return pubuliuBeanInfos;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //移除观察者
+        CollectobserverManage.getInstance().removeObserver(pubuliuManager);
     }
 }
 

@@ -63,7 +63,7 @@ int buyCount=0;
 		{
 			holder=new Holder();
 			convertView=(LinearLayout)LinearLayout.inflate(context, R.layout.affirmorder_item, null);
-			convertView.findViewById(R.id.affrimorder_item_line_textview).setVisibility(View.VISIBLE);
+			convertView.findViewById(R.id.affrimorder_item_line_textview).setVisibility(View.GONE);
 			holder.affirmorder_item_username_textview=(TextView)convertView.findViewById(R.id.affirmorder_item_username_textview);
 			holder.affirmorder_item_name_textview=(TextView)convertView.findViewById(R.id.affirmorder_item_name_textview);
 			holder.affirmorder_item_productname_textview=(TextView)convertView.findViewById(R.id.affirmorder_item_productname_textview);

@@ -45,7 +45,7 @@
                     android:id="@+id/affirmorder_layout_novalue_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                       android:textSize="15sp"
+                    android:textSize="15sp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/shop_main_lineheight10_dimen"
                     android:layout_toLeftOf="@+id/affirmorder_layout_icon_roundimageview"
@@ -76,14 +76,14 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                       android:textSize="15sp"
+                    android:textSize="15sp"
                     android:text="买手电话:" />
 
                 <TextView
                     android:id="@+id/affirmorder_layout_phonevalue_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                       android:textSize="15sp"
+                    android:textSize="15sp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/shop_main_lineheight10_dimen"
                     android:layout_toLeftOf="@+id/affirmorder_layout_icon_imageview"
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                       android:textSize="15sp"
+                    android:textSize="15sp"
                     android:layout_centerVertical="true"
                     android:text="提货地址:" />
 
@@ -121,7 +121,7 @@
                     android:id="@+id/affirmorder_layout_pickupvalue_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                       android:textSize="15sp"
+                    android:textSize="15sp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/shop_main_lineheight10_dimen"
                     android:layout_toRightOf="@+id/affirmorder_layout_pickup_textview"
@@ -143,7 +143,11 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="@dimen/margin_left_and_right" >
+                android:paddingLeft="@dimen/margin_left_and_right"
+                android:paddingRight="@dimen/margin_left_and_right"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                >
 
                 <TextView
                     android:id="@+id/affirmorder_item_allcount_textview"
@@ -156,12 +160,13 @@
                     android:id="@+id/affirmorder_item_price_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                       android:textSize="15sp"
+                    android:textSize="15sp"
                     android:layout_toLeftOf="@+id/affirmorder_item_pricevalue_textview"
-                    android:text="实付:￥" />
+                    android:text="商品金额:" />
 
                 <TextView
                     android:id="@+id/affirmorder_item_pricevalue_textview"
+                    android:textSize="15sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -186,7 +191,7 @@
                     android:id="@+id/affirmorder_item_youhuititle_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                       android:textSize="15sp"
+                    android:textSize="15sp"
                     android:layout_centerVertical="true"
                     android:text="打烊购" />
 
@@ -220,7 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                           android:textSize="15sp"
+                        android:textSize="15sp"
                         android:text="提货电话:" />
 
                     <EditText
@@ -271,9 +276,11 @@
             android:layout_toLeftOf="@+id/affrimorder_layout_footer_countprice_textview"
             android:gravity="right"
             android:text="合计:￥"
+            android:textSize="15sp"
             android:textColor="@color/red" />
 
         <TextView
+            android:textSize="15sp"
             android:id="@+id/affrimorder_layout_footer_countprice_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -286,7 +293,7 @@
         <Button
             android:id="@+id/affrimorder_layout_footer_sumit_button"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/shop_main_marginleft35_dimen"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:textColor="@color/white"
@@ -295,7 +302,7 @@
             android:layout_marginTop="5dip"
             android:background="@drawable/affirmbutton_background"
             android:text="确认"
-            android:textSize="@dimen/textsize15sp" />
+            android:textSize="@dimen/textsize13sp" />
     </RelativeLayout>
 
 </RelativeLayout>

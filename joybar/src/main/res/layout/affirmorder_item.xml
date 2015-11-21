@@ -17,19 +17,26 @@
             android:id="@+id/affirmorder_item_username_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="name" />
+            android:textSize="@dimen/textsize13sp"
+            android:text="@null" />
 
         <TextView
             android:gravity="right"
             android:id="@+id/affirmorder_item_name_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="name" />
+            android:textSize="@dimen/textsize13sp"
+            android:text="@null" />
     </LinearLayout>
 
-    <include layout="@layout/productinfolist_layout"/>
+    <include
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/productinfolist_layout"/>
     
     <View
+        android:visibility="gone"
         android:id="@+id/affrimorder_item_line_textview"
         android:layout_marginTop="@dimen/shop_main_width3_dimen"
         style="@style/style_horizontal_line"
