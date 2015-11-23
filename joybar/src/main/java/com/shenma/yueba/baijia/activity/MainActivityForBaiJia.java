@@ -8,6 +8,7 @@ import com.shenma.yueba.UpdateManager;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.fragment.CircleFragment;
 import com.shenma.yueba.baijia.fragment.FindFragment;
+import com.shenma.yueba.baijia.fragment.FindShoppingGuideFragmnet;
 import com.shenma.yueba.baijia.fragment.IndexFragmentForBaiJia;
 import com.shenma.yueba.baijia.fragment.MeFragmentForBaiJia;
 import com.shenma.yueba.baijia.fragment.MessageFragment;
@@ -48,8 +49,7 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 	List<View> footer_list = new ArrayList<View>();
 	// 当前选中的id
 	int currid = -1;
-	Fragment indexFragmentForBaiJia, circleFragment, messageFragment,
-			findFragment, meFragmentForBaiJia;
+	Fragment indexFragmentForBaiJia, findShoppingGuideFragmnet, messageFragment,meFragmentForBaiJia;
 	FragmentManager fragmentManager;
 	ImBroadcastReceiver imBroadcastReceiver;
 	boolean isbroadcase=false;
@@ -105,19 +105,21 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 		baijia_main_framelayout = (FrameLayout) findViewById(R.id.baijia_main_framelayout);
 		baijia_main_foot_linearlayout = (LinearLayout) findViewById(R.id.baijia_main_foot_linearlayout);
 		indexFragmentForBaiJia = new IndexFragmentForBaiJia();
-		circleFragment = new CircleFragment();
+		findShoppingGuideFragmnet =new FindShoppingGuideFragmnet();
 		messageFragment = new MessageFragment();
-		findFragment = new FindFragment();
+
 		meFragmentForBaiJia = new MeFragmentForBaiJia();
 
-		fragment_list.add(new FragmentBean("主页",
+		fragment_list.add(new FragmentBean("打样够",
 				R.drawable.baijia_home_background, indexFragmentForBaiJia));
-		fragment_list.add(new FragmentBean("圈子",
-				R.drawable.baijia_circle_background, circleFragment));
-		fragment_list.add(new FragmentBean("消息",
+		fragment_list.add(new FragmentBean("招导购",
+				R.drawable.baijia_home_background, findShoppingGuideFragmnet));
+		/*fragment_list.add(new FragmentBean("圈子",
+				R.drawable.baijia_circle_background, circleFragment));*/
+		fragment_list.add(new FragmentBean("信息",
 				R.drawable.baijia_msg_background, messageFragment));
-		fragment_list.add(new FragmentBean("发现",
-				R.drawable.baijia_find_background, findFragment));
+		/*fragment_list.add(new FragmentBean("发现",
+				R.drawable.baijia_find_background, findFragment));*/
 		fragment_list.add(new FragmentBean("我",
 				R.drawable.baijia_setting_background, meFragmentForBaiJia));
 
