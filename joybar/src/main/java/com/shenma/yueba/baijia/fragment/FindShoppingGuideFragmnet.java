@@ -66,7 +66,7 @@ public class FindShoppingGuideFragmnet extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_find_shopping_guide_fragmnet, container, false);
+        return inflater.inflate(R.layout.find_shopping_guide_layout, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
