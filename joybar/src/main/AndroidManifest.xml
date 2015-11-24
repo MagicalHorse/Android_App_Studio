@@ -188,7 +188,7 @@
             android:name=".baijia.activity.ChooseCityActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".baijia.activity.SearchProductResultActivity"
+            android:name=".baijia.activity.SearchProductResultActivity_for_2qi"
             android:screenOrientation="portrait" />
         <activity
             android:name=".baijia.activity.ConfirmOrderForZhuanGui"
@@ -287,6 +287,12 @@
             android:name=".baijia.activity.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+
+        <activity
+            android:name=".baijia.activity.SearchResultActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+
         <activity
             android:name=".baijia.activity.CityListActivity"
             android:screenOrientation="portrait"></activity>
@@ -627,9 +633,6 @@
             android:name="JPUSH_APPKEY"
             android:value="3f6d5f186c19271a004b248e" />
 
-        <activity
-            android:name=".baijia.activity.SearchResultActivity"
-            android:label="@string/title_activity_search_result"></activity>
     </application>
 
 </manifest>

@@ -44,29 +44,15 @@
     </RelativeLayout>
 
     <View style="@style/style_horizontal_line" />
+    <include layout="@layout/search_result_title"
+        />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/baijia_fragment_tab1_head_linearlayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_toLeftOf="@+id/bt_cart"
-            android:orientation="horizontal" />
-
-        <View
-            style="@style/style_horizontal_line"
-            android:layout_below="@+id/baijia_fragment_tab1_head_linearlayout" />
-    </RelativeLayout>
+    <View style="@style/style_horizontal_line" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/baijia_fragment_tab1_pagerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
-        android:paddingTop="0dp"></android.support.v4.view.ViewPager>
+        android:id="@+id/search_result_viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>
