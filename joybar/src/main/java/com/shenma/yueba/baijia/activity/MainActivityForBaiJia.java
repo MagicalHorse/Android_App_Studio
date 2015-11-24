@@ -6,8 +6,6 @@ import java.util.List;
 import com.shenma.yueba.R;
 import com.shenma.yueba.UpdateManager;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.fragment.CircleFragment;
-import com.shenma.yueba.baijia.fragment.FindFragment;
 import com.shenma.yueba.baijia.fragment.FindShoppingGuideFragmnet;
 import com.shenma.yueba.baijia.fragment.IndexFragmentForBaiJia;
 import com.shenma.yueba.baijia.fragment.MeFragmentForBaiJia;
@@ -111,9 +109,9 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 		meFragmentForBaiJia = new MeFragmentForBaiJia();
 
 		fragment_list.add(new FragmentBean("打样够",
-				R.drawable.baijia_home_background, indexFragmentForBaiJia));
+				R.drawable.index_tab_dayanggou_selector, indexFragmentForBaiJia));
 		fragment_list.add(new FragmentBean("招导购",
-				R.drawable.baijia_home_background, findShoppingGuideFragmnet));
+				R.drawable.index_tab_zhaodaogou_selector, findShoppingGuideFragmnet));
 		/*fragment_list.add(new FragmentBean("圈子",
 				R.drawable.baijia_circle_background, circleFragment));*/
 		fragment_list.add(new FragmentBean("信息",
@@ -161,10 +159,10 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 
 			break;
 		case 1:
-			if (!MyApplication.getInstance().isUserLogin(
-					MainActivityForBaiJia.this)) {
-				return;
-			}
+//			if (!MyApplication.getInstance().isUserLogin(
+//					MainActivityForBaiJia.this)) {
+//				return;
+//			}
 			break;
 		case 2:
 			if (!MyApplication.getInstance().isUserLogin(

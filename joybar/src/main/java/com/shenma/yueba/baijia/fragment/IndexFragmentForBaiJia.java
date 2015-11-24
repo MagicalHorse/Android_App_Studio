@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.shenma.yueba.util.CityChangeRefreshObserver;
 import com.shenma.yueba.util.LocationUtil;
 import com.shenma.yueba.util.PerferneceUtil;
 import com.shenma.yueba.util.TabViewPgerImageManager;
+import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 
 import java.util.ArrayList;
@@ -130,6 +132,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         });
         tv_city.setText("全国");
         tv_city.setCompoundDrawablesWithIntrinsicBounds(null, null, this.getResources().getDrawable(R.drawable.arrow_down), null);
+        tv_city.setCompoundDrawablePadding(ToolsUtil.dip2px(getActivity(),10));
         //标题
         TextView title_layout_titlename_textview = (TextView) v.findViewById(R.id.tv_top_title);
         title_layout_titlename_textview.setVisibility(View.VISIBLE);

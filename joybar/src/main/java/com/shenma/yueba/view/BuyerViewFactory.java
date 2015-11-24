@@ -34,13 +34,13 @@ public class BuyerViewFactory {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(screenWith, screenWith);
         ViewGroup.LayoutParams params2 = new ViewGroup.LayoutParams(screenWith / 2, screenWith / 2);
         switch (count) {
-            case 1://Ò»ÕÅÍ¼Æ¬
+            case 1://ä¸€å¼ å›¾ç‰‡
                 view = View.inflate(ctx, R.layout.one_pic_layout, null);
                 iv_one = (ImageView) view.findViewById(R.id.iv_one);
                 iv_one.setLayoutParams(params);
                 layout.addView(view);
                 break;
-            case 2://Á½ÕÅÍ¼Æ¬
+            case 2://ä¸¤å¼ 
                 view = View.inflate(ctx, R.layout.two_pic_layout, null);
                 iv_one = (ImageView) view.findViewById(R.id.iv_one);
                 iv_two = (ImageView) view.findViewById(R.id.iv_two);
@@ -48,7 +48,7 @@ public class BuyerViewFactory {
                 iv_two.setLayoutParams(params2);
                 layout.addView(view);
                 break;
-            case 3://ÈýÕÅÍ¼Æ¬
+            case 3://ä¸‰å¼ 
                 view = View.inflate(ctx, R.layout.three_pic_layout, null);
                 ImageView iv_one = (ImageView) view.findViewById(R.id.iv_one);
                 ImageView iv_two = (ImageView) view.findViewById(R.id.iv_two);
@@ -58,7 +58,7 @@ public class BuyerViewFactory {
                 iv_three.setLayoutParams(params2);
                 layout.addView(view);
                 break;
-            case 4://ËÄÕÅÍ¼Æ¬
+            case 4://å››å¼ 
                 view = View.inflate(ctx, R.layout.four_pic_layout, null);
                 iv_one = (ImageView) view.findViewById(R.id.iv_one);
                 iv_two = (ImageView) view.findViewById(R.id.iv_two);

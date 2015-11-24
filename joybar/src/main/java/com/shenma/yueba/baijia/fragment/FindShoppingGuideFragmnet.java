@@ -4,51 +4,45 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shenma.yueba.BaseFragmentActivity;
 import com.shenma.yueba.R;
+import com.shenma.yueba.util.FontManager;
+import com.shenma.yueba.yangjia.fragment.IncomeDetailFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FindShoppingGuideFragmnet.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FindShoppingGuideFragmnet#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FindShoppingGuideFragmnet extends BaseFragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
 
-    // TODO: Rename and change types of parameters
+
+public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnClickListener {
+    private View view;
+    private TextView tv_guide;
+    private TextView tv_attention;
+    private ViewPager find_guide_viewpager;
+    private GuideFragment guideFragment;// 导购
+    private AttentionFragment attentionFragment;// 关注
+    private ArrayList<android.support.v4.app.Fragment> fragmentList = new ArrayList<android.support.v4.app.Fragment>();
+    private ArrayList<ImageView> cursorImageList = new ArrayList<ImageView>();
+    private ArrayList<TextView> titleTextList = new ArrayList<TextView>();
+    private ImageView iv_cursor_right;
+    private ImageView iv_cursor_left;
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment FindShoppingGuideFragmnet.
      */
-    // TODO: Rename and change types and number of parameters
-    public static FindShoppingGuideFragmnet newInstance(String param1, String param2) {
-        FindShoppingGuideFragmnet fragment = new FindShoppingGuideFragmnet();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public FindShoppingGuideFragmnet() {
         // Required empty public constructor
     }
@@ -56,56 +50,110 @@ public class FindShoppingGuideFragmnet extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.find_shopping_guide_layout, container, false);
+
+
+        initView();
+        initViewPager();
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    private void initView() {
+        guideFragment = new GuideFragment();
+        attentionFragment = new AttentionFragment();
+        view = View.inflate(getActivity(), R.layout.find_shopping_guide_layout, null);
+        find_guide_viewpager = (ViewPager) view.findViewById(R.id.find_guide_viewpager);
+        tv_guide = (TextView) view.findViewById(R.id.tv_guide);
+        tv_attention = (TextView) view.findViewById(R.id.tv_attention);
+        iv_cursor_right = (ImageView) view.findViewById(R.id.iv_cursor_right);
+        iv_cursor_left = (ImageView) view.findViewById(R.id.iv_cursor_left);
+        cursorImageList.add(iv_cursor_left);
+        cursorImageList.add(iv_cursor_right);
+        iv_cursor_left.setVisibility(View.VISIBLE);
+        tv_guide.setTextSize(20);
+        tv_guide.setTextColor(getResources().getColor(R.color.main_color));
+        titleTextList.add(tv_guide);
+        titleTextList.add(tv_attention);
+        tv_guide.setOnClickListener(this);
+        tv_attention.setOnClickListener(this);
+
+
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+
+    private void initViewPager() {
+        find_guide_viewpager.setAdapter(new TabPageIndicatorAdapter(getActivity().getSupportFragmentManager()));
+        find_guide_viewpager.setCurrentItem(0);
+        find_guide_viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            /*
+             * 页面跳转完成后调用的方法
+             */
+            public void onPageSelected(int arg0) {
+//                fragmentList.get(arg0).getData(false, arg0, getActivity());
+//                for (int i = 0; i < fragmentList.size(); i++) {
+//                    if (arg0 != i) {
+//                        fragmentList.get(arg0).tv_nodata.setVisibility(View.GONE);
+//                    }
+//                }
+                setCursorAndText(arg0, cursorImageList, titleTextList);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * ViewPager适配器
+     *
+     * @author len
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+    class TabPageIndicatorAdapter extends FragmentPagerAdapter {
+        public TabPageIndicatorAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public android.support.v4.app.Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return super.getItemPosition(object);
+        }
     }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_guide://导购
+                find_guide_viewpager.setCurrentItem(0);
+                break;
+            case R.id.tv_attention://关注
+                find_guide_viewpager.setCurrentItem(1);
+                break;
+            default:
+                break;
+        }
+    }
+
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item  android:state_selected="true" android:drawable="@drawable/baijia_msg_checked"></item>
-    <item  android:drawable="@drawable/baijia_msg_unchecked"></item>
+    <item  android:state_selected="true" android:drawable="@drawable/index_tab_msg"></item>
+    <item  android:drawable="@drawable/index_tab_msg_default"></item>
 </selector>
