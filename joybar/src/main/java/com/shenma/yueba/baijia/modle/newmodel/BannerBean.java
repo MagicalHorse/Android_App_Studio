@@ -8,7 +8,16 @@ public class BannerBean {
 
     private String Namebanner;
     private String Id;
-    private String idLink;
+
+    public String getLink() {
+        return Link;
+    }
+
+    public void setLink(String link) {
+        Link = link;
+    }
+
+    private String Link;
     private String Pic;
 
     public String getNamebanner() {
@@ -25,14 +34,6 @@ public class BannerBean {
 
     public void setId(String id) {
         Id = id;
-    }
-
-    public String getIdLink() {
-        return idLink;
-    }
-
-    public void setIdLink(String idLink) {
-        this.idLink = idLink;
     }
 
     public String getPic() {

@@ -37,6 +37,11 @@ public class TabViewPgerImageManager {
     Timer timer;
     int currid = -1;
 
+    public void setTabViewPagerImageOnClickListener(TabViewPagerImageOnClickListener tabViewPagerImageOnClickListener) {
+        this.tabViewPagerImageOnClickListener = tabViewPagerImageOnClickListener;
+    }
+
+    TabViewPagerImageOnClickListener tabViewPagerImageOnClickListener;
     public TabViewPgerImageManager(Activity activity, List<String> array_str) {
         this.activity = activity;
         layoutInflater = LayoutInflater.from(activity);
@@ -60,22 +65,6 @@ public class TabViewPgerImageManager {
         appprovebuyer_viewpager = (ViewPager) tabview.findViewById(R.id.appprovebuyer_viewpager);
 
         appprovebuyer_viewpager_footer_linerlayout = (LinearLayout) tabview.findViewById(R.id.appprovebuyer_viewpager_footer_linerlayout);
-        appprovebuyer_viewpager.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        stopTimerToViewPager();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        startTimeToViewPager();
-                        break;
-                }
-                return false;
-            }
-        });
         appprovebuyer_viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -113,12 +102,40 @@ public class TabViewPgerImageManager {
         for (int i = 0; i < array_str.size(); i++) {
             RelativeLayout rl = new RelativeLayout(activity);
             ImageView iv = new ImageView(activity);
+            iv.setTag(i);
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (tabViewPagerImageOnClickListener != null) {
+                        tabViewPagerImageOnClickListener.onClick_TabViewPagerImage((Integer) v.getTag());
+                    }
+                }
+            });
+
+            iv.setOnTouchListener(new View.OnTouchListener() {
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            stopTimerToViewPager();
+                            break;
+                        case MotionEvent.ACTION_POINTER_UP:
+                        case MotionEvent.ACTION_UP:
+                            startTimeToViewPager();
+                            break;
+                    }
+                    return false;
+                }
+            });
+
             iv.setBackgroundColor(activity.getResources().getColor(R.color.color_lightgrey));
             iv.setImageResource(R.drawable.default_pic);
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             rl.addView(iv, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
             viewlist.add(rl);
-            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(array_str.get(i)),iv,MyApplication.getInstance().getDisplayImageOptions());
+            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(array_str.get(i)), iv, MyApplication.getInstance().getDisplayImageOptions());
         }
     }
 
@@ -126,7 +143,9 @@ public class TabViewPgerImageManager {
      * 刷新
      ************/
     public void notification() {
+        stopTimerToViewPager();
         if (customPagerAdapter != null) {
+            stopTimerToViewPager();
             setvalue();
             customPagerAdapter.notifyDataSetChanged();
             startTimeToViewPager();
@@ -157,14 +176,14 @@ public class TabViewPgerImageManager {
                     }
                 });
             }
-        }, 2000, 3000);
+        }, 3000, 3000);
     }
 
     /*****
      * 停止自动滚动
      **/
-    void stopTimerToViewPager() {
-        setViewPagerDuration(500);
+    public void stopTimerToViewPager() {
+        setViewPagerDuration(0);
         if (timer != null) {
             timer.cancel();
             timer = null;
@@ -222,4 +241,8 @@ public class TabViewPgerImageManager {
         }
     }
 
+
+    public interface TabViewPagerImageOnClickListener{
+        void onClick_TabViewPagerImage(int i);
+    }
 }

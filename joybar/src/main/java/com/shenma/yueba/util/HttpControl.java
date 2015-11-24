@@ -147,7 +147,7 @@ public class HttpControl {
 	public void getBinner(final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
 		BasehttpSend(map, context, HttpConstants.METHOD_BannerSubject, httpCallBack,
-				BinnerBackBean.class, true, false);
+				BinnerBackBean.class, false, false);
 	}
 
 
@@ -155,13 +155,18 @@ public class HttpControl {
 
 	/**
 	 * 获取首页数据
+	 * @param CityId String 城市ID 不传则默认0  返回全国数据
+	 * @param  Page int 当前页大小
+	 * @param  PageSize int 每页显示的个数
 	 * @param httpCallBack
 	 * @param context
 	 */
-	public void getIndex(final HttpCallBackInterface httpCallBack, Context context) {
+	public void getIndex(String CityId,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
-		BasehttpSend(map, context, HttpConstants.METHOD_index, httpCallBack,
-				IndexBackBean.class, true, false);
+		map.put("CityId",CityId);
+		map.put("Page",Integer.toString(Page));
+		map.put("PageSize",Integer.toString(PageSize));
+		BasehttpSend(map, context, HttpConstants.METHOD_index, httpCallBack, IndexBackBean.class, false, false);
 	}
 
 

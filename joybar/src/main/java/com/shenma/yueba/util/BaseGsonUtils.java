@@ -16,8 +16,8 @@ public class BaseGsonUtils {
 	 * json字符串 转 对象
 	 * 这是一个泛型方法 需要传递一个 对象的类最终返回这个 类的对象
 	 * @param <T>
-	 * @param Class<T> classzz 转换的类  
-	 * @param String json json类型的字符串
+	 * @param classzz Class<T>  转换的类
+	 * @param json String  json类型的字符串
 	 * @return T 
 	 * ****/
 	public static <T> T getJsonToObject(Class<T> classzz, String json) {
@@ -32,7 +32,7 @@ public class BaseGsonUtils {
 	
 	/******
 	 * 对象转json
-	 * @param Object obj 对象
+	 * @param obj Object  对象
 	 * @return String 
 	 * ****/
 	public static String getObjectToJson(Object obj)

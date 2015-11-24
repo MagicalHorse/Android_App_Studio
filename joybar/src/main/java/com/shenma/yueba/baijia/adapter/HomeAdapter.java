@@ -15,14 +15,17 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ApproveBuyerDetailsActivity;
-import com.shenma.yueba.baijia.activity.ApproveBuyerDetails_ck_Activity;
+import com.shenma.yueba.baijia.activity.BrandListActivity;
 import com.shenma.yueba.baijia.activity.MarketMainActivity;
 import com.shenma.yueba.baijia.activity.SearchBrandListActivity;
-import com.shenma.yueba.baijia.modle.newmodel.Abs_HomeItemInfo;
+import com.shenma.yueba.baijia.activity.ShopMainActivity;
+import com.shenma.yueba.baijia.modle.BrandInfo;
+import com.shenma.yueba.baijia.modle.IndexProductInfo;
+import com.shenma.yueba.baijia.modle.newmodel.IndexItems;
 import com.shenma.yueba.util.AbsBrandListManager;
 import com.shenma.yueba.util.AutoBrandListManager;
 import com.shenma.yueba.util.AverageViewManager;
-import com.shenma.yueba.util.TimerDownUtils;
+import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 
 import java.util.ArrayList;
@@ -33,20 +36,14 @@ import java.util.List;
  * 主页 列表的 item
  */
 public class HomeAdapter extends BaseAdapter {
+
     Activity activity;
-    List<Abs_HomeItemInfo> infoList = new ArrayList<Abs_HomeItemInfo>();
+    List<IndexItems> infoList = new ArrayList<IndexItems>();
 
 
-    public HomeAdapter(Activity activity) {
+    public HomeAdapter(Activity activity, List<IndexItems> arraylist) {
         this.activity = activity;
-        for (int i = 0; i < 10; i++) {
-            Abs_HomeItemInfo abs_HomeItemInfo = new Abs_HomeItemInfo();
-            abs_HomeItemInfo.setStartTime(9000+(5000*i));
-            abs_HomeItemInfo.setEndTime(9000 + (5000 * i));
-            abs_HomeItemInfo.setHasStarted(false);
-            abs_HomeItemInfo.startTime();
-            infoList.add(abs_HomeItemInfo);
-        }
+        this.infoList=arraylist;
     }
 
     @Override
@@ -100,19 +97,31 @@ public class HomeAdapter extends BaseAdapter {
     }
 
 
-    void setCommonValue(int position,final Holder holder) {
-        Abs_HomeItemInfo abs_HomeItemInfo= infoList.get(position);
-        holder.home_item_top_name_textview.setText("商场/买手的名字" + position);
-        holder.home_item_top_desp_textview.setText("地址或描述信息" + position);
-        holder.home_item_top_destance_textview.setText("距离信息" + position);
-        holder.home_item_top_layout_time_textview.setTag(abs_HomeItemInfo);
-        holder.home_item_top_layout_time_textview.setText(abs_HomeItemInfo.getShowstr());
-        abs_HomeItemInfo.setTimerCallListener(new Abs_HomeItemInfo.HomeItemInfoListener() {
+    void setCommonValue(int position, final Holder holder) {
+        IndexItems indexItems = infoList.get(position);
+        holder.home_item_top_name_textview.setText(indexItems.getName());
+        MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(indexItems.getLogo()), holder.home_item_top_layout_icon_customimageview, MyApplication.getInstance().getDisplayImageOptions());
+        //如果是认证买手
+        if (indexItems.getStoreLeave().equals("8")) {
+            holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getDescription()));
+            holder.home_item_top_desp_imageview.setVisibility(View.GONE);
+            holder.home_item_top_destance_textview.setText("");
+            holder.home_item_top_destance_textview.setVisibility(View.GONE);
+        } else if (indexItems.getStoreLeave().equals("4")) {
+            holder.home_item_top_desp_imageview.setVisibility(View.VISIBLE);
+            holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getLocation()));
+            holder.home_item_top_destance_textview.setText("距离信息" + position);
+            holder.home_item_top_destance_textview.setVisibility(View.VISIBLE);
+        }
+
+        holder.home_item_top_layout_time_textview.setTag(indexItems);
+        holder.home_item_top_layout_time_textview.setText(indexItems.getShowstr());
+        indexItems.setTimerCallListener(new IndexItems.HomeItemInfoListener() {
             @Override
             public void callback() {
                 //倒计时
-                Abs_HomeItemInfo _abs_HomeItemInfo=(Abs_HomeItemInfo)holder.home_item_top_layout_time_textview.getTag();
-                holder.home_item_top_layout_time_textview.setText(_abs_HomeItemInfo.getShowstr());
+                IndexItems _indexItems = (IndexItems) holder.home_item_top_layout_time_textview.getTag();
+                holder.home_item_top_layout_time_textview.setText(_indexItems.getShowstr());
             }
         });
 
@@ -123,6 +132,7 @@ public class HomeAdapter extends BaseAdapter {
      * 设置品牌信息
      ****/
     void initBrnadView(final int position, final View view) {
+        final IndexItems indexItems = infoList.get(position);
         LinearLayout home_item_layout_brand_linearlayout = (LinearLayout) view.findViewById(R.id.home_item_layout_brand_linearlayout);
         AbsBrandListManager bm = new AutoBrandListManager(activity, home_item_layout_brand_linearlayout);
         bm.settextSize(R.dimen.text_authentication_textsize);
@@ -131,19 +141,26 @@ public class HomeAdapter extends BaseAdapter {
         bm.setOnClickListener(new AbsBrandListManager.OnBrandItemListener() {
             @Override
             public void onItemClick(View v, int i) {
-                MyApplication.getInstance().showMessage(activity, "position=" + position + "  i=" + i);
+                BrandInfo brandInfo = indexItems.getBrands().get(i);
+                Intent intent = new Intent(activity, BrandListActivity.class);
+                intent.putExtra("BrandName", brandInfo.getBrandName());
+                intent.putExtra("BrandId", brandInfo.getBrandId());
+                activity.startActivity(intent);
             }
 
             @Override
             public void OnLastItemClick(View v) {
-                Intent intent=new Intent(activity, SearchBrandListActivity.class);
+                Intent intent = new Intent(activity, SearchBrandListActivity.class);
+                intent.putExtra("StoreId", indexItems.getId());
                 activity.startActivity(intent);
-                MyApplication.getInstance().showMessage(activity, "更多");
             }
         });
+
         List<String> str_array = new ArrayList<String>();
-        for (int i = 0; i < 10; i++) {
-            str_array.add("品牌" + position + "-i" + i);
+        if (indexItems.getBrands() != null) {
+            for (int i = 0; i < indexItems.getBrands().size(); i++) {
+                str_array.add(ToolsUtil.nullToString(indexItems.getBrands().get(i).getBrandName()));
+            }
         }
         bm.nofication(str_array);
     }
@@ -167,42 +184,78 @@ public class HomeAdapter extends BaseAdapter {
      * 设置商品信息
      ***/
     void setProductValue(int position, List<View> view_array) {
+        final IndexItems indexItems = infoList.get(position);
+        List<IndexProductInfo> product_list = indexItems.getProducts();
+        if (product_list == null || product_list.size() == 0) {
+            for (int i = 0; i < view_array.size(); i++) {
+                view_array.get(i).setVisibility(View.GONE);
+            }
+        } else {
+            for (int i = 0; i < view_array.size(); i++) {
+                view_array.get(i).setVisibility(View.VISIBLE);
+                if (i < product_list.size()) {
+                    IndexProductInfo product = product_list.get(i);
+                    view_array.get(i).setVisibility(View.VISIBLE);
+                    //商品图片
+                    ImageView authentication_child_iten_layout_pic_imageview = (ImageView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_pic_imageview);
+                    String url = ToolsUtil.nullToString(product.getPic());
+                    authentication_child_iten_layout_pic_imageview.setTag(product);
+                    MyApplication.getInstance().getImageLoader().displayImage(url, authentication_child_iten_layout_pic_imageview, MyApplication.getInstance().getDisplayImageOptions());
+                    authentication_child_iten_layout_pic_imageview.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            IndexProductInfo product=(IndexProductInfo)v.getTag();
+                            //Intent intent=new Intent(activity, ApproveBuyerDetailsActivity.class);
+                            Intent intent = new Intent(activity, ApproveBuyerDetailsActivity.class);
+                            intent.putExtra("productID",Integer.valueOf(product.getId()));
+                            activity.startActivity(intent);
+                            MyApplication.getInstance().showMessage(activity, "图片的点击事件");
+                        }
+                    });
+                    //价格
+                    TextView authentication_child_iten_layout_price_textview = (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_price_textview);
+                    authentication_child_iten_layout_price_textview.setText(product.getPrice()+"");
+                    //旧的价格
+                    TextView authentication_child_iten_layout_oldprice_textview = (TextView) (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_oldprice_textview);
+                    authentication_child_iten_layout_oldprice_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                    authentication_child_iten_layout_oldprice_textview.setText(product.getUnitPrice()+"");
 
-        for (int i = 0; i < view_array.size(); i++) {
-            //商品图片
-            ImageView authentication_child_iten_layout_pic_imageview = (ImageView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_pic_imageview);
-            authentication_child_iten_layout_pic_imageview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Intent intent=new Intent(activity, ApproveBuyerDetailsActivity.class);
-                    Intent intent=new Intent(activity, ApproveBuyerDetailsActivity.class);
-                    intent.putExtra("productID",12985);
-                    activity.startActivity(intent);
-                    MyApplication.getInstance().showMessage(activity, "图片的点击事件");
+                    //头像信息
+                    LinearLayout home_item_pic1_include = (LinearLayout) view_array.get(i).findViewById(R.id.home_item_pic1_include);
+                    if(indexItems.getStoreLeave().equals("4"))
+                    {
+                        home_item_pic1_include.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        home_item_pic1_include.setVisibility(View.GONE);
+                    }
+
+                    //导购图片
+                    RoundImageView gudie_item_layout_roundimageview = (RoundImageView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_roundimageview);
+                    String buyerPic=ToolsUtil.nullToString(product.getUserLogo());
+                    gudie_item_layout_roundimageview.setTag(product);
+                    MyApplication.getInstance().getImageLoader().displayImage(buyerPic,gudie_item_layout_roundimageview,MyApplication.getInstance().getDisplayImageOptions());
+                    home_item_pic1_include.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            IndexProductInfo product=(IndexProductInfo)v.getTag();
+                            Intent intent=new Intent(activity, ShopMainActivity.class);
+                            intent.putExtra("userID",Integer.valueOf(product.getUserId()));
+                            activity.startActivity(intent);
+                        }
+                    });
+                    //导购信息1
+                    TextView gudie_item_layout_name1_textview = (TextView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_name1_textview);
+                    gudie_item_layout_name1_textview.setText(ToolsUtil.nullToString(product.getNickName()));
+                    //导购信息2
+                    TextView gudie_item_layout_name2_textview = (TextView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_name2_textview);
+                    gudie_item_layout_name2_textview.setText(ToolsUtil.nullToString(product.getBrandName()));
+
+                } else {
+                    view_array.get(i).setVisibility(View.INVISIBLE);
                 }
-            });
-            //价格
-            TextView authentication_child_iten_layout_price_textview = (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_price_textview);
 
-            //旧的价格
-            TextView authentication_child_iten_layout_oldprice_textview = (TextView) (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_oldprice_textview);
-            authentication_child_iten_layout_oldprice_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-
-            //头像信息
-            LinearLayout home_item_pic1_include = (LinearLayout) view_array.get(i).findViewById(R.id.home_item_pic1_include);
-            //商品图片
-            RoundImageView gudie_item_layout_roundimageview = (RoundImageView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_roundimageview);
-            home_item_pic1_include.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MyApplication.getInstance().showMessage(activity, "导购点击事件");
-                }
-            });
-            //导购信息1
-            TextView gudie_item_layout_name1_textview = (TextView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_name1_textview);
-            //导购信息2
-            TextView gudie_item_layout_name2_textview = (TextView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_name2_textview);
-
+            }
         }
     }
 

@@ -54,7 +54,7 @@
             android:paddingLeft="10dip"
             android:paddingTop="15dip"
             android:paddingBottom="15dip"
-            android:text="北京"
+            android:text="未定位"
             android:textSize="@dimen/center_text_size" />
 
 

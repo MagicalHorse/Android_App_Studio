@@ -3,6 +3,7 @@ package com.shenma.yueba.baijia.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.shenma.yueba.baijia.modle.CityInfoBackBean;
 import com.shenma.yueba.baijia.modle.CityListBackBean;
 import com.shenma.yueba.baijia.modle.CityListItembean;
 import com.shenma.yueba.constants.Constants;
+import com.shenma.yueba.util.CityChangeRefreshObserver;
 import com.shenma.yueba.util.CustomProgressDialog;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
@@ -44,6 +46,7 @@ public class ChooseCityActivity extends BaseActivityWithTopView {
         super.onCreate(savedInstanceState);
         MyApplication.getInstance().addActivity(this);
         initView();
+        getCityById();
         getCityList();
     }
 
@@ -80,7 +83,14 @@ public class ChooseCityActivity extends BaseActivityWithTopView {
         TextView tv_more_city = (TextView) footerView.findViewById(R.id.tv_more_city);
         lv_city.addHeaderView(headerView);
         lv_city.addFooterView(footerView);
-        FontManager.changeFonts(mContext, tv_more_city, tv_grey_title,tv_top_title,tv_city_name);
+        FontManager.changeFonts(mContext, tv_more_city, tv_grey_title, tv_top_title, tv_city_name);
+        lv_city.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CityListItembean bean=cityList.get(position);
+                CityChangeRefreshObserver.getInstance().refreshList(bean);
+            }
+        });
     }
 
 

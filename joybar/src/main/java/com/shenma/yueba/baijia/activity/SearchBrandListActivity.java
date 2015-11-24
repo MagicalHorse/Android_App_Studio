@@ -53,7 +53,7 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
     EditText srearchbrandlist_edittext;
     //顶部 搜索框的父类
     RelativeLayout searchbrandlist_head_relativelayout;
-
+    String StoreId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         MyApplication.getInstance().addActivity(this);//加入回退栈
@@ -61,6 +61,12 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
         setContentView(R.layout.searchbrandlist_layout);
         super.onCreate(savedInstanceState);
         activity = this;
+        StoreId=this.getIntent().getStringExtra("StoreId");
+        if(StoreId==null || StoreId.equals(""))
+        {
+            MyApplication.getInstance().showMessage(this,"无效的商场ID");
+            return;
+        }
         initView();
         initPullView();
         requestFalshData();

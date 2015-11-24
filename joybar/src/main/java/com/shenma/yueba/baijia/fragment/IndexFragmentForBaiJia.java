@@ -3,28 +3,35 @@ package com.shenma.yueba.baijia.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ChooseCityActivity;
 import com.shenma.yueba.baijia.activity.SearchProductActivity;
+import com.shenma.yueba.baijia.activity.WebActivity;
 import com.shenma.yueba.baijia.adapter.HomeAdapter;
 import com.shenma.yueba.baijia.modle.CityListItembean;
+import com.shenma.yueba.baijia.modle.newmodel.BannerBean;
+import com.shenma.yueba.baijia.modle.newmodel.BinnerBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.IndexBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.IndexItems;
 import com.shenma.yueba.baijia.modle.newmodel.Request_CityInfo;
+import com.shenma.yueba.baijia.modle.newmodel.SubjectrBean;
+import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.CityChangeRefreshObserver;
+import com.shenma.yueba.util.CustomProgressDialog;
+import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.LocationUtil;
 import com.shenma.yueba.util.PerferneceUtil;
 import com.shenma.yueba.util.TabViewPgerImageManager;
@@ -47,11 +54,26 @@ import interfaces.LocationBackListner;
 public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefreshInter {
     FragmentManager fragmentManager;
     TextView tv_city;//当前城市
+    String selectCityId = "0";//选择的城市id 默认0 全国
     View parentView;
     PullToRefreshListView baijia_contact_listview;
     boolean isRunning = false;//访问网络是否进行中
     boolean isSuncess = false;//数据是否加载完成
     HomeAdapter homeAdapter;
+    HttpControl httpControl = new HttpControl();
+    List<String> array_str = new ArrayList<String>();
+    TabViewPgerImageManager tabViewPgerImageManager;
+    //首页顶部 列表
+    List<BannerBean> bannerBeans_array = new ArrayList<BannerBean>();
+    List<SubjectrBean> subjectrBean_array = new ArrayList<SubjectrBean>();
+
+    BinnerBackBean binnerBackBean;//顶部 滑动图片 及 滑动 原图 数据
+    HorizontalScrollView horizontalScrollView;
+    int currPage = Constants.CURRPAGE_VALUE;
+    int pageSize = Constants.PAGESIZE_VALUE;
+    CustomProgressDialog customProgressDialog;
+    //门店列表数据
+    List<IndexItems> indexItemses_list = new ArrayList<IndexItems>();
 
     @Override
     public void onAttach(Activity activity) {
@@ -60,24 +82,14 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            if (!isSuncess) {
-                refreshDataByHttp();
-            }
-
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         if (parentView == null) {
             parentView = inflater.inflate(R.layout.baijia_indexfragment_layout, null);
+            customProgressDialog = CustomProgressDialog.createDialog(getActivity());
             initTitle(parentView);
             initView(parentView);
-            initTabImage();
+
         }
         ViewGroup vp = (ViewGroup) parentView.getParent();
         if (vp != null) {
@@ -101,17 +113,9 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         if (isRunning) {
             return;
         }
-        isRunning = true;
-        //模拟加载
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                SystemClock.sleep(5000);
-                isRunning = false;
-                isSuncess = true;
-            }
-        }.start();
+        customProgressDialog.show();
+        requestBannerData();
+        requestRefreshData();
     }
 
 
@@ -132,7 +136,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         });
         tv_city.setText("全国");
         tv_city.setCompoundDrawablesWithIntrinsicBounds(null, null, this.getResources().getDrawable(R.drawable.arrow_down), null);
-        tv_city.setCompoundDrawablePadding(ToolsUtil.dip2px(getActivity(),10));
+        tv_city.setCompoundDrawablePadding(ToolsUtil.dip2px(getActivity(), 10));
         //标题
         TextView title_layout_titlename_textview = (TextView) v.findViewById(R.id.tv_top_title);
         title_layout_titlename_textview.setVisibility(View.VISIBLE);
@@ -145,7 +149,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         title_layout_right_textview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),SearchProductActivity.class);
+                Intent intent = new Intent(getActivity(), SearchProductActivity.class);
                 startActivity(intent);
             }
         });
@@ -156,19 +160,31 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
      * 初始化图片循环滚动视图 并添加到当前页面中
      ************/
     void initTabImage() {
-        List<String> array_str = new ArrayList<String>();
-        for (int i = 0; i < 5; i++) {
-            array_str.add("http://c.hiphotos.baidu.com/image/pic/item/b03533fa828ba61e5a8540284334970a304e594a.jpg");
+        if (tabViewPgerImageManager == null) {
+            tabViewPgerImageManager = new TabViewPgerImageManager(getActivity(), array_str);
+            //将 视图加入到 listview的 head中
+            //LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT
+            LinearLayout ll = new LinearLayout(getActivity());
+            ll.removeAllViews();
+            ll.setOrientation(LinearLayout.VERTICAL);
+            ll.addView(tabViewPgerImageManager.getTabView());
+            if (horizontalScrollView == null) {
+                horizontalScrollView = new HorizontalScrollView(getActivity());
+            }
+            ll.addView(horizontalScrollView);
+            baijia_contact_listview.getRefreshableView().addHeaderView(ll);
+            tabViewPgerImageManager.setTabViewPagerImageOnClickListener(new TabViewPgerImageManager.TabViewPagerImageOnClickListener() {
+                @Override
+                public void onClick_TabViewPagerImage(int i) {
+                    if (i < bannerBeans_array.size()) {
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                        intent.putExtra("url", ToolsUtil.nullToString(bannerBeans_array.get(i).getLink()));
+                        startActivity(intent);
+                    }
+                }
+            });
         }
-        TabViewPgerImageManager tabViewPgerImageManager = new TabViewPgerImageManager(getActivity(), array_str);
-        //将 视图加入到 listview的 head中
-        //LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT
-        LinearLayout ll = new LinearLayout(getActivity());
-        ll.removeAllViews();
-        ll.setOrientation(LinearLayout.VERTICAL);
-        ll.addView(tabViewPgerImageManager.getTabView());
-        ll.addView(getScrollRoundView());
-        baijia_contact_listview.getRefreshableView().addHeaderView(ll);
+        getScrollRoundView();
         //通知 数据更新 刷新视图
         tabViewPgerImageManager.notification();
     }
@@ -178,8 +194,22 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
      * 初始化视图
      ***/
     void initView(View v) {
-        homeAdapter = new HomeAdapter(getActivity());
+        homeAdapter = new HomeAdapter(getActivity(), indexItemses_list);
         baijia_contact_listview = (PullToRefreshListView) parentView.findViewById(R.id.baijia_contact_listview);
+        baijia_contact_listview.getRefreshableView().setItemsCanFocus(true);
+        baijia_contact_listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
+
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+                tabViewPgerImageManager.stopTimerToViewPager();
+                refreshDataByHttp();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+                requestAddData();
+            }
+        });
         baijia_contact_listview.setAdapter(homeAdapter);
         CityChangeRefreshObserver.getInstance().addObserver(this);
         LocationUtil.getLocation(getActivity(), new LocationBackListner() {
@@ -193,19 +223,25 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                         public void http_Success(Request_CityInfo back) {
                             String str = back.getData().getName();
                             tv_city.setText(str);
+                            selectCityId = back.getData().getId();
                             PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, back.getData().getId());
+                            refreshDataByHttp();
                         }
 
                         @Override
                         public void http_Fails(int error, String msg) {
                             tv_city.setText("全国");
+                            selectCityId = "0";
                             PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, "");
+                            refreshDataByHttp();
                         }
                     });
                 } else {
                     Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_SHORT).show();
                     PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, "");
                     tv_city.setText("全国");
+                    selectCityId = "0";
+                    refreshDataByHttp();
                 }
             }
         });
@@ -236,57 +272,196 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     public void refresh(CityListItembean bean) {
         tv_city.setText(bean.getName());
         //判断是否需要刷新数据
-        MyApplication.getInstance().showMessage(getActivity(), "获取到城市信息 需要判断当前的 城市与 选择是的 城市是否未同一个");
-    }
-
-    /********
-     * 显示或隐藏  无数据 提示 视图
-     *
-     * @param status booelan true 显示  false隐藏
-     *********/
-    void showNoData(boolean status) {
-        TextView nodata_layout_textview = (TextView) parentView.findViewById(R.id.nodata_layout_textview);
-        if (status) {
-            nodata_layout_textview.setVisibility(View.VISIBLE);
-            baijia_contact_listview.setVisibility(View.GONE);
-        } else {
-            nodata_layout_textview.setVisibility(View.GONE);
-            baijia_contact_listview.setVisibility(View.VISIBLE);
+        if (!selectCityId.equals(bean.getId())) {
+            selectCityId = bean.getId();
+            //刷新数据
+            requestRefreshData();
         }
-
     }
+
 
     /********
      * 生成 顶部 圆形  滚动 视图
-     * **********/
-    View getScrollRoundView() {
-        List round_array = new ArrayList();
-        for (int i = 0; i < 10; i++) {
-            round_array.add(null);
+     **********/
+    void getScrollRoundView() {
+        horizontalScrollView.removeAllViews();
+        if (binnerBackBean.getData() != null) {
+            if (binnerBackBean.getData().getBanners() != null && binnerBackBean.getData().getSubjects().size() > 0) {
+                subjectrBean_array = binnerBackBean.getData().getSubjects();
+            }
         }
-        HorizontalScrollView horizontalScrollView = new HorizontalScrollView(getActivity());
+
         horizontalScrollView.setVerticalScrollBarEnabled(false);
         horizontalScrollView.setHorizontalScrollBarEnabled(false);
-        horizontalScrollView.setPadding(0,20,0,20);
+        horizontalScrollView.setPadding(0, 20, 0, 20);
         LinearLayout ll = new LinearLayout(getActivity());
         HorizontalScrollView.LayoutParams params = new HorizontalScrollView.LayoutParams(HorizontalScrollView.LayoutParams.MATCH_PARENT, HorizontalScrollView.LayoutParams.WRAP_CONTENT);
         horizontalScrollView.addView(ll, params);
-        for (int i = 0; i < round_array.size(); i++) {
+        for (int i = 0; i < subjectrBean_array.size(); i++) {
             RoundImageView riv = new RoundImageView(getActivity());
-            riv.setImageResource(R.drawable.default_pic);
-            int width=getActivity().getResources().getDimensionPixelOffset(R.dimen.dimen_scrollwidth);
-            LinearLayout.LayoutParams chidparam = new LinearLayout.LayoutParams(width, width);
-            chidparam.leftMargin = 3;
-            ll.addView(riv, chidparam);
+            riv.setTag(subjectrBean_array.get(i));
             riv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MyApplication.getInstance().showMessage(getActivity(),"点击事件");
+                    SubjectrBean subjectrBean = (SubjectrBean) v.getTag();
+                    MyApplication.getInstance().showMessage(getActivity(), "点击操作");
                 }
             });
+            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getPic()), riv, MyApplication.getInstance().getDisplayImageOptions());
+            int width = getActivity().getResources().getDimensionPixelOffset(R.dimen.dimen_scrollwidth);
+            LinearLayout.LayoutParams chidparam = new LinearLayout.LayoutParams(width, width);
+            chidparam.leftMargin = 3;
+            ll.addView(riv, chidparam);
         }
-        return horizontalScrollView;
     }
 
 
+    /*********
+     * 请求首页Banner数据
+     ********/
+    void requestBannerData() {
+        httpControl.getBinner(new HttpControl.HttpCallBackInterface() {
+            @Override
+            public void http_Success(Object obj) {
+                isRunning = false;
+                binnerBackBean = (BinnerBackBean) obj;
+                setHeaderBannerDataValue();
+            }
+
+            @Override
+            public void http_Fails(int error, String msg) {
+
+            }
+        }, getActivity());
+    }
+
+
+    /**********
+     * 刷新首页门店列表
+     *******/
+    void requestRefreshData() {
+        if (isRunning) {
+            return;
+        }
+        isRunning = true;
+        currPage = Constants.CURRPAGE_VALUE;
+        requestIndexData(1, 0);
+    }
+
+    /**********
+     * 加载更多首页门店列表
+     *******/
+    void requestAddData() {
+        requestIndexData(currPage, 1);
+    }
+
+
+    /***********
+     * 请求首页门店列表
+     *
+     * @param currPage int 当前访问的页
+     * @param type     int 0：刷新  1：加载
+     ************/
+    void requestIndexData(final int currPage, final int type) {
+        ToolsUtil.showNoDataView(getActivity(), parentView, false);
+        httpControl.getIndex(selectCityId, currPage, pageSize, new HttpControl.HttpCallBackInterface() {
+            @Override
+            public void http_Success(Object obj) {
+                isSuncess = true;
+                ToolsUtil.pullResfresh(baijia_contact_listview);
+                IndexBackBean bean = (IndexBackBean) obj;
+                switch (type) {
+                    case 0:
+                        falshData(bean);
+                        break;
+                    case 1:
+                        addData(bean);
+                        break;
+
+                }
+                setPageStatus(bean, currPage);
+                customProgressDialog.cancel();
+                isRunning = false;
+            }
+
+            @Override
+            public void http_Fails(int error, String msg) {
+                MyApplication.getInstance().showMessage(getActivity(), msg);
+                ToolsUtil.pullResfresh(baijia_contact_listview);
+                customProgressDialog.cancel();
+                isRunning = false;
+            }
+        }, getActivity());
+    }
+
+
+    void setPageStatus(IndexBackBean data, int page) {
+        if (page == 1 && (data.getData() == null || data.getData().getItems() == null || data.getData().getItems().size() == 0)) {
+            if (baijia_contact_listview != null) {
+                baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            }
+
+            ToolsUtil.showNoDataView(getActivity(), parentView, true);
+        } else if (page != 1 && (data.getData() == null || data.getData().getItems() == null || data.getData().getItems().size() == 0)) {
+            if (baijia_contact_listview != null) {
+                baijia_contact_listview.setMode(PullToRefreshBase.Mode.BOTH);
+            }
+
+            MyApplication.getInstance().showMessage(getActivity(), getActivity().getResources().getString(R.string.lastpagedata_str));
+        } else {
+            if (baijia_contact_listview != null) {
+                baijia_contact_listview.setMode(PullToRefreshBase.Mode.BOTH);
+            }
+        }
+    }
+
+    void addData(IndexBackBean bean) {
+        currPage++;
+        if (bean.getData() != null) {
+            if (bean.getData().getItems() != null) {
+                indexItemses_list.addAll(bean.getData().getItems());
+            }
+        }
+
+        if (homeAdapter != null) {
+            homeAdapter.notifyDataSetChanged();
+        }
+    }
+
+    void falshData(IndexBackBean bean) {
+        currPage++;
+        indexItemses_list.clear();
+        if (bean.getData() != null) {
+            if (bean.getData().getItems() != null) {
+                indexItemses_list.addAll(bean.getData().getItems());
+            }
+        }
+
+        if (homeAdapter != null) {
+            homeAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    /**********
+     * 设置banner数据信息
+     *********/
+    void setHeaderBannerDataValue() {
+        if (binnerBackBean.getData() != null) {
+            if (binnerBackBean.getData().getBanners() != null && binnerBackBean.getData().getBanners().size() > 0) {
+                bannerBeans_array = binnerBackBean.getData().getBanners();
+                array_str.clear();
+                for (int i = 0; i < bannerBeans_array.size(); i++) {
+                    array_str.add(ToolsUtil.nullToString(bannerBeans_array.get(i).getPic()));
+                }
+                initTabImage();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        CityChangeRefreshObserver.getInstance().removeObserver(this);
+    }
 }
