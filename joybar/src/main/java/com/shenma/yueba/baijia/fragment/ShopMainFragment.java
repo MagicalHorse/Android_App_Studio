@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,7 +53,7 @@ public class ShopMainFragment extends Fragment {
     //私聊按钮
     Button shop_main_siliao_imagebutton;
     //关注按钮
-    TextView shop_main_attention_imagebutton;
+    ImageView shop_main_attention_imagebutton;
     //主要内容
     FrameLayout shop_main_layout_tabcontent_framelayout;
     //地址
@@ -119,7 +120,7 @@ public class ShopMainFragment extends Fragment {
         TextView shop_main_attention_textview = (TextView) contantView.findViewById(R.id.shop_main_attention_textview);
         TextView shop_main_fans_textview = (TextView) contantView.findViewById(R.id.shop_main_fans_textview);
         TextView shop_main_praise_textview = (TextView) contantView.findViewById(R.id.shop_main_praise_textview);
-        FontManager.changeFonts(activity, shop_main_layout_name_textview, shop_main_layout_market_textview, shap_main_description1_textview, shap_main_description2_textview, shap_main_description3_textview, shop_main_attention_textview, shop_main_fans_textview, shop_main_praise_textview, shop_main_attention_imagebutton, shop_main_siliao_imagebutton);
+        FontManager.changeFonts(activity, shop_main_layout_name_textview, shop_main_layout_market_textview, shap_main_description1_textview, shap_main_description2_textview, shap_main_description3_textview, shop_main_attention_textview, shop_main_fans_textview, shop_main_praise_textview, shop_main_siliao_imagebutton);
 
     }
 
@@ -158,7 +159,7 @@ public class ShopMainFragment extends Fragment {
         shop_main_layout_market_textview = (TextView) contantView.findViewById(R.id.shop_main_layout_market_textview);//地址
         shop_main_siliao_imagebutton = (Button) contantView.findViewById(R.id.shop_main_siliao_imagebutton);//私聊按钮
         shop_main_siliao_imagebutton.setOnClickListener(onClickListener);
-        shop_main_attention_imagebutton = (TextView) contantView.findViewById(R.id.shop_main_attention_imagebutton);//关注按钮
+        shop_main_attention_imagebutton = (ImageView) contantView.findViewById(R.id.shop_main_attention_imagebutton);//关注按钮
         shop_main_attention_imagebutton.setOnClickListener(onClickListener);
         shop_main_head_layout_address_textview=(TextView)contantView.findViewById(R.id.shop_main_head_layout_address_textview);//地址
 
@@ -354,14 +355,11 @@ public class ShopMainFragment extends Fragment {
     void setHeadValue() {
         shop_main_attention_imagebutton.setTag(userInfoBean);
         if (userInfoBean.isIsFollowing()) {
-            shop_main_attention_imagebutton.setText("取消");
-            shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_unguanzhu), null, null, null);
 
-
+            shop_main_attention_imagebutton.setSelected(true);
         } else {
-            shop_main_attention_imagebutton.setText("关注");
-            shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_guanzhu), null, null, null);
 
+            shop_main_attention_imagebutton.setSelected(false);
         }
         fragmentBean_list.clear();
         shop_main_head_layout_tab_linearlayout.removeAllViews();
@@ -418,7 +416,7 @@ public class ShopMainFragment extends Fragment {
     void initBuyerPuBu() {
         ShopPuBuliuFragment shopPuBuliuFragment1 = new ShopPuBuliuFragment(0, userID);
         fragmentBean_list.add(new FragmentBean("商品", userInfoBean.getProductCount(), shopPuBuliuFragment1));
-        fragmentBean_list.add(new FragmentBean("粉丝", userInfoBean.getFollowerCount(),null));
+        fragmentBean_list.add(new FragmentBean("粉丝", userInfoBean.getFollowerCount(), null));
         fragmentBean_list.add(new FragmentBean("成交", 0, null));
     }
 
@@ -448,7 +446,11 @@ public class ShopMainFragment extends Fragment {
         for (int i = 0; i < fragmentBean_list.size(); i++) {
             if (i != currId) {
                 ShopPuBuliuFragment fragment = (ShopPuBuliuFragment) fragmentBean_list.get(i).getFragment();
-                fragment.synchronizationData(_id, type);
+                if(fragment!=null)
+                {
+                    fragment.synchronizationData(_id, type);
+                }
+
             }
         }
 
@@ -464,14 +466,12 @@ public class ShopMainFragment extends Fragment {
             public void http_Success(Object obj) {
                 switch (Status) {
                     case 0:
-                        ((TextView) textview).setText("关注");
-                        shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_guanzhu), null, null, null);
+                        shop_main_attention_imagebutton.setSelected(false);
                         bean.setIsFollowing(false);
                         Toast.makeText(activity, "取消成功", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        ((TextView) textview).setText("取消");
-                        shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_unguanzhu), null, null, null);
+                        shop_main_attention_imagebutton.setSelected(true);
                         bean.setIsFollowing(true);
                         Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
                         break;

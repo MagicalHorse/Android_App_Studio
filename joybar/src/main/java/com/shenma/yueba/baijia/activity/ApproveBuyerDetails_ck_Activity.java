@@ -173,6 +173,43 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
     }
 
     private void initViews() {
+        //返回
+        ImageView back_grey_imageview=(ImageView)findViewById(R.id.back_grey_imageview);
+        back_grey_imageview.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApproveBuyerDetails_ck_Activity.this.finish();
+            }
+        });
+        //分享
+        ImageView share_grey_imageview=(ImageView)findViewById(R.id.share_grey_imageview);
+        share_grey_imageview.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!MyApplication.getInstance().isUserLogin(ApproveBuyerDetails_ck_Activity.this)) {
+                    return;
+                }
+
+                if(bean!=null)
+                {
+                    ProductsDetailsInfoBean productinfobean=bean.getData();
+                    if(productinfobean!=null)
+                    {
+                        String content = ToolsUtil.nullToString(productinfobean.getShareDesc());
+                        String url = productinfobean.getShareLink();
+                        List<ProductsDetailsTagInfo> piclist=productinfobean.getProductPic();
+                        String img_name="";
+                        if(piclist.size()>0)
+                        {
+                            img_name=piclist.get(0).getLogo();
+                        }
+                        String icon = ToolsUtil.getImage(ToolsUtil.nullToString(img_name),320, 0);
+                        ToolsUtil.shareUrl(ApproveBuyerDetails_ck_Activity.this, productinfobean.getProductId(), "", content, url, icon);
+                    }
+                }
+            }
+        });
+
         //设置隐藏 喜欢人的列表
         View approvebuyerdetails_attention_linearlayout = findViewById(R.id.approvebuyerdetails_attention_linearlayout);
         approvebuyerdetails_attention_linearlayout.setVisibility(View.GONE);
@@ -180,40 +217,8 @@ public class ApproveBuyerDetails_ck_Activity extends FragmentActivity implements
         View approvebuyerdatails_layout_desc1_textview = findViewById(R.id.approvebuyerdatails_layout_desc1_textview);
         approvebuyerdatails_layout_desc1_textview.setVisibility(View.GONE);
         product_head_include = (RelativeLayout) findViewById(R.id.product_head_include);
-        TextView tv_top_left = (TextView) findViewById(R.id.tv_top_left);
-        tv_top_left.setVisibility(View.VISIBLE);
-        tv_top_left.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApproveBuyerDetails_ck_Activity.this.finish();
-            }
-        });
-        TextView tv_top_right = (TextView) findViewById(R.id.tv_top_right);
-        tv_top_right.setVisibility(View.VISIBLE);
-        tv_top_right.setBackground(getResources().getDrawable(R.drawable.productshare));
-        tv_top_right.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!MyApplication.getInstance().isUserLogin(ApproveBuyerDetails_ck_Activity.this)) {
-                    return;
-                }
 
-                if (bean != null) {
-                    ProductsDetailsInfoBean productinfobean = bean.getData();
-                    if (productinfobean != null) {
-                        String content = ToolsUtil.nullToString(productinfobean.getShareDesc());
-                        String url = productinfobean.getShareLink();
-                        List<ProductsDetailsTagInfo> piclist = productinfobean.getProductPic();
-                        String img_name = "";
-                        if (piclist.size() > 0) {
-                            img_name = piclist.get(0).getLogo();
-                        }
-                        String icon = ToolsUtil.getImage(ToolsUtil.nullToString(img_name), 320, 0);
-                        ToolsUtil.shareUrl(ApproveBuyerDetails_ck_Activity.this, productinfobean.getProductId(), "", content, url, icon);
-                    }
-                }
-            }
-        });
+
         // 收藏按钮
         approvebuyerdetails_layout_shoucang_linerlayout_textview = (TextView) findViewById(R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview);
         //头像包裹视图

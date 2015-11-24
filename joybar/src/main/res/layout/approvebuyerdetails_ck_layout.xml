@@ -4,17 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--头文件-->
+    <!--&lt;!&ndash;头文件&ndash;&gt;
     <include
         android:id="@+id/product_head_include"
-        layout="@layout/top_layout" />
+        layout="@layout/top_layout" />-->
 
     <com.shenma.yueba.view.scroll.MyScrollView
         android:id="@+id/approvebuyerdetails_srcollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ll_footer"
-        android:layout_below="@id/product_head_include"
         android:visibility="visible">
 
         <LinearLayout

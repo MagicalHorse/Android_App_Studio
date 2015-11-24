@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,6 +49,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
     int countAnimationTime=2000;
     //存储收藏的视图对象 key -商品id   value --视图中的 收藏视图对象
     Map<String,LinearLayout> collect_map=new HashMap<String,LinearLayout>();
+    RotateAnimation animation;
 
     public PubuliuManager(Activity activity, ViewGroup parent) {
         this.activity = activity;
@@ -258,6 +262,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
             return;
         }
         bean.setIsruning(true);
+        startAnimation(v);
         CommonHttpControl.setFavor(Integer.toString(Status), bean.getId(), new HttpCallBackInterface<BaseRequest>() {
             @Override
             public void http_Success(BaseRequest obj) {
@@ -280,6 +285,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
                     }
                     setDataChange(bean, v);
                     bean.setIsruning(false);
+                    stopAnimation(v);
                 }
             }
 
@@ -287,6 +293,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
             public void http_Fails(int error, String msg) {
                 bean.setIsruning(false);
                 MyApplication.getInstance().showMessage(activity, msg);
+                stopAnimation(v);
             }
         });
     }
@@ -351,6 +358,31 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
                     setDataChange(pubuliuBeanInfo, ll);
                 }
             }
+        }
+    }
+
+
+    void startAnimation(View v)
+    {
+        ImageView pubuliu_item_layout_like_imageview = (ImageView)v.findViewById(R.id.pubuliu_item_layout_like_imageview);
+        if(animation==null)
+        {
+            animation = new RotateAnimation(360, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+            animation.setInterpolator(new LinearInterpolator());
+            animation.setDuration(800);
+            animation.setRepeatMode(Animation.RESTART);
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setFillAfter(true);
+        }
+        pubuliu_item_layout_like_imageview.startAnimation(animation);
+    }
+
+    void stopAnimation(View v)
+    {
+        if(animation!=null)
+        {
+            ImageView pubuliu_item_layout_like_imageview = (ImageView)v.findViewById(R.id.pubuliu_item_layout_like_imageview);
+            pubuliu_item_layout_like_imageview.clearAnimation();
         }
     }
 }

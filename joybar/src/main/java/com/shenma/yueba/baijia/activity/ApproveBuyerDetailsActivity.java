@@ -115,18 +115,18 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 	}
 
 	private void initViews() {
-		TextView tv_top_left = (TextView)findViewById(R.id.tv_top_left);
-		tv_top_left.setVisibility(View.VISIBLE);
-		tv_top_left.setOnClickListener(new OnClickListener() {
+
+		//返回
+		ImageView back_grey_imageview=(ImageView)findViewById(R.id.back_grey_imageview);
+		back_grey_imageview.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				ApproveBuyerDetailsActivity.this.finish();
 			}
 		});
-		TextView tv_top_right=(TextView)findViewById(R.id.tv_top_right);
-        tv_top_right.setVisibility(View.VISIBLE);
-		tv_top_right.setBackground(getResources().getDrawable(R.drawable.productshare));
-		tv_top_right.setOnClickListener(new OnClickListener() {
+		//分享
+		ImageView share_grey_imageview=(ImageView)findViewById(R.id.share_grey_imageview);
+		share_grey_imageview.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (!MyApplication.getInstance().isUserLogin(ApproveBuyerDetailsActivity.this)) {
@@ -152,6 +152,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 				}
 			}
 		});
+
 		// 收藏按钮
 	    approvebuyerdetails_layout_shoucang_linerlayout_textview = (TextView) findViewById(R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview);
 		//头像包裹视图
@@ -321,10 +322,6 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 				"￥" + Double.toString(price));
 		// 商品名称
 		setdataValue(R.id.approvebuyerdetails_producename_textview, productName);
-		//title名字
-		TextView tv_top_title=(TextView)findViewById(R.id.tv_top_title);
-		tv_top_title.setText("商品详情");
-		tv_top_title.setVisibility(View.VISIBLE);
 
 
 		LikeUsersInfoBean likeUsersInfoBean = Data.getLikeUsers();
