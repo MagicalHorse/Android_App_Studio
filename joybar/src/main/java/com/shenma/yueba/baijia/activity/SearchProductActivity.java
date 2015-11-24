@@ -17,11 +17,8 @@ import android.widget.Toast;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.SearchHistoryAdapter;
-import com.shenma.yueba.baijia.modle.RequestProductListInfoBean;
 import com.shenma.yueba.util.FontManager;
-import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.SharedUtil;
-import com.shenma.yueba.yangjia.activity.AboutActivity;
 
 import java.util.ArrayList;
 
@@ -148,7 +145,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                             SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
                         }
                 }
-                Intent intent = new Intent(mContext,SearchProductResultActivity.class);
+                Intent intent = new Intent(mContext,SearchProductResultActivity_for_2qi.class);
                 intent.putExtra("key",et_search.getText().toString().trim());
                 startActivity(intent);
                 break;
@@ -205,7 +202,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
             sb.append(allList.get(i)).append(",");
         }
         SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
-        Intent intent = new Intent(SearchProductActivity.this, AboutActivity.class);
+        Intent intent = new Intent(SearchProductActivity.this, SearchResultActivity.class);
         startActivity(intent);
     }
 }

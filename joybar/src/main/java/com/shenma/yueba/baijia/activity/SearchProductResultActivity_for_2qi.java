@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by a on 2015/10/15.
  */
-public class SearchProductResultActivity extends BaseActivityWithTopView{
+public class SearchProductResultActivity_for_2qi extends BaseActivityWithTopView{
 
     private TextView tv_search_key;
     private PullToRefreshListView plv_products;
