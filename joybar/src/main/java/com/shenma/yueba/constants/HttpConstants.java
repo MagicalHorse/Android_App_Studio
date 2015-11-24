@@ -26,14 +26,25 @@ public class HttpConstants {
 	private static String SEARCHFORREAD = baseUrlForReadForWork + "Search/";// 搜索（读）
 	private static String PromotionFORWRITE = baseUrlForWriteForWork + "Promotion/";//活动相关
 	private static String PromotionFORREAD = baseUrlForReadForWork + "Promotion/";//活动相关
+	private static String V3FORWRITE = baseUrlForWriteForWork + "v3/";//三期接口写
+	private static String V3FORREAD = baseUrlForReadForWork + "v3/";//三期接口读
 	
 	private static String weixinBaseUrl = "https://api.mch.weixin.qq.com/";//微信接口
 	private static String weixinPAYUrl = weixinBaseUrl+"pay/";//微信支付接口
 	private static String weixinPAYCallBackUrl = baseUrlForWriteForWork+"Payment/";//微信支平台回调
-	
-	
-	
-	
+
+
+
+
+	/**
+	 * 首页获取banner
+	 */
+	public static String METHOD_BannerSubject = V3FORREAD + "BannerSubject";
+
+	/**
+	 * 首页除去banner外的其他数据
+	 */
+	public static String METHOD_index = V3FORREAD + "index";
 	/**
 	 * 判断用户是否关注了公共号
 	 */

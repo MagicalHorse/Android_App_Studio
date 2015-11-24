@@ -74,6 +74,8 @@ import com.shenma.yueba.baijia.modle.StoreListBackBean;
 import com.shenma.yueba.baijia.modle.TagListBackBean;
 import com.shenma.yueba.baijia.modle.UserInfo;
 import com.shenma.yueba.baijia.modle.UserRequestBean;
+import com.shenma.yueba.baijia.modle.newmodel.BinnerBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.IndexBackBean;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.constants.HttpConstants;
 import com.shenma.yueba.yangjia.modle.AliYunKeyBackBean;
@@ -135,6 +137,33 @@ public class HttpControl {
 		httpUtils.configSoTimeout(30000);
 		httpUtils.configTimeout(30000);
 	}
+
+
+	/**
+	 * 获取binner数据
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void getBinner(final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		BasehttpSend(map, context, HttpConstants.METHOD_BannerSubject, httpCallBack,
+				BinnerBackBean.class, true, false);
+	}
+
+
+
+
+	/**
+	 * 获取首页数据
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void getIndex(final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		BasehttpSend(map, context, HttpConstants.METHOD_index, httpCallBack,
+				IndexBackBean.class, true, false);
+	}
+
 
 	/**
 	 *  发送手机验证码
