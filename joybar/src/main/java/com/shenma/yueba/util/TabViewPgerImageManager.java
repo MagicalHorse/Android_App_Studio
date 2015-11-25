@@ -183,7 +183,7 @@ public class TabViewPgerImageManager {
      * 停止自动滚动
      **/
     public void stopTimerToViewPager() {
-        setViewPagerDuration(0);
+        setViewPagerDuration(500);
         if (timer != null) {
             timer.cancel();
             timer = null;

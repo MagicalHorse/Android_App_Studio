@@ -3,6 +3,7 @@ package com.shenma.yueba.baijia.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class HomeAdapter extends BaseAdapter {
 
     public HomeAdapter(Activity activity, List<IndexItems> arraylist) {
         this.activity = activity;
-        this.infoList=arraylist;
+        this.infoList = arraylist;
     }
 
     @Override
@@ -93,6 +94,7 @@ public class HomeAdapter extends BaseAdapter {
         setCommonValue(position, holder);
         //设置商品信息
         setProductValue(position, holder.averageManager.getChildView());
+        Log.i("TAG", "getView ---------------------------------------------->>>>position"+position);
         return convertView;
     }
 
@@ -204,43 +206,41 @@ public class HomeAdapter extends BaseAdapter {
                     authentication_child_iten_layout_pic_imageview.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            IndexProductInfo product=(IndexProductInfo)v.getTag();
+                            IndexProductInfo product = (IndexProductInfo) v.getTag();
                             //Intent intent=new Intent(activity, ApproveBuyerDetailsActivity.class);
                             Intent intent = new Intent(activity, ApproveBuyerDetailsActivity.class);
-                            intent.putExtra("productID",Integer.valueOf(product.getId()));
+                            intent.putExtra("productID", Integer.valueOf(product.getId()));
                             activity.startActivity(intent);
                             MyApplication.getInstance().showMessage(activity, "图片的点击事件");
                         }
                     });
                     //价格
                     TextView authentication_child_iten_layout_price_textview = (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_price_textview);
-                    authentication_child_iten_layout_price_textview.setText(product.getPrice()+"");
+                    authentication_child_iten_layout_price_textview.setText("￥"+product.getPrice() );
                     //旧的价格
                     TextView authentication_child_iten_layout_oldprice_textview = (TextView) (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_oldprice_textview);
                     authentication_child_iten_layout_oldprice_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                    authentication_child_iten_layout_oldprice_textview.setText(product.getUnitPrice()+"");
+                    authentication_child_iten_layout_oldprice_textview.setText("￥"+product.getUnitPrice());
 
                     //头像信息
                     LinearLayout home_item_pic1_include = (LinearLayout) view_array.get(i).findViewById(R.id.home_item_pic1_include);
-                    if(indexItems.getStoreLeave().equals("4"))
-                    {
+                    if (indexItems.getStoreLeave().equals("4")) {
                         home_item_pic1_include.setVisibility(View.VISIBLE);
-                    }else
-                    {
+                    } else {
                         home_item_pic1_include.setVisibility(View.GONE);
                     }
 
                     //导购图片
                     RoundImageView gudie_item_layout_roundimageview = (RoundImageView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_roundimageview);
-                    String buyerPic=ToolsUtil.nullToString(product.getUserLogo());
+                    String buyerPic = ToolsUtil.nullToString(product.getUserLogo());
                     gudie_item_layout_roundimageview.setTag(product);
-                    MyApplication.getInstance().getImageLoader().displayImage(buyerPic,gudie_item_layout_roundimageview,MyApplication.getInstance().getDisplayImageOptions());
+                    MyApplication.getInstance().getImageLoader().displayImage(buyerPic, gudie_item_layout_roundimageview, MyApplication.getInstance().getDisplayImageOptions());
                     home_item_pic1_include.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            IndexProductInfo product=(IndexProductInfo)v.getTag();
-                            Intent intent=new Intent(activity, ShopMainActivity.class);
-                            intent.putExtra("userID",Integer.valueOf(product.getUserId()));
+                            IndexProductInfo product = (IndexProductInfo) v.getTag();
+                            Intent intent = new Intent(activity, ShopMainActivity.class);
+                            intent.putExtra("userID", Integer.valueOf(product.getUserId()));
                             activity.startActivity(intent);
                         }
                     });

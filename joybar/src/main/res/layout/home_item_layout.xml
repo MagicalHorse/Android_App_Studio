@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+<LinearLayout
     android:background="@drawable/rect_blacksoild_while_background"
-    android:paddingTop="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -22,15 +27,18 @@
         style="@style/style_horizontal_line"
         android:layout_marginLeft="@dimen/contentpadding"
         android:layout_marginRight="@dimen/contentpadding"
-        android:layout_marginTop="8dp"
-        android:background="@color/color_lightgrey" />
+        android:layout_marginTop="5dp"
+        android:background="@color/color_textgray" />
     <!--商品列表信息-->
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/recommendproduct_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="@dimen/contentpadding"
         android:layout_marginRight="@dimen/contentpadding"
         android:orientation="horizontal"/>
 </LinearLayout>
+</LinearLayout>
+

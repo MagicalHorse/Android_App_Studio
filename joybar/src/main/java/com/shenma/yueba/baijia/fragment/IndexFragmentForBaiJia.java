@@ -114,6 +114,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             return;
         }
         customProgressDialog.show();
+        baijia_contact_listview.setRefreshing();
         requestBannerData();
         requestRefreshData();
     }
@@ -170,6 +171,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             ll.addView(tabViewPgerImageManager.getTabView());
             if (horizontalScrollView == null) {
                 horizontalScrollView = new HorizontalScrollView(getActivity());
+                horizontalScrollView.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
             }
             ll.addView(horizontalScrollView);
             baijia_contact_listview.getRefreshableView().addHeaderView(ll);
