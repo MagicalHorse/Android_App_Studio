@@ -31,7 +31,6 @@
         android:background="@color/color_textgray" />
     <!--商品列表信息-->
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/recommendproduct_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

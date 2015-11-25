@@ -3,6 +3,7 @@ package com.shenma.yueba.baijia.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -74,6 +75,8 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     CustomProgressDialog customProgressDialog;
     //门店列表数据
     List<IndexItems> indexItemses_list = new ArrayList<IndexItems>();
+    //是否所以数据加载完毕
+    boolean isAllLoadSucess=false;
 
     @Override
     public void onAttach(Activity activity) {
@@ -203,7 +206,10 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
 
             @Override
             public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-                tabViewPgerImageManager.stopTimerToViewPager();
+                if (tabViewPgerImageManager != null) {
+                    tabViewPgerImageManager.stopTimerToViewPager();
+                }
+
                 refreshDataByHttp();
             }
 
@@ -212,35 +218,52 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 requestAddData();
             }
         });
+        baijia_contact_listview.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
+            @Override
+            public void onLastItemVisible() {
+                if(!isAllLoadSucess && !isRunning)
+                {
+                    baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+                    baijia_contact_listview.setRefreshing();
+                }
+            }
+        });
+
         baijia_contact_listview.setAdapter(homeAdapter);
         CityChangeRefreshObserver.getInstance().addObserver(this);
         LocationUtil.getLocation(getActivity(), new LocationBackListner() {
             @Override
             public void callBack(boolean result) {
                 if (result) {
-                    Toast.makeText(getActivity(), "定位成功", Toast.LENGTH_SHORT).show();
+                    customProgressDialog.show();
                     //开始调用接口，根据经纬度获取城市名称
                     CommonHttpControl.getCityNameByGPS(new HttpCallBackInterface<Request_CityInfo>() {
                         @Override
                         public void http_Success(Request_CityInfo back) {
+                            customProgressDialog.cancel();
                             String str = back.getData().getName();
                             tv_city.setText(str);
+                            Toast.makeText(getActivity(), "定位成功,当前城市--" + str, Toast.LENGTH_SHORT).show();
                             selectCityId = back.getData().getId();
                             PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, back.getData().getId());
+                            PerferneceUtil.setString(PerferneceConfig.SELECTED_CITY_ID, back.getData().getId());
                             refreshDataByHttp();
                         }
 
                         @Override
                         public void http_Fails(int error, String msg) {
+                            customProgressDialog.cancel();
                             tv_city.setText("全国");
                             selectCityId = "0";
                             PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, "");
+                            PerferneceUtil.setString(PerferneceConfig.SELECTED_CITY_ID, "");
                             refreshDataByHttp();
                         }
                     });
                 } else {
                     Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_SHORT).show();
                     PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, "");
+                    PerferneceUtil.setString(PerferneceConfig.SELECTED_CITY_ID, "");
                     tv_city.setText("全国");
                     selectCityId = "0";
                     refreshDataByHttp();
@@ -276,8 +299,9 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         //判断是否需要刷新数据
         if (!selectCityId.equals(bean.getId())) {
             selectCityId = bean.getId();
+            PerferneceUtil.setString(PerferneceConfig.SELECTED_CITY_ID, selectCityId);
             //刷新数据
-            requestRefreshData();
+            refreshDataByHttp();
         }
     }
 
@@ -346,6 +370,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             return;
         }
         isRunning = true;
+        isAllLoadSucess=false;
         currPage = Constants.CURRPAGE_VALUE;
         requestIndexData(1, 0);
     }
@@ -354,6 +379,9 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
      * 加载更多首页门店列表
      *******/
     void requestAddData() {
+        if (isRunning) {
+            return;
+        }
         requestIndexData(currPage, 1);
     }
 
@@ -370,7 +398,6 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             @Override
             public void http_Success(Object obj) {
                 isSuncess = true;
-                ToolsUtil.pullResfresh(baijia_contact_listview);
                 IndexBackBean bean = (IndexBackBean) obj;
                 switch (type) {
                     case 0:
@@ -383,6 +410,8 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 }
                 setPageStatus(bean, currPage);
                 customProgressDialog.cancel();
+                baijia_contact_listview.onRefreshComplete();
+                ToolsUtil.pullResfresh(baijia_contact_listview);
                 isRunning = false;
             }
 
@@ -390,6 +419,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             public void http_Fails(int error, String msg) {
                 MyApplication.getInstance().showMessage(getActivity(), msg);
                 ToolsUtil.pullResfresh(baijia_contact_listview);
+                baijia_contact_listview.onRefreshComplete();
                 customProgressDialog.cancel();
                 isRunning = false;
             }
@@ -401,18 +431,19 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         if (page == 1 && (data.getData() == null || data.getData().getItems() == null || data.getData().getItems().size() == 0)) {
             if (baijia_contact_listview != null) {
                 baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-            }
 
+            }
+            isAllLoadSucess=true;
             ToolsUtil.showNoDataView(getActivity(), parentView, true);
         } else if (page != 1 && (data.getData() == null || data.getData().getItems() == null || data.getData().getItems().size() == 0)) {
             if (baijia_contact_listview != null) {
-                baijia_contact_listview.setMode(PullToRefreshBase.Mode.BOTH);
+                baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
             }
-
+            isAllLoadSucess=true;
             MyApplication.getInstance().showMessage(getActivity(), getActivity().getResources().getString(R.string.lastpagedata_str));
         } else {
             if (baijia_contact_listview != null) {
-                baijia_contact_listview.setMode(PullToRefreshBase.Mode.BOTH);
+                baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
             }
         }
     }

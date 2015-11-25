@@ -84,13 +84,6 @@ public class ChooseCityActivity extends BaseActivityWithTopView {
         lv_city.addHeaderView(headerView);
         lv_city.addFooterView(footerView);
         FontManager.changeFonts(mContext, tv_more_city, tv_grey_title, tv_top_title, tv_city_name);
-        lv_city.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CityListItembean bean=cityList.get(position);
-                CityChangeRefreshObserver.getInstance().refreshList(bean);
-            }
-        });
     }
 
 
@@ -115,13 +108,13 @@ public class ChooseCityActivity extends BaseActivityWithTopView {
 
    private void getCityById(){
       final CustomProgressDialog dialog = new CustomProgressDialog(mContext).createDialog(mContext);
-       dialog.setMessage("定位中...");
+       //dialog.setMessage("");
        dialog.show();
        LocationUtil.getLocation(this, new LocationBackListner() {
            @Override
            public void callBack(boolean result) {
                if (result) {
-                   Toast.makeText(mContext, "定位成功", Toast.LENGTH_SHORT).show();
+                   //Toast.makeText(mContext, "定位成功", Toast.LENGTH_SHORT).show();
                    //开始调用接口，根据经纬度获取城市名称
                    HttpControl httpControl = new HttpControl();
                    httpControl.getCityInfoById(new HttpControl.HttpCallBackInterface() {

@@ -25,5 +25,6 @@ public class PerferneceConfig {
 
 
     /*******************城市******************/
-    public static final String CURRENT_CITY_ID = "current_city_id";//当前城市ID
+    public static final String CURRENT_CITY_ID = "current_city_id";//当前定位城市ID
+    public static final String SELECTED_CITY_ID = "selected_city_id";//当前选择城市ID
 }

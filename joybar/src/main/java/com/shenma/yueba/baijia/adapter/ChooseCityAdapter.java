@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.CityListItembean;
+import com.shenma.yueba.util.CityChangeRefreshObserver;
 import com.shenma.yueba.util.FontManager;
 
 import java.util.List;
@@ -65,7 +66,7 @@ public class ChooseCityAdapter extends BaseAdapter {
         tv_city_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication.getInstance().getCityChangeRefreshService().refreshList((CityListItembean)v.getTag());
+                CityChangeRefreshObserver.getInstance().refreshList((CityListItembean)v.getTag());
                 ((Activity) ctx).onBackPressed();
             }
         });
