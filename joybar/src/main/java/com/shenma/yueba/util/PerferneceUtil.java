@@ -45,7 +45,7 @@ public class PerferneceUtil {
      * 获取指定key 存储的 String 默认 null
      ****************/
     public static String getString(String key) {
-        return BasePerferneceUtils.getInstance(mcontext).getStringPerfernece(key, null);
+        return BasePerferneceUtils.getInstance(mcontext).getStringPerfernece(key, "");
     }
 
     /***************

@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.BaseAdapterWithUtil;
+import com.shenma.yueba.baijia.modle.StoreItem;
+import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBean;
+import com.shenma.yueba.baijia.modle.newmodel.StoreIndexItem;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 import com.shenma.yueba.yangjia.activity.SalesManagerForBuyerActivity;
@@ -19,9 +22,9 @@ import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
 import java.util.List;
 
 public class MarketForSearchAdapter extends BaseAdapterWithUtil {
-	private List<AttationAndFansItemBean> mList;
+	private List<StoreItem> mList;
 
-	public MarketForSearchAdapter(Context ctx, List<AttationAndFansItemBean> mList) {
+	public MarketForSearchAdapter(Context ctx, List<StoreItem> mList) {
 		super(ctx);
 		this.ctx = ctx;
 		this.mList = mList;
@@ -66,7 +69,9 @@ public class MarketForSearchAdapter extends BaseAdapterWithUtil {
 				} else {
 			holder = (Holder) convertView.getTag();
 		}
-//		initBitmap(ToolsUtil.nullToString(mList.get(position).getUserLogo()), holder.riv_head);
+		bitmapUtils.display(holder.iv_market_head,mList.get(position).getLogo());
+		holder.tv_shop_name.setText(mList.get(position).getStoreName());
+		holder.tv_address.setText(mList.get(position).getLocation());
 //		holder.tv_name.setText(ToolsUtil.nullToString(mList.get(position).getUserName()));
 //		holder.tv_fans_count.setText("粉丝 "+ToolsUtil.nullToString(mList.get(position).getFansCount()));
 //		holder.tv_atttention_count.setText("关注  "+ToolsUtil.nullToString(mList.get(position).getFavoiteCount()));

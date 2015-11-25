@@ -77,6 +77,8 @@ import com.shenma.yueba.baijia.modle.UserRequestBean;
 import com.shenma.yueba.baijia.modle.newmodel.BinnerBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.IndexBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.MoreBrandBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.StoreIndexBackBean;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.constants.HttpConstants;
@@ -212,23 +214,71 @@ public class HttpControl {
 	/**
 	 * 搜商场
 	 * @param Page
-	 * @param PageSize
 	 * @param httpCallBack
 	 * @param context
 	 *
 
 	 */
-	public void searchMarket(String key,String cityId,String longitude,String latitude,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
+	public void searchMarket(String key,String cityId,String longitude,String latitude,int Page,final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key",key);
 		map.put("cityId",cityId);
 		map.put("longitude",longitude);
 		map.put("latitude",latitude);
-		map.put("Page",Integer.toString(Page));
-		map.put("PageSize",Integer.toString(PageSize));
-		BasehttpSend(map, context, HttpConstants.METHOD_storebrand, httpCallBack, MoreBrandBackBean.class, false, false);
+		map.put("Page",Page+"");
+		map.put("PageSize",Constants.PageSize);
+		BasehttpSend(map, context, HttpConstants.METHOD_searchstore, httpCallBack, SearchMarketBackBean.class, false, false);
 	}
 
+	/**
+	 * 搜买手
+	 * @param Page
+	 * @param httpCallBack
+	 * @param context
+	 *  key         搜索关键字
+	ciryId      当前城市id  传0或者不传则默认全国
+	storeId     门店编号  不传或者传0  则表示全站搜索
+	Page        当前页码 不传则默认1
+	PageSize    页大小 不传则默认10
+	longitude   当前经度    不传则默认0
+	latitude    当前纬度    不传则默认0
+	 */
+	public void searchBuyer(String key,String cityId,String storeId,String longitude,String latitude,int Page,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key",key);
+		map.put("cityId",cityId);
+		map.put("storeId",storeId);
+		map.put("longitude",longitude);
+		map.put("latitude",latitude);
+		map.put("Page",Page+"");
+		map.put("PageSize",Constants.PageSize);
+		BasehttpSend(map, context, HttpConstants.METHOD_searchbuyer, httpCallBack, SearchBuyerBackBean.class, false, false);
+	}
+
+	/**
+	 * 搜商品
+	 * @param Page
+	 * @param httpCallBack
+	 * @param context
+	 *  key         搜索关键字
+	ciryId      当前城市id  传0或者不传则默认全国
+	storeId     门店编号  不传或者传0  则表示全站搜索
+	Page        当前页码 不传则默认1
+	PageSize    页大小 不传则默认10
+	longitude   当前经度    不传则默认0
+	latitude    当前纬度    不传则默认0
+	 */
+	public void searchBuyer(String key,String cityId,String SortType,String storeId,String longitude,String latitude,int Page,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key",key);
+		map.put("cityId",cityId);
+		map.put("storeId",storeId);
+		map.put("longitude",longitude);
+		map.put("latitude",latitude);
+		map.put("Page",Page+"");
+		map.put("PageSize",Constants.PageSize);
+		BasehttpSend(map, context, HttpConstants.METHOD_searchbuyer, httpCallBack, SearchBuyerBackBean.class, false, false);
+	}
 
 	/**
 	 *  发送手机验证码

@@ -119,12 +119,19 @@ public class SearchResultActivity extends BaseFragmentActivity implements
              * 页面跳转完成后调用的方法
              */
             public void onPageSelected(int arg0) {
-//                fragmentList.get(arg0).getData(false, arg0, SearchResultActivity.this);
-//                for (int i = 0; i < fragmentList.size(); i++) {
-//                    if (arg0 != i) {
-//                        fragmentList.get(arg0).tv_nodata.setVisibility(View.GONE);
-//                    }
-//                }
+              switch (arg0){
+                  case 0:
+
+                      break;
+                  case 1:
+                      break;
+                  case 2:
+                      break;
+                  case 3:
+                      marketSearchFragment.getMarketList(SearchResultActivity.this,true);
+                      break;
+
+              }
                 setCursorAndText(arg0, cursorImageList, titleTextList);
 
             }

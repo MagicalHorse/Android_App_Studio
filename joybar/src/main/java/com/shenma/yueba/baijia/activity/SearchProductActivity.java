@@ -145,7 +145,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                             SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
                         }
                 }
-                Intent intent = new Intent(mContext,SearchProductResultActivity_for_2qi.class);
+                Intent intent = new Intent(mContext,SearchResultActivity.class);
                 intent.putExtra("key",et_search.getText().toString().trim());
                 startActivity(intent);
                 break;
