@@ -13,7 +13,8 @@ public class ProductInFo implements Serializable{
     String ProductName="";//商品名称",
     String Pic="";//图片"
     String StoreItemNo;//商店编号",
-    
+
+
     
 	public String getStoreItemNo() {
 		return StoreItemNo;

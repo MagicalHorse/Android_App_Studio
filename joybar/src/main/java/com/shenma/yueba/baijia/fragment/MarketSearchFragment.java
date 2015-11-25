@@ -39,6 +39,13 @@ public class MarketSearchFragment extends BaseFragment {
 	private boolean isRefresh = true;
 	private int status = 1;// 0表示我关注的人   1表示我的粉丝
 	public TextView tv_nodata;
+	private String key;
+
+
+	public MarketSearchFragment(String key){
+		this.key = key;
+	}
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -91,43 +98,43 @@ public class MarketSearchFragment extends BaseFragment {
 	public void getAttationOrFansList(int status,Context ctx,boolean showDialog){
 		HttpControl httpControl = new HttpControl();
 		int userID=Integer.parseInt(SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_id));
-		//当前登录的用户id
-		int CurrentUserId=Integer.parseInt(SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_id));
-		httpControl.getAttationOrFansList(CurrentUserId,userID,-1,status, page, Constants.PAGESIZE_VALUE,new HttpCallBackInterface() {
-			
-			@Override
-			public void http_Success(Object obj) {
-				pull_refresh_list.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                    	pull_refresh_list.onRefreshComplete();
-                    }
-            }, 100);
-				AttationAndFansListBackBean bean = (AttationAndFansListBackBean) obj;
-				if (isRefresh) {
-					if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null && bean.getData().getItems().size()>0){
-						mList.clear();
-						mList.addAll(bean.getData().getItems());
-						tv_nodata.setVisibility(View.GONE);
-						adapter = new MarketForSearchAdapter(getActivity(), mList);
-						pull_refresh_list.setAdapter(adapter);
-					}else{
-						tv_nodata.setVisibility(View.VISIBLE);
-					}
-				} else {
-					if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null&& bean.getData().getItems().size()>0){
-						mList.addAll(bean.getData().getItems());
-						adapter.notifyDataSetChanged();
-					}else{
-						Toast.makeText(getActivity(), "没有更多数据了...", Toast.LENGTH_SHORT).show();
-					}
-				}
-			}
-			
-			@Override
-			public void http_Fails(int error, String msg) {
-				Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
-			}
-		}, ctx,showDialog);
+//		SharedUtil.getStringPerfernece(getActivity(), SharedUtil.)
+//		httpControl.searchMarket(key,);
+//		httpControl.getAttationOrFansList(CurrentUserId,userID,-1,status, page, Constants.PAGESIZE_VALUE,new HttpCallBackInterface() {
+//
+//			@Override
+//			public void http_Success(Object obj) {
+//				pull_refresh_list.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                    	pull_refresh_list.onRefreshComplete();
+//                    }
+//            }, 100);
+//				AttationAndFansListBackBean bean = (AttationAndFansListBackBean) obj;
+//				if (isRefresh) {
+//					if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null && bean.getData().getItems().size()>0){
+//						mList.clear();
+//						mList.addAll(bean.getData().getItems());
+//						tv_nodata.setVisibility(View.GONE);
+//						adapter = new MarketForSearchAdapter(getActivity(), mList);
+//						pull_refresh_list.setAdapter(adapter);
+//					}else{
+//						tv_nodata.setVisibility(View.VISIBLE);
+//					}
+//				} else {
+//					if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null&& bean.getData().getItems().size()>0){
+//						mList.addAll(bean.getData().getItems());
+//						adapter.notifyDataSetChanged();
+//					}else{
+//						Toast.makeText(getActivity(), "没有更多数据了...", Toast.LENGTH_SHORT).show();
+//					}
+//				}
+//			}
+//
+//			@Override
+//			public void http_Fails(int error, String msg) {
+//				Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
+//			}
+//		}, ctx,showDialog);
 	}
 }

@@ -55,6 +55,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
     private TextView tv_brand;
     private TextView tv_buyer;
     private TextView tv_market;
+    private String key;
     private ViewPager search_result_viewpager;
     private ArrayList<ImageView> cursorImageList = new ArrayList<ImageView>();
     private ArrayList<TextView> titleTextList = new ArrayList<TextView>();
@@ -65,6 +66,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.search_result_layout);
         super.onCreate(savedInstanceState);
+        key = getIntent().getStringExtra("key");
         setFragmentList();
         initView();
         initViewPager();
@@ -142,7 +144,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
         productSearchFragment = new ProductSearchFragment();
         brandSearchFragment = new BrandSearchFragment();
         buyerSearchFragment = new BuyerSearchFragment();
-        marketSearchFragment = new MarketSearchFragment();
+        marketSearchFragment = new MarketSearchFragment(key);
         fragmentList.add(productSearchFragment);
         fragmentList.add(brandSearchFragment);
         fragmentList.add(buyerSearchFragment);
@@ -181,16 +183,16 @@ public class SearchResultActivity extends BaseFragmentActivity implements
             case R.id.iv_back:// 返回
                 SearchResultActivity.this.finish();
                 break;
-            case R.id.tv_can_withdraw://可提现
+            case R.id.tv_product://商品
                 search_result_viewpager.setCurrentItem(0);
                 break;
-            case R.id.tv_freeze:// 已冻结
+            case R.id.tv_brand:// 品牌
                 search_result_viewpager.setCurrentItem(1);
                 break;
-            case R.id.tv_had_withdraw://已提现
+            case R.id.tv_buyer://买手
                 search_result_viewpager.setCurrentItem(2);
                 break;
-            case R.id.tv_back:// 售后服务
+            case R.id.tv_market:// 商场
                 search_result_viewpager.setCurrentItem(3);
                 break;
             case R.id.iv_search://查找

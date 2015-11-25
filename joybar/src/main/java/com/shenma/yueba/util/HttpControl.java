@@ -76,6 +76,8 @@ import com.shenma.yueba.baijia.modle.UserInfo;
 import com.shenma.yueba.baijia.modle.UserRequestBean;
 import com.shenma.yueba.baijia.modle.newmodel.BinnerBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.IndexBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.MoreBrandBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.StoreIndexBackBean;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.constants.HttpConstants;
 import com.shenma.yueba.yangjia.modle.AliYunKeyBackBean;
@@ -167,6 +169,64 @@ public class HttpControl {
 		map.put("Page",Integer.toString(Page));
 		map.put("PageSize",Integer.toString(PageSize));
 		BasehttpSend(map, context, HttpConstants.METHOD_index, httpCallBack, IndexBackBean.class, false, false);
+	}
+
+	/**
+	 * 商场首页商品列表
+	 * @param StoreId
+	 * @param UserId
+	 * @param Page
+	 * @param PageSize
+	 * @param SortType
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void getStoreIndex(String StoreId,String UserId,int Page,int PageSize,String SortType,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("StoreId",StoreId);
+		map.put("UserId",UserId);
+		map.put("SortType",SortType);
+		map.put("Page",Integer.toString(Page));
+		map.put("PageSize",Integer.toString(PageSize));
+		BasehttpSend(map, context, HttpConstants.METHOD_storeindex, httpCallBack, StoreIndexBackBean.class, false, false);
+	}
+
+
+	/**
+	 * 门店下的更多品牌
+	 * @param StoreId
+	 * @param Page
+	 * @param PageSize
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void getMoreBrands(String StoreId,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("StoreId",StoreId);
+		map.put("Page",Integer.toString(Page));
+		map.put("PageSize",Integer.toString(PageSize));
+		BasehttpSend(map, context, HttpConstants.METHOD_storebrand, httpCallBack, MoreBrandBackBean.class, false, false);
+	}
+
+
+	/**
+	 * 搜商场
+	 * @param Page
+	 * @param PageSize
+	 * @param httpCallBack
+	 * @param context
+	 *
+
+	 */
+	public void searchMarket(String key,String cityId,String longitude,String latitude,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key",key);
+		map.put("cityId",cityId);
+		map.put("longitude",longitude);
+		map.put("latitude",latitude);
+		map.put("Page",Integer.toString(Page));
+		map.put("PageSize",Integer.toString(PageSize));
+		BasehttpSend(map, context, HttpConstants.METHOD_storebrand, httpCallBack, MoreBrandBackBean.class, false, false);
 	}
 
 

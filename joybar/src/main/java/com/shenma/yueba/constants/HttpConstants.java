@@ -45,6 +45,44 @@ public class HttpConstants {
 	 * 首页除去banner外的其他数据
 	 */
 	public static String METHOD_index = V3FORREAD + "index";
+
+	/**
+	 * 商场首页商品列表
+	 */
+	public static String METHOD_storeindex = V3FORREAD + "storeindex";
+
+	/**
+	 * 门店下的更多品牌
+	 *
+	 */
+	public static String METHOD_storebrand = V3FORREAD + "storebrand";
+
+
+	/**
+	 * 搜商场
+	 *
+	 */
+	public static String METHOD_searchstore = V3FORREAD + "searchstore";
+
+	/**
+	 * 搜买手
+	 *
+	 */
+	public static String METHOD_searchbuyer = V3FORREAD + "searchbuyer";
+
+//	/**
+//	 * 搜商场
+//	 *
+//	 */
+//	public static String METHOD_searchstore = V3FORREAD + "searchstore";
+
+	/**
+	 * 搜商品
+	 *
+	 */
+	public static String METHOD_searchproduct = V3FORREAD + "searchproduct";
+
+
 	/**
 	 * 判断用户是否关注了公共号
 	 */
