@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -215,16 +216,18 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-                requestAddData();
+                //requestAddData();
             }
         });
         baijia_contact_listview.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {
-                if(!isAllLoadSucess && !isRunning)
-                {
-                    baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
-                    baijia_contact_listview.setRefreshing();
+                if (!isAllLoadSucess && !isRunning && !baijia_contact_listview.isRefreshing()) {
+                    requestAddData();
+                } else {
+                    if (isAllLoadSucess) {
+                        MyApplication.getInstance().showMessage(getActivity(), getActivity().getResources().getString(R.string.lastpagedata_str));
+                    }
                 }
             }
         });
@@ -410,7 +413,6 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 }
                 setPageStatus(bean, currPage);
                 customProgressDialog.cancel();
-                baijia_contact_listview.onRefreshComplete();
                 ToolsUtil.pullResfresh(baijia_contact_listview);
                 isRunning = false;
             }
@@ -419,7 +421,6 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             public void http_Fails(int error, String msg) {
                 MyApplication.getInstance().showMessage(getActivity(), msg);
                 ToolsUtil.pullResfresh(baijia_contact_listview);
-                baijia_contact_listview.onRefreshComplete();
                 customProgressDialog.cancel();
                 isRunning = false;
             }
