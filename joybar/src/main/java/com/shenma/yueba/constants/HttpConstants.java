@@ -57,6 +57,12 @@ public class HttpConstants {
 	 */
 	public static String METHOD_storebrand = V3FORREAD + "storebrand";
 
+	/**
+	 * 门店品牌商品列表
+	 *
+	 */
+	public static String METHOD_storebrandproduct = V3FORREAD + "storebrandproduct";
+
 
 	/**
 	 * 搜商场
@@ -82,6 +88,44 @@ public class HttpConstants {
 	 */
 	public static String METHOD_searchproduct = V3FORREAD + "searchproduct";
 
+
+
+	/**
+	 * 找导购--获取关注的买手
+	 *
+	 */
+	public static String METHOD_FavBuyers = V3FORREAD + "FavBuyers";
+
+
+
+	/**
+	 *
+	 *找导购--获取买手的产品数据
+	 */
+	public static String METHOD_BuyersProducts = V3FORREAD + "BuyersProducts";
+
+
+	/**
+	 *
+	 * 找导购--同商场的其他买手
+	 *
+	 */
+	public static String METHOD_OtherStoreBuyers = V3FORREAD + "OtherStoreBuyers";
+
+	/**
+	 *
+	 * 找导购--推荐的买手/导购
+	 *
+	 */
+	public static String METHOD_RecommondBuyerlist = V3FORREAD + "RecommondBuyerlist";
+
+
+	/**
+	 *
+	 * 提醒上新/戳一下
+	 *
+	 */
+	public static String METHOD_Touch = V3FORREAD + "Touch";
 
 	/**
 	 * 判断用户是否关注了公共号

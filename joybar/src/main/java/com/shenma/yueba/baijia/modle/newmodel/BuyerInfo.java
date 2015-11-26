@@ -9,6 +9,10 @@ import java.util.List;
  * Created by a on 2015/11/25.
  */
 public class BuyerInfo {
+
+
+
+
     private String Logo;//买手头像
     private String Nickname;//买手昵称
     private String BrandName;//品牌名字
@@ -16,9 +20,15 @@ public class BuyerInfo {
     private String StoreLocal;//门店地址
     private boolean IsFllowed;//当前用户是否关注
     private String Lon;// 门店经度            0表示没有坐标
-    private String  Lat;//门店所在纬度        0表示没有坐标
+    private String Lat;//门店所在纬度        0表示没有坐标
     private List<ProductsInfoBean> Products;//商品列表
-
+    private String BuyerId;//买手Id
+    private String UserLevel;//用户等级
+    private String ProvinceName;//省名称
+    private String CityName;//市名称
+    private String DistrictName;//去名称
+    private String Address;//地址
+    private String brands;//品牌
 
     public String getLogo() {
         return Logo;
@@ -90,5 +100,61 @@ public class BuyerInfo {
 
     public void setProducts(List<ProductsInfoBean> products) {
         Products = products;
+    }
+
+    public String getBuyerId() {
+        return BuyerId;
+    }
+
+    public void setBuyerId(String buyerId) {
+        BuyerId = buyerId;
+    }
+
+    public String getUserLevel() {
+        return UserLevel;
+    }
+
+    public void setUserLevel(String userLevel) {
+        UserLevel = userLevel;
+    }
+
+    public String getProvinceName() {
+        return ProvinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        ProvinceName = provinceName;
+    }
+
+    public String getCityName() {
+        return CityName;
+    }
+
+    public void setCityName(String cityName) {
+        CityName = cityName;
+    }
+
+    public String getDistrictName() {
+        return DistrictName;
+    }
+
+    public void setDistrictName(String districtName) {
+        DistrictName = districtName;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getBrands() {
+        return brands;
+    }
+
+    public void setBrands(String brands) {
+        this.brands = brands;
     }
 }

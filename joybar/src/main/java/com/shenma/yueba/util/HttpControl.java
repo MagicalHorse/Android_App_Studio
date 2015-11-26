@@ -75,8 +75,12 @@ import com.shenma.yueba.baijia.modle.TagListBackBean;
 import com.shenma.yueba.baijia.modle.UserInfo;
 import com.shenma.yueba.baijia.modle.UserRequestBean;
 import com.shenma.yueba.baijia.modle.newmodel.BinnerBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.BuyerProductsBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.FavBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.IndexBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.MoreBrandBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.OtherBuyersBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.RecommondBuyerlistBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.StoreIndexBackBean;
@@ -210,6 +214,22 @@ public class HttpControl {
 		BasehttpSend(map, context, HttpConstants.METHOD_storebrand, httpCallBack, MoreBrandBackBean.class, false, false);
 	}
 
+	/**
+	 * 门店下的更多品牌
+	 * @param StoreId
+	 * @param Page
+	 * @param PageSize
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void getStoreBrandProduct(String StoreId,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("StoreId",StoreId);
+		map.put("Page",Integer.toString(Page));
+		map.put("PageSize",Integer.toString(PageSize));
+		BasehttpSend(map, context, HttpConstants.METHOD_storebrandproduct, httpCallBack, MoreBrandBackBean.class, false, false);
+	}
+
 
 	/**
 	 * 搜商场
@@ -279,6 +299,83 @@ public class HttpControl {
 		map.put("PageSize",Constants.PageSize);
 		BasehttpSend(map, context, HttpConstants.METHOD_searchbuyer, httpCallBack, SearchBuyerBackBean.class, false, false);
 	}
+
+	/**
+	 * 获取关注的买手
+	 * @param Page
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void getFavBuyers(int Page,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("Page",Page+"");
+		map.put("PageSize",Constants.PageSize);
+		BasehttpSend(map, context, HttpConstants.METHOD_FavBuyers, httpCallBack, FavBuyersBackBean.class, false, false);
+	}
+
+
+
+	/**
+	 * 获取买手的产品数据
+	 * @param Page
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void getBuyersProducts(String buyerId,int Page,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("buyerId", buyerId);
+		map.put("Page",Page+"");
+		map.put("PageSize",Constants.PageSize);
+		BasehttpSend(map, context, HttpConstants.METHOD_BuyersProducts, httpCallBack, BuyerProductsBackBean.class, false, false);
+	}
+
+
+	/**
+	 * 同商场的其他买手
+	 * @param Page
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void getOtherStoreBuyers(String buyerId,int Page,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("buyerId", buyerId);
+		map.put("Page",Page+"");
+		map.put("PageSize",Constants.PageSize);
+		BasehttpSend(map, context, HttpConstants.METHOD_OtherStoreBuyers, httpCallBack, OtherBuyersBackBean.class, false, false);
+	}
+
+	/**
+	 * 推荐的买手/导购
+
+	 * @param Page
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void getRecommondBuyerlist(String buyerId,int Page,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("buyerId", buyerId);
+		map.put("Page",Page+"");
+		map.put("PageSize",Constants.PageSize);
+		BasehttpSend(map, context, HttpConstants.METHOD_RecommondBuyerlist, httpCallBack, RecommondBuyerlistBackBean.class, false, false);
+	}
+
+
+
+
+	/**
+	 * 提醒上新/戳一下
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void touch(String buyerid,String Redirect,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("buyerId", buyerid);
+		map.put("Redirect",Redirect);
+		BasehttpSend(map, context, HttpConstants.METHOD_Touch, httpCallBack, BaseRequest.class, false, false);
+	}
+
+
+
 
 	/**
 	 *  发送手机验证码
