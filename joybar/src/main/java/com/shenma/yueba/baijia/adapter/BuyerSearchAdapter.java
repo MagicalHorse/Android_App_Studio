@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
+import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
 import com.shenma.yueba.util.CreateAutoSizeViewManager;
 
 import java.util.List;
@@ -20,24 +21,25 @@ import java.util.List;
  */
 public class BuyerSearchAdapter extends BaseAdapter {
     Activity activity;
-
-    public BuyerSearchAdapter(Activity activity) {
+    private List<BuyerInfo> mList;
+    public BuyerSearchAdapter(Activity activity,List<BuyerInfo> mList) {
         this.activity = activity;
+        this.mList = mList;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return mList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override

@@ -13,16 +13,23 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.adapter.BuyerSearchAdapter;
+import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
+import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBackBean;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
+import com.shenma.yueba.util.PerferneceUtil;
 import com.shenma.yueba.util.SharedUtil;
+import com.shenma.yueba.yangjia.adapter.MarketForSearchAdapter;
 import com.shenma.yueba.yangjia.adapter.MyAttentionAndFansForSocialAdapter;
 import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
 import com.shenma.yueba.yangjia.modle.AttationAndFansListBackBean;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import config.PerferneceConfig;
 
 /**
  * 社交管理中的-----我的关注 and 我的粉丝
@@ -34,16 +41,23 @@ public class BuyerSearchFragment extends BaseFragment {
 
 	private PullToRefreshListView pull_refresh_list;
 	private BuyerSearchAdapter adapter;
-	private List<AttationAndFansItemBean> mList = new ArrayList<AttationAndFansItemBean>();
+	private List<BuyerInfo> mList = new ArrayList<BuyerInfo>();
 	private int page = 1;
 	private boolean isRefresh = true;
-	private int status = 1;// 0表示我关注的人   1表示我的粉丝
 	public TextView tv_nodata;
-
+	private String key;
+	private String storeId;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
+
+
+	public BuyerSearchFragment(String key,String storeId){
+		this.key = key;
+		this.storeId =  storeId;
+	}
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +68,7 @@ public class BuyerSearchFragment extends BaseFragment {
 				.findViewById(R.id.pull_refresh_list);
 		tv_nodata = (TextView) view
 				.findViewById(R.id.tv_nodata);
-		adapter = new BuyerSearchAdapter(getActivity());
+		adapter = new BuyerSearchAdapter(getActivity(),mList);
 		pull_refresh_list.setAdapter(adapter);
 		pull_refresh_list.setOnRefreshListener(new OnRefreshListener2() {
 
@@ -62,15 +76,15 @@ public class BuyerSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-				getAttationOrFansList(status, getActivity(), false);
-				
+				getSearchBuyerList(storeId,getActivity(), false);
+
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-				page ++;
+				page++;
 				isRefresh = false;
-				getAttationOrFansList(status, getActivity(), false);
+				getSearchBuyerList(storeId,getActivity(), false);
 			}
 		});
 		return view;
@@ -79,56 +93,57 @@ public class BuyerSearchFragment extends BaseFragment {
 	
 	public void getData(int status,Context ctx,boolean showDialog){
 		if(mList.size() == 0){
-			getAttationOrFansList(status, ctx,showDialog);
+			getSearchBuyerList(storeId,ctx, showDialog);
 		}
 	}
-	
-	
+
+
 	/**
-	 * 获取关注列表和fans列表
+	 * 获取搜到的买手列表
 	 */
-	public void getAttationOrFansList(int status,Context ctx,boolean showDialog){
+	public void getSearchBuyerList(String storeId,Context ctx,boolean showDialog){
+		if(mList!=null && mList.size()>0){
+			return;
+		}
 		HttpControl httpControl = new HttpControl();
-		int userID=Integer.parseInt(SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_id));
-		//当前登录的用户id
-		int CurrentUserId=Integer.parseInt(SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_id));
-		httpControl.getAttationOrFansList(CurrentUserId,userID,-1,status, page, Constants.PAGESIZE_VALUE,new HttpCallBackInterface() {
-			
+		String cityId = SharedUtil.getStringPerfernece(getActivity(), SharedUtil.getStringPerfernece(getActivity(), PerferneceConfig.SELECTED_CITY_ID));
+		String latitude = PerferneceUtil.getString(PerferneceConfig.LATITUDE);
+		String longitude = PerferneceUtil.getString(PerferneceConfig.LONGITUDE);
+		httpControl.searchBuyer(key, SharedUtil.getUserId(ctx), cityId, storeId, longitude, latitude, page, new HttpCallBackInterface() {
 			@Override
 			public void http_Success(Object obj) {
 				pull_refresh_list.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                    	pull_refresh_list.onRefreshComplete();
-                    }
-            }, 100);
-				AttationAndFansListBackBean bean = (AttationAndFansListBackBean) obj;
+					@Override
+					public void run() {
+						pull_refresh_list.onRefreshComplete();
+					}
+				}, 100);
+				SearchBuyerBackBean bean = (SearchBuyerBackBean) obj;
 				if (isRefresh) {
-					if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null && bean.getData().getItems().size()>0){
+					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
 						mList.clear();
 						mList.addAll(bean.getData().getItems());
 						tv_nodata.setVisibility(View.GONE);
-						adapter = new BuyerSearchAdapter(getActivity());
+						adapter = new BuyerSearchAdapter(getActivity(), mList);
 						pull_refresh_list.setAdapter(adapter);
-					}else{
+					} else {
 						tv_nodata.setVisibility(View.VISIBLE);
 					}
 				} else {
-					if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null&& bean.getData().getItems().size()>0){
+					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
 						mList.addAll(bean.getData().getItems());
 						adapter.notifyDataSetChanged();
-					}else{
+					} else {
 						Toast.makeText(getActivity(), "没有更多数据了...", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
 
-
-
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 			}
-		}, ctx,showDialog);
+		}, ctx);
+
 	}
 }

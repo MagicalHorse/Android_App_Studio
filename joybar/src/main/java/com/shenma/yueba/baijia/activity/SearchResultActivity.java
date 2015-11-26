@@ -59,6 +59,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
     private ViewPager search_result_viewpager;
     private ArrayList<ImageView> cursorImageList = new ArrayList<ImageView>();
     private ArrayList<TextView> titleTextList = new ArrayList<TextView>();
+    private String storeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +151,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
     private void setFragmentList() {
         productSearchFragment = new ProductSearchFragment();
         brandSearchFragment = new BrandSearchFragment();
-        buyerSearchFragment = new BuyerSearchFragment();
+        buyerSearchFragment = new BuyerSearchFragment(key,storeId);
         marketSearchFragment = new MarketSearchFragment(key);
         fragmentList.add(productSearchFragment);
         fragmentList.add(brandSearchFragment);

@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 
 public class ProductsInfoBean implements Serializable{
+
 	private int Buyerid;//买手id
 	private String BuyerName="";// 买手名字
 	private String CreateTime="";//创建时间
@@ -24,6 +25,9 @@ public class ProductsInfoBean implements Serializable{
 	private String IsFavorite;// 当前用户是否关注
 	private String Pic="";//图片"
 	private String StoreItemNo;//商店编号",
+	private String UnitPrice;//吊牌价
+	private boolean IsFavite;//当前用户是否关注
+
 	//活动信息
 	private ProductsDetailsPromotion Promotion=new ProductsDetailsPromotion();
 	//关注的人
@@ -31,6 +35,21 @@ public class ProductsInfoBean implements Serializable{
 	//买手推荐商品信息
 	private ProductPicInfoBean ProductPic=new ProductPicInfoBean();
 
+	public String getUnitPrice() {
+		return UnitPrice;
+	}
+
+	public void setUnitPrice(String unitPrice) {
+		UnitPrice = unitPrice;
+	}
+
+	public boolean isFavite() {
+		return IsFavite;
+	}
+
+	public void setIsFavite(boolean isFavite) {
+		IsFavite = isFavite;
+	}
 
 	public int getBuyerid() {
 		return Buyerid;
