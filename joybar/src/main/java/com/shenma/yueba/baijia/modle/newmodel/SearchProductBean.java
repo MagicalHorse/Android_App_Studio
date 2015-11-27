@@ -12,7 +12,6 @@ public class SearchProductBean {
 
 
     private List<ProductsInfoBean> items;
-
     private String pageindex;
     private String pagesize;
     private String totalcount;

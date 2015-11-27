@@ -10,9 +10,6 @@ import java.util.List;
  */
 public class BuyerInfo {
 
-
-
-
     private String Logo;//买手头像
     private String Nickname;//买手昵称
     private String BrandName;//品牌名字
@@ -28,7 +25,8 @@ public class BuyerInfo {
     private String CityName;//市名称
     private String DistrictName;//去名称
     private String Address;//地址
-    private String brands;//品牌
+    private List<String> Brands;//品牌
+
 
     public String getLogo() {
         return Logo;
@@ -150,11 +148,11 @@ public class BuyerInfo {
         Address = address;
     }
 
-    public String getBrands() {
-        return brands;
+    public List<String> getBrands() {
+        return Brands;
     }
 
-    public void setBrands(String brands) {
-        this.brands = brands;
+    public void setBrands(List<String> brands) {
+        Brands = brands;
     }
 }

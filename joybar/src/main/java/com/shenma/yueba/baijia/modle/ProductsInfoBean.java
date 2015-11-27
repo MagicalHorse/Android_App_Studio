@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class ProductsInfoBean implements Serializable{
 
+
 	private int Buyerid;//买手id
 	private String BuyerName="";// 买手名字
 	private String CreateTime="";//创建时间
@@ -21,6 +22,7 @@ public class ProductsInfoBean implements Serializable{
 	private String ShareLink="";//分享链接
 	private String ShareDesc="";
 	private String Brandid;
+	private String BrandId;
 	private String  Brand;
 	private String IsFavorite;// 当前用户是否关注
 	private String Pic="";//图片"

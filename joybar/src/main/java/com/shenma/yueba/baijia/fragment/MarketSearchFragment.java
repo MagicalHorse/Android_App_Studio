@@ -69,6 +69,7 @@ public class MarketSearchFragment extends BaseFragment {
 				.findViewById(R.id.tv_nodata);
 		adapter = new MarketForSearchAdapter(getActivity(),
 				mList);
+		pull_refresh_list.setMode(PullToRefreshBase.Mode.BOTH);
 		pull_refresh_list.setAdapter(adapter);
 		pull_refresh_list.setOnRefreshListener(new OnRefreshListener2() {
 
@@ -76,7 +77,7 @@ public class MarketSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-			    getMarketList(getActivity(),true);
+			    getMarketList(getActivity(),false);
 				
 			}
 
@@ -91,17 +92,17 @@ public class MarketSearchFragment extends BaseFragment {
 	}
 	
 	/**
-	 * 获取关注列表和fans列表
+	 * 获取店铺列表
 	 */
 	public void getMarketList(Context ctx,boolean showDialog){
-		if(mList!=null && mList.size()>0){
+		if(showDialog && mList!=null && mList.size()>0){
 			return;
 		}
 		HttpControl httpControl = new HttpControl();
 		String cityId = SharedUtil.getStringPerfernece(getActivity(), SharedUtil.getStringPerfernece(getActivity(), PerferneceConfig.SELECTED_CITY_ID));
 		String latitude = PerferneceUtil.getString(PerferneceConfig.LATITUDE);
 		String longitude = PerferneceUtil.getString(PerferneceConfig.LONGITUDE);
-		httpControl.searchMarket(key, cityId, longitude, latitude, page, new HttpCallBackInterface() {
+		httpControl.searchMarket(key, cityId, longitude, latitude,showDialog, page, new HttpCallBackInterface() {
 			@Override
 			public void http_Success(Object obj) {
 				pull_refresh_list.postDelayed(new Runnable() {

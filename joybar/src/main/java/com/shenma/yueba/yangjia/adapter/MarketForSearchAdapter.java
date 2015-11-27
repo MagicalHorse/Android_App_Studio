@@ -14,12 +14,16 @@ import com.shenma.yueba.baijia.adapter.BaseAdapterWithUtil;
 import com.shenma.yueba.baijia.modle.StoreItem;
 import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBean;
 import com.shenma.yueba.baijia.modle.newmodel.StoreIndexItem;
+import com.shenma.yueba.util.PerferneceUtil;
+import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 import com.shenma.yueba.yangjia.activity.SalesManagerForBuyerActivity;
 import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
 
 import java.util.List;
+
+import config.PerferneceConfig;
 
 public class MarketForSearchAdapter extends BaseAdapterWithUtil {
 	private List<StoreItem> mList;
@@ -69,19 +73,10 @@ public class MarketForSearchAdapter extends BaseAdapterWithUtil {
 				} else {
 			holder = (Holder) convertView.getTag();
 		}
-		bitmapUtils.display(holder.iv_market_head,mList.get(position).getLogo());
+		bitmapUtils.display(holder.iv_market_head,mList.get(position).getStoreLogo());
 		holder.tv_shop_name.setText(mList.get(position).getStoreName());
-		holder.tv_address.setText(mList.get(position).getLocation());
-//		holder.tv_name.setText(ToolsUtil.nullToString(mList.get(position).getUserName()));
-//		holder.tv_fans_count.setText("粉丝 "+ToolsUtil.nullToString(mList.get(position).getFansCount()));
-//		holder.tv_atttention_count.setText("关注  "+ToolsUtil.nullToString(mList.get(position).getFavoiteCount()));
-//		if(mList.get(position).isFavorite()){
-//			holder.tv_has_attention.setVisibility(View.VISIBLE);
-//			holder.tv_attention.setVisibility(View.GONE);
-//		}else{
-//			holder.tv_has_attention.setVisibility(View.GONE);
-//			holder.tv_attention.setVisibility(View.VISIBLE);
-//		}
+		holder.tv_address.setText(mList.get(position).getStoreLocation());
+		holder.tv_distance.setText(""+ToolsUtil.getDistance(mList.get(position).getLat(),mList.get(position).getLon(),Double.valueOf(PerferneceUtil.getString(PerferneceConfig.LATITUDE)),Double.valueOf(PerferneceUtil.getString(PerferneceConfig.LONGITUDE))));
 		return convertView;
 	}
 

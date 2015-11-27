@@ -3,13 +3,13 @@ package com.shenma.yueba.baijia.modle.newmodel;
 import com.shenma.yueba.baijia.modle.BaseRequest;
 
 public class RecommondBuyerlistBackBean extends BaseRequest{
-	private OtherBuyersBean data;
+	private RecommondBuyerListBean data;
 
-	public OtherBuyersBean getData() {
+	public RecommondBuyerListBean getData() {
 		return data;
 	}
 
-	public void setData(OtherBuyersBean data) {
+	public void setData(RecommondBuyerListBean data) {
 		this.data = data;
 	}
 }

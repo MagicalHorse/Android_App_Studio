@@ -29,7 +29,6 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="导购"
-                android:textColor="@color/main_color"
                 android:textSize="@dimen/title_text_size" />
 
             <ImageView
@@ -55,7 +54,6 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="关注"
-                android:textColor="@color/main_color"
                 android:textSize="@dimen/title_text_size" />
 
             <ImageView

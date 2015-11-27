@@ -56,8 +56,6 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         initView();
         initViewPager();
         return view;
@@ -66,6 +64,8 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
     private void initView() {
         guideFragment = new GuideFragment();
         attentionFragment = new AttentionFragment();
+        fragmentList.add(guideFragment);
+        fragmentList.add(attentionFragment);
         view = View.inflate(getActivity(), R.layout.find_shopping_guide_layout, null);
         find_guide_viewpager = (ViewPager) view.findViewById(R.id.find_guide_viewpager);
         tv_guide = (TextView) view.findViewById(R.id.tv_guide);

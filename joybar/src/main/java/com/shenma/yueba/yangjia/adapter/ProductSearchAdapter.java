@@ -4,21 +4,25 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.BaseAdapterWithUtil;
+import com.shenma.yueba.baijia.modle.ProductsInfoBean;
+import com.shenma.yueba.baijia.modle.newmodel.SearchProductBackBean;
 import com.shenma.yueba.util.ToolsUtil;
+import com.shenma.yueba.yangjia.fragment.MsgListFragment;
 import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
 
 import java.util.List;
 
 public class ProductSearchAdapter extends BaseAdapterWithUtil {
-	private List<AttationAndFansItemBean> mList;
+	private List<ProductsInfoBean> mList;
 
-	public ProductSearchAdapter(Context ctx, List<AttationAndFansItemBean> mList) {
+	public ProductSearchAdapter(Context ctx, List<ProductsInfoBean> mList) {
 		super(ctx);
 		this.ctx = ctx;
 		this.mList = mList;
@@ -54,28 +58,23 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 					.findViewById(R.id.iv_product);
 			holder.tv_introduce = (TextView) convertView
 					.findViewById(R.id.tv_introduce);
-			holder.iv_collection = (ImageView) convertView
-					.findViewById(R.id.iv_collection);
+			holder.cb_collection = (CheckBox) convertView
+					.findViewById(R.id.cb_collection);
 			holder.tv_price = (TextView) convertView
 					.findViewById(R.id.tv_price);
-
-			holder.iv_collection.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-
-				}
-			});
 			convertView.setTag(holder);
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
-		initBitmap(ToolsUtil.nullToString(mList.get(position).getUserLogo()), holder.iv_product);
-
+		initBitmap(ToolsUtil.nullToString(mList.get(position).getPic()), holder.iv_product);
+		holder.tv_introduce.setText(mList.get(position).getProductName());
+		holder.tv_price.setText(""+mList.get(position).getPrice());
+		holder.cb_collection.setChecked(mList.get(position).isFavite());
 		return convertView;
 	}
 
 	class Holder {
-		ImageView iv_collection;
+		CheckBox cb_collection;
 		ImageView iv_product;
 		TextView tv_introduce;
 		TextView tv_price;

@@ -83,6 +83,7 @@ import com.shenma.yueba.baijia.modle.newmodel.OtherBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.RecommondBuyerlistBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.SearchProductBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.StoreIndexBackBean;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.constants.HttpConstants;
@@ -215,19 +216,19 @@ public class HttpControl {
 	}
 
 	/**
-	 * 门店下的更多品牌
+	 * 品牌商品列表
 	 * @param StoreId
 	 * @param Page
 	 * @param PageSize
 	 * @param httpCallBack
 	 * @param context
 	 */
-	public void getStoreBrandProduct(String StoreId,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
+	public void getBrandProduct(String StoreId,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("StoreId",StoreId);
 		map.put("Page",Integer.toString(Page));
 		map.put("PageSize",Integer.toString(PageSize));
-		BasehttpSend(map, context, HttpConstants.METHOD_storebrandproduct, httpCallBack, MoreBrandBackBean.class, false, false);
+		BasehttpSend(map, context, HttpConstants.METHOD_brandproduct, httpCallBack, MoreBrandBackBean.class, false, false);
 	}
 
 
@@ -239,7 +240,7 @@ public class HttpControl {
 	 *
 
 	 */
-	public void searchMarket(String key,String cityId,String longitude,String latitude,int Page,final HttpCallBackInterface httpCallBack, Context context) {
+	public void searchMarket(String key,String cityId,String longitude,String latitude,boolean showDialog,int Page,final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key",key);
 		map.put("cityId",cityId);
@@ -247,7 +248,7 @@ public class HttpControl {
 		map.put("latitude",latitude);
 		map.put("Page",Page+"");
 		map.put("PageSize",Constants.PageSize);
-		BasehttpSend(map, context, HttpConstants.METHOD_searchstore, httpCallBack, SearchMarketBackBean.class, false, false);
+		BasehttpSend(map, context, HttpConstants.METHOD_searchstore, httpCallBack, SearchMarketBackBean.class, showDialog, false);
 	}
 
 
@@ -263,7 +264,7 @@ public class HttpControl {
 	 * @param httpCallBack
 	 * @param context
 	 */
-	public void searchBuyer(String key,String userId,String cityId,String storeId,String longitude,String latitude,int Page,final HttpCallBackInterface httpCallBack, Context context) {
+	public void searchBuyer(String key,String userId,String cityId,String storeId,String longitude,String latitude,boolean showDialog,int Page,final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key",key);
 		map.put("userId",userId);
@@ -273,7 +274,7 @@ public class HttpControl {
 		map.put("latitude",latitude);
 		map.put("Page",Page+"");
 		map.put("PageSize",Constants.PageSize);
-		BasehttpSend(map, context, HttpConstants.METHOD_searchbuyer, httpCallBack, SearchBuyerBackBean.class, false, false);
+		BasehttpSend(map, context, HttpConstants.METHOD_searchbuyer, httpCallBack, SearchBuyerBackBean.class, showDialog, false);
 	}
 
 
@@ -283,23 +284,20 @@ public class HttpControl {
 	 * @param userId
 	 * @param cityId
 	 * @param storeId
-	 * @param longitude
-	 * @param latitude
 	 * @param Page
 	 * @param httpCallBack
 	 * @param context
 	 */
-	public void searchProducts(String key,String userId,String cityId,String storeId,String longitude,String latitude,int Page,final HttpCallBackInterface httpCallBack, Context context) {
+	public void searchProducts(String key,String userId,String cityId,String storeId,String SortType,boolean showDialog,int Page,final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key", key);
 		map.put("userId", userId);
 		map.put("cityId", cityId);
 		map.put("storeId", storeId);
-		map.put("longitude", longitude);
-		map.put("latitude", latitude);
+		map.put("SortType", SortType);
 		map.put("Page", Page + "");
 		map.put("PageSize", Constants.PageSize);
-		BasehttpSend(map, context, HttpConstants.METHOD_searchproduct, httpCallBack, SearchBuyerBackBean.class, false, false);
+		BasehttpSend(map, context, HttpConstants.METHOD_searchproduct, httpCallBack, SearchProductBackBean.class, showDialog, false);
 	}
 
 	/**
@@ -369,10 +367,9 @@ public class HttpControl {
 	 * @param httpCallBack
 	 * @param context
 	 */
-	public void touch(String buyerid,String Redirect,final HttpCallBackInterface httpCallBack, Context context) {
+	public void touch(String buyerid,final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("buyerId", buyerid);
-		map.put("Redirect",Redirect);
 		BasehttpSend(map, context, HttpConstants.METHOD_Touch, httpCallBack, BaseRequest.class, false, false);
 	}
 

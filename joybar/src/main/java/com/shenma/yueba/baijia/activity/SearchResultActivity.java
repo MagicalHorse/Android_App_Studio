@@ -104,8 +104,8 @@ public class SearchResultActivity extends BaseFragmentActivity implements
         tv_brand.setOnClickListener(this);
         tv_buyer.setOnClickListener(this);
         tv_market.setOnClickListener(this);
-
         search_result_viewpager = (ViewPager) findViewById(R.id.search_result_viewpager);
+        productSearchFragment.getProductList(SearchResultActivity.this,true);
     }
 
     private void initViewPager() {
@@ -122,11 +122,12 @@ public class SearchResultActivity extends BaseFragmentActivity implements
             public void onPageSelected(int arg0) {
               switch (arg0){
                   case 0:
-
+                      productSearchFragment.getProductList(SearchResultActivity.this,true);
                       break;
                   case 1:
                       break;
                   case 2:
+                      buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true);
                       break;
                   case 3:
                       marketSearchFragment.getMarketList(SearchResultActivity.this,true);
@@ -149,7 +150,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
      * 初始化ItemFragment3
      */
     private void setFragmentList() {
-        productSearchFragment = new ProductSearchFragment();
+        productSearchFragment = new ProductSearchFragment(key,storeId);
         brandSearchFragment = new BrandSearchFragment();
         buyerSearchFragment = new BuyerSearchFragment(key,storeId);
         marketSearchFragment = new MarketSearchFragment(key);

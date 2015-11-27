@@ -159,10 +159,10 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 
 			break;
 		case 1:
-//			if (!MyApplication.getInstance().isUserLogin(
-//					MainActivityForBaiJia.this)) {
-//				return;
-//			}
+			if (!MyApplication.getInstance().isUserLogin(
+					MainActivityForBaiJia.this)) {
+				return;
+			}
 			break;
 		case 2:
 			if (!MyApplication.getInstance().isUserLogin(

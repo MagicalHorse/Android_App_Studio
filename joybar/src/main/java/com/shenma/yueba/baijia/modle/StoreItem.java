@@ -8,8 +8,10 @@ public class StoreItem {
 	private String Location;
 	private String CityId;
 	private String CityName;
-	private String Lon;
-	private String Lat;
+	private double Lon;
+	private double Lat;
+	private String StoreLogo;
+	private String StoreLocation;
 
 	public String getLogo() {
 		return Logo;
@@ -43,19 +45,20 @@ public class StoreItem {
 		CityName = cityName;
 	}
 
-	public String getLon() {
+
+	public double getLon() {
 		return Lon;
 	}
 
-	public void setLon(String lon) {
+	public void setLon(double lon) {
 		Lon = lon;
 	}
 
-	public String getLat() {
+	public double getLat() {
 		return Lat;
 	}
 
-	public void setLat(String lat) {
+	public void setLat(double lat) {
 		Lat = lat;
 	}
 
@@ -75,4 +78,19 @@ public class StoreItem {
 		StoreName = storeName;
 	}
 
+	public String getStoreLogo() {
+		return StoreLogo;
+	}
+
+	public void setStoreLogo(String storeLogo) {
+		StoreLogo = storeLogo;
+	}
+
+	public String getStoreLocation() {
+		return StoreLocation;
+	}
+
+	public void setStoreLocation(String storeLocation) {
+		StoreLocation = storeLocation;
+	}
 }

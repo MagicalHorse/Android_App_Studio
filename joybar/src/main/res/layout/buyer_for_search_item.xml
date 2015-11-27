@@ -7,24 +7,98 @@
     android:padding="@dimen/contentpadding">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <com.shenma.yueba.view.RoundImageView
+            android:id="@+id/riv_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/default_pic" />
 
-    <!--导购头像信息-->
-    <include layout="@layout/authentication_item_head_layouy"
-         />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <!--名称-->
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/authentication_item_head_attention_textview"
+                    android:gravity="left|center_vertical"
+                    android:singleLine="true"
+                    android:text="BELLE"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_attention"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/yellow_roundsilod_background"
+                    android:text="关注"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <!--描述-->
+                <TextView
+
+                    android:id="@+id/tv_store_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="专柜名称"
+                    android:textSize="11sp" />
+
+                <!--距离-->
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:gravity="right|center_vertical"
+                    android:maxWidth="80dp"
+                    android:singleLine="true"
+                    android:text="北京市海淀区"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <View
         android:id="@+id/authentication_item_layout_line_view"
         style="@style/style_horizontal_line"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="10dp" />
     <!--推荐的商品-->
     <LinearLayout
         android:id="@+id/authentication_item_productlist_linearlayout"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        />
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" />
 </LinearLayout>

@@ -28,7 +28,9 @@ public class HttpConstants {
 	private static String PromotionFORREAD = baseUrlForReadForWork + "Promotion/";//活动相关
 	private static String V3FORWRITE = baseUrlForWriteForWork + "v3/";//三期接口写
 	private static String V3FORREAD = baseUrlForReadForWork + "v3/";//三期接口读
-	
+	private static String BuyerV3FORWRITE = baseUrlForWriteForWork + "BuyerV3/";//三期接口写
+	private static String BuyerV3FORREAD = baseUrlForReadForWork + "BuyerV3/";//三期接口读
+
 	private static String weixinBaseUrl = "https://api.mch.weixin.qq.com/";//微信接口
 	private static String weixinPAYUrl = weixinBaseUrl+"pay/";//微信支付接口
 	private static String weixinPAYCallBackUrl = baseUrlForWriteForWork+"Payment/";//微信支平台回调
@@ -61,7 +63,7 @@ public class HttpConstants {
 	 * 门店品牌商品列表
 	 *
 	 */
-	public static String METHOD_storebrandproduct = V3FORREAD + "storebrandproduct";
+	public static String METHOD_brandproduct = V3FORREAD + "brandproduct";
 
 
 	/**
@@ -94,7 +96,7 @@ public class HttpConstants {
 	 * 找导购--获取关注的买手
 	 *
 	 */
-	public static String METHOD_FavBuyers = V3FORREAD + "FavBuyers";
+	public static String METHOD_FavBuyers = BuyerV3FORREAD + "FavBuyers";
 
 
 
@@ -102,7 +104,7 @@ public class HttpConstants {
 	 *
 	 *找导购--获取买手的产品数据
 	 */
-	public static String METHOD_BuyersProducts = V3FORREAD + "BuyersProducts";
+	public static String METHOD_BuyersProducts = BuyerV3FORREAD + "BuyersProducts";
 
 
 	/**
@@ -110,14 +112,14 @@ public class HttpConstants {
 	 * 找导购--同商场的其他买手
 	 *
 	 */
-	public static String METHOD_OtherStoreBuyers = V3FORREAD + "OtherStoreBuyers";
+	public static String METHOD_OtherStoreBuyers = BuyerV3FORREAD + "OtherStoreBuyers";
 
 	/**
 	 *
 	 * 找导购--推荐的买手/导购
 	 *
 	 */
-	public static String METHOD_RecommondBuyerlist = V3FORREAD + "RecommondBuyerlist";
+	public static String METHOD_RecommondBuyerlist = BuyerV3FORREAD + "RecommondBuyerlist";
 
 
 	/**
@@ -125,7 +127,7 @@ public class HttpConstants {
 	 * 提醒上新/戳一下
 	 *
 	 */
-	public static String METHOD_Touch = V3FORREAD + "Touch";
+	public static String METHOD_Touch = BuyerV3FORREAD + "Touch";
 
 	/**
 	 * 判断用户是否关注了公共号

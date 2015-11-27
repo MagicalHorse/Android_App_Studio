@@ -69,6 +69,7 @@ public class BuyerSearchFragment extends BaseFragment {
 		tv_nodata = (TextView) view
 				.findViewById(R.id.tv_nodata);
 		adapter = new BuyerSearchAdapter(getActivity(),mList);
+		pull_refresh_list.setMode(PullToRefreshBase.Mode.BOTH);
 		pull_refresh_list.setAdapter(adapter);
 		pull_refresh_list.setOnRefreshListener(new OnRefreshListener2() {
 
@@ -76,7 +77,7 @@ public class BuyerSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-				getSearchBuyerList(storeId,getActivity(), false);
+				getSearchBuyerList(getActivity(),storeId, false);
 
 			}
 
@@ -84,32 +85,26 @@ public class BuyerSearchFragment extends BaseFragment {
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page++;
 				isRefresh = false;
-				getSearchBuyerList(storeId,getActivity(), false);
+				getSearchBuyerList(getActivity(),storeId, false);
 			}
 		});
 		return view;
 	}
 	
-	
-	public void getData(int status,Context ctx,boolean showDialog){
-		if(mList.size() == 0){
-			getSearchBuyerList(storeId,ctx, showDialog);
-		}
-	}
 
 
 	/**
 	 * 获取搜到的买手列表
 	 */
-	public void getSearchBuyerList(String storeId,Context ctx,boolean showDialog){
-		if(mList!=null && mList.size()>0){
+	public void getSearchBuyerList(Context ctx,String storeId,boolean showDialog){
+		if(showDialog && mList!=null && mList.size()>0){
 			return;
 		}
 		HttpControl httpControl = new HttpControl();
 		String cityId = SharedUtil.getStringPerfernece(getActivity(), SharedUtil.getStringPerfernece(getActivity(), PerferneceConfig.SELECTED_CITY_ID));
 		String latitude = PerferneceUtil.getString(PerferneceConfig.LATITUDE);
 		String longitude = PerferneceUtil.getString(PerferneceConfig.LONGITUDE);
-		httpControl.searchBuyer(key, SharedUtil.getUserId(ctx), cityId, storeId, longitude, latitude, page, new HttpCallBackInterface() {
+		httpControl.searchBuyer(key, SharedUtil.getUserId(ctx), cityId, storeId, longitude, latitude,showDialog ,page, new HttpCallBackInterface() {
 			@Override
 			public void http_Success(Object obj) {
 				pull_refresh_list.postDelayed(new Runnable() {

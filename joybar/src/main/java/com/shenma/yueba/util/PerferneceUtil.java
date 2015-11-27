@@ -48,6 +48,8 @@ public class PerferneceUtil {
         return BasePerferneceUtils.getInstance(mcontext).getStringPerfernece(key, "");
     }
 
+
+
     /***************
      * 获取指定key 存储的 int 默认 -1
      ****************/

@@ -38,7 +38,7 @@
             android:layout_alignBottom="@+id/iv_market_head"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dip"
-            android:text="粉丝：9999"
+            android:text=""
             android:textColor="@color/text_gray_color"
             android:textSize="@dimen/little_text_size" />
 
