@@ -13,18 +13,12 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.modle.StoreItem;
-import com.shenma.yueba.baijia.modle.newmodel.MoreBrandBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBackBean;
-import com.shenma.yueba.baijia.modle.newmodel.StoreIndexItem;
-import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.util.PerferneceUtil;
 import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.yangjia.adapter.MarketForSearchAdapter;
-import com.shenma.yueba.yangjia.adapter.MyAttentionAndFansForSocialAdapter;
-import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
-import com.shenma.yueba.yangjia.modle.AttationAndFansListBackBean;
 
 import java.util.ArrayList;
 import java.util.List;

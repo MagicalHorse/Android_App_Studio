@@ -1,19 +1,5 @@
 package com.shenma.yueba.util;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Handler;
@@ -45,6 +31,7 @@ import com.shenma.yueba.baijia.modle.CityListRequestBean;
 import com.shenma.yueba.baijia.modle.GetUserFlowStatusBackBean;
 import com.shenma.yueba.baijia.modle.HuoKuanManagerBackBean;
 import com.shenma.yueba.baijia.modle.ModifyLogoBackBean;
+import com.shenma.yueba.baijia.modle.MoreBrandBackBean;
 import com.shenma.yueba.baijia.modle.MyRequestProductListInfoBean;
 import com.shenma.yueba.baijia.modle.ProvinceCityListBeanRequest;
 import com.shenma.yueba.baijia.modle.RequestBaiJiaOrdeDetailsInfoBean;
@@ -78,7 +65,6 @@ import com.shenma.yueba.baijia.modle.newmodel.BinnerBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerProductsBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.FavBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.IndexBackBean;
-import com.shenma.yueba.baijia.modle.newmodel.MoreBrandBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.OtherBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.RecommondBuyerlistBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
@@ -104,6 +90,20 @@ import com.shenma.yueba.yangjia.modle.OrderDetailBackBean;
 import com.shenma.yueba.yangjia.modle.OrderListBackBean;
 import com.shenma.yueba.yangjia.modle.RewardDetailBackBean;
 import com.shenma.yueba.yangjia.modle.TastRewardListBackBean;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author gyj
@@ -207,12 +207,12 @@ public class HttpControl {
 	 * @param httpCallBack
 	 * @param context
 	 */
-	public void getMoreBrands(String StoreId,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
+	public void getMoreBrands(String StoreId,int Page,int PageSize,boolean showDialog,final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("StoreId",StoreId);
 		map.put("Page",Integer.toString(Page));
 		map.put("PageSize",Integer.toString(PageSize));
-		BasehttpSend(map, context, HttpConstants.METHOD_storebrand, httpCallBack, MoreBrandBackBean.class, false, false);
+		BasehttpSend(map, context, HttpConstants.METHOD_storebrand, httpCallBack, RequestBrandInfoBean.class, showDialog, false);
 	}
 
 	/**

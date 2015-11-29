@@ -1,19 +1,27 @@
-package com.shenma.yueba.baijia.modle.newmodel;
+package com.shenma.yueba.baijia.modle;
 
+import com.shenma.yueba.baijia.modle.newmodel.StoreIndexItem;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by a on 2015/11/25.
- * 门店商品列表
+ * Created by Administrator on 2015/11/29.
  */
-public class StoreIndexBean {
+public class MoreBrandBackInfo {
+    List<StoreIndexItem> items=new ArrayList<StoreIndexItem>();
+    int pageindex;
+    int pagesize;
+    int totalcount;
+    int totalpaged;
 
-    private List<StoreIndexItem> items;
-    private int pageindex;
-    private int pagesize;
-    private int totalcount;
-    private int totalpaged;
+    public boolean ispaged() {
+        return ispaged;
+    }
 
+    public void setIspaged(boolean ispaged) {
+        this.ispaged = ispaged;
+    }
 
     public List<StoreIndexItem> getItems() {
         return items;
@@ -54,4 +62,6 @@ public class StoreIndexBean {
     public void setTotalpaged(int totalpaged) {
         this.totalpaged = totalpaged;
     }
+
+    boolean ispaged=false;
 }

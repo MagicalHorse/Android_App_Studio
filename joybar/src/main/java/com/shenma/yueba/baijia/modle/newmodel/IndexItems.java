@@ -16,7 +16,10 @@ import java.util.List;
 public class IndexItems implements Serializable{
 
 private String Name;
-    private String Id;
+
+   String StoreName ;//门店名称
+    String StoreId  ;//门店编号
+
     private String Logo;
     private String CityId;
     private String CityName;
@@ -32,6 +35,21 @@ private String Name;
     double Lon;//门店经度            0表示没有坐标
     double Lat ;//  门店所在纬度          0表示没有坐标
 
+    public String getStoreId() {
+        return StoreId;
+    }
+
+    public void setStoreId(String storeId) {
+        StoreId = storeId;
+    }
+
+    public String getStoreName() {
+        return StoreName;
+    }
+
+    public void setStoreName(String storeName) {
+        StoreName = storeName;
+    }
     public boolean isStart() {
         return IsStart;
     }
@@ -87,14 +105,6 @@ private String Name;
 
     public void setName(String name) {
         Name = name;
-    }
-
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        Id = id;
     }
 
     public String getLogo() {

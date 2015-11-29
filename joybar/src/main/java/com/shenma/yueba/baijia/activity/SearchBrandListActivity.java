@@ -197,7 +197,7 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
      ***/
     void sendHttp(final int page, final int type) {
         ToolsUtil.showNoDataView(activity, false);
-        httpCntrol.getBrandProductList(page, pageSize, showDialog, new HttpCallBackInterface() {
+        httpCntrol.getMoreBrands(StoreId,page, pageSize, showDialog, new HttpCallBackInterface() {
 
             @Override
             public void http_Success(Object obj) {

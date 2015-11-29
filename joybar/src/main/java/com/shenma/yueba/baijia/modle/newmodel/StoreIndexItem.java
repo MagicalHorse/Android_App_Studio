@@ -2,32 +2,44 @@ package com.shenma.yueba.baijia.modle.newmodel;
 
 /**
  * Created by a on 2015/11/25.
+ * 门店商品列表
  */
 public class StoreIndexItem {
 
 
-    private String Id;
-    private String Name;
-    private String BrandName;
-    private String Price;
-    private String UnitPrice;
-    private String  FaviteCount;
-    private boolean IsFavite;
+    String ProductId;//  商品id
+    String ProductName;// 商品名称
 
-    public String getId() {
-        return Id;
+    private String BrandName;//品牌名称
+    private String Price; //商品价格
+    private String UnitPrice; //吊牌价
+    private String  FavoriteCount;//收藏数
+    private boolean IsFavorite;//当前用户是否收藏
+    float Ratio=1;// 图片高度/图片宽度的比例
+    String Pic;// 商品图片
+
+    public String getPic() {
+        return Pic;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setPic(String pic) {
+        Pic = pic;
     }
 
-    public String getName() {
-        return Name;
+    public String getProductId() {
+        return ProductId;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setProductId(String productId) {
+        ProductId = productId;
+    }
+
+    public String getProductName() {
+        return ProductName;
+    }
+
+    public void setProductName(String productName) {
+        ProductName = productName;
     }
 
     public String getBrandName() {
@@ -54,19 +66,27 @@ public class StoreIndexItem {
         UnitPrice = unitPrice;
     }
 
-    public String getFaviteCount() {
-        return FaviteCount;
+    public String getFavoriteCount() {
+        return FavoriteCount;
     }
 
-    public void setFaviteCount(String faviteCount) {
-        FaviteCount = faviteCount;
+    public void setFavoriteCount(String favoriteCount) {
+        FavoriteCount = favoriteCount;
     }
 
-    public boolean isFavite() {
-        return IsFavite;
+    public boolean isFavorite() {
+        return IsFavorite;
     }
 
-    public void setIsFavite(boolean isFavite) {
-        IsFavite = isFavite;
+    public void setIsFavorite(boolean isFavorite) {
+        IsFavorite = isFavorite;
+    }
+
+    public float getRatio() {
+        return Ratio;
+    }
+
+    public void setRatio(float ratio) {
+        Ratio = ratio;
     }
 }

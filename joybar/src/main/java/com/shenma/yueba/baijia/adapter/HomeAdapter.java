@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ApproveBuyerDetailsActivity;
+import com.shenma.yueba.baijia.activity.AuthenticationBuyerMainActivity;
 import com.shenma.yueba.baijia.activity.BrandListActivity;
 import com.shenma.yueba.baijia.activity.MarketMainActivity;
 import com.shenma.yueba.baijia.activity.SearchBrandListActivity;
@@ -74,7 +75,15 @@ public class HomeAdapter extends BaseAdapter {
             holder.home_item_top_layout_include.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    forwardActivity();
+                    IndexItems _indexItems=(IndexItems)v.getTag();
+                    if(_indexItems.getStoreLeave().equals("4"))
+                    {
+                        forwardMarketActivity(_indexItems.getStoreId());
+                    }else if(_indexItems.getStoreLeave().equals("8"))
+                    {
+                        forwardAuthenticationBuyerActivity(_indexItems.getStoreId());
+                    }
+
                 }
             });
             holder.home_item_top_desp_imageview = (ImageView) convertView.findViewById(R.id.home_item_top_desp_imageview);
@@ -103,6 +112,7 @@ public class HomeAdapter extends BaseAdapter {
         IndexItems indexItems = infoList.get(position);
         holder.home_item_top_name_textview.setText(indexItems.getName());
         MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(indexItems.getLogo()), holder.home_item_top_layout_icon_customimageview, MyApplication.getInstance().getDisplayImageOptions());
+        holder.home_item_top_layout_include.setTag(indexItems);
         //如果是认证买手
         if (indexItems.getStoreLeave().equals("8")) {
             holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getDescription()));
@@ -153,7 +163,7 @@ public class HomeAdapter extends BaseAdapter {
             @Override
             public void OnLastItemClick(View v) {
                 Intent intent = new Intent(activity, SearchBrandListActivity.class);
-                intent.putExtra("StoreId", indexItems.getId());
+                intent.putExtra("StoreId", indexItems.getStoreId());
                 activity.startActivity(intent);
             }
         });
@@ -209,7 +219,7 @@ public class HomeAdapter extends BaseAdapter {
                             IndexProductInfo product = (IndexProductInfo) v.getTag();
                             //Intent intent=new Intent(activity, ApproveBuyerDetailsActivity.class);
                             Intent intent = new Intent(activity, ApproveBuyerDetailsActivity.class);
-                            intent.putExtra("productID", Integer.valueOf(product.getId()));
+                            intent.putExtra("productID", Integer.valueOf(product.getProductId()));
                             activity.startActivity(intent);
                             MyApplication.getInstance().showMessage(activity, "图片的点击事件");
                         }
@@ -277,8 +287,15 @@ public class HomeAdapter extends BaseAdapter {
         TextView home_item_top_destance_textview;
     }
 
-    void forwardActivity() {
+    void forwardMarketActivity(String StoreId) {
         Intent intent = new Intent(activity, MarketMainActivity.class);
+        intent.putExtra("StoreId",StoreId);
+        activity.startActivity(intent);
+    }
+
+    void forwardAuthenticationBuyerActivity(String StoreId) {
+        Intent intent = new Intent(activity, AuthenticationBuyerMainActivity.class);
+        intent.putExtra("StoreId",StoreId);
         activity.startActivity(intent);
     }
 }
