@@ -105,7 +105,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
         tv_buyer.setOnClickListener(this);
         tv_market.setOnClickListener(this);
         search_result_viewpager = (ViewPager) findViewById(R.id.search_result_viewpager);
-        productSearchFragment.getProductList(SearchResultActivity.this,true);
+        productSearchFragment.getProductList(SearchResultActivity.this,true,false);
     }
 
     private void initViewPager() {
@@ -122,16 +122,16 @@ public class SearchResultActivity extends BaseFragmentActivity implements
             public void onPageSelected(int arg0) {
               switch (arg0){
                   case 0:
-                      productSearchFragment.getProductList(SearchResultActivity.this,true);
+                      productSearchFragment.getProductList(SearchResultActivity.this,true,false);
                       break;
                   case 1:
-                      brandSearchFragment.getBrand(SearchResultActivity.this,true);
+                      brandSearchFragment.getBrand(SearchResultActivity.this,true,false);
                       break;
                   case 2:
-                      buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true);
+                      buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,false);
                       break;
                   case 3:
-                      marketSearchFragment.getMarketList(SearchResultActivity.this,true);
+                      marketSearchFragment.getMarketList(SearchResultActivity.this,true,false);
                       break;
 
               }
@@ -206,7 +206,21 @@ public class SearchResultActivity extends BaseFragmentActivity implements
                 search_result_viewpager.setCurrentItem(3);
                 break;
             case R.id.iv_search://查找
-
+                int position = search_result_viewpager.getCurrentItem();
+                switch (position){
+                    case 0:
+                        productSearchFragment.getProductList(SearchResultActivity.this,true,true);
+                        break;
+                    case 1:
+                        brandSearchFragment.getBrand(SearchResultActivity.this,true,true);
+                        break;
+                    case 2:
+                        buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,true);
+                        break;
+                    case 3:
+                        marketSearchFragment.getMarketList(SearchResultActivity.this,true,true);
+                        break;
+                }
                 break;
             default:
                 break;

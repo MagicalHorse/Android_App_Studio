@@ -74,14 +74,14 @@ public class ProductSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-				getProductList(getActivity(),false);
+				getProductList(getActivity(),false,false);
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page++;
 				isRefresh = false;
-				getProductList(getActivity(),false);
+				getProductList(getActivity(),false,false);
 			}
 		});
 		return view;
@@ -91,10 +91,10 @@ public class ProductSearchFragment extends BaseFragment {
 
 
 	/**
-	 * 获取关注列表和fans列表
+	 * 搜索商品列表
 	 */
-	public void getProductList( Context ctx, boolean showDialog){
-		if(showDialog && mList!=null && mList.size()>0){
+	public void getProductList( Context ctx, boolean showDialog,boolean focusRefresh){
+		if(showDialog && mList!=null && mList.size()>0 && !focusRefresh){
 			return;
 		}
 		HttpControl httpControl = new HttpControl();

@@ -71,7 +71,7 @@ public class MarketSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-			    getMarketList(getActivity(),false);
+			    getMarketList(getActivity(),false,false);
 				
 			}
 
@@ -79,7 +79,7 @@ public class MarketSearchFragment extends BaseFragment {
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page ++;
 				isRefresh = false;
-				getMarketList(getActivity(), false);
+				getMarketList(getActivity(), false,false);
 			}
 		});
 		return view;
@@ -88,8 +88,8 @@ public class MarketSearchFragment extends BaseFragment {
 	/**
 	 * 获取店铺列表
 	 */
-	public void getMarketList(Context ctx,boolean showDialog){
-		if(showDialog && mList!=null && mList.size()>0){
+	public void getMarketList(Context ctx,boolean showDialog,boolean focusRefresh){
+		if(showDialog && mList!=null && mList.size()>0 && !focusRefresh){
 			return;
 		}
 		HttpControl httpControl = new HttpControl();

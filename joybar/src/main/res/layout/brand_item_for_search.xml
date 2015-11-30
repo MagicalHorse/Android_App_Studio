@@ -12,7 +12,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="22dp"
         android:layout_toLeftOf="@+id/imageView2"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/default_pic" />
 
 
