@@ -1545,7 +1545,7 @@ public class HttpConstants {
 	 */
 	private static String getServerUrlForWrite(){
 		if(Constants.PublishStatus.equals("1")){//开发环境
-			return "http://123.57.52.187:8080/app/";
+			return "http://123.57.52.187:8070/app/";
 		}else if(Constants.PublishStatus.equals("2")){//正式环境
 			return "http://appw.joybar.com.cn/app/";
 		}else if(Constants.PublishStatus.equals("3")){//测试环境
