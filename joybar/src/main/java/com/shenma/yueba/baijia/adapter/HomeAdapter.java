@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.activity.ApproveBuyerDetailsActivity;
+import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
 import com.shenma.yueba.baijia.activity.BrandListActivity;
 import com.shenma.yueba.baijia.activity.MarketMainActivity;
 import com.shenma.yueba.baijia.activity.SearchBrandListActivity;
@@ -220,11 +220,9 @@ public class HomeAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
                             IndexProductInfo product = (IndexProductInfo) v.getTag();
-                            //Intent intent=new Intent(activity, ApproveBuyerDetailsActivity.class);
-                            Intent intent = new Intent(activity, ApproveBuyerDetailsActivity.class);
+                            Intent intent = new Intent(activity, BaijiaProductInfoActivity.class);
                             intent.putExtra("productID", Integer.valueOf(product.getProductId()));
                             activity.startActivity(intent);
-                            MyApplication.getInstance().showMessage(activity, "图片的点击事件");
                         }
                     });
                     //价格
@@ -248,13 +246,17 @@ public class HomeAdapter extends BaseAdapter {
                     String buyerPic = ToolsUtil.nullToString(product.getUserLogo());
                     gudie_item_layout_roundimageview.setTag(product);
                     MyApplication.getInstance().getImageLoader().displayImage(buyerPic, gudie_item_layout_roundimageview, MyApplication.getInstance().getDisplayImageOptions());
+                    home_item_pic1_include.setTag(product);
                     home_item_pic1_include.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            IndexProductInfo product = (IndexProductInfo) v.getTag();
-                            Intent intent = new Intent(activity, ShopMainActivity.class);
-                            intent.putExtra("userID", Integer.valueOf(product.getBuyerId()));
-                            activity.startActivity(intent);
+                            if(MyApplication.getInstance().isUserLogin(activity))
+                            {
+                                IndexProductInfo product = (IndexProductInfo) v.getTag();
+                                Intent intent = new Intent(activity, ShopMainActivity.class);
+                                intent.putExtra("userID", Integer.valueOf(product.getBuyerId()));
+                                activity.startActivity(intent);
+                            }
                         }
                     });
                     //导购信息1

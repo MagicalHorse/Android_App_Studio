@@ -169,12 +169,20 @@ public class MarketMainActivity extends BaseActivityWithTopView {
 
             @Override
             public void OnLastItemClick(View v) {
-                Intent intent=new Intent(MarketMainActivity.this, SearchBrandListActivity.class);
-                intent.putExtra("StoreId",StoreId);
+                Intent intent = new Intent(MarketMainActivity.this, SearchBrandListActivity.class);
+                intent.putExtra("StoreId", StoreId);
                 MarketMainActivity.this.startActivity(intent);
             }
         });
-        bm.nofication(brandstr_array);
+        if(brandstr_array.size()>0)
+        {
+            baijia_authencationmain_brand_linearlayout.setVisibility(View.VISIBLE);
+            bm.nofication(brandstr_array);
+        }else
+        {
+            baijia_authencationmain_brand_linearlayout.setVisibility(View.GONE);
+        }
+
     }
 
     /*********

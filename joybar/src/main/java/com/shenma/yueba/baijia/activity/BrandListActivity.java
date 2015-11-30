@@ -12,9 +12,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.modle.BrandInfoInfo;
 import com.shenma.yueba.baijia.modle.MoreBrandBackBean;
-import com.shenma.yueba.baijia.modle.RequestBrandInfoInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.shenma.yueba.baijia.modle.newmodel.StoreIndexItem;
 import com.shenma.yueba.constants.Constants;
@@ -231,13 +229,13 @@ public class BrandListActivity extends BaseActivityWithTopView {
             {
                 PubuliuBeanInfo pubuliuBeanInfo=new PubuliuBeanInfo();
                 StoreIndexItem storeIndexItem= brandInfoInfos.get(i);
-                pubuliuBeanInfo.setFavoriteCount(0);
+                pubuliuBeanInfo.setFavoriteCount(pubuliuBeanInfo.getFavoriteCount());
                 pubuliuBeanInfo.setId(storeIndexItem.getProductId());
                 pubuliuBeanInfo.setIscollection(false);
                 pubuliuBeanInfo.setName(storeIndexItem.getProductName());
                 pubuliuBeanInfo.setPicurl(storeIndexItem.getPic());
-                pubuliuBeanInfo.setPrice(0.00);
-                pubuliuBeanInfo.setRation(1);
+                pubuliuBeanInfo.setPrice(Double.parseDouble(storeIndexItem.getPrice()));
+                pubuliuBeanInfo.setRation(storeIndexItem.getRatio());
 
                 pubuliuBeanInfos.add(pubuliuBeanInfo);
             }

@@ -70,19 +70,21 @@
 
     <TextView
         android:id="@+id/shap_main_description2_textview"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
-        android:text="@string/shop_description2_str"
+        android:text=""
         android:paddingLeft="@dimen/margin_left_and_right"
         android:paddingRight="@dimen/margin_left_and_right" />
 
     <TextView
         android:id="@+id/shap_main_description3_textview"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
-        android:text="@string/shop_description3_str"
+        android:text=""
         android:paddingLeft="@dimen/margin_left_and_right"
         android:paddingRight="@dimen/margin_left_and_right" />
 
@@ -108,7 +110,7 @@
             android:textColor="@color/color_gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="新中关购物中心"
+            android:text=""
             />
 
     </RelativeLayout>

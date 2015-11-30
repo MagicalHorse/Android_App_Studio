@@ -154,7 +154,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
                 pubuliu_item_layout_like_linearlayout.setOnClickListener(onClickListener);
 
                 pubuliu_item_layout_like_imageview.setSelected(bean.iscollection());
-                //pubuliu_item_layout_like_textview.setText(Integer.toString(bean.getFavoriteCount()));
+                pubuliu_item_layout_like_textview.setText(Integer.toString(bean.getFavoriteCount()));
                 pubuliu_item_layout_like_linearlayout.setTag(bean);
                 collect_map.put(bean.getId(),pubuliu_item_layout_like_linearlayout);
                 ImageView iv = (ImageView) parentview.findViewById(R.id.pubuliu_item_layout_imageview);
@@ -263,7 +263,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
         }
         bean.setIsruning(true);
         startAnimation(v);
-        CommonHttpControl.setFavor(Integer.toString(Status), bean.getId(), new HttpCallBackInterface<BaseRequest>() {
+        CommonHttpControl.setFavor(activity,Integer.toString(Status), bean.getId(), new HttpCallBackInterface<BaseRequest>() {
             @Override
             public void http_Success(BaseRequest obj) {
                 if (v != null) {

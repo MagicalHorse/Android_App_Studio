@@ -377,15 +377,11 @@
         <activity
             android:name=".baijia.activity.MyCollectionActivity"
             android:screenOrientation="portrait"></activity>
-        <!-- 认证买手商品详情 -->
-        <activity
-            android:name=".baijia.activity.ApproveBuyerDetailsActivity"
-            android:screenOrientation="portrait"></activity>
 
-        <!-- 专柜买手商品详情 -->
+        <!-- 商品详情 -->
         <activity
-            android:name=".baijia.activity.ApproveBuyerDetails_ck_Activity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".baijia.activity.BaijiaProductInfoActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- 品牌详细页面 -->
         <activity

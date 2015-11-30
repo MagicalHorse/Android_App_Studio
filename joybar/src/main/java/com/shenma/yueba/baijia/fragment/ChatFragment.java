@@ -159,7 +159,11 @@ public class ChatFragment extends Fragment {
         registerImBroadcase();
 
         // 我的 userid
-        formUser_id = Integer.parseInt(SharedUtil.getUserId(getActivity()));
+        if(SharedUtil.getUserId(getActivity())!=null)
+        {
+            formUser_id = Integer.parseInt(SharedUtil.getUserId(getActivity()));
+        }
+
         // 我的昵称
         userName = SharedUtil.getUserNames(getActivity());
 

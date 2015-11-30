@@ -1,8 +1,6 @@
 package com.shenma.yueba.baijia.fragment;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,25 +9,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.activity.AttationListActivity;
-import com.shenma.yueba.baijia.activity.CircleListActivity;
 import com.shenma.yueba.baijia.modle.FragmentBean;
+import com.shenma.yueba.baijia.modle.MyFavoriteProductListInfo;
+import com.shenma.yueba.baijia.modle.MyFavoriteProductListInfoBean;
+import com.shenma.yueba.baijia.modle.MyFavoriteProductListPic;
+import com.shenma.yueba.baijia.modle.RequestMyFavoriteProductListInfoBean;
 import com.shenma.yueba.baijia.modle.RequestUserInfoBean;
 import com.shenma.yueba.baijia.modle.UserInfoBean;
-import com.shenma.yueba.broadcaseReceiver.ProductFavorBroadcase;
+import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.shenma.yueba.constants.Constants;
+import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
+import com.shenma.yueba.util.PubuliuManager;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
@@ -55,7 +55,7 @@ public class ShopMainFragment extends Fragment {
     //关注按钮
     ImageView shop_main_attention_imagebutton;
     //主要内容
-    FrameLayout shop_main_layout_tabcontent_framelayout;
+    LinearLayout shop_main_layout_tabcontent_framelayout;
     //地址
     TextView shop_main_head_layout_address_textview;
     //商品描述
@@ -66,13 +66,16 @@ public class ShopMainFragment extends Fragment {
     List<View> view_list = new ArrayList<View>();
     PullToRefreshScrollView shop_main_layout_title_pulltorefreshscrollview;
 
-    ProductFavorBroadcase productFavorBroadcase;//商品收藏广播监听
-    boolean isregisterProductFavorListener = false;//是否注册商品收藏广播监听 true是  false 否
-    int currId = -1;
+    boolean isrunning=false;
     HttpControl httpControl = new HttpControl();
     UserInfoBean userInfoBean;
     int userID = -1;
     Activity activity;
+    PubuliuManager pubuliuManager;
+    boolean ishow=true;
+    int currPage = Constants.CURRPAGE_VALUE;
+    int pageSize = Constants.PAGESIZE_VALUE;
+    List<PubuliuBeanInfo> item=new ArrayList<PubuliuBeanInfo>();
 
     @Override
     public void onAttach(Activity activity) {
@@ -92,10 +95,11 @@ public class ShopMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (contantView == null) {
             initView();
-            getBaijiaUserInfo();//获取用户数据
+            requestRefreshData();
+            //shop_main_layout_title_pulltorefreshscrollview.setRefreshing();
+
         }
-        //注册商品收藏广播监听
-        registerProductFavorListener();
+
         ViewGroup parentview=(ViewGroup)contantView.getParent();
         if(parentview!=null)
         {
@@ -136,12 +140,12 @@ public class ShopMainFragment extends Fragment {
 
             @Override
             public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-                onRefresh();
+                requestRefreshData();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-                onAddData();
+                requestaddData();
             }
         });
     }
@@ -179,7 +183,7 @@ public class ShopMainFragment extends Fragment {
         //瀑布流上面的 TAB切换 父视图
         shop_main_head_layout_tab_linearlayout = (LinearLayout) contantView.findViewById(R.id.shop_main_head_layout_tab_linearlayout);
         //瀑布流的 内容 即 对应的fragment
-        shop_main_layout_tabcontent_framelayout = (FrameLayout) contantView.findViewById(R.id.shop_main_layout_tabcontent_framelayout);
+        shop_main_layout_tabcontent_framelayout = (LinearLayout) contantView.findViewById(R.id.shop_main_layout_tabcontent_framelayout);
     }
 
 
@@ -193,133 +197,36 @@ public class ShopMainFragment extends Fragment {
                     if (!MyApplication.getInstance().isUserLogin(getActivity())) {
                         return;
                     }
-                /*Intent siliaointent=new Intent(getActivity(),ChatActivity.class);
-                siliaointent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-				siliaointent.putExtra("Chat_NAME", userInfoBean.getUserName());
-				siliaointent.putExtra("toUser_id",userID);
-				startActivity(siliaointent);*/
                     ToolsUtil.forwardChatActivity(getActivity(), userInfoBean.getUserName(), userID, 0, null, null);
-                    break;
-                case R.id.shop_stay_layout_parent_linearlayout:
-                    if (v.getTag() != null && v.getTag() instanceof Integer) {
-                        //setItem(false, (Integer) v.getTag());//瀑布流tab按键
-                    }
-                    break;
-                case R.id.shop_main_attention_imagebutton://关注
-                    if (!MyApplication.getInstance().isUserLogin(getActivity())) {
-                        return;
-                    }
-                    if (v.getTag() != null) {
-                        UserInfoBean bean = (UserInfoBean) v.getTag();
-                        if (bean.isIsFollowing())//如果是已关注
-                        {
-                            //取消关注
-                            submitAttention(v, 0, bean);
-                        } else {
-                            //添加关注
-                            submitAttention(v, 1, bean);
-                        }
-                    }
                     break;
             }
         }
     };
 
-
-    /*****
-     * 设置fragment显示的内容
-     *
-     * @param isfirst boolean true表示第一次添加  false 表示替换
-     */
-    void setItem(boolean isfirst, int _id) {
-        if (currId == _id) {
-            return;
-        }
-
-        currId = _id;
-        //设置 TAB 视图
-        for (int i = 0; i < view_list.size(); i++) {
-            View parent = view_list.get(i);
-            TextView tv1 = (TextView) parent.findViewById(R.id.shop_stay_layout_item_textview1);
-            TextView tv2 = (TextView) parent.findViewById(R.id.shop_stay_layout_item_textview2);
-            View shop_stay_layout_item_line_view = (View) parent.findViewById(R.id.shop_stay_layout_item_line_view);
-            if (i == currId) {
-                tv1.setTextColor(this.getResources().getColor(R.color.color_gray));
-                tv2.setTextColor(this.getResources().getColor(R.color.color_gray));
-                shop_stay_layout_item_line_view.setVisibility(View.GONE);
-            } else {
-                tv1.setTextColor(this.getResources().getColor(R.color.color_gray));
-                tv2.setTextColor(this.getResources().getColor(R.color.color_gray));
-                shop_stay_layout_item_line_view.setVisibility(View.GONE);
-            }
-        }
-
-        try {
-            if (isfirst) {
-                if (!(((ShopPuBuliuFragment) fragmentBean_list.get(_id).getFragment()).isAdded())) {
-                    fragmentManager.beginTransaction().add(R.id.shop_main_layout_tabcontent_framelayout, (ShopPuBuliuFragment) fragmentBean_list.get(_id).getFragment()).commitAllowingStateLoss();
-                }
-            } else {
-                fragmentManager.beginTransaction().replace(R.id.shop_main_layout_tabcontent_framelayout, (ShopPuBuliuFragment) fragmentBean_list.get(_id).getFragment()).commitAllowingStateLoss();
-            }
-        } catch (Exception e) {
-
-        }
-
-    }
-
-
     /******
      * 下拉刷新
      ***/
-    void onRefresh() {
-        /*currId=-1;
-    	getBaijiaUserInfo();*/
-        if (fragmentBean_list != null && fragmentBean_list.size() > 0 && fragmentBean_list.size() > currId) {
-            if (fragmentBean_list.get(currId).getFragment() != null && fragmentBean_list.get(currId).getFragment() instanceof ShopPuBuliuFragment) {
-                ShopPuBuliuFragment fragment = (ShopPuBuliuFragment) fragmentBean_list.get(currId).getFragment();
-                fragment.onPuBuliuRefersh();
-            } else {
-                ToolsUtil.pullResfresh(shop_main_layout_title_pulltorefreshscrollview);
-            }
-
-        } else {
-            ToolsUtil.pullResfresh(shop_main_layout_title_pulltorefreshscrollview);
+    void requestRefreshData() {
+        if(isrunning)
+        {
+            return;
         }
+        ishow =true;
+        getBaijiaUserInfo();
+        sendReuqestAllProductHttp(0, 0);
     }
 
     /******
      * 上啦加载刷新
      ***/
-    void onAddData() {
-
-        if (fragmentBean_list != null && fragmentBean_list.size() > 0 && fragmentBean_list.size() > currId) {
-            if (fragmentBean_list.get(currId).getFragment() != null && fragmentBean_list.get(currId).getFragment() instanceof ShopPuBuliuFragment) {
-                ShopPuBuliuFragment fragment = (ShopPuBuliuFragment) fragmentBean_list.get(currId).getFragment();
-                fragment.onPuBuliuaddData();
-            } else {
-                ToolsUtil.pullResfresh(shop_main_layout_title_pulltorefreshscrollview);
-            }
-
-        } else {
-            ToolsUtil.pullResfresh(shop_main_layout_title_pulltorefreshscrollview);
+    void requestaddData() {
+        if(isrunning)
+        {
+            return;
         }
+        sendReuqestAllProductHttp(currPage, 1);
     }
 
-    /*****
-     * 下拉刷新监听
-     **/
-    public interface PubuliuFragmentListener {
-        /***
-         * 刷新
-         **/
-        void onPuBuliuRefersh();
-
-        /**
-         * 加载
-         **/
-        void onPuBuliuaddData();
-    }
 
     /*****
      * 获取用户信息
@@ -369,7 +276,6 @@ public class ShopMainFragment extends Fragment {
 
         shap_main_description1_textview.setText(ToolsUtil.nullToString(userInfoBean.getDescription()));
 
-        fragmentBean_list.clear();
         initBuyerPuBu();
 
         for (int i = 0; i < fragmentBean_list.size(); i++) {
@@ -377,9 +283,10 @@ public class ShopMainFragment extends Fragment {
             LinearLayout ll = (LinearLayout) LinearLayout.inflate(getActivity(), R.layout.shop_stay_layout, null);
             LinearLayout shop_stay_layout_parent_linearlayout = (LinearLayout) ll.findViewById(R.id.shop_stay_layout_parent_linearlayout);
             shop_stay_layout_parent_linearlayout.setTag(new Integer(i));
-            shop_stay_layout_parent_linearlayout.setOnClickListener(onClickListener);
             TextView tv1 = (TextView) ll.findViewById(R.id.shop_stay_layout_item_textview1);
             tv1.setText(bean.getName());
+            View shop_stay_layout_item_line_view =ll.findViewById(R.id.shop_stay_layout_item_line_view);
+            shop_stay_layout_item_line_view.setVisibility(View.GONE);
             TextView tv2 = (TextView) ll.findViewById(R.id.shop_stay_layout_item_textview2);
             if (bean.getIcon() > 0) {
                 tv2.setText(bean.getIcon() + "");
@@ -391,31 +298,15 @@ public class ShopMainFragment extends Fragment {
             params.weight = 1;
             shop_main_head_layout_tab_linearlayout.addView(ll, params);
             view_list.add(ll);
-            if (i == fragmentBean_list.size() - 1) {
-                View shop_stay_layout_tabline_relativelayout = (View) ll.findViewById(R.id.shop_stay_layout_tabline_relativelayout);
-                shop_stay_layout_tabline_relativelayout.setVisibility(View.GONE);
-            }
-
         }
-
-        if (view_list.size() > 0) {
-            setItem(true, 0);
-        }
-
-        if (view_list.size() == 1) {
-            View shop_stay_layout_item_line_view = view_list.get(0).findViewById(R.id.shop_stay_layout_item_line_view);
-            if (shop_stay_layout_item_line_view != null) {
-                shop_stay_layout_item_line_view.setVisibility(View.INVISIBLE);
-            }
-        }
+        shop_main_head_layout_address_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
     }
 
     /*****
      * 加载买手瀑布显示信息
      **/
     void initBuyerPuBu() {
-        ShopPuBuliuFragment shopPuBuliuFragment1 = new ShopPuBuliuFragment(0, userID);
-        fragmentBean_list.add(new FragmentBean("商品", userInfoBean.getProductCount(), shopPuBuliuFragment1));
+        fragmentBean_list.add(new FragmentBean("商品", userInfoBean.getProductCount(), null));
         fragmentBean_list.add(new FragmentBean("粉丝", userInfoBean.getFollowerCount(), null));
         fragmentBean_list.add(new FragmentBean("成交", 0, null));
     }
@@ -424,8 +315,8 @@ public class ShopMainFragment extends Fragment {
     @Override
     public void onDestroy() {
         MyApplication.getInstance().removeActivity(getActivity());//加入回退栈
+        CollectobserverManage.getInstance().removeObserver(pubuliuManager);
         super.onDestroy();
-        unRegisterProductFavorListener();
     }
 
     public void onResume() {
@@ -439,82 +330,132 @@ public class ShopMainFragment extends Fragment {
         MobclickAgent.onPause(getActivity());
     }
 
-    /*****
-     * 同步数据  根据商品id 同步瀑布里中  商品信息的状态
-     **/
-    public void synchronizationData(int _id, int type) {
-        for (int i = 0; i < fragmentBean_list.size(); i++) {
-            if (i != currId) {
-                ShopPuBuliuFragment fragment = (ShopPuBuliuFragment) fragmentBean_list.get(i).getFragment();
-                if(fragment!=null)
-                {
-                    fragment.synchronizationData(_id, type);
-                }
 
+    void onRefresh(MyFavoriteProductListInfoBean bean)
+    {
+        if(bean!=null && bean.getItems()!=null && bean.getItems().size()>0)
+        {
+            item.clear();
+            item.addAll(getTransformData(bean.getItems()));
+            if(pubuliuManager==null)
+            {
+                pubuliuManager=new PubuliuManager(activity,shop_main_layout_tabcontent_framelayout);
+                CollectobserverManage.getInstance().addObserver(pubuliuManager);
             }
+            pubuliuManager.onResher(item);
         }
-
     }
 
-    /****
-     * 提交收藏与取消收藏商品
-     **/
-    void submitAttention(final View textview, final int Status, final UserInfoBean bean) {
-        httpControl.setFavoite(userID, Status, new HttpControl.HttpCallBackInterface() {
+
+    void onAddData(MyFavoriteProductListInfoBean bean)
+    {
+        if(bean!=null && bean.getItems()!=null && bean.getItems().size()>0)
+        {
+            List<PubuliuBeanInfo> childitem=getTransformData(bean.getItems());
+            item.addAll(childitem);
+            pubuliuManager.onaddData(childitem);
+        }
+    }
+
+
+
+    /******
+     * 数据进行转换
+     * *****/
+    List<PubuliuBeanInfo> getTransformData(List<MyFavoriteProductListInfo> brandInfoInfos)
+    {
+        List<PubuliuBeanInfo> pubuliuBeanInfos=new ArrayList<PubuliuBeanInfo>();
+        if(brandInfoInfos!=null)
+        {
+            for(int i=0;i<brandInfoInfos.size();i++)
+            {
+                PubuliuBeanInfo pubuliuBeanInfo=new PubuliuBeanInfo();
+                MyFavoriteProductListInfo myFavoriteProductListInfo= brandInfoInfos.get(i);
+                pubuliuBeanInfo.setFavoriteCount(myFavoriteProductListInfo.getFavoriteCount());
+                pubuliuBeanInfo.setId(Integer.toString(myFavoriteProductListInfo.getId()));
+                pubuliuBeanInfo.setIscollection(false);
+                pubuliuBeanInfo.setName(myFavoriteProductListInfo.getName());
+                MyFavoriteProductListPic myFavoriteProductListPic=myFavoriteProductListInfo.getPic();
+                if(myFavoriteProductListPic!=null)
+                {
+                    pubuliuBeanInfo.setPicurl(myFavoriteProductListPic.getPic());
+                    pubuliuBeanInfo.setRation(myFavoriteProductListPic.getRatio());
+                }else
+                pubuliuBeanInfo.setPrice(myFavoriteProductListInfo.getPrice());
+                pubuliuBeanInfos.add(pubuliuBeanInfo);
+            }
+        }
+        return pubuliuBeanInfos;
+    }
+
+    /******
+     * 访问网络获取 全部商品或上新商品
+     *
+     * @param page
+     *            访问的页数
+     * @param type
+     *            int 0:刷新 1：加载
+     * ****/
+    void sendReuqestAllProductHttp(final int page,final int type)
+    {
+        isrunning=true;
+        ToolsUtil.showNoDataView(getActivity(), false);
+        httpControl.GetBaijiaGetUserProductList(userID,page, pageSize, 0, ishow, new HttpControl.HttpCallBackInterface() {
 
             @Override
             public void http_Success(Object obj) {
-                switch (Status) {
-                    case 0:
-                        shop_main_attention_imagebutton.setSelected(false);
-                        bean.setIsFollowing(false);
-                        Toast.makeText(activity, "取消成功", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        shop_main_attention_imagebutton.setSelected(true);
-                        bean.setIsFollowing(true);
-                        Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
-                        break;
-                }
+                ToolsUtil.pullResfresh(shop_main_layout_title_pulltorefreshscrollview);
+                RequestMyFavoriteProductListInfoBean bean=(RequestMyFavoriteProductListInfoBean)obj;
+                    switch(type)
+                    {
+                        case 0:
+                            onRefresh(bean.getData());
+                            break;
+                        case 1:
+                            onAddData(bean.getData());
+                            break;
+                    }
+                ishow=false;
+                setPageStatus(bean, page);
+                isrunning=false;
             }
 
             @Override
             public void http_Fails(int error, String msg) {
-                MyApplication.getInstance().showMessage(getActivity(), msg);
+                isrunning=false;
+                ToolsUtil.pullResfresh(shop_main_layout_title_pulltorefreshscrollview);
+                if(getActivity()!=null)
+                {
+                    MyApplication.getInstance().showMessage(getActivity(), msg);
+                }
+
             }
         }, getActivity());
     }
 
 
-    /*******
-     * 监听 商品 收藏 与 取消收藏的 广播
-     ****/
-    void registerProductFavorListener() {
-        if (isregisterProductFavorListener) {
-            return;
-        }
-        if (productFavorBroadcase == null) {
-            productFavorBroadcase = new ProductFavorBroadcase(new ProductFavorBroadcase.ProductFavorBroadcaseListener() {
+    void setPageStatus(RequestMyFavoriteProductListInfoBean data, int page) {
+        if (page == 1 && (data.getData() == null
+                || data.getData().getItems() == null || data
+                .getData().getItems().size() == 0)) {
+            if (shop_main_layout_title_pulltorefreshscrollview != null) {
+                shop_main_layout_title_pulltorefreshscrollview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            }
 
-                @Override
-                public void productFavor(boolean isFavor, int product_id) {
-                    if (isFavor) {
-                        synchronizationData(product_id, 0);
-                    } else {
-                        synchronizationData(product_id, 1);
-                    }
-
-                }
-            });
-        }
-        getActivity().registerReceiver(productFavorBroadcase,new IntentFilter(Constants.PRODUCTFAVOR_INTENT_ACTION));
-        isregisterProductFavorListener = true;
-    }
-
-    public void unRegisterProductFavorListener() {
-        if (isregisterProductFavorListener && productFavorBroadcase != null) {
-            getActivity().unregisterReceiver(productFavorBroadcase);
-            isregisterProductFavorListener = false;
+            ToolsUtil.showNoDataView(activity, true);
+        } else if (page != 1
+                && (data.getData() == null || data.getData().getItems() == null || data.getData().getItems().size() == 0)) {
+            if (shop_main_layout_title_pulltorefreshscrollview != null) {
+                shop_main_layout_title_pulltorefreshscrollview.setMode(PullToRefreshBase.Mode.BOTH);
+            }
+            MyApplication.getInstance().showMessage(
+                    activity,
+                    activity.getResources().getString(
+                            R.string.lastpagedata_str));
+        } else {
+            if (shop_main_layout_title_pulltorefreshscrollview != null) {
+                shop_main_layout_title_pulltorefreshscrollview.setMode(PullToRefreshBase.Mode.BOTH);
+            }
         }
     }
 }

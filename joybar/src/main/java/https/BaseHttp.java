@@ -1,5 +1,6 @@
 package https;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.lidroid.xutils.HttpUtils;
@@ -39,10 +40,10 @@ public class BaseHttp {
      * @param inteface HttpCallBackInterface 回调接口
      * @param classzz  Class<T> 结果返回的对象
      *****************************/
-    public static <T extends BaseRequest> void postNasinameDataByHttp(Map<String, String> map, String url, HttpCallBackInterface inteface, Class<T> classzz) {
+    public static <T extends BaseRequest> void postNasinameDataByHttp(final Activity activity,Map<String, String> map, String url, HttpCallBackInterface inteface, Class<T> classzz) {
         HttpUtils httpUtils = new HttpUtils();
         RequestParams requestParams = getRequestParamsValue(map, null);
-        send(url, requestParams, inteface, classzz);
+        send(activity,url, requestParams, inteface, classzz);
     }
 
     /***************************
@@ -54,12 +55,12 @@ public class BaseHttp {
      * @param inteface HttpCallBackInterface 回调接口
      * @param classzz  Class<T> 结果返回的对象
      *****************************/
-    public static <T extends BaseRequest> void postJsonDataByHttp(Map<String, String> map, String url, String json, HttpCallBackInterface inteface, Class<T> classzz) {
+    public static <T extends BaseRequest> void postJsonDataByHttp(final Activity activity,Map<String, String> map, String url, String json, HttpCallBackInterface inteface, Class<T> classzz) {
         HttpUtils httpUtils = new HttpUtils();
         RequestParams requestParams = getRequestParamsValue(map, json);
         try {
             requestParams.setBodyEntity(new StringEntity(json, "UTF-8"));
-            send(url, requestParams, inteface, classzz);
+            send(activity,url, requestParams, inteface, classzz);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -74,7 +75,7 @@ public class BaseHttp {
      * @param httpCallBack HttpCallBackInterface 回调接口
      * @param classzz      Class<T> 结果返回的对象
      *****************************/
-    static <T extends BaseRequest> void send(final String url, final RequestParams params, final HttpCallBackInterface httpCallBack, final Class<T> classzz) {
+    static <T extends BaseRequest> void send(final Activity activity,final String url, final RequestParams params, final HttpCallBackInterface httpCallBack, final Class<T> classzz) {
         HttpUtils httpUtils = new HttpUtils();
         httpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
             @Override
@@ -89,7 +90,8 @@ public class BaseHttp {
                         httpCallBack.http_Success(bean);
                     } else if (bean.getStatusCode() == 401)//如果token 失效
                     {
-                        MyApplication.getInstance().startLogin(MyApplication.getInstance().getApplicationContext(), "登录已经失效,请重新登录");
+                        httpCallBack.http_Fails(bean.getStatusCode(), bean.getMessage());
+                        MyApplication.getInstance().startLogin(activity, "登录已经失效,请重新登录");
                     } else {
                         httpCallBack.http_Fails(bean.getStatusCode(), bean.getMessage());
                     }

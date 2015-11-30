@@ -240,7 +240,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 if (result) {
                     customProgressDialog.show();
                     //开始调用接口，根据经纬度获取城市名称
-                    CommonHttpControl.getCityNameByGPS(new HttpCallBackInterface<Request_CityInfo>() {
+                    CommonHttpControl.getCityNameByGPS(getActivity(),new HttpCallBackInterface<Request_CityInfo>() {
                         @Override
                         public void http_Success(Request_CityInfo back) {
                             customProgressDialog.cancel();

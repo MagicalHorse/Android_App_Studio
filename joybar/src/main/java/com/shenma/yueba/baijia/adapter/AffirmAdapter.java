@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.PrioductSizesInfoBean;
-import com.shenma.yueba.baijia.modle.ProductsDetailsInfoBean;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.ToolsUtil;
 

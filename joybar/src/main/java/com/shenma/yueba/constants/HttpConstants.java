@@ -345,9 +345,9 @@ public class HttpConstants {
 	public static String METHOD_PRODUCTMANAGER_DETAIL = PRODUCTFORREAD + "GetProductDetail";
 
 	/**
-	 * 获取专柜商品详情(败家)
+	 * 获取商品详情(败家)
 	 */
-	public static String METHOD_CK_PRODUCTMANAGER_DETAIL = PRODUCTFORREAD + "GetProductDetailV2";
+	public static String METHOD_CK_PRODUCTMANAGER_DETAIL = PRODUCTFORREAD + "GetProductDetailV3";
 
 
 	/**

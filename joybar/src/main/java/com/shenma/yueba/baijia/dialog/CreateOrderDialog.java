@@ -6,17 +6,15 @@ import java.util.List;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.AffirmOrderActivity;
-import com.shenma.yueba.baijia.dialog.OrderPayDialog.OrderPayOnClick_Listener;
+import com.shenma.yueba.baijia.modle.CKProductDeatilsInfoBean;
 import com.shenma.yueba.baijia.modle.PrioductSizesInfoBean;
-import com.shenma.yueba.baijia.modle.ProductsDetailsInfoBean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
-import com.shenma.yueba.baijia.modle.RequestProductDetailsInfoBean;
+import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.XCFlowLayout;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -48,8 +46,8 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 	Context context;
 	RelativeLayout ll;
 	EditText createorder_dialog_layout_countvalue_edittext;
-	RequestProductDetailsInfoBean bean;
-	ProductsDetailsInfoBean productsDetailsInfoBean;
+	RequestCKProductDeatilsInfo bean;
+	CKProductDeatilsInfoBean productsDetailsInfoBean;
 	Button create_dialog_jian_button,create_dialog_jia_button;
 	//库存最大值
 	int maxValue=0;
@@ -62,7 +60,7 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 	List<PrioductSizesInfoBean> size_list=new ArrayList<PrioductSizesInfoBean>();
 	XCFlowLayout flowlayout;
 	
-	public CreateOrderDialog(Context context,RequestProductDetailsInfoBean bean) {
+	public CreateOrderDialog(Context context,RequestCKProductDeatilsInfo bean) {
 		super(context,R.style.MyDialog);
 
 		this.context=context;

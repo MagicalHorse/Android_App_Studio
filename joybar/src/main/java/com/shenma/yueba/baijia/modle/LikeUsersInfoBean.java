@@ -13,26 +13,22 @@ import java.util.List;
 public class LikeUsersInfoBean implements Serializable{
 
 	int Count;
-	
 	//用户信息
 	List<UsersInfoBean> Users=new ArrayList<UsersInfoBean>();
-	boolean IsLike=false;
-	public boolean isIsLike() {
-		return IsLike;
-	}
-	public void setIsLike(boolean isLike) {
-		IsLike = isLike;
-	}
-	public int getCount() {
-		return Count;
-	}
-	public void setCount(int count) {
-		Count = count;
-	}
 	public List<UsersInfoBean> getUsers() {
 		return Users;
 	}
+
 	public void setUsers(List<UsersInfoBean> users) {
 		Users = users;
 	}
+
+	public int getCount() {
+		return Count;
+	}
+
+	public void setCount(int count) {
+		Count = count;
+	}
+
 }

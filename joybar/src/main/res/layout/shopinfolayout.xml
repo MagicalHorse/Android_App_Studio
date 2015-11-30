@@ -11,9 +11,9 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/shop_main_siliao_imagebutton">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <include
@@ -23,11 +23,20 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/shop_main_layout_title_relativelayout" />
 
-            <FrameLayout
+            <LinearLayout
+                android:layout_below="@id/shop_main_layout_head_relativelayout"
                 android:id="@+id/shop_main_layout_tabcontent_framelayout"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                android:layout_height="wrap_content"/>
+
+            <include
+                android:layout_below="@id/shop_main_layout_head_relativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/nodata_layout"/>
+
+        </RelativeLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
     <Button

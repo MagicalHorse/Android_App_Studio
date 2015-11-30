@@ -1,36 +1,9 @@
-package com.shenma.yueba.baijia.activity;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.shenma.yueba.R;
-import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.adapter.ScrollViewPagerAdapter;
-import com.shenma.yueba.baijia.modle.LikeUsersInfoBean;
-import com.shenma.yueba.baijia.modle.ProductsDetailsInfoBean;
-import com.shenma.yueba.baijia.modle.ProductsDetailsPromotion;
-import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
-import com.shenma.yueba.baijia.modle.ProductsDetailsTagsInfo;
-import com.shenma.yueba.baijia.modle.ProductsInfoBean;
-import com.shenma.yueba.baijia.modle.RequestProductDetailsInfoBean;
-import com.shenma.yueba.baijia.modle.UsersInfoBean;
-import com.shenma.yueba.util.FontManager;
-import com.shenma.yueba.util.HttpControl;
-import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
-import com.shenma.yueba.util.ShareUtil;
-import com.shenma.yueba.util.SharedUtil;
-import com.shenma.yueba.util.ToolsUtil;
-import com.shenma.yueba.view.FixedSpeedScroller;
-import com.shenma.yueba.view.RoundImageView;
-import com.shenma.yueba.view.TagImageView;
-import com.umeng.analytics.MobclickAgent;
+package com.shenma.yueba.baijia.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
@@ -39,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
@@ -51,13 +23,36 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.shenma.yueba.R;
+import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.baijia.adapter.ScrollViewPagerAdapter;
+import com.shenma.yueba.baijia.modle.LikeUsersInfoBean;
+import com.shenma.yueba.baijia.modle.ProductsDetailsPromotion;
+import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
+import com.shenma.yueba.baijia.modle.ProductsDetailsTagsInfo;
+import com.shenma.yueba.baijia.modle.UsersInfoBean;
+import com.shenma.yueba.util.FontManager;
+import com.shenma.yueba.util.HttpControl;
+import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
+import com.shenma.yueba.util.ToolsUtil;
+import com.shenma.yueba.view.FixedSpeedScroller;
+import com.shenma.yueba.view.RoundImageView;
+import com.shenma.yueba.view.TagImageView;
+import com.umeng.analytics.MobclickAgent;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * @author gyj
  * @version 创建时间：2015-5-20 下午6:02:36 程序的简单说明 定义认证买手 商品详情页
  */
 
 @SuppressLint("NewApi")
-public class ApproveBuyerDetailsActivity extends Activity implements OnClickListener {
+public class ApproveBuyerDetailsFragment extends Fragment implements OnClickListener {
 	// 当前选中的id （ViewPager选中的id）
 	int currid = -1;
 	// 滚动图片
@@ -95,7 +90,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 	Timer timer;
 	RequestProductDetailsInfoBean bean;
 	LinearLayout ll_attentionpeople_contener;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		MyApplication.getInstance().addActivity(this);
@@ -121,7 +116,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 		back_grey_imageview.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ApproveBuyerDetailsActivity.this.finish();
+				ApproveBuyerDetailsFragment.this.finish();
 			}
 		});
 		//分享
@@ -129,7 +124,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 		share_grey_imageview.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (!MyApplication.getInstance().isUserLogin(ApproveBuyerDetailsActivity.this)) {
+				if (!MyApplication.getInstance().isUserLogin(ApproveBuyerDetailsFragment.this)) {
 					return;
 				}
 
@@ -147,7 +142,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 							img_name=piclist.get(0).getLogo();
 						}
 						String icon = ToolsUtil.getImage(ToolsUtil.nullToString(img_name),320, 0);
-						ToolsUtil.shareUrl(ApproveBuyerDetailsActivity.this, productinfobean.getProductId(), "", content, url, icon);
+						ToolsUtil.shareUrl(ApproveBuyerDetailsFragment.this, productinfobean.getProductId(), "", content, url, icon);
 					}
 				}
 			}
@@ -227,7 +222,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 
 	void startChatActivity() {
 		if (!MyApplication.getInstance().isUserLogin(
-				ApproveBuyerDetailsActivity.this)) {
+				ApproveBuyerDetailsFragment.this)) {
 			return;
 		}
 		if(bean!=null)
@@ -237,13 +232,13 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 			intent.putExtra("toUser_id", bean.getData().getBuyerId());// 私聊的话需要传对方id
 			intent.putExtra("DATA", bean);
 			startActivity(intent);*/
-			ToolsUtil.forwardChatActivity(ApproveBuyerDetailsActivity.this, bean.getData().getBuyerName(), bean.getData().getBuyerId(), 0, null,bean);
+			ToolsUtil.forwardChatActivity(ApproveBuyerDetailsFragment.this, bean.getData().getBuyerName(), bean.getData().getBuyerId(), 0, null,bean);
 		}
 	}
 
 	/***
 	 * 设置文本值
-	 * 
+	 *
 	 * @param res
 	 *            int 视图id
 	 * @param str
@@ -271,7 +266,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 							bean = (RequestProductDetailsInfoBean) obj;
 							if (bean.getData() == null) {
 								http_Fails(500, "商品信息不存在");
-								ApproveBuyerDetailsActivity.this.finish();
+								ApproveBuyerDetailsFragment.this.finish();
 								return;
 							}
 							Data = bean.getData();
@@ -283,10 +278,10 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 					@Override
 					public void http_Fails(int error, String msg) {
 						MyApplication.getInstance().showMessage(
-								ApproveBuyerDetailsActivity.this, msg);
+								ApproveBuyerDetailsFragment.this, msg);
 						finish();
 					}
-				}, ApproveBuyerDetailsActivity.this);
+				}, ApproveBuyerDetailsFragment.this);
 	}
 
 	/*****
@@ -330,7 +325,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 			int item_width=linkwidt/8;
 			// 喜欢
 			TextView approvebuyerdetails_attention_textview = (TextView) findViewById(R.id.approvebuyerdetails_attention_textview);
-			ViewGroup.LayoutParams tv_params=approvebuyerdetails_attention_textview.getLayoutParams();
+			LayoutParams tv_params=approvebuyerdetails_attention_textview.getLayoutParams();
 			tv_params.height=item_width;//设置 新型图片的高度
 			approvebuyerdetails_attention_textview.setLayoutParams(tv_params);
 			
@@ -363,7 +358,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 				size=users.size();
 			}
 			for (int i = 0; i < size; i++) {
-				RoundImageView riv = new RoundImageView(ApproveBuyerDetailsActivity.this);
+				RoundImageView riv = new RoundImageView(ApproveBuyerDetailsFragment.this);
 				LayoutParams params = new LayoutParams(item_width,item_width);
 				riv.setLayoutParams(params);
 				if (i != 7) {
@@ -376,14 +371,14 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 				riv.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						if(!MyApplication.getInstance().isUserLogin(ApproveBuyerDetailsActivity.this))
+						if(!MyApplication.getInstance().isUserLogin(ApproveBuyerDetailsFragment.this))
 						{
 							return;
 						}
 						if (v.getTag()==null || ((Integer)v.getTag()) <= 0) {
 							return;
 						}
-						ToolsUtil.forwardShopMainActivity(ApproveBuyerDetailsActivity.this, (Integer)v.getTag());
+						ToolsUtil.forwardShopMainActivity(ApproveBuyerDetailsFragment.this, (Integer)v.getTag());
 					}
 				});
 
@@ -395,12 +390,12 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 			//图片和标签
 			List<ProductsDetailsTagInfo> productsDetailsTagInfo_list=  Data.getProductPic();
 			for (int i = 0; i < productsDetailsTagInfo_list.size(); i++) {
-				RelativeLayout rl=new RelativeLayout(ApproveBuyerDetailsActivity.this);
-				ImageView iv = new ImageView(ApproveBuyerDetailsActivity.this);
-				iv.setBackgroundColor(ApproveBuyerDetailsActivity.this.getResources().getColor(R.color.color_lightgrey));
+				RelativeLayout rl=new RelativeLayout(ApproveBuyerDetailsFragment.this);
+				ImageView iv = new ImageView(ApproveBuyerDetailsFragment.this);
+				iv.setBackgroundColor(ApproveBuyerDetailsFragment.this.getResources().getColor(R.color.color_lightgrey));
 				iv.setScaleType(ScaleType.CENTER_CROP);
 				rl.addView(iv, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
-				TagImageView tiv=new TagImageView(ApproveBuyerDetailsActivity.this);
+				TagImageView tiv=new TagImageView(ApproveBuyerDetailsFragment.this);
 				//tiv.setBackgroundColor(ApproveBuyerDetailsActivity.this.getResources().getColor(R.color.color_blue));
 				//tiv.setAlpha(0.5f);
 				List<ProductsDetailsTagsInfo> productsDetailsTagsInfo_list=productsDetailsTagInfo_list.get(i).getTags();
@@ -422,7 +417,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 				viewlist.add(rl);
 				initPic(ToolsUtil.getImage(ToolsUtil.nullToString(productsDetailsTagInfo_list.get(i).getLogo()), 320, 0), iv);
 			}
-			customPagerAdapter = new ScrollViewPagerAdapter(ApproveBuyerDetailsActivity.this, viewlist);
+			customPagerAdapter = new ScrollViewPagerAdapter(ApproveBuyerDetailsFragment.this, viewlist);
 			appprovebuyer_viewpager.setAdapter(customPagerAdapter);
 			setcurrItem(0);
 			startTimeToViewPager();
@@ -476,13 +471,13 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 			return;
 		}
 		for (int i = 0; i < size; i++) {
-			View v = new View(ApproveBuyerDetailsActivity.this);
+			View v = new View(ApproveBuyerDetailsFragment.this);
 			v.setBackgroundResource(R.drawable.tabround_background);
-			int width = (int) ApproveBuyerDetailsActivity.this.getResources()
+			int width = (int) ApproveBuyerDetailsFragment.this.getResources()
 					.getDimension(R.dimen.shop_main_lineheight8_dimen);
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 					width, width);
-			params.leftMargin = (int) ApproveBuyerDetailsActivity.this
+			params.leftMargin = (int) ApproveBuyerDetailsFragment.this
 					.getResources()
 					.getDimension(R.dimen.shop_main_width3_dimen);
 			appprovebuyer_viewpager_footer_linerlayout.addView(v, params);
@@ -552,7 +547,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 			@Override
 			public void run() {
 				currid++;
-				ApproveBuyerDetailsActivity.this.runOnUiThread(new Runnable() {
+				ApproveBuyerDetailsFragment.this.runOnUiThread(new Runnable() {
 
 					@Override
 					public void run() {
@@ -597,7 +592,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 			{
 				return;
 			}
-			ToolsUtil.forwardShopMainActivity(ApproveBuyerDetailsActivity.this,bean.getData().getBuyerId());
+			ToolsUtil.forwardShopMainActivity(ApproveBuyerDetailsFragment.this,bean.getData().getBuyerId());
 			break;
 		case R.id.approvebuyerdetails_layout_siliao_linerlayout_textview:
 			startChatActivity();
@@ -607,7 +602,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 			break;
 		case R.id.approvebuyerdetails_attention_textview:// 喜欢或取消喜欢
 			if (!MyApplication.getInstance().isUserLogin(
-					ApproveBuyerDetailsActivity.this)) {
+					ApproveBuyerDetailsFragment.this)) {
 				return;
 			}
 			if (v.getTag() != null
@@ -627,7 +622,7 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 			break;
 		case R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview:
 			if (!MyApplication.getInstance().isUserLogin(
-					ApproveBuyerDetailsActivity.this)) {
+					ApproveBuyerDetailsFragment.this)) {
 				return;
 			}
 			if (v.getTag() != null
@@ -690,9 +685,9 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 					@Override
 					public void http_Fails(int error, String msg) {
 						MyApplication.getInstance().showMessage(
-								ApproveBuyerDetailsActivity.this, msg);
+								ApproveBuyerDetailsFragment.this, msg);
 					}
-				}, ApproveBuyerDetailsActivity.this);
+				}, ApproveBuyerDetailsFragment.this);
 	}
 
 	/****
@@ -730,9 +725,9 @@ public class ApproveBuyerDetailsActivity extends Activity implements OnClickList
 					@Override
 					public void http_Fails(int error, String msg) {
 						MyApplication.getInstance().showMessage(
-								ApproveBuyerDetailsActivity.this, msg);
+								ApproveBuyerDetailsFragment.this, msg);
 					}
-				}, ApproveBuyerDetailsActivity.this);
+				}, ApproveBuyerDetailsFragment.this);
 	}
 
 

@@ -54,6 +54,9 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
     //顶部 搜索框的父类
     RelativeLayout searchbrandlist_head_relativelayout;
     String StoreId;
+    String BrandName=null;//   搜索关键字，不传则返回所有数据
+    boolean isrunning=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         MyApplication.getInstance().addActivity(this);//加入回退栈
@@ -91,17 +94,10 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
         bt_top_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String str = srearchbrandlist_edittext.getText().toString().trim();
-                if (str.equals("")) {
-                    srearchbrandlist_edittext.requestFocus();
-                    MyApplication.getInstance().showMessage(SearchBrandListActivity.this, "请输入品牌关键字");
-                    return;
-                } else {
-                    closeInputMethod();
-                    searchbrandlist_head_relativelayout.requestFocus();
-                    requestFalshData();
-                }
+                closeInputMethod();
+                searchbrandlist_head_relativelayout.requestFocus();
+                requestFalshData();
             }
         });
     }
@@ -124,6 +120,7 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 BrandInfo brandInfo = items.get(arg2);
                 Intent intent = new Intent(activity, BrandListActivity.class);
+                intent.putExtra("StoreId",StoreId);
                 intent.putExtra("BrandId", brandInfo.getBrandId());
                 intent.putExtra("BrandName", brandInfo.getBrandName());
                 activity.startActivity(intent);
@@ -151,11 +148,19 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
     }
 
     void requestData() {
+        if(isrunning)
+        {
+            return;
+        }
         sendHttp(currPage, 1);
 
     }
 
     void requestFalshData() {
+        if(isrunning)
+        {
+            return;
+        }
         showDialog = true;
         sendHttp(1, 0);
     }
@@ -196,8 +201,10 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
      * @param type int 0：刷新 1 加载
      ***/
     void sendHttp(final int page, final int type) {
+        isrunning=true;
         ToolsUtil.showNoDataView(activity, false);
-        httpCntrol.getMoreBrands(StoreId,page, pageSize, showDialog, new HttpCallBackInterface() {
+        BrandName=srearchbrandlist_edittext.getText().toString().trim();
+        httpCntrol.getMoreBrands(BrandName,StoreId,page, pageSize, showDialog, new HttpCallBackInterface() {
 
             @Override
             public void http_Success(Object obj) {
@@ -220,13 +227,14 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
                     http_Fails(500, activity.getResources()
                             .getString(R.string.errorpagedata_str));
                 }
-
+                isrunning=false;
             }
 
             @Override
             public void http_Fails(int error, String msg) {
                 ToolsUtil.pullResfresh(pull_refresh_list);
                 MyApplication.getInstance().showMessage(activity, msg);
+                isrunning=false;
             }
         }, activity);
     }
