@@ -142,7 +142,7 @@ public class AutoBrandListManager extends  AbsBrandListManager{
             int textwidth=getLastTextWidth(more,LasttextSize_id);
             //所能使用的的宽视的图度
             int width = ll_width-(parentPaddingLeft+parentPaddingRight) -textwidth;
-
+            int LastMarginLeft=0;
             for(int i=0;i<array_list.size();i++)
             {
                 TextView tv = new TextView(activity);
@@ -156,8 +156,7 @@ public class AutoBrandListManager extends  AbsBrandListManager{
                 params.rightMargin = marginvalue;
                 if((childWidth+item_childWidth)>width)
                 {
-                    int _width=width-childWidth;
-                    addLastView(_width);
+                    //addLastView(LastMarginLeft);
                     return;
                 }else
                 {
@@ -169,8 +168,9 @@ public class AutoBrandListManager extends  AbsBrandListManager{
                     view_array.add(tv);
 
                 }
+                LastMarginLeft=width-childWidth;
+                addLastView(LastMarginLeft);
             }
-
 
         }
     }

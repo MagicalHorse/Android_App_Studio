@@ -96,7 +96,7 @@ public class HomeAdapter extends BaseAdapter {
         setCommonValue(position, holder);
         //设置商品信息
         setProductValue(position, holder.averageManager.getChildView());
-        Log.i("TAG", "getView ---------------------------------------------->>>>position"+position);
+        Log.i("TAG", "getView ---------------------------------------------->>>>position" + position);
         return convertView;
     }
 
@@ -148,6 +148,7 @@ public class HomeAdapter extends BaseAdapter {
             public void onItemClick(View v, int i) {
                 BrandInfo brandInfo = indexItems.getBrands().get(i);
                 Intent intent = new Intent(activity, BrandListActivity.class);
+                intent.putExtra("StoreId", indexItems.getStoreId());
                 intent.putExtra("BrandName", brandInfo.getBrandName());
                 intent.putExtra("BrandId", brandInfo.getBrandId());
                 activity.startActivity(intent);
@@ -167,7 +168,16 @@ public class HomeAdapter extends BaseAdapter {
                 str_array.add(ToolsUtil.nullToString(indexItems.getBrands().get(i).getBrandName()));
             }
         }
-        bm.nofication(str_array);
+
+        if(indexItems.getBrands()==null || indexItems.getBrands().size()==0)
+        {
+            home_item_layout_brand_linearlayout.setVisibility(View.GONE);
+        }else
+        {
+            home_item_layout_brand_linearlayout.setVisibility(View.VISIBLE);
+            bm.nofication(str_array);
+        }
+
     }
 
 

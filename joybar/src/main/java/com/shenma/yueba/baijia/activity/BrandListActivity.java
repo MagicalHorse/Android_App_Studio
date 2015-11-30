@@ -13,16 +13,21 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.BrandInfoInfo;
+import com.shenma.yueba.baijia.modle.MoreBrandBackBean;
 import com.shenma.yueba.baijia.modle.RequestBrandInfoInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
+import com.shenma.yueba.baijia.modle.newmodel.StoreIndexItem;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.HttpControl;
+import com.shenma.yueba.util.PerferneceUtil;
 import com.shenma.yueba.util.PubuliuManager;
 import com.shenma.yueba.util.ToolsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import config.PerferneceConfig;
 
 /**
  * Created by Administrator on 2015/11/16.
@@ -30,7 +35,10 @@ import java.util.List;
  */
 public class BrandListActivity extends BaseActivityWithTopView {
     String brandName = "品牌名称";
-    int brandId=-1;
+    int BrandId=-1;
+    String StoreId=null;
+    String CityId=null;
+    String UserId=null;
     int currPage= Constants.CURRPAGE_VALUE;
     int pageSize=20;
     boolean showDialog=true;
@@ -46,11 +54,28 @@ public class BrandListActivity extends BaseActivityWithTopView {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.brand_list_layout);
         super.onCreate(savedInstanceState);
+        brandName=this.getIntent().getStringExtra("BrandName");
+        StoreId=this.getIntent().getStringExtra("StoreId");
+        BrandId=this.getIntent().getIntExtra("BrandId", -1);
+        CityId= PerferneceUtil.getString(PerferneceConfig.SELECTED_CITY_ID);
+        if(CityId.equals(""))
+        {
+            CityId="0";
+        }
+        UserId= PerferneceUtil.getString(Constants.USER_ID);
+        if(CityId.equals(""))
+        {
+            UserId="0";
+        }
+        if(StoreId==null || BrandId<0)
+        {
+            MyApplication.getInstance().showMessage(this,"参数错误");
+            finish();
+            return;
+        }
         activity=this;
         initView();
         httpControl=new HttpControl();
-        brandName=this.getIntent().getStringExtra("BrandName");
-        brandId=this.getIntent().getIntExtra("BrandId", -1);
         requestFalshData();
     }
 
@@ -103,7 +128,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
     /***
      * 刷新viewpager数据
      * ***/
-    void falshData(RequestBrandInfoInfoBean bean) {
+    void falshData(MoreBrandBackBean bean) {
         currPage++;
         if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null)
         {
@@ -120,7 +145,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
     /***
      * 加载数据
      * **/
-    void addData(RequestBrandInfoInfoBean bean) {
+    void addData(MoreBrandBackBean bean) {
         currPage++;
         if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null)
         {
@@ -138,29 +163,23 @@ public class BrandListActivity extends BaseActivityWithTopView {
      * ***/
     void sendHttp(final int page,final int type)
     {
-        ToolsUtil.showNoDataView(activity,false);
-        httpControl.getBaijiaBrandDetails(page, pageSize, brandId, null, showDialog, new HttpControl.HttpCallBackInterface() {
-
+        ToolsUtil.showNoDataView(activity, false);
+        httpControl.getBrandProduct(showDialog,StoreId,CityId,Integer.toString(BrandId),UserId, page, pageSize, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
                 ToolsUtil.pullResfresh(brand_list_layout_pulltorefreshscrollview);
                 currPage = page;
                 showDialog = false;
-                if (obj != null) {
-                    RequestBrandInfoInfoBean bean = (RequestBrandInfoInfoBean) obj;
-                    switch (type) {
-                        case 0:
-                            falshData(bean);
-                            break;
-                        case 1:
-                            addData(bean);
-                            break;
-                    }
-                    setPageStatus(bean, page);
-
-                } else {
-                    http_Fails(500, activity.getResources().getString(R.string.errorpagedata_str));
+                MoreBrandBackBean bean=(MoreBrandBackBean)obj;
+                switch (type) {
+                    case 0:
+                        falshData(bean);
+                        break;
+                    case 1:
+                        addData(bean);
+                        break;
                 }
+                setPageStatus(bean, page);
             }
 
             @Override
@@ -168,11 +187,11 @@ public class BrandListActivity extends BaseActivityWithTopView {
                 MyApplication.getInstance().showMessage(activity, msg);
                 ToolsUtil.pullResfresh(brand_list_layout_pulltorefreshscrollview);
             }
-        }, activity);
+        },this);
     }
 
 
-    void setPageStatus(RequestBrandInfoInfoBean data, int page) {
+    void setPageStatus(MoreBrandBackBean data, int page) {
         if (page == 1 && (data.getData() == null
                 || data.getData().getItems() == null || data
                 .getData().getItems().size() == 0)) {
@@ -203,7 +222,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
     /******
      * 数据进行转换
      * *****/
-    List<PubuliuBeanInfo> getTransformData(List<BrandInfoInfo> brandInfoInfos)
+    List<PubuliuBeanInfo> getTransformData(List<StoreIndexItem> brandInfoInfos)
     {
         List<PubuliuBeanInfo> pubuliuBeanInfos=new ArrayList<PubuliuBeanInfo>();
         if(brandInfoInfos!=null)
@@ -211,12 +230,12 @@ public class BrandListActivity extends BaseActivityWithTopView {
             for(int i=0;i<brandInfoInfos.size();i++)
             {
                 PubuliuBeanInfo pubuliuBeanInfo=new PubuliuBeanInfo();
-                BrandInfoInfo brandInfoInfo= brandInfoInfos.get(i);
+                StoreIndexItem storeIndexItem= brandInfoInfos.get(i);
                 pubuliuBeanInfo.setFavoriteCount(0);
-                pubuliuBeanInfo.setId(Integer.toString(brandInfoInfo.getProductId()));
+                pubuliuBeanInfo.setId(storeIndexItem.getProductId());
                 pubuliuBeanInfo.setIscollection(false);
-                pubuliuBeanInfo.setName(brandInfoInfo.getProductName());
-                pubuliuBeanInfo.setPicurl(brandInfoInfo.getPic());
+                pubuliuBeanInfo.setName(storeIndexItem.getProductName());
+                pubuliuBeanInfo.setPicurl(storeIndexItem.getPic());
                 pubuliuBeanInfo.setPrice(0.00);
                 pubuliuBeanInfo.setRation(1);
 

@@ -224,12 +224,15 @@ public class HttpControl {
 	 * @param httpCallBack
 	 * @param context
 	 */
-	public void getBrandProduct(String StoreId,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
+	public void getBrandProduct(boolean isShow,String StoreId,String CityId,String BrandId,String UserId,int Page,int PageSize,final HttpCallBackInterface httpCallBack, Context context) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("StoreId",StoreId);
+		map.put("CityId",CityId);
+		map.put("BrandId",BrandId);
+		map.put("UserId",UserId);
 		map.put("Page",Integer.toString(Page));
 		map.put("PageSize",Integer.toString(PageSize));
-		BasehttpSend(map, context, HttpConstants.METHOD_brandproduct, httpCallBack, MoreBrandBackBean.class, false, false);
+		BasehttpSend(map, context, HttpConstants.METHOD_brandproduct, httpCallBack, MoreBrandBackBean.class, isShow, false);
 	}
 
 

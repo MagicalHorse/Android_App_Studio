@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="金鹰商场"
+            android:text=""
             android:textSize="15sp" />
 
         <RelativeLayout
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/baijia_marketmain_head_address_layout_imageview"
-                android:text="北京 中关村南大街"
+                android:text=""
                 android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>

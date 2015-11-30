@@ -77,7 +77,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         initView();
         initPuBuLiu();
         initHeadView();
-        requestData();
+        requestFalshData();
     }
 
     void initView() {
@@ -93,7 +93,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
             @Override
             public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 
-                requestData();
+                requestaddData();
             }
         });
 
@@ -159,7 +159,11 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         bm.setOnClickListener(new BrandListManager.OnBrandItemListener() {
             @Override
             public void onItemClick(View v, int i) {
+                BrandInfo brandInfo = brandInfos_array.get(i);
                 Intent intent = new Intent(MarketMainActivity.this, BrandListActivity.class);
+                intent.putExtra("StoreId", StoreId);
+                intent.putExtra("BrandName", brandInfo.getBrandName());
+                intent.putExtra("BrandId", brandInfo.getBrandId());
                 startActivity(intent);
             }
 
@@ -269,7 +273,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         requestData(1, 0);
     }
 
-    void requestData()
+    void requestaddData()
     {
         requestData(currPage,1);
     }
