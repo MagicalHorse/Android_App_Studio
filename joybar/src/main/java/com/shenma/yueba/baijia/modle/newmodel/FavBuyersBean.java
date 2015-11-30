@@ -9,7 +9,7 @@ public class FavBuyersBean {
 
 
     private String sourcetype;//0-用户关注的买手信息，1-保留,
-    private List<BuyerInfo> buyers;
+    private List<BuyerInfo> Buyers;
     private String pageindex;
     private String pagesize;
     private String totalcount;
@@ -25,11 +25,11 @@ public class FavBuyersBean {
     }
 
     public List<BuyerInfo> getBuyers() {
-        return buyers;
+        return Buyers;
     }
 
     public void setBuyers(List<BuyerInfo> buyers) {
-        this.buyers = buyers;
+        Buyers = buyers;
     }
 
     public String getPageindex() {

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by a on 2015/11/25.
  */
 public class BuyerInfo {
-
+    private String NickName;//买手昵称
     private String Logo;//买手头像
     private String Nickname;//买手昵称
     private String BrandName;//品牌名字
@@ -27,6 +27,14 @@ public class BuyerInfo {
     private String Address;//地址
     private List<String> Brands;//品牌
 
+
+    public String getNickName() {
+        return NickName;
+    }
+
+    public void setNickName(String nickName) {
+        NickName = nickName;
+    }
 
     public String getLogo() {
         return Logo;
