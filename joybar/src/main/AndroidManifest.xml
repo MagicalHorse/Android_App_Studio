@@ -460,9 +460,6 @@
             android:screenOrientation="portrait" />
 
         <!--败家认证买手首页-->
-        <activity
-            android:name="com.shenma.yueba.baijia.activity.AuthenticationBuyerMainActivity"
-            android:screenOrientation="portrait" />
 
         <!--败家品牌详情首页-->
         <activity

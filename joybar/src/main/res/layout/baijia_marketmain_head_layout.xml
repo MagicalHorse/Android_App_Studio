@@ -37,6 +37,7 @@
                 android:id="@+id/baijia_marketmain_head_address_layout_imageview"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
+                android:visibility="gone"
                 android:layout_marginRight="3dp"
                 android:src="@drawable/dingwei" />
 

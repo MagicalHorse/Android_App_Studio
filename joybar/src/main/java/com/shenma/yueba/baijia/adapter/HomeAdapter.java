@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ApproveBuyerDetailsActivity;
-import com.shenma.yueba.baijia.activity.AuthenticationBuyerMainActivity;
 import com.shenma.yueba.baijia.activity.BrandListActivity;
 import com.shenma.yueba.baijia.activity.MarketMainActivity;
 import com.shenma.yueba.baijia.activity.SearchBrandListActivity;
@@ -76,13 +75,7 @@ public class HomeAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     IndexItems _indexItems=(IndexItems)v.getTag();
-                    if(_indexItems.getStoreLeave().equals("4"))
-                    {
-                        forwardMarketActivity(_indexItems.getStoreId());
-                    }else if(_indexItems.getStoreLeave().equals("8"))
-                    {
-                        forwardAuthenticationBuyerActivity(_indexItems.getStoreId());
-                    }
+                    forwardMarketActivity(_indexItems.getStoreId());
 
                 }
             });
@@ -250,13 +243,13 @@ public class HomeAdapter extends BaseAdapter {
                         public void onClick(View v) {
                             IndexProductInfo product = (IndexProductInfo) v.getTag();
                             Intent intent = new Intent(activity, ShopMainActivity.class);
-                            intent.putExtra("userID", Integer.valueOf(product.getUserId()));
+                            intent.putExtra("userID", Integer.valueOf(product.getBuyerId()));
                             activity.startActivity(intent);
                         }
                     });
                     //导购信息1
                     TextView gudie_item_layout_name1_textview = (TextView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_name1_textview);
-                    gudie_item_layout_name1_textview.setText(ToolsUtil.nullToString(product.getNickName()));
+                    gudie_item_layout_name1_textview.setText(ToolsUtil.nullToString(product.getBuyerName()));
                     //导购信息2
                     TextView gudie_item_layout_name2_textview = (TextView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_name2_textview);
                     gudie_item_layout_name2_textview.setText(ToolsUtil.nullToString(product.getBrandName()));
@@ -289,12 +282,6 @@ public class HomeAdapter extends BaseAdapter {
 
     void forwardMarketActivity(String StoreId) {
         Intent intent = new Intent(activity, MarketMainActivity.class);
-        intent.putExtra("StoreId",StoreId);
-        activity.startActivity(intent);
-    }
-
-    void forwardAuthenticationBuyerActivity(String StoreId) {
-        Intent intent = new Intent(activity, AuthenticationBuyerMainActivity.class);
         intent.putExtra("StoreId",StoreId);
         activity.startActivity(intent);
     }

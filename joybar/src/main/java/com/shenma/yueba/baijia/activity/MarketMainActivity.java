@@ -14,7 +14,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.modle.RequestMyCircleInfoBean;
+import com.shenma.yueba.baijia.modle.BrandInfo;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.shenma.yueba.baijia.modle.newmodel.StoreIndexBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.StoreIndexBean;
@@ -51,7 +51,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
     AbsBrandListManager bm;
     //瀑布流管理
     PubuliuManager pubuliuManager;
-    String titlename = "XX商场";
+    String titlename = "";
     String StoreId=null;
     HttpControl httpControl=new HttpControl();
     String SortType="5";
@@ -59,7 +59,9 @@ public class MarketMainActivity extends BaseActivityWithTopView {
     int PageSize=Constants.PAGESIZE_VALUE;
     List<PubuliuBeanInfo> items_array=new ArrayList<PubuliuBeanInfo>();
     PullToRefreshScrollView baijia_market_main_layout_pullTorefreshscrollview;
-
+    ImageView baijia_marketmain_head_address_layout_imageview;
+    List<BrandInfo> brandInfos_array=new ArrayList<BrandInfo>();
+    List<String> brandstr_array=new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);//必须在setContentView()上边
@@ -75,13 +77,10 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         initView();
         initPuBuLiu();
         initHeadView();
-        setBrandData();
         requestData();
     }
 
     void initView() {
-        setTitle(ToolsUtil.nullToString(titlename));
-
         baijia_market_main_layout_pullTorefreshscrollview=(PullToRefreshScrollView)findViewById(R.id.baijia_market_main_layout_pullTorefreshscrollview);
         baijia_market_main_layout_pullTorefreshscrollview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 
@@ -119,8 +118,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
 
     void initHeadView() {
         //地址图片
-        ImageView baijia_marketmain_head_address_layout_imageview = (ImageView) findViewById(R.id.baijia_marketmain_head_address_layout_imageview);
-        baijia_marketmain_head_address_layout_imageview.setVisibility(View.VISIBLE);
+        baijia_marketmain_head_address_layout_imageview = (ImageView) findViewById(R.id.baijia_marketmain_head_address_layout_imageview);
         //图片
         baijia_marketmain_head_background_layout_imageview = (ImageView) findViewById(R.id.baijia_marketmain_head_background_layout_imageview);
         int width = ToolsUtil.getDisplayWidth(this);
@@ -149,11 +147,11 @@ public class MarketMainActivity extends BaseActivityWithTopView {
      * 设置品牌显示
      *********/
     void setBrandData() {
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < 13; i++) {
-            list.add("品牌" + i);
+        brandstr_array.clear();
+        for(int i=0;i<brandInfos_array.size();i++)
+        {
+            brandstr_array.add(ToolsUtil.nullToString(brandInfos_array.get(i).getBrandName()));
         }
-
         bm = new AutoBrandListManager(this,baijia_authencationmain_brand_linearlayout);
         bm.setChildMargin(getResources().getDimensionPixelSize(R.dimen.branditem_margin));
         bm.setLastText("更多品牌", R.dimen.text_authentication_textsize);
@@ -161,7 +159,6 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         bm.setOnClickListener(new BrandListManager.OnBrandItemListener() {
             @Override
             public void onItemClick(View v, int i) {
-                //MyApplication.getInstance().showMessage(MarketMainActivity.this, "数据" + i);
                 Intent intent = new Intent(MarketMainActivity.this, BrandListActivity.class);
                 startActivity(intent);
             }
@@ -173,7 +170,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
                 MarketMainActivity.this.startActivity(intent);
             }
         });
-        bm.nofication(list);
+        bm.nofication(brandstr_array);
     }
 
     /*********
@@ -206,6 +203,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
             @Override
             public void http_Fails(int error, String msg) {
                 MyApplication.getInstance().showMessage(MarketMainActivity.this, msg);
+                ToolsUtil.pullResfresh(baijia_market_main_layout_pullTorefreshscrollview);
             }
         }, MarketMainActivity.this);
     }
@@ -236,6 +234,36 @@ public class MarketMainActivity extends BaseActivityWithTopView {
     }
 
 
+    /********
+     * 设置门店信息
+     * *******/
+    void setHeadDataValue(StoreIndexBean data)
+    {
+        if(data!=null)
+        {
+            titlename=ToolsUtil.nullToString(data.getStoreName());
+            setTitle(ToolsUtil.nullToString(titlename));
+            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(data.getLogo()), baijia_marketmain_head_background_layout_imageview, MyApplication.getInstance().getDisplayImageOptions());
+            baijia_marketmain_head_name_layout_textview.setText(ToolsUtil.nullToString(data.getStoreName()));
+            //如果是认证买手
+            if(data.getStoreLeave().equals("8"))
+            {
+                baijia_marketmain_head_address_layout_imageview.setVisibility(View.GONE);
+                baijia_marketmain_head_address_layout_textview.setText(ToolsUtil.nullToString(data.getDescription()));
+            }else
+            {
+                baijia_marketmain_head_address_layout_imageview.setVisibility(View.VISIBLE);
+                baijia_marketmain_head_address_layout_textview.setText(ToolsUtil.nullToString(data.getStoreLocal()));
+            }
+        }
+        if(data!=null && data.getBrands()!=null && data.getBrands().size()>0)
+        {
+            brandInfos_array=data.getBrands();
+        }
+        setBrandData();
+    }
+
+
     void requestFalshData()
     {
         requestData(1, 0);
@@ -248,6 +276,8 @@ public class MarketMainActivity extends BaseActivityWithTopView {
 
     void refreshData(StoreIndexBean data)
     {
+        //赋值门店信息
+        setHeadDataValue(data);
         currPage++;
         items_array.clear();
         transformData(data);

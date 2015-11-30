@@ -7,11 +7,8 @@ import java.io.Serializable;
  */
 public class IndexProductInfo implements Serializable{
     String Pic;//  图片
-
     float UnitPrice ;//吊牌价
     float Price;//   销售价
-    String UserId;//买手id
-    String NickName ;// 买手昵称
     String BrandName ;//商品品牌
     String BrandId;//品牌编号
     String UserLogo;//买手logo
@@ -74,22 +71,6 @@ public class IndexProductInfo implements Serializable{
 
     public void setPrice(float price) {
         Price = price;
-    }
-
-    public String getUserId() {
-        return UserId;
-    }
-
-    public void setUserId(String userId) {
-        UserId = userId;
-    }
-
-    public String getNickName() {
-        return NickName;
-    }
-
-    public void setNickName(String nickName) {
-        NickName = nickName;
     }
 
     public String getBrandName() {
