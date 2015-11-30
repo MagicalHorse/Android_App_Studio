@@ -125,6 +125,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
                       productSearchFragment.getProductList(SearchResultActivity.this,true);
                       break;
                   case 1:
+                      brandSearchFragment.getBrand(SearchResultActivity.this,true);
                       break;
                   case 2:
                       buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true);
@@ -151,7 +152,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
      */
     private void setFragmentList() {
         productSearchFragment = new ProductSearchFragment(key,storeId);
-        brandSearchFragment = new BrandSearchFragment();
+        brandSearchFragment = new BrandSearchFragment(key);
         buyerSearchFragment = new BuyerSearchFragment(key,storeId);
         marketSearchFragment = new MarketSearchFragment(key);
         fragmentList.add(productSearchFragment);

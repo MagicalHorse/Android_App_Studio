@@ -70,7 +70,7 @@ public class HttpConstants {
 	 * 搜商场
 	 *
 	 */
-	public static String METHOD_searchstore = V3FORREAD + "searchstore";
+	public static String METHOD_searchbrand = V3FORREAD + "searchbrand";
 
 	/**
 	 * 搜买手
@@ -78,11 +78,11 @@ public class HttpConstants {
 	 */
 	public static String METHOD_searchbuyer = V3FORREAD + "searchbuyer";
 
-//	/**
-//	 * 搜品牌
-//	 *
-//	 */
-//	public static String METHOD_searchstore = V3FORREAD + "searchstore";
+	/**
+	 * 搜品牌
+	 *
+	 */
+	public static String METHOD_searchstore = V3FORREAD + "searchstore";
 
 	/**
 	 * 搜商品

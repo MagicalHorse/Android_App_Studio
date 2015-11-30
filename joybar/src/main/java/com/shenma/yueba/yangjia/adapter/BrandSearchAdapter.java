@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.BaseAdapterWithUtil;
+import com.shenma.yueba.baijia.modle.BrandInfo;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 import com.shenma.yueba.yangjia.activity.SalesManagerForBuyerActivity;
@@ -19,9 +20,9 @@ import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
 import java.util.List;
 
 public class BrandSearchAdapter extends BaseAdapterWithUtil {
-	private List<AttationAndFansItemBean> mList;
+	private List<BrandInfo> mList;
 
-	public BrandSearchAdapter(Context ctx, List<AttationAndFansItemBean> mList) {
+	public BrandSearchAdapter(Context ctx, List<BrandInfo> mList) {
 		super(ctx);
 		this.ctx = ctx;
 		this.mList = mList;
@@ -62,8 +63,8 @@ public class BrandSearchAdapter extends BaseAdapterWithUtil {
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
-//		initBitmap(ToolsUtil.nullToString(mList.get(position).getUserLogo()), holder.riv_head);
-//		holder.tv_name.setText(ToolsUtil.nullToString(mList.get(position).getUserName()));
+		initBitmap(ToolsUtil.nullToString(mList.get(position).getPic()), holder.iv_brand_head);
+		holder.tv_brand_name.setText(ToolsUtil.nullToString(mList.get(position).getBrandName()));
 //		holder.tv_fans_count.setText("粉丝 "+ToolsUtil.nullToString(mList.get(position).getFansCount()));
 //		holder.tv_atttention_count.setText("关注  "+ToolsUtil.nullToString(mList.get(position).getFavoiteCount()));
 //		if(mList.get(position).isFavorite()){

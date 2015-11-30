@@ -67,6 +67,7 @@ import com.shenma.yueba.baijia.modle.newmodel.FavBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.IndexBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.OtherBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.RecommondBuyerlistBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.SearchBrandBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchProductBackBean;
@@ -277,6 +278,21 @@ public class HttpControl {
 		BasehttpSend(map, context, HttpConstants.METHOD_searchbuyer, httpCallBack, SearchBuyerBackBean.class, showDialog, false);
 	}
 
+
+	/**
+	 * 搜品牌
+	 * @param key
+	 * @param Page
+	 * @param httpCallBack
+	 * @param context
+	 */
+	public void searchbrand(String key,int Page,boolean showDialog,final HttpCallBackInterface httpCallBack, Context context) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key",key);
+		map.put("Page",Page+"");
+		map.put("PageSize",Constants.PageSize);
+		BasehttpSend(map, context, HttpConstants.METHOD_searchbrand, httpCallBack, SearchBrandBackBean.class, showDialog, false);
+	}
 
 	/**
 	 * 搜商品
@@ -875,8 +891,8 @@ public class HttpControl {
 		BasehttpSend(map, context, HttpConstants.METHOD_GETPRODUCTTAG,
 				httpCallBack, TagListBackBean.class, false, false);
 	}
-
 	/**
+
 	 * 获取品牌列表
 	 * @param httpCallBack
 	 * @param context
