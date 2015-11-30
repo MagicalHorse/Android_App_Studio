@@ -77,7 +77,7 @@ public class BuyerSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-				getSearchBuyerList(getActivity(),storeId, false);
+				getSearchBuyerList(getActivity(),storeId, false,false);
 
 			}
 
@@ -85,7 +85,7 @@ public class BuyerSearchFragment extends BaseFragment {
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page++;
 				isRefresh = false;
-				getSearchBuyerList(getActivity(),storeId, false);
+				getSearchBuyerList(getActivity(),storeId, false,false);
 			}
 		});
 		return view;
@@ -96,8 +96,8 @@ public class BuyerSearchFragment extends BaseFragment {
 	/**
 	 * 获取搜到的买手列表
 	 */
-	public void getSearchBuyerList(Context ctx,String storeId,boolean showDialog){
-		if(showDialog && mList!=null && mList.size()>0){
+	public void getSearchBuyerList(Context ctx,String storeId,boolean showDialog,boolean focusRefresh){
+		if(showDialog && mList!=null && mList.size()>0 && !focusRefresh){
 			return;
 		}
 		HttpControl httpControl = new HttpControl();

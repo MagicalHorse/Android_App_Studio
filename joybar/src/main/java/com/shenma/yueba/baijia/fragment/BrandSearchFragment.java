@@ -64,6 +64,7 @@ public class BrandSearchFragment extends BaseFragment {
 				.findViewById(R.id.tv_nodata);
 		adapter = new BrandSearchAdapter(getActivity(),
 				mList);
+		pull_refresh_list.setMode(PullToRefreshBase.Mode.BOTH);
 		pull_refresh_list.setAdapter(adapter);
 		pull_refresh_list.setOnRefreshListener(new OnRefreshListener2() {
 
@@ -71,7 +72,7 @@ public class BrandSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-				getBrand(getActivity(), false);
+				getBrand(getActivity(), false,false);
 				
 			}
 
@@ -79,7 +80,7 @@ public class BrandSearchFragment extends BaseFragment {
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page ++;
 				isRefresh = false;
-				getBrand(getActivity(), false);
+				getBrand(getActivity(), false,false);
 			}
 		});
 		return view;
@@ -91,8 +92,8 @@ public class BrandSearchFragment extends BaseFragment {
 	/**
 	 * 获取品牌列表
 	 */
-	public void getBrand(Context ctx,boolean showDialog){
-		if(showDialog && mList!=null && mList.size()>0){
+	public void getBrand(Context ctx,boolean showDialog,boolean focusRefresh){
+		if(showDialog && mList!=null && mList.size()>0 && !focusRefresh){
 			return;
 		}
 		HttpControl httpControl = new HttpControl();
