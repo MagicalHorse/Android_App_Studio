@@ -14,7 +14,7 @@ public class BuyerProductsBean {
     private String totalpaged;
     private String ispaged;
     private String total;
-    private List<ProductsInfoBean> products;
+    private List<ProductsInfoBean> Products;
 
 
     public String getPageindex() {
@@ -66,10 +66,10 @@ public class BuyerProductsBean {
     }
 
     public List<ProductsInfoBean> getProducts() {
-        return products;
+        return Products;
     }
 
     public void setProducts(List<ProductsInfoBean> products) {
-        this.products = products;
+        Products = products;
     }
 }

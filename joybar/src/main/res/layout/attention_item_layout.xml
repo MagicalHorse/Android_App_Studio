@@ -6,14 +6,19 @@
 
 
     <ImageView
+        android:layout_gravity="center_horizontal"
         android:layout_width="fill_parent"
+        android:scaleType="centerCrop"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_launcher" />
+        android:background="@drawable/ic_launcher"
+        android:id="@+id/iv_product" />
 
     <RelativeLayout
+        android:id="@+id/rl_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dip">
+        android:padding="10dip"
+        >
 
 
         <TextView
