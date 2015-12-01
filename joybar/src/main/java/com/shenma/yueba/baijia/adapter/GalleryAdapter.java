@@ -19,7 +19,6 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
 import com.shenma.yueba.view.CircularImageView;
-import com.shenma.yueba.view.CustomerImageView;
 import com.shenma.yueba.view.RoundImageView;
 
 public class GalleryAdapter extends BaseAdapterWithUtil {
