@@ -107,7 +107,7 @@ public class CircleListActivity extends BaseActivityWithTopView{
 				intent.putExtra("Chat_NAME",myCircleInfo.getName());//圈子名字
 				intent.putExtra("circleId",myCircleInfo.getId());
 				startActivity(intent);*/
-				ToolsUtil.forwardChatActivity(CircleListActivity.this, myCircleInfo.getName(), 0, myCircleInfo.getId(), null,null);
+				ToolsUtil.forwardChatActivity(CircleListActivity.this, myCircleInfo.getName(), 0, myCircleInfo.getId(), null,null,null);
 			}
 		});
 	}

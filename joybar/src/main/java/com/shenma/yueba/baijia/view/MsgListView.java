@@ -93,7 +93,7 @@ public class MsgListView extends BaseView implements ImBroadcastReceiverLinstene
 				intent.putExtra("Chat_NAME",msgListInfo.getName());//名字
 				intent.putExtra("Chat_RoomID",msgListInfo.getRoomId());//roomid
 				activity.startActivity(intent);*/
-				ToolsUtil.forwardChatActivity(activity, msgListInfo.getName(), to_userid,0, msgListInfo.getRoomId(),null);
+				ToolsUtil.forwardChatActivity(activity, msgListInfo.getName(), to_userid,0, msgListInfo.getRoomId(),null,null);
 			}
 		});
 		

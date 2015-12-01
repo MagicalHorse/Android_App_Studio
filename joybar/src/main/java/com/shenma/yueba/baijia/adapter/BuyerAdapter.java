@@ -367,7 +367,7 @@ public class BuyerAdapter extends BaseAdapter {
 						intentsiliao.putExtra("Chat_NAME", bean.getBuyerName());// 圈子名字
 						intentsiliao.putExtra("toUser_id", bean.getBuyerid());
 						activity.startActivity(intentsiliao);*/
-							ToolsUtil.forwardChatActivity(activity, bean.getBuyerName(), bean.getBuyerid(), 0, null, null);
+							ToolsUtil.forwardChatActivity(activity, bean.getBuyerName(), bean.getBuyerid(), 0, null, null,null);
 						}
 
 						break;
@@ -416,7 +416,7 @@ public class BuyerAdapter extends BaseAdapter {
 								if (count < 0) {
 									count = 0;
 								}
-								bean.getLikeUsers().setIsLike(false);
+								bean.getLikeUsers().setIsIsLike(false);
 								bean.getLikeUsers().setCount(count);
 								v.setText(count + "");
 								break;
@@ -424,7 +424,7 @@ public class BuyerAdapter extends BaseAdapter {
 								count++;
 								v.setSelected(true);
 								v.setText(count + "");
-								bean.getLikeUsers().setIsLike(true);
+								bean.getLikeUsers().setIsIsLike(true);
 								bean.getLikeUsers().setCount(count);
 								break;
 						}

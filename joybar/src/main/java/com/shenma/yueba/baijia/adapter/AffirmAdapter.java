@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.baijia.modle.CKProductDeatilsInfoBean;
 import com.shenma.yueba.baijia.modle.PrioductSizesInfoBean;
+import com.shenma.yueba.baijia.modle.ProductSPECbean;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.ToolsUtil;
 
@@ -25,11 +27,11 @@ import com.shenma.yueba.util.ToolsUtil;
 
 public class AffirmAdapter extends BaseAdapter{
 Context context;
-List<ProductsDetailsInfoBean> obj_list=new ArrayList<ProductsDetailsInfoBean>();
-PrioductSizesInfoBean prioductSizesInfoBean;
+List<CKProductDeatilsInfoBean> obj_list=new ArrayList<CKProductDeatilsInfoBean>();
+	ProductSPECbean prioductSizesInfoBean;
 int buyCount=0;
 
-	public AffirmAdapter(Context context,List<ProductsDetailsInfoBean> obj_list,PrioductSizesInfoBean prioductSizesInfoBean,int buyCount)
+	public AffirmAdapter(Context context,List<CKProductDeatilsInfoBean> obj_list,ProductSPECbean prioductSizesInfoBean,int buyCount)
 	{
 		this.context=context;
 		this.obj_list=obj_list;
@@ -93,7 +95,7 @@ int buyCount=0;
  
  void setValue(Holder holder,int position)
  {
-	 ProductsDetailsInfoBean productsDetailsInfoBean=obj_list.get(position);
+	 CKProductDeatilsInfoBean productsDetailsInfoBean=obj_list.get(position);
 	 holder.affirmorder_item_username_textview.setText(ToolsUtil.nullToString(productsDetailsInfoBean.getBuyerName()));
 	 holder.affirmorder_item_name_textview.setText(ToolsUtil.nullToString(productsDetailsInfoBean.getStoreName()));
 	 if(productsDetailsInfoBean.getProductPic()!=null && productsDetailsInfoBean.getProductPic().size()>0)
@@ -101,7 +103,7 @@ int buyCount=0;
 		 MyApplication.getInstance().getBitmapUtil().display(holder.affirmorder_item_icon_imageview, ToolsUtil.getImage(ToolsUtil.nullToString(productsDetailsInfoBean.getProductPic().get(0).getLogo()), 320, 0));
 	 }
 	 holder.affirmorder_item_productname_textview.setText(ToolsUtil.nullToString(productsDetailsInfoBean.getProductName()));
-	 holder.affirmorder_item_productsize_textview.setText(prioductSizesInfoBean.getSize());
+	 holder.affirmorder_item_productsize_textview.setText(prioductSizesInfoBean.getSizeName());
 	 holder.affirmorder_item_productcount_textview.setText("x"+buyCount+"");
 	 holder.affirmorder_item_productprice_textview.setText("￥"+productsDetailsInfoBean.getPrice());
 	 

@@ -97,7 +97,7 @@ public class MsgListFragment extends BaseFragment implements ImBroadcastReceiver
 				intent.putExtra("Chat_NAME",msgListInfo.getName());//名字
 				intent.putExtra("Chat_RoomID",msgListInfo.getRoomId());//roomid
 				getActivity().startActivity(intent);*/
-				ToolsUtil.forwardChatActivity(getActivity(),msgListInfo.getName(), msgListInfo.getId(),0, msgListInfo.getRoomId(),null);
+				ToolsUtil.forwardChatActivity(getActivity(),msgListInfo.getName(), msgListInfo.getId(),0, msgListInfo.getRoomId(),null,null);
 			}
 		});
 		ToolsUtil.initPullResfresh(pull_refresh_list, getActivity());

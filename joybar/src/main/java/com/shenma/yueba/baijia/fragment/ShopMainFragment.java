@@ -197,7 +197,7 @@ public class ShopMainFragment extends Fragment {
                     if (!MyApplication.getInstance().isUserLogin(getActivity())) {
                         return;
                     }
-                    ToolsUtil.forwardChatActivity(getActivity(), userInfoBean.getUserName(), userID, 0, null, null);
+                    ToolsUtil.forwardChatActivity(getActivity(), userInfoBean.getUserName(), userID, 0, null, null,null);
                     break;
             }
         }

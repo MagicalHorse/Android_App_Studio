@@ -19,6 +19,16 @@ public class LikeUsersInfoBean implements Serializable{
 		return Users;
 	}
 
+	public boolean isIsLike() {
+		return isIsLike;
+	}
+
+	public void setIsIsLike(boolean isIsLike) {
+		this.isIsLike = isIsLike;
+	}
+
+	boolean isIsLike=false;
+
 	public void setUsers(List<UsersInfoBean> users) {
 		Users = users;
 	}

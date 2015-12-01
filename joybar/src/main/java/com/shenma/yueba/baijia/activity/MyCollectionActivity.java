@@ -369,7 +369,7 @@ public class MyCollectionActivity extends BaseActivityWithTopView {
 	 *            View 商品对象
 	 **/
 	void submitAttention(final int Status, final MyFavoriteProductListInfo myFavoriteProductListInfo, final View v) {
-		httpCntrol.setFavor(myFavoriteProductListInfo.getId(), Status, new HttpCallBackInterface() {
+		httpCntrol.setFavor(Integer.toString(myFavoriteProductListInfo.getId()), Status, new HttpCallBackInterface() {
 
 			@Override
 			public void http_Success(Object obj) {

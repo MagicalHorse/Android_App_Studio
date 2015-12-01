@@ -58,6 +58,7 @@ import com.shenma.yueba.baijia.activity.CircleInfoActivity;
 import com.shenma.yueba.baijia.activity.ShopMainActivity;
 import com.shenma.yueba.baijia.modle.BaseRequest;
 import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
+import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
 import com.shenma.yueba.broadcaseReceiver.OrderBroadcaseReceiver;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.yangjia.modle.AliYunKeyBackBean;
@@ -966,7 +967,7 @@ public class ToolsUtil {
      * @param Chat_RoomID String 房间id  没有 传 null
      * @param bean        RequestProductDetailsInfoBean 商品信息 没有穿null
      ****/
-    public static void forwardChatActivity(Context ctx, String Chat_NAME, int toUser_id, int circleId, String Chat_RoomID, RequestCKProductDeatilsInfo bean) {
+    public static void forwardChatActivity(Context ctx, String Chat_NAME, int toUser_id, int circleId, String Chat_RoomID, RequestCKProductDeatilsInfo bean,RequestCk_SPECDetails requestCk_SPECDetails) {
         MyApplication.getInstance().finishActivity(ChatActivity.class);
         Intent intent = new Intent(ctx, ChatActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -975,6 +976,7 @@ public class ToolsUtil {
         intent.putExtra("toUser_id", toUser_id);
         intent.putExtra("Chat_RoomID", Chat_RoomID);
         intent.putExtra("DATA", bean);
+        intent.putExtra("standard_data",requestCk_SPECDetails);
         ctx.startActivity(intent);
     }
 

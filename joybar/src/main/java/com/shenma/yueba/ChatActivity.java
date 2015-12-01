@@ -14,7 +14,10 @@ import com.shenma.yueba.baijia.activity.BaiJiaShareDataActivity;
 import com.shenma.yueba.baijia.adapter.ChattingAdapter;
 import com.shenma.yueba.baijia.dialog.CreateOrderDialog;
 import com.shenma.yueba.baijia.modle.BaiJiaShareInfoBean;
+import com.shenma.yueba.baijia.modle.CKProductDeatilsInfoBean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
+import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
+import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
 import com.shenma.yueba.baijia.modle.RequestImMessageInfoBean;
 import com.shenma.yueba.baijia.modle.RequestRoomInfo;
 import com.shenma.yueba.baijia.modle.RequestRoomInfoBean;
@@ -823,24 +826,23 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
 		// 立即购买
 		Button chat_product_head_layout_button = (Button) findViewById(R.id.chat_product_head_layout_button);
 		chat_product_head_layout_button.setEnabled(false);
-		chat_product_head_layout_button
-				.setOnClickListener(new OnClickListener() {
+		chat_product_head_layout_button.setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						if (createOrderDialog != null) {
-							createOrderDialog.cancel();
-						}
-						createOrderDialog = new CreateOrderDialog(
-								ChatActivity.this,
-								(RequestProductDetailsInfoBean) v.getTag());
-						createOrderDialog.show();
-					}
-				});
+			@Override
+			public void onClick(View v) {
+				if (createOrderDialog != null) {
+					createOrderDialog.cancel();
+				}
+				RequestCKProductDeatilsInfo bean=(RequestCKProductDeatilsInfo)ChatActivity.this.getIntent().getSerializableExtra("DATA");
+				RequestCk_SPECDetails standard_data=(RequestCk_SPECDetails)ChatActivity.this.getIntent().getSerializableExtra("standard_data");
+				createOrderDialog = new CreateOrderDialog(ChatActivity.this,bean,standard_data);
+				createOrderDialog.show();
+			}
+		});
 		Object obj = this.getIntent().getSerializableExtra("DATA");
-		if (obj != null && obj instanceof RequestProductDetailsInfoBean) {
-			RequestProductDetailsInfoBean bean = (RequestProductDetailsInfoBean) obj;
-			ProductsDetailsInfoBean productsDetailsInfoBean = bean.getData();
+		if (obj != null && obj instanceof RequestCKProductDeatilsInfo) {
+			RequestCKProductDeatilsInfo bean = (RequestCKProductDeatilsInfo) obj;
+			CKProductDeatilsInfoBean productsDetailsInfoBean = bean.getData();
 			if (productsDetailsInfoBean != null) {
 				List<ProductsDetailsTagInfo> productsDetailsTagInfo_list = productsDetailsInfoBean
 						.getProductPic();

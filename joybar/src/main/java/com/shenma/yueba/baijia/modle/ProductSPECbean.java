@@ -1,10 +1,12 @@
 package com.shenma.yueba.baijia.modle;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2015/10/12.
  * 本类定义 商品规格 对象
  */
-public class ProductSPECbean {
+public class ProductSPECbean implements Serializable{
     boolean ischecked=false;//是否选择
     String SizeName;// 规格名称
     String SizeId;//规格id

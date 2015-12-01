@@ -15,9 +15,12 @@ import android.widget.Toast;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.AffirmAdapter;
+import com.shenma.yueba.baijia.modle.CKProductDeatilsInfoBean;
 import com.shenma.yueba.baijia.modle.PayResponseFormBean;
 import com.shenma.yueba.baijia.modle.PrioductSizesInfoBean;
+import com.shenma.yueba.baijia.modle.ProductSPECbean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsPromotion;
+import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
 import com.shenma.yueba.baijia.modle.RequestComputeAmountInfoBean;
 import com.shenma.yueba.baijia.modle.RequestCreatOrderInfoBean;
 import com.shenma.yueba.util.HttpControl;
@@ -64,13 +67,13 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 	// 提交
 	Button affrimorder_layout_footer_sumit_button;
 	HttpControl httpControl = new HttpControl();
-	List<ProductsDetailsInfoBean> productlist = new ArrayList<ProductsDetailsInfoBean>();
-	ProductsDetailsInfoBean productsDetailsInfoBean;
+	List<CKProductDeatilsInfoBean> productlist = new ArrayList<CKProductDeatilsInfoBean>();
+	CKProductDeatilsInfoBean productsDetailsInfoBean;
 	// 优惠信息
 	ProductsDetailsPromotion productsDetailsPromotion;
 
 	int buyCount = -1;// 购买数量
-	PrioductSizesInfoBean currCheckedFouce = null;// 选择的尺寸数据
+	ProductSPECbean currCheckedFouce = null;// 选择的尺寸数据
 	RequestComputeAmountInfoBean requestComputeAmountInfoBean;
 
 	@Override
@@ -82,8 +85,8 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 		setContentView(parentview);
 		super.onCreate(savedInstanceState);
 		if (this.getIntent().getSerializableExtra("DATA") != null
-				&& this.getIntent().getSerializableExtra("DATA") instanceof RequestProductDetailsInfoBean) {
-			RequestProductDetailsInfoBean bean = (RequestProductDetailsInfoBean) this
+				&& this.getIntent().getSerializableExtra("DATA") instanceof RequestCKProductDeatilsInfo) {
+			RequestCKProductDeatilsInfo bean = (RequestCKProductDeatilsInfo) this
 					.getIntent().getSerializableExtra("DATA");
 			productsDetailsInfoBean = bean.getData();
 			productlist.add(productsDetailsInfoBean);
@@ -95,8 +98,7 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 				finish();
 				return;
 			}
-			currCheckedFouce = (PrioductSizesInfoBean) this.getIntent()
-					.getSerializableExtra("CHECKEDPrioductSizes");
+			currCheckedFouce = (ProductSPECbean) this.getIntent().getSerializableExtra("CHECKEDPrioductSizes");
 			if (productsDetailsInfoBean != null) {
 				initView();
 
@@ -112,7 +114,7 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 			return;
 		}
 
-		getBaijiaOrderPrice(productsDetailsInfoBean.getProductId(), buyCount);
+		getBaijiaOrderPrice(Integer.valueOf(productsDetailsInfoBean.getProductId()), buyCount);
 	}
 
 	void initView() {
@@ -166,8 +168,7 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 		affirmorder_layout_icon_imageview.setOnClickListener(this);
 
 		affirmorder_layout_product_listview = (ListView) findViewById(R.id.affirmorder_layout_product_listview);
-		AffirmAdapter affirmAdapter = new AffirmAdapter(this, productlist,
-				currCheckedFouce, buyCount);
+		AffirmAdapter affirmAdapter = new AffirmAdapter(this, productlist,currCheckedFouce, buyCount);
 		affirmorder_layout_product_listview.setAdapter(affirmAdapter);
 		ListViewUtils
 				.setListViewHeightBasedOnChildren(affirmorder_layout_product_listview);
@@ -234,9 +235,8 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 	void submitData() {
 		String phone = affirmorder_item_tihuophonevalue_textview.getText()
 				.toString().trim();
-		httpControl.createProductOrder(phone,
-				productsDetailsInfoBean.getProductId(), buyCount,
-				currCheckedFouce.getSizeId(), true,
+		httpControl.createProductOrder(phone,Integer.valueOf(productsDetailsInfoBean.getProductId()), buyCount,
+				Integer.valueOf(currCheckedFouce.getSizeId()), true,
 				new HttpCallBackInterface() {
 
 					@Override

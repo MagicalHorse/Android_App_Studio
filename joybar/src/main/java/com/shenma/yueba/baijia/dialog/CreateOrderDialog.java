@@ -7,9 +7,11 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.AffirmOrderActivity;
 import com.shenma.yueba.baijia.modle.CKProductDeatilsInfoBean;
-import com.shenma.yueba.baijia.modle.PrioductSizesInfoBean;
+import com.shenma.yueba.baijia.modle.ProductColorTypeBean;
+import com.shenma.yueba.baijia.modle.ProductSPECbean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
 import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
+import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.XCFlowLayout;
@@ -47,24 +49,27 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 	RelativeLayout ll;
 	EditText createorder_dialog_layout_countvalue_edittext;
 	RequestCKProductDeatilsInfo bean;
+	RequestCk_SPECDetails standard_data;
+	RequestCk_SPECDetails requestCk_SPECDetails;
 	CKProductDeatilsInfoBean productsDetailsInfoBean;
 	Button create_dialog_jian_button,create_dialog_jia_button;
 	//库存最大值
 	int maxValue=0;
 	//当前选中的尺寸对象
-	PrioductSizesInfoBean currCheckedFouce=null;
+	ProductSPECbean currCheckedFouce=null;
 	Button createorder_dialog_layout_submit_button;
 	List<View> view_array=new ArrayList<View>();
 
 	TextView createorder_dialog_layout_repertoryvalue_textview;
-	List<PrioductSizesInfoBean> size_list=new ArrayList<PrioductSizesInfoBean>();
+	List<ProductSPECbean> size_list=new ArrayList<ProductSPECbean>();
 	XCFlowLayout flowlayout;
 	
-	public CreateOrderDialog(Context context,RequestCKProductDeatilsInfo bean) {
+	public CreateOrderDialog(Context context,RequestCKProductDeatilsInfo bean,RequestCk_SPECDetails standard_data) {
 		super(context,R.style.MyDialog);
 
 		this.context=context;
 		this.bean=bean;
+		this.requestCk_SPECDetails=standard_data;
 		setOwnerActivity((Activity)context);
 		productsDetailsInfoBean=bean.getData();
 		if(bean==null || productsDetailsInfoBean==null)
@@ -103,10 +108,15 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 		//颜色类型
 		TextView createorder_dialog_layout_colorvalue_textview=(TextView)ll.findViewById(R.id.createorder_dialog_layout_colorvalue_textview);
 		//设置尺寸
-		if(productsDetailsInfoBean.getSizes()!=null && productsDetailsInfoBean.getSizes().size()>0)
+		if(requestCk_SPECDetails.getData()!=null && requestCk_SPECDetails.getData().size()>0)
 		{
+			ProductColorTypeBean productColorTypeBean=requestCk_SPECDetails.getData().get(0);
+			if(productColorTypeBean!=null)
+			{
+				size_list.addAll(productColorTypeBean.getSize());
+			}
 			size_list.clear();
-			size_list.addAll(productsDetailsInfoBean.getSizes());
+
 		}
 		flowlayout=(XCFlowLayout)ll.findViewById(R.id.flowlayout);
 		//减
@@ -297,12 +307,12 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 	{
 		for(int i=0;i<size_list.size();i++)
 		{
-			PrioductSizesInfoBean prioductSizesInfoBean=size_list.get(i);
+			ProductSPECbean productSPECbean=size_list.get(i);
 			TextView btn=new TextView(context);
 			btn.setGravity(Gravity.CENTER);
 			FontManager.changeFonts(context, btn);
-			btn.setText(prioductSizesInfoBean.getSize());
-			btn.setTag(prioductSizesInfoBean);
+			btn.setText(productSPECbean.getSizeName());
+			btn.setTag(productSPECbean);
 			btn.setTextSize(12);
 			btn.setBackgroundResource(R.drawable.gridviewitem_background);
 			MarginLayoutParams lp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
@@ -334,7 +344,7 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 	 * ***/
 	void setStyleValue(View v)
 	{
-		currCheckedFouce=(PrioductSizesInfoBean)v.getTag();
+		currCheckedFouce=(ProductSPECbean)v.getTag();
 		setCheckFouse();
 		v.setSelected(true);
 	}
