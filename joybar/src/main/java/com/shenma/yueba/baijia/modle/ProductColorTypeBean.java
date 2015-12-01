@@ -1,5 +1,6 @@
 package com.shenma.yueba.baijia.modle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by Administrator on 2015/10/12.
  * 本类定义商品颜色 类型 对象
  */
-public class ProductColorTypeBean {
+public class ProductColorTypeBean implements Serializable{
     boolean isChecked=false; //是否被选中
     String ColorName;//颜色名称       如果不存在颜色信息  则为 ‘默认’
     String ColorId;//颜色id      //   如果不存在颜色信息  则为0

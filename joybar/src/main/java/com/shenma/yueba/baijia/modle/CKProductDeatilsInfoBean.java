@@ -13,7 +13,6 @@ public class CKProductDeatilsInfoBean implements Serializable{
     String BuyerName;//买手名字
     String BuyerLogo;//买手头像
     String BuyerMobile;//买手手机
-    String BuyerLeave;//买手级别   0 普通用户  4 商场导购 	8认证买手	16品牌买手
     String TurnCount;//商品成交量
     String PickAddress;//自提地址
     String ProductId;//商品id
@@ -22,10 +21,12 @@ public class CKProductDeatilsInfoBean implements Serializable{
     double UnitPrice;//吊牌价
     String ProductType;//商品类型    2  普通商品    4通用商品
     String BrandName;//品牌名字
+    String UserLevel;//
     String StoreService;//门店服务信息
     String SizeContrastPic;//尺码图
     String CityId;// 商品所在城市
     String CityName;//商品所在城市
+
     List<CkProductInfoBean> InterestedProduct = new ArrayList<CkProductInfoBean>();//可能感兴趣的商品
     LikeUsersInfoBean LikeUsers=new LikeUsersInfoBean();//关注的人
     boolean IsFavorite=false;// 当前用户是否喜欢该商品
@@ -39,6 +40,32 @@ public class CKProductDeatilsInfoBean implements Serializable{
     String ShareLink;//分享链接地址
     String ShareDesc;//分享内容
     List<ProductsDetailsTagInfo>  ProductPic=new ArrayList<ProductsDetailsTagInfo>();
+    boolean  IsJoinDeiscount=false;//是否参加Vip折扣  eg.False
+    float VipDiscount;//Vip折扣率  eg.0
+
+    public float getVipDiscount() {
+        return VipDiscount;
+    }
+
+    public void setVipDiscount(float vipDiscount) {
+        VipDiscount = vipDiscount;
+    }
+
+    public String getUserLevel() {
+        return UserLevel;
+    }
+
+    public void setUserLevel(String userLevel) {
+        UserLevel = userLevel;
+    }
+
+    public boolean isJoinDeiscount() {
+        return IsJoinDeiscount;
+    }
+
+    public void setIsJoinDeiscount(boolean isJoinDeiscount) {
+        IsJoinDeiscount = isJoinDeiscount;
+    }
 
     public List<ProductsDetailsTagInfo> getProductPic() {
         return ProductPic;
@@ -95,15 +122,7 @@ public class CKProductDeatilsInfoBean implements Serializable{
         BuyerMobile = buyerMobile;
     }
 
-    public String getBuyerLeave() {
-        return BuyerLeave;
-    }
 
-    public void setBuyerLeave(String buyerLeave) {
-        BuyerLeave = buyerLeave;
-    }
-
-    
     public String getTurnCount() {
         return TurnCount;
     }

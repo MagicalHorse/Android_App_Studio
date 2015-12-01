@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,13 +26,11 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.ScrollViewPagerAdapter;
 import com.shenma.yueba.baijia.modle.CKProductDeatilsInfoBean;
-import com.shenma.yueba.baijia.modle.LikeUsersInfoBean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsPromotion;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagsInfo;
 import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
 import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
-import com.shenma.yueba.baijia.modle.UsersInfoBean;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
@@ -104,6 +101,8 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		this.activity = activity;
 		layoutInflater = LayoutInflater.from(activity);
 		bean = (RequestCKProductDeatilsInfo) activity.getIntent().getSerializableExtra("ProductInfo");
+		Data=bean.getData();
+		productID=Integer.valueOf(Data.getProductId());
 	}
 
 	@Override
@@ -282,11 +281,17 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		String usericon = ToolsUtil.nullToString(Data.getBuyerLogo());
 		// 买手昵称
 		String username =ToolsUtil.nullToString(Data.getBuyerName()) ;
+		//城市
+		String cityAddress=ToolsUtil.nullToString(Data.getCityName());
+		setdataValue(R.id.address_name_textview,cityAddress);
 		// 价格
 		double price = Data.getPrice();
 		// 商品名称
 		String productName = ToolsUtil.nullToString(Data.getProductName());
 		initPic(usericon, approvebuyerdetails_icon_imageview);
+
+		TextView approvebuyerdetails_buyeraddress_textview=(TextView)parentView.findViewById(R.id.approvebuyerdetails_buyeraddress_textview);
+		approvebuyerdetails_buyeraddress_textview.setText(ToolsUtil.nullToString(Data.getPickAddress()));
 		// 自提地址
 		setdataValue(R.id.approvebuyerdetails_addressvalue_textview, address);
 

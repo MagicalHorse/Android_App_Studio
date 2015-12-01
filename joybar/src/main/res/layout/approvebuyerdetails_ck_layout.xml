@@ -64,8 +64,6 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
                 android:background="@color/white" />
-
-
         </LinearLayout>
 
     </com.shenma.yueba.view.scroll.MyScrollView>
@@ -84,7 +82,6 @@
         style="@style/modulepaddingleftandright_style"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_below="@+id/product_head_include"
         android:orientation="horizontal"
         android:visibility="gone" />
 

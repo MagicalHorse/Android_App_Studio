@@ -148,17 +148,9 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 		// 提货电话
 		affirmorder_item_tihuophonevalue_textview = (TextView) findViewById(R.id.affirmorder_item_tihuophonevalue_textview);
 		affirmorder_layout_icon_roundimageview = (RoundImageView) findViewById(R.id.affirmorder_layout_icon_roundimageview);
-		affirmorder_layout_icon_roundimageview.setTag(productsDetailsInfoBean
-				.getBuyerId());
-		affirmorder_layout_icon_roundimageview
-				.setOnClickListener(onClickListener);
-		MyApplication
-				.getInstance()
-				.getBitmapUtil()
-				.display(
-						affirmorder_layout_icon_roundimageview,
-						ToolsUtil.nullToString(productsDetailsInfoBean
-								.getBuyerLogo()));
+		affirmorder_layout_icon_roundimageview.setTag(Integer.valueOf(productsDetailsInfoBean.getBuyerId()));
+		affirmorder_layout_icon_roundimageview.setOnClickListener(onClickListener);
+		MyApplication.getInstance().getBitmapUtil().display(affirmorder_layout_icon_roundimageview, ToolsUtil.nullToString(productsDetailsInfoBean.getBuyerLogo()));
 
 		affirmorder_layout_icon_imageview = (ImageView) findViewById(R.id.affirmorder_layout_icon_imageview);
 		// 设置联系电话
@@ -283,8 +275,7 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 			switch (v.getId()) {
 			case R.id.affirmorder_layout_icon_roundimageview:
 				if (v.getTag() != null && v.getTag() instanceof Integer) {
-					ToolsUtil.forwardShopMainActivity(mContext,
-							(Integer) v.getTag());
+					ToolsUtil.forwardShopMainActivity(mContext,(Integer) v.getTag());
 				}
 
 				break;

@@ -45,6 +45,7 @@ import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
 import com.shenma.yueba.baijia.modle.RequestComputeAmountInfoBean;
 import com.shenma.yueba.baijia.modle.RequestCreatOrderInfoBean;
 import com.shenma.yueba.baijia.modle.RequestImMessageInfoBean;
+import com.shenma.yueba.baijia.modle.RequestMemberCardBean;
 import com.shenma.yueba.baijia.modle.RequestMsgListInfoBean;
 import com.shenma.yueba.baijia.modle.RequestMyCircleInfoBean;
 import com.shenma.yueba.baijia.modle.RequestMyFavoriteProductListInfoBean;
@@ -160,6 +161,24 @@ public class HttpControl {
 
 
     /**
+     * 获取商品可用会员卡
+     *
+     * @param httpCallBack
+     * @param context
+     * @param  BuyerId   String 当前买手id
+     * @param ProductId   String   商品id
+     *
+     */
+    public void getVipCards(boolean isShow,String BuyerId,String ProductId,final HttpCallBackInterface httpCallBack, Context context) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("BuyerId",BuyerId);
+        map.put("ProductId",ProductId);
+        BasehttpSend(map, context, HttpConstants.METHOD_GetVipCards, httpCallBack, RequestMemberCardBean.class, isShow, false);
+    }
+
+
+
+    /**
      * 获取首页数据
      *
      * @param CityId       String 城市ID 不传则默认0  返回全国数据
@@ -187,14 +206,14 @@ public class HttpControl {
      * @param httpCallBack
      * @param context
      */
-    public void getStoreIndex(String StoreId, String UserId, int Page, int PageSize, String SortType, final HttpCallBackInterface httpCallBack, Context context) {
+    public void getStoreIndex(boolean isShow,String StoreId, String UserId, int Page, int PageSize, String SortType, final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("StoreId", StoreId);
         map.put("UserId", UserId);
         map.put("SortType", SortType);
         map.put("Page", Integer.toString(Page));
         map.put("PageSize", Integer.toString(PageSize));
-        BasehttpSend(map, context, HttpConstants.METHOD_storeindex, httpCallBack, StoreIndexBackBean.class, false, false);
+        BasehttpSend(map, context, HttpConstants.METHOD_storeindex, httpCallBack, StoreIndexBackBean.class, isShow, false);
     }
 
 

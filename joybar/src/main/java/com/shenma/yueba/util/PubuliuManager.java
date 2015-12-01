@@ -195,7 +195,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
                     //动画
                     startAnimationn(parentview, i, item.size(), rightHeight);
                 }
-                initPic(bean.getPicurl(),iv);
+                initPic(url,iv);
 
             }
         }

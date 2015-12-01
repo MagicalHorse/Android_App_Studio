@@ -111,11 +111,12 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 		if(requestCk_SPECDetails.getData()!=null && requestCk_SPECDetails.getData().size()>0)
 		{
 			ProductColorTypeBean productColorTypeBean=requestCk_SPECDetails.getData().get(0);
+			size_list.clear();
 			if(productColorTypeBean!=null)
 			{
 				size_list.addAll(productColorTypeBean.getSize());
 			}
-			size_list.clear();
+
 
 		}
 		flowlayout=(XCFlowLayout)ll.findViewById(R.id.flowlayout);
