@@ -102,6 +102,7 @@ public class GuideFragment extends BaseFragment {
                     ImageView iv_one = (ImageView)imageView1.findViewById(R.id.iv_one);
                     ViewGroup.LayoutParams params1 = iv_one.getLayoutParams();
                     params1.width = ToolsUtil.getDisplayWidth(getActivity())-ToolsUtil.dip2px(getActivity(),60);
+                    params1.height = ToolsUtil.getDisplayWidth(getActivity())-ToolsUtil.dip2px(getActivity(),60);
                     iv_one.setLayoutParams(params1);
                     MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
                     guide_ll_container.addView(imageView1);

@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
+import com.shenma.yueba.view.CircularImageView;
+import com.shenma.yueba.view.CustomerImageView;
 import com.shenma.yueba.view.RoundImageView;
 
 public class GalleryAdapter extends BaseAdapterWithUtil {
@@ -62,7 +64,7 @@ public class GalleryAdapter extends BaseAdapterWithUtil {
         if(convertView == null){
             holder = new Holder();
             convertView = View.inflate(ctx, R.layout.gallery_item, null);
-            holder.riv_item = (RoundImageView)convertView.findViewById(R.id.riv_item);
+            holder.riv_item = (CircularImageView)convertView.findViewById(R.id.riv_item);
             holder.tv_item = (TextView)convertView.findViewById(R.id.tv_item);
             convertView.setTag(holder);
         }else{
@@ -80,11 +82,11 @@ public class GalleryAdapter extends BaseAdapterWithUtil {
             params.width = getDisplayWidth(ctx) / 3;
             holder.riv_item .setLayoutParams(params);
             holder.tv_item.setTextColor(ctx.getResources().getColor(R.color.black));
-            holder.tv_item.setTextSize(16);
+            holder.tv_item.setTextSize(15);
             //  imageView.startAnimation(animation);  //选中时，这是设置的比较大
         } else {
-            params.height = getDisplayWidth(ctx) / 4;
-            params.width = getDisplayWidth(ctx) / 4;
+            params.height = getDisplayWidth(ctx) / 5;
+            params.width = getDisplayWidth(ctx) / 5;
             holder.riv_item .setLayoutParams(params);
             Animation animation = AnimationUtils.loadAnimation(ctx, R.anim.alpha);    //实现动画效果
             animation.setFillAfter(true);
@@ -99,7 +101,7 @@ public class GalleryAdapter extends BaseAdapterWithUtil {
 
 
     class Holder{
-        RoundImageView riv_item;
+        CircularImageView riv_item;
         TextView tv_item;
     }
 

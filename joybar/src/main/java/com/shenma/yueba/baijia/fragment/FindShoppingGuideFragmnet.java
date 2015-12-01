@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.shenma.yueba.BaseFragmentActivity;
 import com.shenma.yueba.R;
+import com.shenma.yueba.util.CustomProgressDialog;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.yangjia.fragment.IncomeDetailFragment;
 
@@ -22,7 +23,6 @@ import java.util.ArrayList;
 
 
 public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnClickListener {
-    private View view;
     private TextView tv_guide;
     private TextView tv_attention;
     private ViewPager find_guide_viewpager;
@@ -35,7 +35,7 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
     private ImageView iv_cursor_left;
     private String mParam1;
     private String mParam2;
-
+    View parentView;
 
     /**
      * Use this factory method to create a new instance of
@@ -55,10 +55,17 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        initView();
-        initViewPager();
-        return view;
+        if (parentView == null) {
+            parentView = inflater.inflate(R.layout.find_shopping_guide_layout, null);
+            initView();
+            initViewPager();
+        }
+        ViewGroup vp = (ViewGroup) parentView.getParent();
+        if (vp != null) {
+            vp.removeView(parentView);
+        }
+        return parentView;
+
     }
 
     private void initView() {
@@ -66,12 +73,11 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
         attentionFragment = new AttentionFragment();
         fragmentList.add(guideFragment);
         fragmentList.add(attentionFragment);
-        view = View.inflate(getActivity(), R.layout.find_shopping_guide_layout, null);
-        find_guide_viewpager = (ViewPager) view.findViewById(R.id.find_guide_viewpager);
-        tv_guide = (TextView) view.findViewById(R.id.tv_guide);
-        tv_attention = (TextView) view.findViewById(R.id.tv_attention);
-        iv_cursor_right = (ImageView) view.findViewById(R.id.iv_cursor_right);
-        iv_cursor_left = (ImageView) view.findViewById(R.id.iv_cursor_left);
+        find_guide_viewpager = (ViewPager) parentView.findViewById(R.id.find_guide_viewpager);
+        tv_guide = (TextView) parentView.findViewById(R.id.tv_guide);
+        tv_attention = (TextView) parentView.findViewById(R.id.tv_attention);
+        iv_cursor_right = (ImageView) parentView.findViewById(R.id.iv_cursor_right);
+        iv_cursor_left = (ImageView) parentView.findViewById(R.id.iv_cursor_left);
         cursorImageList.add(iv_cursor_left);
         cursorImageList.add(iv_cursor_right);
         iv_cursor_left.setVisibility(View.VISIBLE);
