@@ -15,10 +15,19 @@
             android:id="@+id/iv_one"
             android:layout_weight="1"
             android:layout_width="0dip"
+            android:scaleType="centerCrop"
             android:layout_height="fill_parent" />
+
+
+
+        <View
+            android:background="@color/white"
+            android:layout_width="2dip"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/iv_two"
+            android:scaleType="centerCrop"
             android:layout_weight="1"
             android:background="@drawable/ic_launcher"
             android:layout_width="0dip"

@@ -15,11 +15,13 @@
             android:id="@+id/iv_one"
             android:layout_weight="1"
             android:layout_width="0dip"
+            android:scaleType="centerCrop"
             android:layout_height="fill_parent" />
 
         <ImageView
             android:id="@+id/iv_two"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             android:background="@drawable/ic_launcher"
             android:layout_width="0dip"
             android:layout_height="fill_parent" />
@@ -36,6 +38,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/ic_launcher"
             android:id="@+id/iv_three"
+            android:scaleType="centerCrop"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent" />
 
