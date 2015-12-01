@@ -62,6 +62,8 @@ public class MarketMainActivity extends BaseActivityWithTopView {
     ImageView baijia_marketmain_head_address_layout_imageview;
     List<BrandInfo> brandInfos_array=new ArrayList<BrandInfo>();
     List<String> brandstr_array=new ArrayList<String>();
+    boolean isShow=false;
+    boolean isrunning=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);//必须在setContentView()上边
@@ -191,14 +193,17 @@ public class MarketMainActivity extends BaseActivityWithTopView {
      * ********/
     void requestData(final int currPage, final int type)
     {
+        isrunning=true;
         String UserId= SharedUtil.getStringPerfernece(MarketMainActivity.this, SharedUtil.user_id);
         if(UserId==null || UserId.equals(""))
         {
             UserId="0";
         }
-        httpControl.getStoreIndex(StoreId, UserId, currPage, PageSize, SortType, new HttpControl.HttpCallBackInterface() {
+        httpControl.getStoreIndex(isShow,StoreId, UserId, currPage, PageSize, SortType, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
+                isShow=false;
+                isrunning=false;
                 StoreIndexBackBean storeIndexBackBean = (StoreIndexBackBean) obj;
                 switch (type) {
                     case 0:
@@ -214,6 +219,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
 
             @Override
             public void http_Fails(int error, String msg) {
+                isrunning=false;
                 MyApplication.getInstance().showMessage(MarketMainActivity.this, msg);
                 ToolsUtil.pullResfresh(baijia_market_main_layout_pullTorefreshscrollview);
             }
@@ -278,11 +284,20 @@ public class MarketMainActivity extends BaseActivityWithTopView {
 
     void requestFalshData()
     {
+        if(isrunning)
+        {
+            return;
+        }
+        isShow=true;
         requestData(1, 0);
     }
 
     void requestaddData()
     {
+        if(isrunning)
+        {
+            return;
+        }
         requestData(currPage,1);
     }
 
@@ -317,6 +332,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
                 pubuliuBeanInfo.setRation(storeIndexItem.getRatio());
                 pubuliuBeanInfo.setName(ToolsUtil.nullToString(storeIndexItem.getProductName()));
                 pubuliuBeanInfo.setPicurl(ToolsUtil.nullToString(storeIndexItem.getPic()));
+                pubuliuBeanInfo.setId(storeIndexItem.getProductId());
                 items_array.add(pubuliuBeanInfo);
             }
 

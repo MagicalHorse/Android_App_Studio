@@ -12,13 +12,13 @@ public class AffirmProductInfo implements Serializable {
     String Pic;//颜色尺码图
     String SizeName;//规格名称
     String SizeId;//规格id
-    int Inventory;//int 类型   库存
-    public int getInventory() {
-        return Inventory;
+    int buycount;//int 购买数量
+    public int getBuycount() {
+        return buycount;
     }
 
-    public void setInventory(int inventory) {
-        Inventory = inventory;
+    public void setBuycount(int buycount) {
+        this.buycount = buycount;
     }
 
     public RequestCKProductDeatilsInfo getData() {

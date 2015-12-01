@@ -94,7 +94,7 @@
                         android:layout_toRightOf="@id/iv_product"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="商品介绍信息"
+                        android:text=""
                         android:textSize="@dimen/center_text_size" />
 
 
@@ -105,7 +105,7 @@
                         android:layout_alignBottom="@+id/iv_product"
                         android:layout_marginLeft="10dip"
                         android:layout_toRightOf="@id/iv_product"
-                        android:text="商品金额：88.8元"
+                        android:text=""
                         android:textSize="@dimen/little_text_size" />
 
 
@@ -117,7 +117,7 @@
                         android:layout_marginBottom="5dip"
                         android:layout_marginLeft="10dip"
                         android:layout_toRightOf="@id/iv_product"
-                        android:text="尺码：32号"
+                        android:text=""
                         android:textSize="@dimen/little_text_size" />
 
 
@@ -129,7 +129,7 @@
                         android:layout_marginBottom="5dip"
                         android:layout_marginLeft="10dip"
                         android:layout_toRightOf="@id/iv_product"
-                        android:text="颜色：绿色"
+                        android:text=""
                         android:textSize="@dimen/little_text_size" />
 
                     <EditText
@@ -225,17 +225,20 @@
                         android:id="@+id/ll_coupon">
 
                         <TextView
+                            android:id="@+id/vip_name_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="优惠券" />
+                            android:hint="vip折扣"
+                            android:editable="false"
+                            />
 
                         <TextView
+                            android:id="@+id/vip_namevalue_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:drawablePadding="10dip"
-                            android:drawableRight="@drawable/arrow_right"
-                            android:text="请选择优惠券"
+                            android:hint="请先选择会员卡"
                             android:textColor="@color/text_gray_color" />
 
 

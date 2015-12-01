@@ -769,9 +769,12 @@ public class HttpConstants {
 	 *获取买手的基本圈子
 	 * **/
 	public static String METHOD_GetBuyerBaseCircle = CircleFORREAD+ "GetBuyerBaseGroup";
-	
-	
-	
+
+   //----------------------------------以下是会员卡----------------------------------------------
+	/**
+	 * 获取商品可用会员卡
+	 */
+	public static String METHOD_GetVipCards = V3FORREAD + "GetVipCards";
 	
 	
 	
