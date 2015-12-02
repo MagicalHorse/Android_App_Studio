@@ -15,8 +15,6 @@ import java.util.List;
  */
 public class IndexItems implements Serializable{
 
-private String Name;
-
    String StoreName ;//门店名称
     String StoreId  ;//门店编号
 
@@ -97,14 +95,6 @@ private String Name;
 
     public void setCityId(String cityId) {
         CityId = cityId;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
     }
 
     public String getLogo() {

@@ -103,20 +103,21 @@ public class HomeAdapter extends BaseAdapter {
 
     void setCommonValue(int position, final Holder holder) {
         IndexItems indexItems = infoList.get(position);
-        holder.home_item_top_name_textview.setText(indexItems.getName());
+        holder.home_item_top_name_textview.setText(indexItems.getStoreName());
         MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(indexItems.getLogo()), holder.home_item_top_layout_icon_customimageview, MyApplication.getInstance().getDisplayImageOptions());
         holder.home_item_top_layout_include.setTag(indexItems);
         //如果是认证买手
         if (indexItems.getStoreLeave().equals("8")) {
-            holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getDescription()));
-            holder.home_item_top_desp_imageview.setVisibility(View.GONE);
-            holder.home_item_top_destance_textview.setText("");
-            holder.home_item_top_destance_textview.setVisibility(View.GONE);
-        } else if (indexItems.getStoreLeave().equals("4")) {
             holder.home_item_top_desp_imageview.setVisibility(View.VISIBLE);
             holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getLocation()));
             holder.home_item_top_destance_textview.setText("距离信息" + position);
             holder.home_item_top_destance_textview.setVisibility(View.VISIBLE);
+
+        } else {
+            holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getDescription()));
+            holder.home_item_top_desp_imageview.setVisibility(View.GONE);
+            holder.home_item_top_destance_textview.setText("");
+            holder.home_item_top_destance_textview.setVisibility(View.GONE);
         }
 
         holder.home_item_top_layout_time_textview.setTag(indexItems);
@@ -199,6 +200,7 @@ public class HomeAdapter extends BaseAdapter {
      * 设置商品信息
      ***/
     void setProductValue(int position, List<View> view_array) {
+
         final IndexItems indexItems = infoList.get(position);
         List<IndexProductInfo> product_list = indexItems.getProducts();
         if (product_list == null || product_list.size() == 0) {
@@ -208,6 +210,16 @@ public class HomeAdapter extends BaseAdapter {
         } else {
             for (int i = 0; i < view_array.size(); i++) {
                 view_array.get(i).setVisibility(View.VISIBLE);
+                //根据级别设置 是否显示 导购头像
+                View daogouview=view_array.get(i).findViewById(R.id.home_item_pic1_include);
+                if(indexItems.getStoreLeave().equals("8"))
+                {
+                    daogouview.setVisibility(View.VISIBLE);
+                }else
+                {
+                    daogouview.setVisibility(View.GONE);
+                }
+
                 if (i < product_list.size()) {
                     IndexProductInfo product = product_list.get(i);
                     view_array.get(i).setVisibility(View.VISIBLE);

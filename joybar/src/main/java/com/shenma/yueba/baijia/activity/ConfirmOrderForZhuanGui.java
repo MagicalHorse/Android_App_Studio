@@ -140,14 +140,6 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
             public void http_Success(Object obj) {
                 isrunning = false;
                 RequestMemberCardBean requestMemberCardBean = (RequestMemberCardBean) obj;
-                for(int i=0;i<3;i++)
-                {
-                    MemberCardBean bean=new MemberCardBean();
-                    bean.setCardno("111111"+i);
-                    bean.setCardtypename("卡类型" + i);
-                    bean.setVipdiscount(1.7f);
-                    requestMemberCardBean.getData().add(bean);
-                }
                 if (requestMemberCardBean.getData() != null && requestMemberCardBean.getData().size() > 0) {
                     //没有绑定会员卡 提示 绑定会员卡
                     setItemValue(requestMemberCardBean);
