@@ -357,7 +357,7 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
         animDown = new TranslateAnimation(0, 0, 0,movedistance);
         animDown.setDuration(500);
         animDown.setFillAfter(true);
-        animUp = new TranslateAnimation(0, 0, 0, -movedistance);
+        animUp = new TranslateAnimation(0, 0, movedistance, 0);
         animUp.setDuration(500);
         animUp.setFillAfter(true);
         rotateAnimationUp = new RotateAnimation(0, 180,
