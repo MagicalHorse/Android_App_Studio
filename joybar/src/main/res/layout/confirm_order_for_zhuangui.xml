@@ -168,9 +168,10 @@
                 android:padding="10dip">
 
                 <TextView
+                    android:id="@+id/rl_card_change_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="会员卡" />
+                    android:text="选择金鹰会员卡" />
 
 
                 <ImageView
@@ -200,12 +201,13 @@
                 android:layout_height="fill_parent">
 
                 <LinearLayout
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:id="@+id/ll_content"
                     android:layout_width="fill_parent"
-                    android:layout_height="60dip"
-                    android:orientation="horizontal">
-
-
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
                 </LinearLayout>
 
                 <LinearLayout

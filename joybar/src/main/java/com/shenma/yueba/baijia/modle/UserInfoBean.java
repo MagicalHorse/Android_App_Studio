@@ -23,7 +23,15 @@ public class UserInfoBean implements Serializable{
 	int CommunityCount;// 圈子个数
 	String Logo="";//头像
 	int ProductCount;//商品总数
-	
+	boolean IsBindMobile=false;//是否绑定过手机号
+
+	public boolean isBindMobile() {
+		return IsBindMobile;
+	}
+
+	public void setIsBindMobile(boolean isBindMobile) {
+		IsBindMobile = isBindMobile;
+	}
 	public int getProductCount() {
 		return ProductCount;
 	}

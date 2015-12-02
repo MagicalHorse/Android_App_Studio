@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/yellowselected_while"
+    >
+
+    <TextView
+        android:singleLine="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/cardlist_item_layout_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        />
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:singleLine="true"
+        android:id="@+id/cardlist_item_layout_no_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cardlist_item_layout_name_textview"
+        android:layout_toLeftOf="@+id/cardlist_item_layout_discount_textview"
+        android:text=""
+        />
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:id="@+id/cardlist_item_layout_discount_textview"
+        android:singleLine="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        />
+
+    <View
+        style="@style/style_horizontal_line"
+        />
+</RelativeLayout>

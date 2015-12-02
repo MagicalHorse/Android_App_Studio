@@ -85,7 +85,6 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 	Button approvebuyerbuybutton;
 	List<View> viewlist = new ArrayList<View>();
 	LinearLayout approvebuyerdetails_closeingtime_linearlayout;
-	Timer timer;
 	RequestCKProductDeatilsInfo bean;
 	LinearLayout ll_attentionpeople_contener;
 
@@ -93,6 +92,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 	LayoutInflater layoutInflater;
 	View parentView;
 	RequestCk_SPECDetails requestCk_SPECDetails;
+	Timer timer;
 
 
 	@Override
@@ -230,6 +230,18 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 
 		approvebuyer_addcartbutton = (Button)parentView.findViewById(R.id.approvebuyer_addcartbutton);
 		approvebuyerbuybutton = (Button)parentView.findViewById(R.id.approvebuyerbuybutton);
+
+		//如果营业时间已经开始
+		if(Data.isStart())
+		{
+			approvebuyerbuybutton.setEnabled(true);
+			approvebuyerbuybutton.setText("购买");
+		}else
+		{
+
+			approvebuyerbuybutton.setEnabled(false);
+		}
+
 		approvebuyerbuybutton.setOnClickListener(this);
 		//喜欢的人的 头像列表
 		LinearLayout approvebuyerdetails_attention_linearlayout=(LinearLayout)parentView.findViewById(R.id.approvebuyerdetails_attention_linearlayout);

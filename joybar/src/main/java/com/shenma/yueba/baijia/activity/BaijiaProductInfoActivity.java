@@ -16,6 +16,7 @@ import com.shenma.yueba.util.ToolsUtil;
 
 /**
  * Created by Administrator on 2015/11/30.
+ * 商品详情
  */
 public class BaijiaProductInfoActivity extends FragmentActivity {
     FragmentManager fragmentManager;
@@ -48,6 +49,8 @@ public class BaijiaProductInfoActivity extends FragmentActivity {
                     http_Fails(400, "无商品信息");
                 } else {
                     CKProductDeatilsInfoBean cKProductDeatilsInfoBean = bean.getData();
+                    cKProductDeatilsInfoBean.startTimer();
+
                     //如果是 认证
                     if (ToolsUtil.nullToString(cKProductDeatilsInfoBean.getUserLevel()).equals("4")) {
                         ApproveBuyerDetails_ck_Fragment approveBuyerDetails_ck_fragment = new ApproveBuyerDetails_ck_Fragment();

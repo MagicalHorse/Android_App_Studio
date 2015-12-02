@@ -19,6 +19,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
 import com.shenma.yueba.baijia.activity.ChooseCityActivity;
 import com.shenma.yueba.baijia.activity.SearchProductActivity;
 import com.shenma.yueba.baijia.activity.WebActivity;
@@ -183,9 +184,12 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 @Override
                 public void onClick_TabViewPagerImage(int i) {
                     if (i < bannerBeans_array.size()) {
-                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                        /*Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("url", ToolsUtil.nullToString(bannerBeans_array.get(i).getLink()));
-                        startActivity(intent);
+                        startActivity(intent);*/
+                        Intent intent = new Intent(getActivity(), BaijiaProductInfoActivity.class);
+                        intent.putExtra("productID",21886);
+                        getActivity().startActivity(intent);
                     }
                 }
             });

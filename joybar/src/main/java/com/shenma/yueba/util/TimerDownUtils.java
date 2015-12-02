@@ -51,7 +51,7 @@ public class TimerDownUtils {
         ;
     };
 
-    private static String millSecendToStr(long millSecond) {
+    public static String millSecendToStr(long millSecond) {
         String hourStr, miniteStr, secondStr;
         long second = millSecond / 1000;
         long leftSecond = second % 60;

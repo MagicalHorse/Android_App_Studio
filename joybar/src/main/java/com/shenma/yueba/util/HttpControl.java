@@ -2601,8 +2601,7 @@ public class HttpControl {
         SharedUtil.setStringPerfernece(context, SharedUtil.user_name, null);
         SharedUtil.setStringPerfernece(context, SharedUtil.user_names, null);
         SharedUtil.setStringPerfernece(context, SharedUtil.user_logo, null);
-        SharedUtil
-                .setStringPerfernece(context, SharedUtil.user_logo_full, null);
+        SharedUtil.setStringPerfernece(context, SharedUtil.user_logo_full, null);
         SharedUtil.setStringPerfernece(context, SharedUtil.user_logobg, null);
         SharedUtil.setStringPerfernece(context, SharedUtil.user_logobg_s, null);
         SharedUtil.setStringPerfernece(context, SharedUtil.user_mobile, null);

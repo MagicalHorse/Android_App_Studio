@@ -1,8 +1,14 @@
 package com.shenma.yueba.baijia.modle;
 
+import com.shenma.yueba.util.TimerDownUtils;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Administrator on 2015/10/19.
@@ -33,8 +39,8 @@ public class CKProductDeatilsInfoBean implements Serializable{
     String StoreName;// 门店名称/商场名称
     String StoreId;//商场编号
     boolean IsStart=false;//是否开始
-    String BusinessTime;//营业时长（秒） 即非打样购时间
-    String RemainTime;// 剩余时长（秒） 如果IsStart=true  则是剩余结束时间，否则是剩余开始时间
+    long BusinessTime;//营业时长（秒） 即非打样购时间
+    long RemainTime;// 剩余时长（秒） 如果IsStart=true  则是剩余结束时间，否则是剩余开始时间
     //活动信息
     ProductsDetailsPromotion Promotion=new ProductsDetailsPromotion();
     String ShareLink;//分享链接地址
@@ -42,6 +48,91 @@ public class CKProductDeatilsInfoBean implements Serializable{
     List<ProductsDetailsTagInfo>  ProductPic=new ArrayList<ProductsDetailsTagInfo>();
     boolean  IsJoinDeiscount=false;//是否参加Vip折扣  eg.False
     float VipDiscount;//Vip折扣率  eg.0
+    String showstr="";//显示倒计时时间
+
+    public void setTimerLinstener(TimerLinstener timerLinstener) {
+        this.timerLinstener = timerLinstener;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
+
+    boolean isRunning=false;
+
+    TimerLinstener timerLinstener;//设置时间回调
+
+    public void startTimer()
+    {
+
+        if(isRunning)
+        {
+            return;
+        }
+        isRunning=true;
+        Timer  timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //
+
+            }
+        },0,1000);
+    }
+
+
+    void jisuan(String shengyutimer)
+    {
+        if(IsStart)
+        {
+            RemainTime--;
+            if(RemainTime>0)
+            {
+                //毫秒换算成 格式化的时间
+                showstr=getSimpleDateFormat(RemainTime);
+                if(timerLinstener!=null)
+                {
+                    timerLinstener.timerCallBack(showstr);
+                }
+            }else
+            {
+                IsStart=false;
+            }
+
+        }else
+        {
+            BusinessTime--;
+            if(BusinessTime>0)
+            {
+                //毫秒换算成 格式化的时间
+                showstr=getSimpleDateFormat(RemainTime);
+                if(timerLinstener!=null)
+                {
+                    timerLinstener.timerCallBack(showstr);
+                }
+            }else
+            {
+                RemainTime=(24*3600)-BusinessTime;
+                IsStart=true;
+            }
+
+        }
+    }
+
+    String getSimpleDateFormat(long l)
+    {
+        return TimerDownUtils.millSecendToStr(l*1000);
+    }
+
+    public interface TimerLinstener
+    {
+        void timerCallBack(String str);
+    }
+
 
     public float getVipDiscount() {
         return VipDiscount;
@@ -280,19 +371,19 @@ public class CKProductDeatilsInfoBean implements Serializable{
         IsStart = isStart;
     }
 
-    public String getBusinessTime() {
+    public long getBusinessTime() {
         return BusinessTime;
     }
 
-    public void setBusinessTime(String businessTime) {
+    public void setBusinessTime(long businessTime) {
         BusinessTime = businessTime;
     }
 
-    public String getRemainTime() {
+    public long getRemainTime() {
         return RemainTime;
     }
 
-    public void setRemainTime(String remainTime) {
+    public void setRemainTime(long remainTime) {
         RemainTime = remainTime;
     }
 

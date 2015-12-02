@@ -28,8 +28,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author a
  * 
  */
-public class FindPasswordActivity extends BaseActivityWithTopView implements
-		OnClickListener, TextWatcher {
+public class FindPasswordActivity extends BaseActivityWithTopView implements OnClickListener, TextWatcher {
 	private TextView tv_mobile_title;
 	private EditText et_mobile;
 	private EditText et_code;
@@ -51,7 +50,7 @@ public class FindPasswordActivity extends BaseActivityWithTopView implements
 
 	private void initView() {
 		from = getIntent().getStringExtra("from");
-			setTitle("验证手机号");
+		setTitle("验证手机号");
 		setLeftTextView(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
