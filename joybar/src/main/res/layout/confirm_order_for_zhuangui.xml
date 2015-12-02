@@ -12,9 +12,11 @@
 
     <ScrollView
         android:id="@+id/sv"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_top">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_top"
+        android:layout_above="@+id/confirm_order_for_zhuangui_footer_linearlayout"
+        >
 
 
         <LinearLayout
@@ -47,6 +49,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dip"
                     android:layout_toRightOf="@id/tv_ziti_title"
+                    android:inputType="phone"
                     android:background="@null"
                     android:hint="请输入手机号"
                     android:textSize="@dimen/center_text_size" />
@@ -198,7 +201,7 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:paddingLeft="10dp"
@@ -213,7 +216,7 @@
                 <LinearLayout
                     android:id="@+id/ll_move"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/main_bg"
                     android:orientation="vertical"
                     android:paddingTop="10dip">
@@ -271,7 +274,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="10dip"
                             android:layout_toRightOf="@id/tv_dyg_title"
-                            android:hint="80元"
+                            android:hint=""
                             android:textSize="@dimen/center_text_size" />
 
                     </RelativeLayout>
@@ -370,9 +373,9 @@
 
                         </RadioGroup>
 
-
                         <EditText
                             android:id="@+id/et_name"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="40dip"
                             android:layout_below="@id/rg_fapiao"
@@ -383,6 +386,7 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/tv_dingjin_tishi"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -404,6 +408,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/confirm_order_for_zhuangui_footer_linearlayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -427,17 +432,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="应付定金："
+                android:text="合计金额："
                 android:textSize="@dimen/center_text_size" />
 
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dip"
+                android:layout_toRightOf="@+id/tv_dingjin_title"
+                android:id="@+id/tv_dingjin_danwei_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                />
             <TextView
                 android:id="@+id/tv_dingjin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:layout_toRightOf="@+id/tv_dingjin_title"
-                android:text="￥10"
+                android:layout_toRightOf="@+id/tv_dingjin_danwei_textview"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/center_text_size" />
 

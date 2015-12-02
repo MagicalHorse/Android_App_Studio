@@ -36,6 +36,10 @@ public class HttpConstants {
 	private static String weixinPAYCallBackUrl = baseUrlForWriteForWork+"Payment/";//微信支平台回调
 
 
+	/**
+	 * 创建订单
+	 */
+	public static String METHOD_CreateOrderV3 = V3FORWRITE + "CreateOrderV3";
 
 
 	/**
@@ -348,7 +352,6 @@ public class HttpConstants {
 	 * 获取商品详情(败家)
 	 */
 	public static String METHOD_CK_PRODUCTMANAGER_DETAIL = PRODUCTFORREAD + "GetProductDetailV3";
-
 
 	/**
 	 * 获取专柜商品规格详情(败家)

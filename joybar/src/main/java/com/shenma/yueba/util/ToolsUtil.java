@@ -53,10 +53,12 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.shenma.yueba.ChatActivity;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.baijia.activity.BaijiaPayActivity;
 import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
 import com.shenma.yueba.baijia.activity.CircleInfoActivity;
 import com.shenma.yueba.baijia.activity.ShopMainActivity;
 import com.shenma.yueba.baijia.modle.BaseRequest;
+import com.shenma.yueba.baijia.modle.PayResponseFormBean;
 import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
 import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
 import com.shenma.yueba.broadcaseReceiver.OrderBroadcaseReceiver;
@@ -1144,4 +1146,27 @@ public class ToolsUtil {
         s = Math.round(s * 10000) / 10000;
         return s;
     }
+
+
+    /*********
+     * 跳转 支付选页面择
+     * @param  activity  Activity
+     * @param  producetName  String商品名称
+     * @param  buycount int 购买数量
+     * @param  orderNo String 订单号
+     * @param  price double 订单金额
+     * ******/
+    public static void frowardPayActivity(Activity activity,String producetName,int buycount,String orderNo,double price)
+    {
+        PayResponseFormBean bean=new PayResponseFormBean();
+        bean.setContent(producetName);
+        bean.setDesc(producetName+ "  x " + buycount);
+        bean.setOrderNo(orderNo);
+        bean.setPrice(price);
+        bean.setUrl(com.shenma.yueba.constants.Constants.WX_NOTIFY_URL);
+        Intent intent=new Intent(activity,BaijiaPayActivity.class);
+        intent.putExtra("PAYDATA",bean);
+        activity.startActivity(intent);
+    }
+
 }

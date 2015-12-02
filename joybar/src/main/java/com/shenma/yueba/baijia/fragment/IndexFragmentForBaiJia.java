@@ -184,12 +184,12 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 @Override
                 public void onClick_TabViewPagerImage(int i) {
                     if (i < bannerBeans_array.size()) {
-                        /*Intent intent = new Intent(getActivity(), WebActivity.class);
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("url", ToolsUtil.nullToString(bannerBeans_array.get(i).getLink()));
-                        startActivity(intent);*/
-                        Intent intent = new Intent(getActivity(), BaijiaProductInfoActivity.class);
+                        startActivity(intent);
+                        /*Intent intent = new Intent(getActivity(), BaijiaProductInfoActivity.class);
                         intent.putExtra("productID",21886);
-                        getActivity().startActivity(intent);
+                        getActivity().startActivity(intent);*/
                     }
                 }
             });

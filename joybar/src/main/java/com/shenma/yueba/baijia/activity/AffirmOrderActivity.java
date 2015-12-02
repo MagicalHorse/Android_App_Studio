@@ -237,23 +237,8 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 								&& obj instanceof RequestCreatOrderInfoBean) {
 							RequestCreatOrderInfoBean requestCreatOrderInfoBean = (RequestCreatOrderInfoBean) obj;
 							if (requestCreatOrderInfoBean.getData() != null) {
-								MyApplication.getInstance().showMessage(
-										AffirmOrderActivity.this, "下单成功");
-								Intent intent = new Intent(
-										AffirmOrderActivity.this,
-										BaijiaPayActivity.class);
-								PayResponseFormBean bean = new PayResponseFormBean();
-								bean.setOrderNo(requestCreatOrderInfoBean
-										.getData().getOrderNo());
-								bean.setPrice(requestCreatOrderInfoBean
-										.getData().getActualAmount());
-								bean.setContent(productsDetailsInfoBean
-										.getProductName());
-								bean.setDesc(productsDetailsInfoBean
-										.getProductName() + "  x " + buyCount);
-								bean.setUrl(com.shenma.yueba.constants.Constants.WX_NOTIFY_URL);
-								intent.putExtra("PAYDATA", bean);
-								AffirmOrderActivity.this.startActivity(intent);
+								MyApplication.getInstance().showMessage(AffirmOrderActivity.this, "下单成功");
+								ToolsUtil.frowardPayActivity(AffirmOrderActivity.this,productsDetailsInfoBean.getProductName(),buyCount,requestCreatOrderInfoBean.getData().getOrderNo(),requestCreatOrderInfoBean.getData().getActualAmount());
 								ToolsUtil.sendOrderBroadcase();
 							}
 							finish();
