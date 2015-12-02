@@ -3,6 +3,7 @@ package com.shenma.yueba.baijia.fragment;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.method.Touch;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +25,13 @@ import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerProductsBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.FavBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.OtherBuyersBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.OtherBuyersBean;
 import com.shenma.yueba.baijia.modle.newmodel.RecommondBuyerlistBackBean;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.JazzyViewPager;
 import com.shenma.yueba.view.MyViewPager;
+import com.shenma.yueba.view.RoundImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,8 @@ public class AttentionFragment extends BaseFragment implements AdapterView.OnIte
     private JazzyViewPager mJazzy;
     private List<ProductsInfoBean> products = new ArrayList<ProductsInfoBean>();
     private ViewPagerAdapter viewPagerAdapter;
+    private ViewPagerAdapter2 viewPagerAdapter2;
+    private List<OtherBuyersBean> otherBuyers = new ArrayList<OtherBuyersBean>();
     int Rlheight;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -102,7 +107,7 @@ public class AttentionFragment extends BaseFragment implements AdapterView.OnIte
     /**
      * 获取买手的产品数据
      */
-    public void getBuyersProducts(String buyerId, final boolean isChange) {
+    public void getBuyersProducts(final String buyerId, final boolean isChange) {
         HttpControl httpControl = new HttpControl();
         httpControl.getBuyersProducts(buyerId, page, new HttpControl.HttpCallBackInterface() {
             @Override
@@ -117,6 +122,9 @@ public class AttentionFragment extends BaseFragment implements AdapterView.OnIte
                     products.addAll(dataList);
                     mJazzy.setAdapter(viewPagerAdapter);
                    // viewPagerAdapter.notifyDataSetChanged();
+                }else{
+                    products.clear();
+                    getOtherStoreBuyers(buyerId);
                 }
 
             }
@@ -132,13 +140,19 @@ public class AttentionFragment extends BaseFragment implements AdapterView.OnIte
     /**
      * 同商场的其他买手
      */
-    public void getOtherStoreBuyers(String buyerId) {
+    public void getOtherStoreBuyers(final String buyerId) {
         HttpControl httpControl = new HttpControl();
         httpControl.getOtherStoreBuyers(buyerId, page, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
                 OtherBuyersBackBean bean = (OtherBuyersBackBean) obj;
-
+                if(bean!=null && bean.getData()!=null){
+                    OtherBuyersBean data = bean.getData();
+                    otherBuyers.clear();
+                    otherBuyers.add(data);
+                    viewPagerAdapter2 = new ViewPagerAdapter2(otherBuyers,buyerId);
+                    mJazzy.setAdapter(viewPagerAdapter2);
+                }
 
             }
 
@@ -283,4 +297,78 @@ public class AttentionFragment extends BaseFragment implements AdapterView.OnIte
         }
     }
 
+
+
+    private class ViewPagerAdapter2
+            extends PagerAdapter {
+        List<OtherBuyersBean> buyersList;
+        String buyerId;
+        public ViewPagerAdapter2(List<OtherBuyersBean> buyersList,String buyerId) {
+            ViewPagerAdapter2.this.buyersList = buyersList;
+            ViewPagerAdapter2.this.buyerId = buyerId;
+        }
+
+
+        @Override
+        public Object instantiateItem(ViewGroup container, final int position) {
+            View view = View.inflate(getActivity(), R.layout.shopping_guide_wsx_layout, null);
+            TextView tv_touch = (TextView)view.findViewById(R.id.tv_touch);
+            View otherOne = view.findViewById(R.id.other_one);
+            View otherTwo = view.findViewById(R.id.other_two);
+            View otherThree =view.findViewById(R.id.other_three);
+            RoundImageView riv_head1 = (RoundImageView)otherOne.findViewById(R.id.riv_head);
+            TextView tv_name1 = (TextView)otherOne.findViewById(R.id.tv_name);
+            TextView tv_zhuangui_name1 = (TextView)otherOne.findViewById(R.id.tv_zhuangui_name);
+            RoundImageView riv_head2 = (RoundImageView)otherTwo.findViewById(R.id.riv_head);
+            TextView tv_name2 = (TextView)otherTwo.findViewById(R.id.tv_name);
+            TextView tv_zhuangui_name2 = (TextView)otherTwo.findViewById(R.id.tv_zhuangui_name);
+            RoundImageView riv_head3 = (RoundImageView)otherThree.findViewById(R.id.riv_head);
+            TextView tv_name3 = (TextView)otherThree.findViewById(R.id.tv_name);
+            TextView tv_zhuangui_name3 = (TextView)otherThree.findViewById(R.id.tv_zhuangui_name);
+            List<BuyerInfo> buyers =  buyersList.get(position).getBuyers();
+            tv_touch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    touch(buyerId);
+                }
+            });
+
+
+            for (int i=0;i<buyers.size();i++){
+                if(i == 0){
+                   MyApplication.getInstance().getImageLoader().displayImage(buyers.get(i).getLogo(),riv_head1);
+                    tv_name1.setText(ToolsUtil.nullToString(buyers.get(i).getNickName()));
+                    tv_zhuangui_name1.setText(ToolsUtil.nullToString(buyers.get(i).getStoreName()));
+                }
+                if(i == 1){
+                    MyApplication.getInstance().getImageLoader().displayImage(buyers.get(i).getLogo(),riv_head2);
+                    tv_name2.setText(ToolsUtil.nullToString(buyers.get(i).getNickName()));
+                    tv_zhuangui_name2.setText(ToolsUtil.nullToString(buyers.get(i).getStoreName()));
+                }
+                if(i == 2){
+                    MyApplication.getInstance().getImageLoader().displayImage(buyers.get(i).getLogo(),riv_head3);
+                    tv_name3.setText(buyers.get(i).getNickName());
+                    tv_zhuangui_name3.setText(ToolsUtil.nullToString(buyers.get(i).getStoreName()));
+                }
+            }
+            container.addView(view, MyViewPager.LayoutParams.MATCH_PARENT, MyViewPager.LayoutParams.MATCH_PARENT);
+            mJazzy.setObjectForPosition(view, position);
+            return view;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object obj) {
+            container.removeView((View) obj);
+        }
+
+        @Override
+        public int getCount() {
+            return otherBuyers.size() ;
+        }
+
+        @Override
+        public boolean isViewFromObject(View arg0, Object arg1) {
+            return arg0 == arg1;
+        }
+    }
 }
