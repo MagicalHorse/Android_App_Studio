@@ -183,6 +183,7 @@ public class ShopMainFragment extends Fragment {
         //瀑布流上面的 TAB切换 父视图
         shop_main_head_layout_tab_linearlayout = (LinearLayout) contantView.findViewById(R.id.shop_main_head_layout_tab_linearlayout);
         //瀑布流的 内容 即 对应的fragment
+
         shop_main_layout_tabcontent_framelayout = (LinearLayout) contantView.findViewById(R.id.shop_main_layout_tabcontent_framelayout);
     }
 
