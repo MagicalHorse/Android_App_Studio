@@ -137,7 +137,7 @@ public class HomeAdapter extends BaseAdapter {
         }
 
         holder.home_item_top_layout_time_textview.setTag(indexItems);
-        holder.home_item_top_layout_time_textview.setText(indexItems.getShowstr());
+        holder.home_item_top_layout_time_textview.setText("");
         indexItems.setTimerLinstener(new IndexItems.TimerLinstener() {
             @Override
             public void timerCallBack() {
