@@ -14,6 +14,7 @@
 
 
     <TextView
+        android:layout_marginTop="3dip"
         android:id="@+id/tv_introduce"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -25,6 +26,7 @@
 
 
     <TextView
+        android:layout_marginBottom="3dip"
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,11 +37,13 @@
 
 
     <CheckBox
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dip"
         android:id="@+id/cb_collection"
         android:layout_width="20dip"
         android:layout_height="20dip"
         android:button="@drawable/collect_backgroud"
-        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/tv_price"
         android:layout_alignParentRight="true"
          />
 

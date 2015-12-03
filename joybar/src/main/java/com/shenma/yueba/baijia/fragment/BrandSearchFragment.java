@@ -72,7 +72,7 @@ public class BrandSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-				getBrand(getActivity(), false,false);
+				getBrand(getActivity(), false,false,key);
 				
 			}
 
@@ -80,7 +80,7 @@ public class BrandSearchFragment extends BaseFragment {
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page ++;
 				isRefresh = false;
-				getBrand(getActivity(), false,false);
+				getBrand(getActivity(), false,false,key);
 			}
 		});
 		return view;
@@ -92,7 +92,8 @@ public class BrandSearchFragment extends BaseFragment {
 	/**
 	 * 获取品牌列表
 	 */
-	public void getBrand(Context ctx,boolean showDialog,boolean focusRefresh){
+	public void getBrand(Context ctx,boolean showDialog,boolean focusRefresh,String key){
+		this.key = key;
 		if(showDialog && mList!=null && mList.size()>0 && !focusRefresh){
 			return;
 		}
@@ -112,15 +113,14 @@ public class BrandSearchFragment extends BaseFragment {
 				}, 100);
 				SearchBrandBackBean bean = (SearchBrandBackBean) obj;
 				if (isRefresh) {
+					mList.clear();
 					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
-						mList.clear();
 						mList.addAll(bean.getData().getItems());
 						tv_nodata.setVisibility(View.GONE);
-						adapter = new BrandSearchAdapter(getActivity(), mList);
-						pull_refresh_list.setAdapter(adapter);
 					} else {
 						tv_nodata.setVisibility(View.VISIBLE);
 					}
+					adapter.notifyDataSetChanged();
 				} else {
 					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
 						mList.addAll(bean.getData().getItems());

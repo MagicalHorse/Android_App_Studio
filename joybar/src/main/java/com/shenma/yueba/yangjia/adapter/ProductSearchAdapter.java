@@ -68,7 +68,7 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 		}
 		initBitmap(ToolsUtil.nullToString(mList.get(position).getPic()), holder.iv_product);
 		holder.tv_introduce.setText(mList.get(position).getProductName());
-		holder.tv_price.setText(""+mList.get(position).getPrice());
+		holder.tv_price.setText("￥"+mList.get(position).getPrice());
 		holder.cb_collection.setChecked(mList.get(position).isFavite());
 		return convertView;
 	}

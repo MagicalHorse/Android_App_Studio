@@ -107,7 +107,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
         tv_buyer.setOnClickListener(this);
         tv_market.setOnClickListener(this);
         search_result_viewpager = (ViewPager) findViewById(R.id.search_result_viewpager);
-        productSearchFragment.getProductList(SearchResultActivity.this,true,false);
+        productSearchFragment.getProductList(SearchResultActivity.this,true,false,key);
     }
 
     private void initViewPager() {
@@ -124,16 +124,16 @@ public class SearchResultActivity extends BaseFragmentActivity implements
             public void onPageSelected(int arg0) {
               switch (arg0){
                   case 0:
-                      productSearchFragment.getProductList(SearchResultActivity.this,true,false);
+                      productSearchFragment.getProductList(SearchResultActivity.this,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                       break;
                   case 1:
-                      brandSearchFragment.getBrand(SearchResultActivity.this,true,false);
+                      brandSearchFragment.getBrand(SearchResultActivity.this,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                       break;
                   case 2:
-                      buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,false);
+                      buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                       break;
                   case 3:
-                      marketSearchFragment.getMarketList(SearchResultActivity.this,true,false);
+                      marketSearchFragment.getMarketList(SearchResultActivity.this,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                       break;
 
               }
@@ -211,16 +211,16 @@ public class SearchResultActivity extends BaseFragmentActivity implements
                 int position = search_result_viewpager.getCurrentItem();
                 switch (position){
                     case 0:
-                        productSearchFragment.getProductList(SearchResultActivity.this,true,true);
+                        productSearchFragment.getProductList(SearchResultActivity.this,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                     case 1:
-                        brandSearchFragment.getBrand(SearchResultActivity.this,true,true);
+                        brandSearchFragment.getBrand(SearchResultActivity.this,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                     case 2:
-                        buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,true);
+                        buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                     case 3:
-                        marketSearchFragment.getMarketList(SearchResultActivity.this,true,true);
+                        marketSearchFragment.getMarketList(SearchResultActivity.this,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                 }
                 break;

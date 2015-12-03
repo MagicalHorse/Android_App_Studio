@@ -74,14 +74,14 @@ public class ProductSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-				getProductList(getActivity(),false,false);
+				getProductList(getActivity(),false,true,key);
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page++;
 				isRefresh = false;
-				getProductList(getActivity(),false,false);
+				getProductList(getActivity(),false,false,key);
 			}
 		});
 		return view;
@@ -93,7 +93,8 @@ public class ProductSearchFragment extends BaseFragment {
 	/**
 	 * 搜索商品列表
 	 */
-	public void getProductList( Context ctx, boolean showDialog,boolean focusRefresh){
+	public void getProductList( Context ctx, boolean showDialog,boolean focusRefresh,String key){
+		this.key = key;
 		if(showDialog && mList!=null && mList.size()>0 && !focusRefresh){
 			return;
 		}
@@ -110,15 +111,15 @@ public class ProductSearchFragment extends BaseFragment {
 				}, 100);
 				SearchProductBackBean bean = (SearchProductBackBean) obj;
 				if (isRefresh) {
+					mList.clear();
 					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
-						mList.clear();
 						mList.addAll(bean.getData().getItems());
 						tv_nodata.setVisibility(View.GONE);
-						adapter = new ProductSearchAdapter(getActivity(), mList);
-						pull_refresh_list.setAdapter(adapter);
 					} else {
 						tv_nodata.setVisibility(View.VISIBLE);
 					}
+					adapter = new ProductSearchAdapter(getActivity(), mList);
+					pull_refresh_list.setAdapter(adapter);
 				} else {
 					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
 						mList.addAll(bean.getData().getItems());
