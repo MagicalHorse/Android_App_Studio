@@ -48,7 +48,28 @@ public class GuideFragment extends BaseFragment {
         jazzy_pager = (JazzyViewPager) view.findViewById(R.id.jazzy_pager);
         jazzy_pager.setTransitionEffect(JazzyViewPager.TransitionEffect.Tablet);
         jazzy_pager.setPageMargin(30);
-        getRecommondBuyerlist();
+        pageAdapter = new ViewPagerAdapter(mList);
+        jazzy_pager.setAdapter(pageAdapter);
+        jazzy_pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position){
+                if(mList.size()>=5 && position == mList.size()-3){
+                    page++;
+                    getRecommondBuyerlist(false);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        getRecommondBuyerlist(true);
         return view;
     }
 
@@ -56,7 +77,7 @@ public class GuideFragment extends BaseFragment {
     /**
      * 推荐的买手/导购
      */
-    public void getRecommondBuyerlist() {
+    public void getRecommondBuyerlist(boolean first) {
         HttpControl httpControl = new HttpControl();
         httpControl.getRecommondBuyerlist(page, new HttpControl.HttpCallBackInterface() {
             @Override
@@ -65,8 +86,8 @@ public class GuideFragment extends BaseFragment {
                 if (bean != null && bean.getData() != null) {
                     List<BuyerInfo> buyers = bean.getData().getBuyers();
                     mList.addAll(buyers);
-                    pageAdapter = new ViewPagerAdapter(mList);
-                    jazzy_pager.setAdapter(pageAdapter);
+                    pageAdapter.notifyDataSetChanged();
+
                 }
 
             }

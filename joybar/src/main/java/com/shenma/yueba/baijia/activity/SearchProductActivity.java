@@ -194,6 +194,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String key = allList.get(position);
         allList.remove(mList.get(position));
         allList.add(0,mList.get(position));
         SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, "");
@@ -203,6 +204,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
         }
         SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
         Intent intent = new Intent(SearchProductActivity.this, SearchResultActivity.class);
+        intent.putExtra("key",key);
         startActivity(intent);
     }
 }

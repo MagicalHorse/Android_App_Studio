@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenma.yueba.BaseFragmentActivity;
@@ -23,12 +25,12 @@ import java.util.ArrayList;
 
 
 public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnClickListener {
+    private FragmentTransaction transaction;
+    private FragmentManager manager;
     private TextView tv_guide;
     private TextView tv_attention;
-    private ViewPager find_guide_viewpager;
     private GuideFragment guideFragment;// 导购
     private AttentionFragment attentionFragment;// 关注
-    private ArrayList<android.support.v4.app.Fragment> fragmentList = new ArrayList<android.support.v4.app.Fragment>();
     private ArrayList<ImageView> cursorImageList = new ArrayList<ImageView>();
     private ArrayList<TextView> titleTextList = new ArrayList<TextView>();
     private ImageView iv_cursor_right;
@@ -58,7 +60,6 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
         if (parentView == null) {
             parentView = inflater.inflate(R.layout.find_shopping_guide_layout, null);
             initView();
-            initViewPager();
         }
         ViewGroup vp = (ViewGroup) parentView.getParent();
         if (vp != null) {
@@ -71,9 +72,11 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
     private void initView() {
         guideFragment = new GuideFragment();
         attentionFragment = new AttentionFragment();
-        fragmentList.add(guideFragment);
-        fragmentList.add(attentionFragment);
-        find_guide_viewpager = (ViewPager) parentView.findViewById(R.id.find_guide_viewpager);
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction =  manager.beginTransaction();
+        transaction.replace(R.id.ll_contener, guideFragment);
+        transaction.commit();
+        LinearLayout ll_contener = (LinearLayout)parentView.findViewById(R.id.ll_contener);
         tv_guide = (TextView) parentView.findViewById(R.id.tv_guide);
         tv_attention = (TextView) parentView.findViewById(R.id.tv_attention);
         iv_cursor_right = (ImageView) parentView.findViewById(R.id.iv_cursor_right);
@@ -92,69 +95,21 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
     }
 
 
-    private void initViewPager() {
-        find_guide_viewpager.setAdapter(new TabPageIndicatorAdapter(getActivity().getSupportFragmentManager()));
-        find_guide_viewpager.setCurrentItem(0);
-        find_guide_viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-            }
 
-            /*
-             * 页面跳转完成后调用的方法
-             */
-            public void onPageSelected(int arg0) {
-//                fragmentList.get(arg0).getData(false, arg0, getActivity());
-//                for (int i = 0; i < fragmentList.size(); i++) {
-//                    if (arg0 != i) {
-//                        fragmentList.get(arg0).tv_nodata.setVisibility(View.GONE);
-//                    }
-//                }
-                setCursorAndText(arg0, cursorImageList, titleTextList);
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-    }
-
-
-    /**
-     * ViewPager适配器
-     *
-     * @author len
-     */
-    class TabPageIndicatorAdapter extends FragmentPagerAdapter {
-        public TabPageIndicatorAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public android.support.v4.app.Fragment getItem(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return super.getItemPosition(object);
-        }
-    }
 
     public void onClick(View v) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction =  manager.beginTransaction();
         switch (v.getId()) {
             case R.id.tv_guide://导购
-                find_guide_viewpager.setCurrentItem(0);
+                setCursorAndText(0, cursorImageList, titleTextList);
+                transaction.replace(R.id.ll_contener,guideFragment);
+                transaction.commit();
                 break;
             case R.id.tv_attention://关注
-                find_guide_viewpager.setCurrentItem(1);
+                setCursorAndText(1, cursorImageList, titleTextList);
+                transaction.replace(R.id.ll_contener,attentionFragment);
+                transaction.commit();
                 break;
             default:
                 break;

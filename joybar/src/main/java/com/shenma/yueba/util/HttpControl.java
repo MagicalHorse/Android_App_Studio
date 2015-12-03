@@ -400,7 +400,7 @@ public class HttpControl {
     public void getRecommondBuyerlist(int Page, final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("Page", Page + "");
-        map.put("PageSize", Constants.PageSize);
+        map.put("PageSize", "5");
         BasehttpSend(map, context, HttpConstants.METHOD_RecommondBuyerlist, httpCallBack, RecommondBuyerlistBackBean.class, false, false);
     }
 

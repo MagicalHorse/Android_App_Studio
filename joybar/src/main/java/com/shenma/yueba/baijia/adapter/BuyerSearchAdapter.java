@@ -14,6 +14,7 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.modle.ProductsInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
 import com.shenma.yueba.util.CreateAutoSizeViewManager;
+import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 
 import java.util.List;
@@ -75,10 +76,10 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
             holder = (Holder) convertView.getTag();
         }
         bitmapUtils.display(holder.riv_head, mList.get(position).getLogo());
-        holder.tv_name.setText(mList.get(position).getNickname());
-        holder.tv_attention.setText(mList.get(position).isFllowed()?"已关注":"关注");
-        holder.tv_store_name.setText(mList.get(position).getStoreName());
-        holder.tv_address.setText(mList.get(position).getAddress());
+        holder.tv_name.setText(ToolsUtil.nullToString(mList.get(position).getNickname()));
+        holder.tv_attention.setText(ToolsUtil.nullToString(mList.get(position).isFllowed() ? "已关注" : "关注"));
+        holder.tv_store_name.setText(ToolsUtil.nullToString(mList.get(position).getStoreName()));
+        holder.tv_address.setText(ToolsUtil.nullToString(mList.get(position).getStoreLocal()));
 
         ;
 

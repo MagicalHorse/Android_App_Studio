@@ -23,6 +23,7 @@ import com.shenma.yueba.baijia.fragment.MarketSearchFragment;
 import com.shenma.yueba.baijia.fragment.ProductSearchFragment;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.FontManager;
+import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.yangjia.fragment.HuoKuanIncomeAndOutGoingFragment;
 import com.umeng.analytics.MobclickAgent;
 
@@ -79,6 +80,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
         iv_back = (ImageView) findViewById(R.id.iv_back);
         iv_search = (ImageView) findViewById(R.id.iv_search);
         et_search = (EditText) findViewById(R.id.et_search);
+        et_search.setText(ToolsUtil.nullToString(key));
         iv_back.setOnClickListener(this);
         iv_search.setOnClickListener(this);
         iv_cursor_left = (ImageView) findViewById(R.id.iv_cursor_left);

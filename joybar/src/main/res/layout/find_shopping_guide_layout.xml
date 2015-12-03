@@ -9,10 +9,11 @@
 
     <View style="@style/style_horizontal_line" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/find_guide_viewpager"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-         />
+   <LinearLayout
+       android:id="@+id/ll_contener"
+       android:orientation="vertical"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent">
+   </LinearLayout>
 
 </LinearLayout>
