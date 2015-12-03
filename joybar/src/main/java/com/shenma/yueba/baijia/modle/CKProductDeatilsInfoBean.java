@@ -33,6 +33,9 @@ public class CKProductDeatilsInfoBean implements Serializable{
     String CityId;// 商品所在城市
     String CityName;//商品所在城市
 
+    //打烊购折扣
+    DaYangGouDisInfoBean DaYangGouDis=new DaYangGouDisInfoBean();
+
     List<CkProductInfoBean> InterestedProduct = new ArrayList<CkProductInfoBean>();//可能感兴趣的商品
     LikeUsersInfoBean LikeUsers=new LikeUsersInfoBean();//关注的人
     boolean IsFavorite=false;// 当前用户是否喜欢该商品
@@ -133,6 +136,14 @@ public class CKProductDeatilsInfoBean implements Serializable{
         void timerCallBack(String str);
     }
 
+
+    public DaYangGouDisInfoBean getDaYangGouDis() {
+        return DaYangGouDis;
+    }
+
+    public void setDaYangGouDis(DaYangGouDisInfoBean daYangGouDis) {
+        DaYangGouDis = daYangGouDis;
+    }
 
     public float getVipDiscount() {
         return VipDiscount;

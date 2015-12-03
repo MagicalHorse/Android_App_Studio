@@ -262,16 +262,8 @@ public final static String CANCELORDER="取消订单";//6
 	 * ***/
 	public static void payOrder(Context context,BaiJiaOrderListInfo baiJiaOrderListInfo)
 	{
-        
-        Intent intent=new Intent(context,BaijiaPayActivity.class);
-		PayResponseFormBean bean=new PayResponseFormBean();
-		bean.setOrderNo(baiJiaOrderListInfo.getOrderNo());
-		bean.setPrice(baiJiaOrderListInfo.getAmount());
-		bean.setContent(baiJiaOrderListInfo.getProduct().getName());
-		bean.setDesc(baiJiaOrderListInfo.getProduct().getName()+"  x "+baiJiaOrderListInfo.getProduct().getProductCount());
-		bean.setUrl(com.shenma.yueba.constants.Constants.WX_NOTIFY_URL);
-		intent.putExtra("PAYDATA",bean);
-		context.startActivity(intent);
+		ToolsUtil.frowardPayActivity((Activity)context,baiJiaOrderListInfo.getProduct().getName(), baiJiaOrderListInfo.getProduct().getProductCount(), baiJiaOrderListInfo.getOrderNo(), baiJiaOrderListInfo.getAmount());
+
 		//((Activity)context).startActivityForResult(intent, 200);
 	}
 	

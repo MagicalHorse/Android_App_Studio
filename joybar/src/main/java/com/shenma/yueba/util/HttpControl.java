@@ -44,6 +44,7 @@ import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
 import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
 import com.shenma.yueba.baijia.modle.RequestComputeAmountInfoBean;
 import com.shenma.yueba.baijia.modle.RequestCreatOrderInfoBean;
+import com.shenma.yueba.baijia.modle.RequestCreateOrderInfo;
 import com.shenma.yueba.baijia.modle.RequestImMessageInfoBean;
 import com.shenma.yueba.baijia.modle.RequestMemberCardBean;
 import com.shenma.yueba.baijia.modle.RequestMsgListInfoBean;
@@ -136,7 +137,7 @@ public class HttpControl {
      * 创建对象
      **/
     /*
-	 * public static HttpControl the() { if (httpControl == null) { httpControl
+     * public static HttpControl the() { if (httpControl == null) { httpControl
 	 * = new HttpControl(); } httpControl = new HttpControl(); return
 	 * httpControl; }
 	 */
@@ -165,17 +166,15 @@ public class HttpControl {
      *
      * @param httpCallBack
      * @param context
-     * @param  BuyerId   String 当前买手id
-     * @param ProductId   String   商品id
-     *
+     * @param BuyerId      String 当前买手id
+     * @param ProductId    String   商品id
      */
-    public void getVipCards(boolean isShow,String BuyerId,String ProductId,final HttpCallBackInterface httpCallBack, Context context) {
+    public void getVipCards(boolean isShow, String BuyerId, String ProductId, final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("BuyerId",BuyerId);
-        map.put("ProductId",ProductId);
+        map.put("BuyerId", BuyerId);
+        map.put("ProductId", ProductId);
         BasehttpSend(map, context, HttpConstants.METHOD_GetVipCards, httpCallBack, RequestMemberCardBean.class, isShow, false);
     }
-
 
 
     /**
@@ -206,7 +205,7 @@ public class HttpControl {
      * @param httpCallBack
      * @param context
      */
-    public void getStoreIndex(boolean isShow,String StoreId, String UserId, int Page, int PageSize, String SortType, final HttpCallBackInterface httpCallBack, Context context) {
+    public void getStoreIndex(boolean isShow, String StoreId, String UserId, int Page, int PageSize, String SortType, final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("StoreId", StoreId);
         map.put("UserId", UserId);
@@ -1157,8 +1156,8 @@ public class HttpControl {
         Map<String, String> map = new HashMap<String, String>();
         map.put(Constants.PAGE, Integer.toString(page));
         map.put(Constants.PAGESIZE, Integer.toString(pagesize));
-		/*
-		 * String userid=SharedUtil.getStringPerfernece(context,
+        /*
+         * String userid=SharedUtil.getStringPerfernece(context,
 		 * SharedUtil.user_id); if(userid.equals("")) {
 		 * map.put(Constants.PRODUCTI_USERID,"0"); }else {
 		 * map.put(Constants.PRODUCTI_USERID,userid); }
@@ -1217,7 +1216,7 @@ public class HttpControl {
      * @param productId    int商品编号
      * @return void
      **/
-    public void getCkrProductDetails(boolean isShow,int productId, final HttpCallBackInterface httpCallBack, Context context) {
+    public void getCkrProductDetails(boolean isShow, int productId, final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("productId", Integer.toString(productId));
         map.put("UserId", ToolsUtil.nullToString(SharedUtil.getStringPerfernece(context, SharedUtil.user_id)));
@@ -1245,14 +1244,48 @@ public class HttpControl {
     }
 
 
+    /************
+     *创建订单
+     *@param  isShow boolean 是否显示进度条
+     *@param  NeedInvoice  boolean 是否需要开发票  true: 1 false :0
+     *@param InvoiceTitle String 发票抬头
+     *@param Memo  String  备注
+     *@param Mobile String 联系电话
+     *@param ProductId  String      商品编号
+     *@param  Quantity   String     商品数量
+     *@param SizeId      String    尺码编号
+     *@param ColorId     String    颜色编号    如果不存在则传0
+     *@param VipCardNo    String   会员卡号
+     *@return void
+     ************/
+    public void createOrderV3(boolean isShow,boolean NeedInvoice,String InvoiceTitle,String Memo,String Mobile,String ProductId,String Quantity,String SizeId,String ColorId,String VipCardNo,final HttpCallBackInterface httpCallBack, Context context) {
+        Map<String, String> map = new HashMap<String, String>();
+        if(NeedInvoice)
+        {
+            map.put("NeedInvoice", "1");
+        }else
+        {
+            map.put("NeedInvoice", "0");
+        }
+
+        map.put("InvoiceTitle", InvoiceTitle);
+        map.put("Memo", Memo);
+        map.put("Mobile", Mobile);
+        map.put("ProductId", ProductId);
+        map.put("Quantity", Quantity);
+        map.put("SizeId", SizeId);
+        map.put("ColorId", ColorId);
+        map.put("VipCardNo", VipCardNo);
+        BasehttpSend(map, context,HttpConstants.METHOD_CreateOrderV3, httpCallBack,RequestCreateOrderInfo.class, isShow, false);
+    }
+
+
     /**
      * 获取订单列表
      *
      * @return void
      **/
-    public void productCopy(String productId,
-                            final HttpCallBackInterface httpCallBack, Context context
-    ) {
+    public void productCopy(String productId, final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
         map.put(Constants.PRODUCTID, productId);
         BasehttpSend(map, context,
@@ -2382,7 +2415,7 @@ public class HttpControl {
     }
 
 	/*<T extends BaseRequest> void BasehttpSend2(final Map<String, String> map,
-			final Context context, final String method,
+            final Context context, final String method,
 			final HttpCallBackInterface httpCallBack, final Class<T> classzz,
 			boolean isshwoDialog, boolean isDialogCancell) {
 		final CustomProgressDialog progressDialog = CustomProgressDialog

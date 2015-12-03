@@ -59,8 +59,7 @@ public class BaijiaPayActivity extends BaseActivityWithTopView implements
 			payResponseFormBean = (PayResponseFormBean) this.getIntent().getSerializableExtra("PAYDATA");
 		} else {
 			finish();
-			MyApplication.getInstance().showMessage(BaijiaPayActivity.this,
-					"数据错误，请从订单页面进入");
+			MyApplication.getInstance().showMessage(BaijiaPayActivity.this,"数据错误，请从订单页面进入");
 			return;
 		}
 		

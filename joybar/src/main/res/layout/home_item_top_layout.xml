@@ -17,7 +17,7 @@
         android:id="@+id/home_item_top_layout_time_textview"
         style="@style/timestyle"
         android:layout_alignParentRight="true"
-        android:text="结束距离：1天 23:34:12" />
+        android:text="" />
 
     <!--名称-->
     <TextView
@@ -29,7 +29,7 @@
         android:layout_toLeftOf="@+id/home_item_top_layout_time_textview"
         android:layout_toRightOf="@id/home_item_top_layout_icon_customimageview"
         android:singleLine="true"
-        android:text="BELLE"
+        android:text=""
         android:textSize="15sp" />
 
     <RelativeLayout
@@ -62,7 +62,7 @@
             android:layout_toRightOf="@+id/home_item_top_desp_imageview"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="实上的扣我上的扣扣扣扣哈我看大"
+            android:text=""
             android:textSize="11sp" />
 
         <!--距离-->
@@ -75,7 +75,7 @@
             android:ellipsize="end"
             android:maxWidth="80dp"
             android:singleLine="true"
-            android:text="114Km"
+            android:text=""
             android:textSize="11sp" />
     </RelativeLayout>
 

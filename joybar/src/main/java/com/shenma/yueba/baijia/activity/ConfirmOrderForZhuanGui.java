@@ -2,6 +2,7 @@ package com.shenma.yueba.baijia.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,18 @@ import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.AffirmProductInfo;
+import com.shenma.yueba.baijia.modle.DaYangGouDisInfoBean;
 import com.shenma.yueba.baijia.modle.MemberCardBean;
+import com.shenma.yueba.baijia.modle.PayResponseFormBean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
+import com.shenma.yueba.baijia.modle.RequestCreateOrderInfo;
 import com.shenma.yueba.baijia.modle.RequestMemberCardBean;
 import com.shenma.yueba.baijia.modle.RequestUserInfoBean;
 import com.shenma.yueba.constants.Constants;
@@ -51,6 +56,8 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
     private ImageView iv_card;
     TextView rl_card_change_textview;
     TextView tv_choose_card;
+    TextView et_name;//发票抬头信息
+    RadioGroup rg_fapiao;//发票抬头数组
     private boolean isHide = true;
     private EditText et_phone, et_comment;
     private ImageView iv_product;
@@ -86,6 +93,7 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
         }
         affirmProductInfo=(AffirmProductInfo)this.getIntent().getSerializableExtra("ProductInfo");
         initView();
+        jisuanPrice();
     }
 
 
@@ -132,14 +140,6 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
             public void http_Success(Object obj) {
                 isrunning = false;
                 RequestMemberCardBean requestMemberCardBean = (RequestMemberCardBean) obj;
-                for(int i=0;i<3;i++)
-                {
-                    MemberCardBean bean=new MemberCardBean();
-                    bean.setCardno("111111"+i);
-                    bean.setCardtypename("卡类型" + i);
-                    bean.setVipdiscount(1.7f);
-                    requestMemberCardBean.getData().add(bean);
-                }
                 if (requestMemberCardBean.getData() != null && requestMemberCardBean.getData().size() > 0) {
                     //没有绑定会员卡 提示 绑定会员卡
                     setItemValue(requestMemberCardBean);
@@ -209,7 +209,9 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
                         currCheckedMemberCardBean = (MemberCardBean) v.getTag();
                         v.setSelected(true);
                         tv_choose_card.setText(ToolsUtil.nullToString(currCheckedMemberCardBean.getCardtypename()) + "(" + currCheckedMemberCardBean.getVipdiscount() + "折)");
+                        SystemClock.sleep(100);
                         memberShowOrHidden();
+                        jisuanPrice();
                     }
                 });
 
@@ -225,6 +227,26 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
     }
 
     private void initView() {
+        rg_fapiao=(RadioGroup)findViewById(R.id.rg_fapiao);
+        rg_fapiao.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId)
+                {
+                    case R.id.orderBy1:
+                        et_name.setVisibility(View.GONE);
+                        break;
+                    case R.id.orderBy2:
+                        et_name.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.orderBy3:
+                        et_name.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        });
+        //发票抬头
+        et_name=(TextView)findViewById(R.id.et_name);
         //Vip折扣名字
         vip_name_textview=(TextView)findViewById(R.id.vip_name_textview);
         //折扣价格
@@ -256,6 +278,12 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
         tv_yunfei = getView(R.id.tv_yunfei);
         tv_dingjin = getView(R.id.tv_dingjin);
         tv_confirm_pay = getView(R.id.tv_confirm_pay);
+        tv_confirm_pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sumbitOrder();
+            }
+        });
         setTitle("确认订单");
         setLeftTextView(new View.OnClickListener() {
             @Override
@@ -274,6 +302,14 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
             @Override
             public void onClick(View v) {
                boolean IsBindMobile=SharedUtil.getBooleanPerfernece(ConfirmOrderForZhuanGui.this, SharedUtil.user_IsBindMobile);
+                //是否参加Vip折扣
+                boolean isJoinDeiscount=affirmProductInfo.getData().getData().isJoinDeiscount();
+                isJoinDeiscount=true;
+                if(!isJoinDeiscount)
+                {
+                    MyApplication.getInstance().showMessage(ConfirmOrderForZhuanGui.this,"该商品不能使用会员卡");
+                    return;
+                }
                 //如果已经绑定手机号
                 if(IsBindMobile)
                 {
@@ -335,10 +371,9 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
         httpControl.getBaijiaUserInfo(Integer.valueOf(userid), false, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
-                RequestUserInfoBean bean=(RequestUserInfoBean)obj;
-                if(bean.getData()!=null)
-                {
-                    SharedUtil.setBooleanPerfernece(ConfirmOrderForZhuanGui.this,SharedUtil.user_IsBindMobile,bean.getData().isBindMobile());
+                RequestUserInfoBean bean = (RequestUserInfoBean) obj;
+                if (bean.getData() != null) {
+                    SharedUtil.setBooleanPerfernece(ConfirmOrderForZhuanGui.this, SharedUtil.user_IsBindMobile, bean.getData().isBindMobile());
                 }
                 memeberTextChange();
             }
@@ -370,5 +405,152 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
                 Animation.RELATIVE_TO_SELF, 0.5f);
         rotateAnimationDown.setDuration(500);
         rotateAnimationDown.setFillAfter(true);
+    }
+
+    /******
+     * 提交订单
+     * ****/
+    void sumbitOrder()
+    {
+        String Mobile=et_phone.getText().toString().trim();
+        if(Mobile.equals(""))
+        {
+            MyApplication.getInstance().showMessage(ConfirmOrderForZhuanGui.this,"提货手机号不能为空");
+            return;
+        }
+        String Memo=et_comment.getText().toString().trim();
+        String ProductId=affirmProductInfo.getData().getData().getProductId();
+        String Quantity=Integer.toString(affirmProductInfo.getBuycount());
+        String SizeId=affirmProductInfo.getSizeId();
+        if(SizeId==null || SizeId.equals(""))
+        {
+            SizeId="0";
+        }
+        String ColorId=affirmProductInfo.getColorId();
+        if(ColorId==null || ColorId.equals(""))
+        {
+            ColorId="0";
+        }
+        String VipCardNo="";
+        if(currCheckedMemberCardBean!=null)
+        {
+            VipCardNo=currCheckedMemberCardBean.getCardno();
+        }
+
+        //是否需要发票
+        boolean NeedInvoice=false;
+        String InvoiceTitle="";//发票抬头
+        switch (rg_fapiao.getCheckedRadioButtonId())
+        {
+            case R.id.orderBy1:
+                NeedInvoice=false;
+                break;
+            case R.id.orderBy2:
+                NeedInvoice=true;
+                break;
+            case R.id.orderBy3:
+                NeedInvoice=true;
+                break;
+        }
+
+        InvoiceTitle=et_name.getText().toString().trim();
+        if(NeedInvoice && InvoiceTitle.equals(""))
+        {
+            MyApplication.getInstance().showMessage(ConfirmOrderForZhuanGui.this,"发票抬头信息不能为空");
+            return;
+        }
+
+        httpControl.createOrderV3(true, NeedInvoice, InvoiceTitle, Memo, Mobile, ProductId, Quantity, SizeId, ColorId, VipCardNo, new HttpControl.HttpCallBackInterface() {
+            @Override
+            public void http_Success(Object obj) {
+                MyApplication.getInstance().showMessage(ConfirmOrderForZhuanGui.this, "下单成功");
+                RequestCreateOrderInfo info=(RequestCreateOrderInfo)obj;
+                ToolsUtil.frowardPayActivity(ConfirmOrderForZhuanGui.this, affirmProductInfo.getData().getData().getProductName(),affirmProductInfo.getBuycount(),info.getData().getOrderNo(),info.getData().getActualAmount());
+                finish();
+            }
+
+            @Override
+            public void http_Fails(int error, String msg) {
+                MyApplication.getInstance().showMessage(ConfirmOrderForZhuanGui.this,msg);
+            }
+        },ConfirmOrderForZhuanGui.this);
+    }
+
+
+
+    /*******
+     * 计算 价格
+     * ******/
+    void  jisuanPrice()
+    {
+        //实际支付价格
+        double payPrice=0;
+        //商品单价
+        double price= affirmProductInfo.getData().getData().getPrice();
+        //吊牌价
+        double unitPrice=affirmProductInfo.getData().getData().getUnitPrice();
+
+        //商品单价* 购买数量 =商品总价
+        double allprice=price*affirmProductInfo.getBuycount();
+        //商家指定的折扣率(格式：85折)
+        float vipDiscpunt=affirmProductInfo.getData().getData().getVipDiscount();
+
+        //使用Vip 会员折扣 的价格
+        double vipDiscrate=0;
+        //打样够
+        DaYangGouDisInfoBean DaYangGouDis=affirmProductInfo.getData().getData().getDaYangGouDis();
+        //打样够 立减金额
+        double dangyanggouprice=0;
+
+        order_money_title.setText("订单金额：￥"+allprice);
+
+        //如果 存在 已选择 的 会员卡
+        if(currCheckedMemberCardBean!=null)
+        {
+            //一次折扣率(85折)
+            float discrate1= currCheckedMemberCardBean.getDiscrate1();
+            //二次折扣率(85折)
+            float discrate2= currCheckedMemberCardBean.getDiscrate2();
+            //使用的折扣
+            float checked_discrate=0;
+            if(price<unitPrice)
+            {
+                checked_discrate=discrate2 < vipDiscpunt? vipDiscpunt:discrate2;
+            }else
+            {
+                checked_discrate=discrate1 < vipDiscpunt? vipDiscpunt:discrate1;
+            }
+            vipDiscrate=allprice*((100-checked_discrate)/100);
+            if(vipDiscrate<0)
+            {
+                vipDiscrate=0;
+            }
+            //设置 Vip折扣
+            vip_namevalue_textview.setText("立减：￥"+ToolsUtil.DounbleToString_2(vipDiscrate));
+        }else
+        {
+            //设置 Vip折扣
+            vip_namevalue_textview.setText("");
+        }
+
+        if(DaYangGouDis!=null)
+        {
+            //打烊购折扣率(格式：0.03  相当于 97折)
+            float discount=DaYangGouDis.getDiscount();
+            //打样购最大折扣金额
+            double maxPrice=DaYangGouDis.getMaxamount();
+            dangyanggouprice=(price-vipDiscrate)*discount;
+            dangyanggouprice=dangyanggouprice < maxPrice? dangyanggouprice:maxPrice;
+        }
+
+        //打样够立减
+        tv_dyg_money.setText(ToolsUtil.DounbleToString_2(dangyanggouprice));
+
+        payPrice=price-vipDiscrate-dangyanggouprice;
+        if(payPrice<0)
+        {
+            payPrice=0;
+        }
+        tv_dingjin.setText(ToolsUtil.DounbleToString_2(payPrice));
     }
 }
