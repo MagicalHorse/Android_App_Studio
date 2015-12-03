@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.ScrollViewPagerAdapter;
+import com.shenma.yueba.baijia.modle.CKProductCountDownBean;
 import com.shenma.yueba.baijia.modle.CKProductDeatilsInfoBean;
 import com.shenma.yueba.baijia.modle.ProductsDetailsPromotion;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
@@ -93,7 +94,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 	View parentView;
 	RequestCk_SPECDetails requestCk_SPECDetails;
 	Timer timer;
-
+	CKProductCountDownBean ckProductCountDownBean;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -103,6 +104,12 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		bean = (RequestCKProductDeatilsInfo) activity.getIntent().getSerializableExtra("ProductInfo");
 		Data=bean.getData();
 		productID=Integer.valueOf(Data.getProductId());
+		if(ckProductCountDownBean==null)
+		{
+			ckProductCountDownBean=new CKProductCountDownBean();
+			ckProductCountDownBean.setCkProductDeatilsInfoBean(bean.getData());
+			ckProductCountDownBean.startTimer();
+		}
 	}
 
 	@Override
@@ -117,6 +124,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		if (parentView.getParent() != null) {
 			((ViewGroup) parentView.getParent()).removeView(parentView);
 		}
+		dangyanggouTime();
 		return parentView;
 	}
 
@@ -231,22 +239,46 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		approvebuyer_addcartbutton = (Button)parentView.findViewById(R.id.approvebuyer_addcartbutton);
 		approvebuyerbuybutton = (Button)parentView.findViewById(R.id.approvebuyerbuybutton);
 
-		//如果营业时间已经开始
-		if(Data.isStart())
-		{
-			approvebuyerbuybutton.setEnabled(true);
-			approvebuyerbuybutton.setText("购买");
-		}else
-		{
-
-			approvebuyerbuybutton.setEnabled(false);
-		}
-
 		approvebuyerbuybutton.setOnClickListener(this);
 		//喜欢的人的 头像列表
 		LinearLayout approvebuyerdetails_attention_linearlayout=(LinearLayout)parentView.findViewById(R.id.approvebuyerdetails_attention_linearlayout);
 		approvebuyerdetails_attention_linearlayout.setVisibility(View.GONE);
 	}
+
+
+	void  dangyanggouTime()
+	{
+		if(ckProductCountDownBean!=null)
+		{
+			ckProductCountDownBean.setTimerLinstener(new CKProductCountDownBean.TimerLinstener() {
+				@Override
+				public void timerCallBack(final String str) {
+					if(approvebuyerbuybutton!=null)
+					{
+						if(getActivity()!=null)
+						{
+							getActivity().runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									//如果打样够开始
+									if(ckProductCountDownBean.isDayangGou())
+									{
+										approvebuyerbuybutton.setText("立即购买");
+									}else
+									{
+										approvebuyerbuybutton.setText("剩余开始时间："+str);
+									}
+								}
+							});
+						}
+
+					}
+				}
+			});
+		}
+
+	}
+
 
 	void startChatActivity() {
 		if (!MyApplication.getInstance().isUserLogin(
@@ -532,6 +564,11 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 			startChatActivity();
 			break;
 		case R.id.approvebuyerbuybutton:
+			if(!ckProductCountDownBean.isDayangGou())
+			{
+				MyApplication.getInstance().showMessage(getActivity(),"活动还没开始");
+				return;
+			}
 			startChatActivity();
 			break;
 		case R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview:

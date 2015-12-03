@@ -1,20 +1,14 @@
 package com.shenma.yueba.baijia.modle;
 
-import com.shenma.yueba.util.TimerDownUtils;
-
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Administrator on 2015/10/19.
  * 专柜买手商品详情数据
  */
-public class CKProductDeatilsInfoBean implements Serializable{
+public class CKProductDeatilsInfoBean implements Serializable {
     String BuyerId;//买手id
     String BuyerName;//买手名字
     String BuyerLogo;//买手头像
@@ -34,108 +28,23 @@ public class CKProductDeatilsInfoBean implements Serializable{
     String CityName;//商品所在城市
 
     //打烊购折扣
-    DaYangGouDisInfoBean DaYangGouDis=new DaYangGouDisInfoBean();
+    DaYangGouDisInfoBean DaYangGouDis = new DaYangGouDisInfoBean();
 
     List<CkProductInfoBean> InterestedProduct = new ArrayList<CkProductInfoBean>();//可能感兴趣的商品
-    LikeUsersInfoBean LikeUsers=new LikeUsersInfoBean();//关注的人
-    boolean IsFavorite=false;// 当前用户是否喜欢该商品
+    LikeUsersInfoBean LikeUsers = new LikeUsersInfoBean();//关注的人
+    boolean IsFavorite = false;// 当前用户是否喜欢该商品
     String StoreName;// 门店名称/商场名称
     String StoreId;//商场编号
-    boolean IsStart=false;//是否开始
+    boolean IsStart = false;//是否开始
     long BusinessTime;//营业时长（秒） 即非打样购时间
     long RemainTime;// 剩余时长（秒） 如果IsStart=true  则是剩余结束时间，否则是剩余开始时间
     //活动信息
-    ProductsDetailsPromotion Promotion=new ProductsDetailsPromotion();
+    ProductsDetailsPromotion Promotion = new ProductsDetailsPromotion();
     String ShareLink;//分享链接地址
     String ShareDesc;//分享内容
-    List<ProductsDetailsTagInfo>  ProductPic=new ArrayList<ProductsDetailsTagInfo>();
-    boolean  IsJoinDeiscount=false;//是否参加Vip折扣  eg.False
+    List<ProductsDetailsTagInfo> ProductPic = new ArrayList<ProductsDetailsTagInfo>();
+    boolean IsJoinDeiscount = false;//是否参加Vip折扣  eg.False
     float VipDiscount;//Vip折扣率  eg.0
-    String showstr="";//显示倒计时时间
-
-    public void setTimerLinstener(TimerLinstener timerLinstener) {
-        this.timerLinstener = timerLinstener;
-    }
-
-    public boolean isRunning() {
-        return isRunning;
-    }
-
-    public void setIsRunning(boolean isRunning) {
-        this.isRunning = isRunning;
-    }
-
-    boolean isRunning=false;
-
-    TimerLinstener timerLinstener;//设置时间回调
-
-    public void startTimer()
-    {
-
-        if(isRunning)
-        {
-            return;
-        }
-        isRunning=true;
-        Timer  timer=new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                //
-
-            }
-        },0,1000);
-    }
-
-
-    void jisuan(String shengyutimer)
-    {
-        if(IsStart)
-        {
-            RemainTime--;
-            if(RemainTime>0)
-            {
-                //毫秒换算成 格式化的时间
-                showstr=getSimpleDateFormat(RemainTime);
-                if(timerLinstener!=null)
-                {
-                    timerLinstener.timerCallBack(showstr);
-                }
-            }else
-            {
-                IsStart=false;
-            }
-
-        }else
-        {
-            BusinessTime--;
-            if(BusinessTime>0)
-            {
-                //毫秒换算成 格式化的时间
-                showstr=getSimpleDateFormat(RemainTime);
-                if(timerLinstener!=null)
-                {
-                    timerLinstener.timerCallBack(showstr);
-                }
-            }else
-            {
-                RemainTime=(24*3600)-BusinessTime;
-                IsStart=true;
-            }
-
-        }
-    }
-
-    String getSimpleDateFormat(long l)
-    {
-        return TimerDownUtils.millSecendToStr(l*1000);
-    }
-
-    public interface TimerLinstener
-    {
-        void timerCallBack(String str);
-    }
-
 
     public DaYangGouDisInfoBean getDaYangGouDis() {
         return DaYangGouDis;
@@ -176,16 +85,17 @@ public class CKProductDeatilsInfoBean implements Serializable{
     public void setProductPic(List<ProductsDetailsTagInfo> productPic) {
         ProductPic = productPic;
     }
+
     public String getShareDesc() {
         return ShareDesc;
     }
 
-    
+
     public void setShareDesc(String shareDesc) {
         ShareDesc = shareDesc;
     }
 
-    
+
     public String getBuyerId() {
         return BuyerId;
     }
@@ -194,32 +104,32 @@ public class CKProductDeatilsInfoBean implements Serializable{
         BuyerId = buyerId;
     }
 
-    
+
     public String getBuyerName() {
         return BuyerName;
     }
 
-    
+
     public void setBuyerName(String buyerName) {
         BuyerName = buyerName;
     }
 
-    
+
     public String getBuyerLogo() {
         return BuyerLogo;
     }
 
-    
+
     public void setBuyerLogo(String buyerLogo) {
         BuyerLogo = buyerLogo;
     }
 
-    
+
     public String getBuyerMobile() {
         return BuyerMobile;
     }
 
-    
+
     public void setBuyerMobile(String buyerMobile) {
         BuyerMobile = buyerMobile;
     }
@@ -233,17 +143,17 @@ public class CKProductDeatilsInfoBean implements Serializable{
         TurnCount = turnCount;
     }
 
-    
+
     public String getPickAddress() {
         return PickAddress;
     }
 
-    
+
     public void setPickAddress(String pickAddress) {
         PickAddress = pickAddress;
     }
 
-    
+
     public String getProductId() {
         return ProductId;
     }
@@ -252,22 +162,22 @@ public class CKProductDeatilsInfoBean implements Serializable{
         ProductId = productId;
     }
 
-    
+
     public String getProductName() {
         return ProductName;
     }
 
-    
+
     public void setProductName(String productName) {
         ProductName = productName;
     }
 
-    
+
     public double getPrice() {
         return Price;
     }
 
-    
+
     public void setPrice(double price) {
         Price = price;
     }
@@ -336,12 +246,12 @@ public class CKProductDeatilsInfoBean implements Serializable{
         InterestedProduct = interestedProduct;
     }
 
-    
+
     public LikeUsersInfoBean getLikeUsers() {
         return LikeUsers;
     }
 
-    
+
     public void setLikeUsers(LikeUsersInfoBean likeUsers) {
         LikeUsers = likeUsers;
     }
@@ -350,22 +260,22 @@ public class CKProductDeatilsInfoBean implements Serializable{
         return IsFavorite;
     }
 
-    
+
     public void setIsFavorite(boolean isFavorite) {
         IsFavorite = isFavorite;
     }
 
-    
+
     public String getStoreName() {
         return StoreName;
     }
 
-    
+
     public void setStoreName(String storeName) {
         StoreName = storeName;
     }
 
-    
+
     public String getStoreId() {
         return StoreId;
     }
@@ -398,22 +308,22 @@ public class CKProductDeatilsInfoBean implements Serializable{
         RemainTime = remainTime;
     }
 
-    
+
     public ProductsDetailsPromotion getPromotion() {
         return Promotion;
     }
 
-    
+
     public void setPromotion(ProductsDetailsPromotion promotion) {
         Promotion = promotion;
     }
 
-    
+
     public String getShareLink() {
         return ShareLink;
     }
 
-    
+
     public void setShareLink(String shareLink) {
         ShareLink = shareLink;
     }

@@ -11,10 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
-import android.text.Html;
 import android.text.Selection;
 import android.text.Spannable;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -44,6 +42,7 @@ import com.shenma.yueba.baijia.adapter.ProductColorTypeAdapter;
 import com.shenma.yueba.baijia.adapter.ProductSPECAdapter;
 import com.shenma.yueba.baijia.adapter.ScrollViewPagerAdapter;
 import com.shenma.yueba.baijia.modle.AffirmProductInfo;
+import com.shenma.yueba.baijia.modle.CKProductCountDownBean;
 import com.shenma.yueba.baijia.modle.CKProductDeatilsInfoBean;
 import com.shenma.yueba.baijia.modle.FragmentBean;
 import com.shenma.yueba.baijia.modle.LikeUsersInfoBean;
@@ -147,7 +146,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
     Activity activity;
     LayoutInflater layoutInflater;
     View parentView;
-
+    CKProductCountDownBean ckProductCountDownBean;
 
     @Override
     public void onAttach(Activity activity) {
@@ -157,6 +156,12 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         bean = (RequestCKProductDeatilsInfo) activity.getIntent().getSerializableExtra("ProductInfo");
         Data = bean.getData();
         productID=Integer.valueOf(Data.getProductId());
+        if(ckProductCountDownBean==null)
+        {
+            ckProductCountDownBean=new CKProductCountDownBean();
+            ckProductCountDownBean.setCkProductDeatilsInfoBean(bean.getData());
+            ckProductCountDownBean.startTimer();
+        }
     }
 
     @Override
@@ -177,6 +182,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         if (parentView.getParent() != null) {
             ((ViewGroup) parentView.getParent()).removeView(parentView);
         }
+        dangyanggouTime();
         return parentView;
     }
 
@@ -846,8 +852,6 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         setdataValue(R.id.approvebuyerdetails_producename_textview, productName);
         //设置服务描述
         TextView product_spec_layout_serve_textview = (TextView) parentView.findViewById(R.id.product_spec_layout_serve_textview);
-        Spanned spanned = Html.fromHtml(ToolsUtil.nullToString(Data.getStoreService()));
-        product_spec_layout_serve_textview.setText("服务:" + spanned);
 
         LikeUsersInfoBean likeUsersInfoBean = Data.getLikeUsers();
 
@@ -1067,6 +1071,11 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 forwardSiLiao();
                 break;
             case R.id.approvebuyerbuybutton:
+                /*if(!ckProductCountDownBean.isDayangGou())
+                {
+                    MyApplication.getInstance().showMessage(getActivity(),"活动还没开始");
+                    return;
+                }*/
                 startChatActivity();
                 break;
             case R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview:
@@ -1085,6 +1094,40 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         }
 
     }
+
+    void  dangyanggouTime()
+    {
+        if(ckProductCountDownBean!=null)
+        {
+            ckProductCountDownBean.setTimerLinstener(new CKProductCountDownBean.TimerLinstener() {
+                @Override
+                public void timerCallBack(final String str) {
+                    if(approvebuyerbuybutton!=null)
+                    {
+                        if(getActivity()!=null)
+                        {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //如果打样够开始
+                                    if(ckProductCountDownBean.isDayangGou())
+                                    {
+                                        approvebuyerbuybutton.setText("立即购买");
+                                    }else
+                                    {
+                                        approvebuyerbuybutton.setText("剩余开始时间："+str);
+                                    }
+                                }
+                            });
+
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+
 
     /****
      * 提交收藏与取消收藏商品

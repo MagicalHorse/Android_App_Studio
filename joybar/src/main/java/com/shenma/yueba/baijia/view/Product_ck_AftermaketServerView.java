@@ -1,6 +1,7 @@
 package com.shenma.yueba.baijia.view;
 
 import android.app.Activity;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,9 +41,9 @@ public class Product_ck_AftermaketServerView {
             str="售后服务";
         }else
         {
-
+            str=bean.getData().getStoreService();
         }
-        parentView.setText(str);
+        parentView.setText(Html.fromHtml(str));
     }
 
 

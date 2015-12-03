@@ -50,8 +50,6 @@ public class BaijiaProductInfoActivity extends FragmentActivity {
                     http_Fails(400, "无商品信息");
                 } else {
                     CKProductDeatilsInfoBean cKProductDeatilsInfoBean = bean.getData();
-                    cKProductDeatilsInfoBean.startTimer();
-
                     //如果是 认证
                     if (ToolsUtil.nullToString(cKProductDeatilsInfoBean.getUserLevel()).equals("8")) {
                         ApproveBuyerDetailsFragment approveBuyerDetailsFragment = new ApproveBuyerDetailsFragment();

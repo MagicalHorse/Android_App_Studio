@@ -9,6 +9,8 @@ import com.shenma.yueba.yangjia.modle.ProductItemBean;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by a on 2015/11/24.
@@ -153,8 +155,6 @@ public class IndexItems implements Serializable{
         Products = products;
     }
 
-    HomeItemInfoListener listener;
-    TimerDownUtils timerDownUtils;
 
     public String getShowstr() {
         return showstr;
@@ -164,34 +164,140 @@ public class IndexItems implements Serializable{
         this.showstr = showstr;
     }
 
-    String showstr="";
+    String showstr = "";//显示倒计时时间
 
-    public void startTime()
-    {
-        if(timerDownUtils==null)
+    public void setTimerLinstener(TimerLinstener timerLinstener) {
+        this.timerLinstener = timerLinstener;
+    }
+
+
+    long tem_BusinessTime;
+    long tem_RemainTime;
+    long DYGTime;
+    long tmpBusinessTime;
+
+    public boolean isDayangGou() {
+        return isDayangGou;
+    }
+
+    boolean isDayangGou=false;
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
+
+    boolean isRunning = false;
+
+    public TimerLinstener getTimerLinstener() {
+        return timerLinstener;
+    }
+
+    TimerLinstener timerLinstener;//设置时间回调
+
+    public void startTime() {
+        if (isRunning) {
+            return;
+        }
+        if(BusinessTime<=0)
         {
-            timerDownUtils=new TimerDownUtils();
-            timerDownUtils.timerDown(null, IsStart, BusinessTime, RemainTime, new TimerDownUtils.TimerCallListener() {
-                @Override
-                public void currTime(String str) {
-                    setShowstr(str);
-                    if(listener!=null)
-                    {
-                        listener.callback();
+            return;
+        }
+        tem_BusinessTime = BusinessTime;
+        tem_RemainTime = RemainTime;
+        DYGTime = 24 * 3600 - BusinessTime;
+        tmpBusinessTime = BusinessTime;
+        isDayangGou=IsStart;
+
+        isRunning = true;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                jisuan();
+            }
+        }, 0, 1000);
+    }
+
+
+    void jisuan() {
+        //如果已经开始
+        if (IsStart) {
+            if (tem_RemainTime > 0) {
+                isDayangGou=true;
+                tem_RemainTime--;
+                showstr = TimerDownUtils.millSecendToStr(tem_RemainTime);
+                if (timerLinstener != null) {
+                    timerLinstener.timerCallBack(showstr);
+                }
+            } else {
+                if (tmpBusinessTime > 0) {
+                    isDayangGou=false;
+                    tmpBusinessTime--;
+                    showstr = TimerDownUtils.millSecendToStr(tmpBusinessTime);
+                    if (timerLinstener != null) {
+                        timerLinstener.timerCallBack(showstr);
+                    }
+                } else {
+                    if (DYGTime > 0) {
+                        isDayangGou=true;
+                        DYGTime--;
+                        showstr = TimerDownUtils.millSecendToStr(DYGTime);
+                        if (timerLinstener != null) {
+                            timerLinstener.timerCallBack(showstr);
+                        }
+                    }else{
+                        isDayangGou=false;
+                        tmpBusinessTime=BusinessTime;
+                        DYGTime=24 * 3600 - BusinessTime;
                     }
                 }
-            });
+            }
+
+
+        } else {
+
+            if (tem_RemainTime > 0) {
+                isDayangGou=false;
+                tem_RemainTime--;
+                showstr = TimerDownUtils.millSecendToStr(tem_RemainTime);
+                if (timerLinstener != null) {
+                    timerLinstener.timerCallBack(showstr);
+                }
+            }else
+            {
+                if (DYGTime > 0) {
+                    isDayangGou=true;
+                    DYGTime--;
+                    showstr = TimerDownUtils.millSecendToStr(DYGTime);
+                    if (timerLinstener != null) {
+                        timerLinstener.timerCallBack(showstr);
+                    }
+                }else
+                {
+                    if(tmpBusinessTime>0)
+                    {
+                        isDayangGou=false;
+                        tmpBusinessTime--;
+                        showstr = TimerDownUtils.millSecendToStr(tmpBusinessTime);
+                        if (timerLinstener != null) {
+                            timerLinstener.timerCallBack(showstr);
+                        }
+                    }else
+                    {
+                        isDayangGou=true;
+                        DYGTime=24 * 3600 - BusinessTime;
+                        tmpBusinessTime=BusinessTime;
+                    }
+                }
+            }
         }
-
     }
 
-    public void setTimerCallListener(HomeItemInfoListener listener)
-    {
-        this.listener=listener;
+    public interface TimerLinstener {
+        void timerCallBack(String str);
     }
 
-    public interface HomeItemInfoListener
-    {
-        void callback();
-    }
 }

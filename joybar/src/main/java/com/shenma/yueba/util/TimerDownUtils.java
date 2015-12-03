@@ -3,13 +3,14 @@ package com.shenma.yueba.util;
 import android.os.Handler;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * Created by a on 2015/11/16.
  */
-public class TimerDownUtils {
+public class TimerDownUtils implements Serializable{
     private long allTime = 10000;
     private boolean hasStarted;
     private long startTime, finishTime;
@@ -53,7 +54,7 @@ public class TimerDownUtils {
 
     public static String millSecendToStr(long millSecond) {
         String hourStr, miniteStr, secondStr;
-        long second = millSecond / 1000;
+        long second = millSecond;
         long leftSecond = second % 60;
         long minite = second / 60;
         long leftHour = minite / 60;

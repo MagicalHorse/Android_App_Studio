@@ -26,11 +26,14 @@ import com.shenma.yueba.baijia.modle.newmodel.IndexItems;
 import com.shenma.yueba.util.AbsBrandListManager;
 import com.shenma.yueba.util.AutoBrandListManager;
 import com.shenma.yueba.util.AverageViewManager;
+import com.shenma.yueba.util.PerferneceUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import config.PerferneceConfig;
 
 /**
  * Created by Administrator on 2015/11/6.
@@ -102,7 +105,7 @@ public class HomeAdapter extends BaseAdapter {
 
 
     void setCommonValue(int position, final Holder holder) {
-        IndexItems indexItems = infoList.get(position);
+        final IndexItems indexItems = infoList.get(position);
         holder.home_item_top_name_textview.setText(indexItems.getStoreName());
         MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(indexItems.getLogo()), holder.home_item_top_layout_icon_customimageview, MyApplication.getInstance().getDisplayImageOptions());
         holder.home_item_top_layout_include.setTag(indexItems);
@@ -117,18 +120,44 @@ public class HomeAdapter extends BaseAdapter {
 
             holder.home_item_top_desp_imageview.setVisibility(View.VISIBLE);
             holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getLocation()));
-            holder.home_item_top_destance_textview.setText("距离信息" + position);
+            double long1=indexItems.getLon();
+            double lat1=indexItems.getLat();
+            double long2=0;
+            double lat2=0;
+            if(PerferneceUtil.getString(PerferneceConfig.LONGITUDE)!=null  && !PerferneceUtil.getString(PerferneceConfig.LONGITUDE).equals(""))
+            {
+                long2=Double.parseDouble(PerferneceUtil.getString(PerferneceConfig.LONGITUDE));
+            }
+            if(PerferneceUtil.getString(PerferneceConfig.LATITUDE)!=null  && !PerferneceUtil.getString(PerferneceConfig.LATITUDE).equals(""))
+            {
+                long2=Double.parseDouble(PerferneceUtil.getString(PerferneceConfig.LATITUDE));
+            }
+            holder.home_item_top_destance_textview.setText(ToolsUtil.Distance(long1, lat1, long2, lat2));
             holder.home_item_top_destance_textview.setVisibility(View.VISIBLE);
         }
 
         holder.home_item_top_layout_time_textview.setTag(indexItems);
         holder.home_item_top_layout_time_textview.setText(indexItems.getShowstr());
-        indexItems.setTimerCallListener(new IndexItems.HomeItemInfoListener() {
+        indexItems.setTimerLinstener(new IndexItems.TimerLinstener() {
             @Override
-            public void callback() {
-                //倒计时
-                IndexItems _indexItems = (IndexItems) holder.home_item_top_layout_time_textview.getTag();
-                holder.home_item_top_layout_time_textview.setText(_indexItems.getShowstr());
+            public void timerCallBack(final String str) {
+                if(activity!=null)
+                {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //倒计时
+                            IndexItems _indexItems = (IndexItems) holder.home_item_top_layout_time_textview.getTag();
+                            if(indexItems.isDayangGou())
+                            {
+                                holder.home_item_top_layout_time_textview.setText("剩余结束时间："+str);
+                            }else
+                            {
+                                holder.home_item_top_layout_time_textview.setText("剩余开始时间："+str);
+                            }
+                        }
+                    });
+                }
             }
         });
 
