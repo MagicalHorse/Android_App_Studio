@@ -230,7 +230,7 @@ public class IndexItems implements Serializable{
                 tem_RemainTime--;
                 showstr = TimerDownUtils.millSecendToStr(tem_RemainTime);
                 if (timerLinstener != null) {
-                    timerLinstener.timerCallBack(showstr);
+                    timerLinstener.timerCallBack();
                 }
             } else {
                 if (tmpBusinessTime > 0) {
@@ -238,7 +238,7 @@ public class IndexItems implements Serializable{
                     tmpBusinessTime--;
                     showstr = TimerDownUtils.millSecendToStr(tmpBusinessTime);
                     if (timerLinstener != null) {
-                        timerLinstener.timerCallBack(showstr);
+                        timerLinstener.timerCallBack();
                     }
                 } else {
                     if (DYGTime > 0) {
@@ -246,7 +246,7 @@ public class IndexItems implements Serializable{
                         DYGTime--;
                         showstr = TimerDownUtils.millSecendToStr(DYGTime);
                         if (timerLinstener != null) {
-                            timerLinstener.timerCallBack(showstr);
+                            timerLinstener.timerCallBack();
                         }
                     }else{
                         isDayangGou=false;
@@ -264,7 +264,7 @@ public class IndexItems implements Serializable{
                 tem_RemainTime--;
                 showstr = TimerDownUtils.millSecendToStr(tem_RemainTime);
                 if (timerLinstener != null) {
-                    timerLinstener.timerCallBack(showstr);
+                    timerLinstener.timerCallBack();
                 }
             }else
             {
@@ -273,7 +273,7 @@ public class IndexItems implements Serializable{
                     DYGTime--;
                     showstr = TimerDownUtils.millSecendToStr(DYGTime);
                     if (timerLinstener != null) {
-                        timerLinstener.timerCallBack(showstr);
+                        timerLinstener.timerCallBack();
                     }
                 }else
                 {
@@ -283,7 +283,7 @@ public class IndexItems implements Serializable{
                         tmpBusinessTime--;
                         showstr = TimerDownUtils.millSecendToStr(tmpBusinessTime);
                         if (timerLinstener != null) {
-                            timerLinstener.timerCallBack(showstr);
+                            timerLinstener.timerCallBack();
                         }
                     }else
                     {
@@ -297,7 +297,7 @@ public class IndexItems implements Serializable{
     }
 
     public interface TimerLinstener {
-        void timerCallBack(String str);
+        void timerCallBack();
     }
 
 }

@@ -140,7 +140,7 @@ public class HomeAdapter extends BaseAdapter {
         holder.home_item_top_layout_time_textview.setText(indexItems.getShowstr());
         indexItems.setTimerLinstener(new IndexItems.TimerLinstener() {
             @Override
-            public void timerCallBack(final String str) {
+            public void timerCallBack() {
                 if(activity!=null)
                 {
                     activity.runOnUiThread(new Runnable() {
@@ -148,12 +148,12 @@ public class HomeAdapter extends BaseAdapter {
                         public void run() {
                             //倒计时
                             IndexItems _indexItems = (IndexItems) holder.home_item_top_layout_time_textview.getTag();
-                            if(indexItems.isDayangGou())
+                            if(_indexItems.isDayangGou())
                             {
-                                holder.home_item_top_layout_time_textview.setText("剩余结束时间："+str);
+                                holder.home_item_top_layout_time_textview.setText("剩余结束时间："+_indexItems.getShowstr());
                             }else
                             {
-                                holder.home_item_top_layout_time_textview.setText("剩余开始时间："+str);
+                                holder.home_item_top_layout_time_textview.setText("剩余开始时间："+_indexItems.getShowstr());
                             }
                         }
                     });

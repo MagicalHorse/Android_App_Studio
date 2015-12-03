@@ -252,7 +252,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		{
 			ckProductCountDownBean.setTimerLinstener(new CKProductCountDownBean.TimerLinstener() {
 				@Override
-				public void timerCallBack(final String str) {
+				public void timerCallBack() {
 					if(approvebuyerbuybutton!=null)
 					{
 						if(getActivity()!=null)
@@ -266,7 +266,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 										approvebuyerbuybutton.setText("立即购买");
 									}else
 									{
-										approvebuyerbuybutton.setText("剩余开始时间："+str);
+										approvebuyerbuybutton.setText("剩余开始时间："+ckProductCountDownBean.getShowstr());
 									}
 								}
 							});

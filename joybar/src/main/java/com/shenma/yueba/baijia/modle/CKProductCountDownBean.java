@@ -25,6 +25,15 @@ public class CKProductCountDownBean {
     long DYGTime;
     long tmpBusinessTime;
     boolean isRunning = false;
+
+    public String getShowstr() {
+        return showstr;
+    }
+
+    public void setShowstr(String showstr) {
+        this.showstr = showstr;
+    }
+
     String showstr = "";//显示倒计时时间
     boolean isDayangGou=false;
     public boolean isDayangGou() {
@@ -68,7 +77,7 @@ public class CKProductCountDownBean {
                 tem_RemainTime--;
                 showstr = TimerDownUtils.millSecendToStr(tem_RemainTime);
                 if (timerLinstener != null) {
-                    timerLinstener.timerCallBack(showstr);
+                    timerLinstener.timerCallBack();
                 }
             } else {
                 if (tmpBusinessTime > 0) {
@@ -76,7 +85,7 @@ public class CKProductCountDownBean {
                     tmpBusinessTime--;
                     showstr = TimerDownUtils.millSecendToStr(tmpBusinessTime);
                     if (timerLinstener != null) {
-                        timerLinstener.timerCallBack(showstr);
+                        timerLinstener.timerCallBack();
                     }
                 } else {
                     if (DYGTime > 0) {
@@ -84,7 +93,7 @@ public class CKProductCountDownBean {
                         DYGTime--;
                         showstr = TimerDownUtils.millSecendToStr(DYGTime);
                         if (timerLinstener != null) {
-                            timerLinstener.timerCallBack(showstr);
+                            timerLinstener.timerCallBack();
                         }
                     }else{
                         isDayangGou=false;
@@ -102,7 +111,7 @@ public class CKProductCountDownBean {
                 tem_RemainTime--;
                 showstr = TimerDownUtils.millSecendToStr(tem_RemainTime);
                 if (timerLinstener != null) {
-                    timerLinstener.timerCallBack(showstr);
+                    timerLinstener.timerCallBack();
                 }
             }else
             {
@@ -111,7 +120,7 @@ public class CKProductCountDownBean {
                     DYGTime--;
                     showstr = TimerDownUtils.millSecendToStr(DYGTime);
                     if (timerLinstener != null) {
-                        timerLinstener.timerCallBack(showstr);
+                        timerLinstener.timerCallBack();
                     }
                 }else
                 {
@@ -121,7 +130,7 @@ public class CKProductCountDownBean {
                         tmpBusinessTime--;
                         showstr = TimerDownUtils.millSecendToStr(tmpBusinessTime);
                         if (timerLinstener != null) {
-                            timerLinstener.timerCallBack(showstr);
+                            timerLinstener.timerCallBack();
                         }
                     }else
                     {
@@ -135,6 +144,6 @@ public class CKProductCountDownBean {
     }
 
     public interface TimerLinstener {
-        void timerCallBack(String str);
+        void timerCallBack();
     }
 }

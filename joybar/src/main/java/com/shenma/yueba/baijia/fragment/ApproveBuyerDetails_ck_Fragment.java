@@ -680,7 +680,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 for (int i = 0; i < colortypelist.size(); i++) {
                     ProductColorTypeBean productColorTypeBean = colortypelist.get(i);
                     if (productColorTypeBean.getSize() != null && productColorTypeBean.getSize().size() > 0) {
-                        for (int j = 0; i < productColorTypeBean.getSize().size(); j++) {
+                        for (int j = 0; j < productColorTypeBean.getSize().size(); j++) {
                             ProductSPECbean productSPECbean = productColorTypeBean.getSize().get(j);
                             if (productSPECbean.getInventory() > 0) {
                                 setSpecColorOnCheck(i);
@@ -1071,11 +1071,11 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 forwardSiLiao();
                 break;
             case R.id.approvebuyerbuybutton:
-                /*if(!ckProductCountDownBean.isDayangGou())
+                if(!ckProductCountDownBean.isDayangGou())
                 {
                     MyApplication.getInstance().showMessage(getActivity(),"活动还没开始");
                     return;
-                }*/
+                }
                 startChatActivity();
                 break;
             case R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview:
@@ -1101,7 +1101,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         {
             ckProductCountDownBean.setTimerLinstener(new CKProductCountDownBean.TimerLinstener() {
                 @Override
-                public void timerCallBack(final String str) {
+                public void timerCallBack() {
                     if(approvebuyerbuybutton!=null)
                     {
                         if(getActivity()!=null)
@@ -1115,7 +1115,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                                         approvebuyerbuybutton.setText("立即购买");
                                     }else
                                     {
-                                        approvebuyerbuybutton.setText("剩余开始时间："+str);
+                                        approvebuyerbuybutton.setText("剩余开始时间："+ckProductCountDownBean.getShowstr());
                                     }
                                 }
                             });
