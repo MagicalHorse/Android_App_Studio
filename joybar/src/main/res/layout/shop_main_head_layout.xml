@@ -64,7 +64,6 @@
         android:layout_marginTop="@dimen/shop_main_width15_dimen"
         android:paddingLeft="@dimen/margin_left_and_right"
         android:paddingRight="@dimen/margin_left_and_right"
-        android:text=""
         android:textColor="@color/color_textgray"
         android:textSize="@dimen/textsize13sp" />
 

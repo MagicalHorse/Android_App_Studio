@@ -18,7 +18,7 @@
 
             <include
                 android:id="@+id/shop_main_layout_head_relativelayout"
-                layout="@layout/shop_main_head_layout"
+                layout="@layout/shop_main_head_layout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/shop_main_layout_title_relativelayout" />

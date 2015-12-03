@@ -53,7 +53,7 @@ public class ShopMainFragment extends Fragment {
     //私聊按钮
     Button shop_main_siliao_imagebutton;
     //关注按钮
-    ImageView shop_main_attention_imagebutton;
+    TextView shop_main_attention_imagebutton;
     //主要内容
     LinearLayout shop_main_layout_tabcontent_framelayout;
     //地址
@@ -163,7 +163,7 @@ public class ShopMainFragment extends Fragment {
         shop_main_layout_market_textview = (TextView) contantView.findViewById(R.id.shop_main_layout_market_textview);//地址
         shop_main_siliao_imagebutton = (Button) contantView.findViewById(R.id.shop_main_siliao_imagebutton);//私聊按钮
         shop_main_siliao_imagebutton.setOnClickListener(onClickListener);
-        shop_main_attention_imagebutton = (ImageView) contantView.findViewById(R.id.shop_main_attention_imagebutton);//关注按钮
+        shop_main_attention_imagebutton = (TextView) contantView.findViewById(R.id.shop_main_attention_imagebutton);//关注按钮
         shop_main_attention_imagebutton.setOnClickListener(onClickListener);
         shop_main_head_layout_address_textview=(TextView)contantView.findViewById(R.id.shop_main_head_layout_address_textview);//地址
 
@@ -275,7 +275,8 @@ public class ShopMainFragment extends Fragment {
         shop_main_layout_market_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
 
         shap_main_description1_textview.setText(ToolsUtil.nullToString(userInfoBean.getDescription()));
-
+        TextView tv_product_count = (TextView)contantView.findViewById(R.id.tv_product_count);
+        tv_product_count.setText("商品："+userInfoBean.getProductCount());
         initBuyerPuBu();
 
         for (int i = 0; i < fragmentBean_list.size(); i++) {

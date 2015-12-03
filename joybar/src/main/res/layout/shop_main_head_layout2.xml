@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shop_main_head_layout_head_linearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip">
+        <!-- 头像 -->
+        <com.shenma.yueba.view.RoundImageView
+            android:id="@+id/shop_main_layout_icon_imageview"
+            android:layout_width="@dimen/shop_main_iconwidth80_dimen"
+            android:layout_height="@dimen/shop_main_iconwidth80_dimen"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_left_and_right"
+            android:src="@drawable/default_pic" />
+
+        <TextView
+            android:id="@+id/shop_main_layout_name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/shop_main_layout_icon_imageview"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@id/shop_main_layout_icon_imageview"
+            android:text="买手"
+            android:textSize="@dimen/textsize18sp" />
+        <!-- 商场 -->
+
+        <TextView
+            android:id="@+id/shop_main_layout_market_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/shop_main_layout_name_textview"
+            android:layout_centerVertical="true"
+            android:text="门店"
+            android:textColor="@color/color_textgray"
+            android:textSize="@dimen/textsize13sp" />
+
+
+        <TextView
+            android:id="@+id/shop_main_fans_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/shop_main_layout_icon_imageview"
+            android:layout_alignLeft="@id/shop_main_layout_market_textview"
+            android:text="粉丝：23" />
+
+        <TextView
+            android:id="@+id/tv_product_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/shop_main_fans_textview"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@id/shop_main_fans_textview"
+            android:text="商品：13" />
+
+
+        <TextView
+            android:id="@+id/shop_main_attention_imagebutton"
+            android:layout_width="60dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_main_color_button"
+            android:gravity="center"
+            android:paddingBottom="3dip"
+            android:paddingTop="3dip"
+            android:text="关注"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+
+    <View style="@style/style_horizontal_line" />
+    <!-- tab -->
+    <TextView
+        android:id="@+id/shop_main_head_layout_address_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@id/shop_main_head_layout_address_imageview"
+        android:drawableLeft="@drawable/address"
+        android:text="北京市海淀区"
+        android:textColor="@color/color_gray" />
+
+    <LinearLayout
+        android:id="@+id/shop_main_head_layout_tab_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/shop_main_width5_dimen"
+        android:layout_marginTop="@dimen/shop_main_width5_dimen"
+        android:orientation="horizontal" />
+
+    <View style="@style/style_horizontal_line"
+        />
+    <TextView
+        android:id="@+id/shap_main_description1_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/shop_main_width15_dimen"
+        android:paddingLeft="@dimen/margin_left_and_right"
+        android:paddingRight="@dimen/margin_left_and_right"
+        android:textColor="@color/color_textgray"
+        android:textSize="@dimen/textsize13sp" />
+
+    <TextView
+        android:id="@+id/shap_main_description2_textview"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
+        android:text=""
+        android:paddingLeft="@dimen/margin_left_and_right"
+        android:paddingRight="@dimen/margin_left_and_right" />
+
+    <TextView
+        android:id="@+id/shap_main_description3_textview"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
+        android:text=""
+        android:paddingLeft="@dimen/margin_left_and_right"
+        android:paddingRight="@dimen/margin_left_and_right" />
+</LinearLayout>
