@@ -52,6 +52,7 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Holder holder;
         if (convertView == null) {
+
             holder = new Holder();
             convertView = View.inflate(ctx,R.layout.buyer_for_search_item,null);
             holder.tv_name = (TextView)convertView.findViewById(R.id.tv_name);
