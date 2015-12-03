@@ -30,7 +30,7 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
     private TextView tv_guide;
     private TextView tv_attention;
     private GuideFragment guideFragment;// 导购
-    private AttentionFragment attentionFragment;// 关注
+    private BuyerAttentionFragment attentionFragment;// 关注
     private ArrayList<ImageView> cursorImageList = new ArrayList<ImageView>();
     private ArrayList<TextView> titleTextList = new ArrayList<TextView>();
     private ImageView iv_cursor_right;
@@ -71,7 +71,7 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
 
     private void initView() {
         guideFragment = new GuideFragment();
-        attentionFragment = new AttentionFragment();
+        attentionFragment = new BuyerAttentionFragment();
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction =  manager.beginTransaction();
         transaction.replace(R.id.ll_contener, guideFragment);
