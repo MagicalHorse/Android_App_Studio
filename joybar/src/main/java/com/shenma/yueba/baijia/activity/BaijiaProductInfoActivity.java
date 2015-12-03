@@ -37,6 +37,7 @@ public class BaijiaProductInfoActivity extends FragmentActivity {
             finish();
             return;
         }
+
         requestData();
     }
 

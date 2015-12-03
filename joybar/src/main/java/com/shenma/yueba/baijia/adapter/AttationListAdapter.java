@@ -173,8 +173,8 @@ public class AttationListAdapter extends BaseAdapterWithUtil {
 	 * ****/
 	void sendAttation(final AttationAndFansItemBean bean,final int Status)
 	{
-		   int favoriteId=Integer.parseInt(bean.getUserId());
-           httpControl.setFavoite(favoriteId, Status, new HttpCallBackInterface() {
+
+           httpControl.setFavoite(bean.getUserId(), Status, new HttpCallBackInterface() {
 			
 			@Override
 			public void http_Success(Object obj) {

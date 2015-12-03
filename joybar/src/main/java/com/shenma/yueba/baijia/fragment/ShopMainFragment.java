@@ -60,9 +60,6 @@ public class ShopMainFragment extends Fragment {
     TextView shop_main_head_layout_address_textview;
     //商品描述
     TextView shap_main_description1_textview, shap_main_description2_textview, shap_main_description3_textview;
-    LinearLayout shop_main_head_layout_tab_linearlayout;
-    //商品  上新
-    List<FragmentBean> fragmentBean_list = new ArrayList<FragmentBean>();
     List<View> view_list = new ArrayList<View>();
     PullToRefreshScrollView shop_main_layout_title_pulltorefreshscrollview;
 
@@ -96,8 +93,6 @@ public class ShopMainFragment extends Fragment {
         if (contantView == null) {
             initView();
             requestRefreshData();
-            //shop_main_layout_title_pulltorefreshscrollview.setRefreshing();
-
         }
 
         ViewGroup parentview=(ViewGroup)contantView.getParent();
@@ -117,15 +112,6 @@ public class ShopMainFragment extends Fragment {
         initPullRefresh();//下拉刷新 上啦加载
         initUserData();//初始化用户信息
         initPuBuliuData();//初始化 瀑布流数据
-
-        /**************
-         *圆圈中  关注 粉丝 圈子 的 文本信息  这里 用来 获取对象 改变文字形态
-         * ********/
-        TextView shop_main_attention_textview = (TextView) contantView.findViewById(R.id.shop_main_attention_textview);
-        TextView shop_main_fans_textview = (TextView) contantView.findViewById(R.id.shop_main_fans_textview);
-        TextView shop_main_praise_textview = (TextView) contantView.findViewById(R.id.shop_main_praise_textview);
-        FontManager.changeFonts(activity, shop_main_layout_name_textview, shop_main_layout_market_textview, shap_main_description1_textview, shap_main_description2_textview, shap_main_description3_textview, shop_main_attention_textview, shop_main_fans_textview, shop_main_praise_textview, shop_main_siliao_imagebutton);
-
     }
 
 
@@ -180,8 +166,6 @@ public class ShopMainFragment extends Fragment {
      * 初始化 瀑布流数据
      ****/
     void initPuBuliuData() {
-        //瀑布流上面的 TAB切换 父视图
-        shop_main_head_layout_tab_linearlayout = (LinearLayout) contantView.findViewById(R.id.shop_main_head_layout_tab_linearlayout);
         //瀑布流的 内容 即 对应的fragment
 
         shop_main_layout_tabcontent_framelayout = (LinearLayout) contantView.findViewById(R.id.shop_main_layout_tabcontent_framelayout);
@@ -200,9 +184,68 @@ public class ShopMainFragment extends Fragment {
                     }
                     ToolsUtil.forwardChatActivity(getActivity(), userInfoBean.getUserName(), userID, 0, null, null,null);
                     break;
+                case R.id.shop_main_attention_imagebutton://关注
+                    if(!MyApplication.getInstance().isUserLogin(getActivity()))
+                    {
+                        return;
+                    }
+                    if(v.getTag()!=null)
+                    {
+                        if(userInfoBean.isIsFollowing())//如果是已关注
+                        {
+                            //取消关注
+                            submitAttention(v,0,userInfoBean);
+                        }else
+                        {
+                            //添加关注
+                            submitAttention(v,1,userInfoBean);
+                        }
+                    }
+                    break;
             }
         }
     };
+
+
+
+
+    /****
+     * 提交收藏与取消收藏商品
+     * @param Status int   0表示取消收藏   1表示收藏
+     * @param bean UserInfoBean  商品对象
+     * **/
+    void submitAttention(final View textview,final int Status,final UserInfoBean bean)
+    {
+        httpControl.setFavoite(Integer.toString(userID), Status, new HttpControl.HttpCallBackInterface() {
+
+            @Override
+            public void http_Success(Object obj) {
+                switch(Status)
+                {
+                    case 0:
+                        ((TextView)textview).setText("关注");
+                        shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_guanzhu), null, null, null);
+                        bean.setIsFollowing(false);
+                        MyApplication.getInstance().showMessage(getActivity(), "取消成功");
+                        break;
+                    case 1:
+                        ((TextView)textview).setText("取消关注");
+                        shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_unguanzhu), null, null, null);
+                        bean.setIsFollowing(true);
+                        MyApplication.getInstance().showMessage(getActivity(), "关注成功");
+                        break;
+                }
+            }
+
+            @Override
+            public void http_Fails(int error, String msg) {
+                MyApplication.getInstance().showMessage(getActivity(), msg);
+            }
+        }, getActivity());
+    }
+
+
+
 
     /******
      * 下拉刷新
@@ -264,53 +307,21 @@ public class ShopMainFragment extends Fragment {
         shop_main_attention_imagebutton.setTag(userInfoBean);
         if (userInfoBean.isIsFollowing()) {
 
-            shop_main_attention_imagebutton.setSelected(true);
+            shop_main_attention_imagebutton.setText("取消关注");
         } else {
 
-            shop_main_attention_imagebutton.setSelected(false);
+            shop_main_attention_imagebutton.setText("关注");
         }
-        fragmentBean_list.clear();
-        shop_main_head_layout_tab_linearlayout.removeAllViews();
+
         MyApplication.getInstance().getBitmapUtil().display(shop_main_layout_icon_imageview, ToolsUtil.nullToString(userInfoBean.getLogo()));
         shop_main_layout_name_textview.setText(ToolsUtil.nullToString(userInfoBean.getUserName()));
         shop_main_layout_market_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
 
         shap_main_description1_textview.setText(ToolsUtil.nullToString(userInfoBean.getDescription()));
-        TextView tv_product_count = (TextView)contantView.findViewById(R.id.tv_product_count);
-        tv_product_count.setText("商品："+userInfoBean.getProductCount());
-        initBuyerPuBu();
+        TextView tv_product_count = (TextView) contantView.findViewById(R.id.tv_product_count);
+        tv_product_count.setText("商品：" + userInfoBean.getProductCount());
 
-        for (int i = 0; i < fragmentBean_list.size(); i++) {
-            FragmentBean bean = fragmentBean_list.get(i);
-            LinearLayout ll = (LinearLayout) LinearLayout.inflate(getActivity(), R.layout.shop_stay_layout, null);
-            LinearLayout shop_stay_layout_parent_linearlayout = (LinearLayout) ll.findViewById(R.id.shop_stay_layout_parent_linearlayout);
-            shop_stay_layout_parent_linearlayout.setTag(new Integer(i));
-            TextView tv1 = (TextView) ll.findViewById(R.id.shop_stay_layout_item_textview1);
-            tv1.setText(bean.getName());
-            View shop_stay_layout_item_line_view =ll.findViewById(R.id.shop_stay_layout_item_line_view);
-            shop_stay_layout_item_line_view.setVisibility(View.GONE);
-            TextView tv2 = (TextView) ll.findViewById(R.id.shop_stay_layout_item_textview2);
-            if (bean.getIcon() > 0) {
-                tv2.setText(bean.getIcon() + "");
-            } else {
-                tv2.setText(0 + "");
-            }
-            FontManager.changeFonts(getActivity(), tv1, tv2);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.weight = 1;
-            shop_main_head_layout_tab_linearlayout.addView(ll, params);
-            view_list.add(ll);
-        }
         shop_main_head_layout_address_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
-    }
-
-    /*****
-     * 加载买手瀑布显示信息
-     **/
-    void initBuyerPuBu() {
-        fragmentBean_list.add(new FragmentBean("商品", userInfoBean.getProductCount(), null));
-        fragmentBean_list.add(new FragmentBean("粉丝", userInfoBean.getFollowerCount(), null));
-        fragmentBean_list.add(new FragmentBean("成交", 0, null));
     }
 
 

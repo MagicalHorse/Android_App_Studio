@@ -169,11 +169,13 @@ public class HttpControl {
      * @param context
      * @param BuyerId      String 当前买手id
      * @param ProductId    String   商品id
+     * @param count    String   购买数量
      */
-    public void getVipCards(boolean isShow, String BuyerId, String ProductId, final HttpCallBackInterface httpCallBack, Context context) {
+    public void getVipCards(boolean isShow, String BuyerId, String ProductId, String count,final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("BuyerId", BuyerId);
         map.put("ProductId", ProductId);
+        map.put("count", count);
         BasehttpSend(map, context, HttpConstants.METHOD_GetVipCards, httpCallBack, RequestMemberCardBean.class, isShow, false);
     }
 
@@ -2134,22 +2136,6 @@ public class HttpControl {
         Map<String, String> map = new HashMap<String, String>();
         map.put("imageurl", imageurl);
         BasehttpSend(map, context, HttpConstants.METHOD_UPOADLCHATIMAGE, httpCallBack, RequestUploadChatImageInfoBean.class, ishowStatus, false);
-    }
-
-
-    /**
-     * 设置关注或取消关注
-     *
-     * @param httpCallBack HttpCallBackInterface 回调接口
-     * @param context      Context
-     * @param Status       1表示关注   0表示取消关注
-     * @return void
-     **/
-    public void setFavoite(int favoriteId, int Status, final HttpCallBackInterface httpCallBack, Context context) {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("FavoriteId", Integer.toString(favoriteId));
-        map.put("Status", Integer.toString(Status));
-        BasehttpSend(map, context, HttpConstants.SETFAVOITE, httpCallBack, BaseRequest.class, true, false);
     }
 
 

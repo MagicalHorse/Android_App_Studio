@@ -3,11 +3,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/shop_main_head_layout_head_linearlayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@color/white"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
 
     <RelativeLayout
@@ -67,7 +68,9 @@
 
         <TextView
             android:id="@+id/shop_main_attention_imagebutton"
-            android:layout_width="60dip"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -93,15 +96,9 @@
         android:text="北京市海淀区"
         android:textColor="@color/color_gray" />
 
-    <LinearLayout
-        android:id="@+id/shop_main_head_layout_tab_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/shop_main_width5_dimen"
-        android:layout_marginTop="@dimen/shop_main_width5_dimen"
-        android:orientation="horizontal" />
-
-    <View style="@style/style_horizontal_line"
+    <View
+        android:layout_marginTop="10dip"
+        style="@style/style_horizontal_line"
         />
     <TextView
         android:id="@+id/shap_main_description1_textview"
@@ -111,6 +108,7 @@
         android:paddingLeft="@dimen/margin_left_and_right"
         android:paddingRight="@dimen/margin_left_and_right"
         android:textColor="@color/color_textgray"
+        android:hint="描述"
         android:textSize="@dimen/textsize13sp" />
 
     <TextView
@@ -132,4 +130,8 @@
         android:text=""
         android:paddingLeft="@dimen/margin_left_and_right"
         android:paddingRight="@dimen/margin_left_and_right" />
+    <View
+        android:layout_marginTop="10dip"
+        style="@style/style_horizontal_line"
+        />
 </LinearLayout>

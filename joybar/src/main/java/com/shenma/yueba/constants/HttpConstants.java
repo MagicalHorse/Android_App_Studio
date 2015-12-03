@@ -777,7 +777,7 @@ public class HttpConstants {
 	/**
 	 * 获取商品可用会员卡
 	 */
-	public static String METHOD_GetVipCards = V3FORREAD + "GetVipCards";
+	public static String METHOD_GetVipCards = V3FORREAD + "GetProductCanUserVipCards";
 	
 	
 	

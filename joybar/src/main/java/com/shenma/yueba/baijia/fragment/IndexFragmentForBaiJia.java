@@ -79,7 +79,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     List<IndexItems> indexItemses_list = new ArrayList<IndexItems>();
     //是否所以数据加载完毕
     boolean isAllLoadSucess=false;
-
+    LinearLayout head_ll;
     @Override
     public void onAttach(Activity activity) {
         // TODO Auto-generated method stub
@@ -166,37 +166,49 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
      * 初始化图片循环滚动视图 并添加到当前页面中
      ************/
     void initTabImage() {
-        if (tabViewPgerImageManager == null) {
-            tabViewPgerImageManager = new TabViewPgerImageManager(getActivity(), array_str);
-            //将 视图加入到 listview的 head中
-            //LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT
-            LinearLayout ll = new LinearLayout(getActivity());
-            ll.removeAllViews();
-            ll.setOrientation(LinearLayout.VERTICAL);
-            ll.addView(tabViewPgerImageManager.getTabView());
-            if (horizontalScrollView == null) {
-                horizontalScrollView = new HorizontalScrollView(getActivity());
-                horizontalScrollView.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
-            }
-            ll.addView(horizontalScrollView);
-            baijia_contact_listview.getRefreshableView().addHeaderView(ll);
-            tabViewPgerImageManager.setTabViewPagerImageOnClickListener(new TabViewPgerImageManager.TabViewPagerImageOnClickListener() {
-                @Override
-                public void onClick_TabViewPagerImage(int i) {
-                    if (i < bannerBeans_array.size()) {
-                        Intent intent = new Intent(getActivity(), WebActivity.class);
-                        intent.putExtra("url", ToolsUtil.nullToString(bannerBeans_array.get(i).getLink()));
-                        startActivity(intent);
-                        /*Intent intent = new Intent(getActivity(), BaijiaProductInfoActivity.class);
-                        intent.putExtra("productID",21886);
-                        getActivity().startActivity(intent);*/
-                    }
-                }
-            });
+        if(head_ll==null)
+        {
+            head_ll = new LinearLayout(getActivity());
+            baijia_contact_listview.getRefreshableView().addHeaderView(head_ll);
         }
+
+        head_ll.removeAllViews();
+        head_ll.setOrientation(LinearLayout.VERTICAL);
+        //加载tab 图片
+        if(array_str.size()>0)
+        {
+            if (tabViewPgerImageManager == null) {
+                tabViewPgerImageManager = new TabViewPgerImageManager(getActivity(), array_str);
+                tabViewPgerImageManager.setTabViewPagerImageOnClickListener(new TabViewPgerImageManager.TabViewPagerImageOnClickListener() {
+                    @Override
+                    public void onClick_TabViewPagerImage(int i) {
+                        if (i < bannerBeans_array.size()) {
+                            Intent intent = new Intent(getActivity(), WebActivity.class);
+                            intent.putExtra("url", ToolsUtil.nullToString(bannerBeans_array.get(i).getLink()));
+                            startActivity(intent);
+                        }
+                    }
+                });
+            }
+            if(tabViewPgerImageManager!=null)
+            {
+                tabViewPgerImageManager.notification();
+            }
+        }
+
+        if(tabViewPgerImageManager!=null)
+        {
+            head_ll.addView(tabViewPgerImageManager.getTabView());
+        }
+        //加载主题
+        if (horizontalScrollView == null) {
+            horizontalScrollView = new HorizontalScrollView(getActivity());
+            horizontalScrollView.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+        }
+        head_ll.addView(horizontalScrollView);
         getScrollRoundView();
         //通知 数据更新 刷新视图
-        tabViewPgerImageManager.notification();
+
     }
 
 
@@ -244,7 +256,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 if (result) {
                     customProgressDialog.show();
                     //开始调用接口，根据经纬度获取城市名称
-                    CommonHttpControl.getCityNameByGPS(getActivity(),new HttpCallBackInterface<Request_CityInfo>() {
+                    CommonHttpControl.getCityNameByGPS(getActivity(), new HttpCallBackInterface<Request_CityInfo>() {
                         @Override
                         public void http_Success(Request_CityInfo back) {
                             customProgressDialog.cancel();

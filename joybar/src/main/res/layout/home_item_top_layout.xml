@@ -4,6 +4,8 @@
     android:layout_height="80dp">
 
     <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/home_item_top_layout_icon_customimageview"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -22,33 +24,35 @@
     <!--名称-->
     <TextView
         android:id="@+id/home_item_top_name_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/contentpadding"
-        android:layout_marginTop="10dp"
+        android:layout_alignTop="@id/home_item_top_layout_icon_customimageview"
         android:layout_toLeftOf="@+id/home_item_top_layout_time_textview"
         android:layout_toRightOf="@id/home_item_top_layout_icon_customimageview"
         android:singleLine="true"
         android:text=""
+        android:layout_marginTop="3dp"
         android:textSize="15sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/home_item_top_name_textview"
-        android:layout_marginBottom="10dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/contentpadding"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/home_item_top_name_textview"
+        android:layout_alignBottom="@id/home_item_top_layout_icon_customimageview"
         android:layout_toRightOf="@id/home_item_top_layout_icon_customimageview"
-        android:padding="0dp">
+        android:gravity="bottom"
+        >
 
         <ImageView
             android:id="@+id/home_item_top_desp_imageview"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginRight="3dp"
             android:src="@drawable/dingwei" />
         <!--描述-->
@@ -56,7 +60,7 @@
             android:id="@+id/home_item_top_desp_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@+id/home_item_top_destance_textview"
             android:layout_toRightOf="@+id/home_item_top_desp_imageview"
@@ -71,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:ellipsize="end"
             android:maxWidth="80dp"
             android:singleLine="true"

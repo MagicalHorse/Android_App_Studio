@@ -108,16 +108,17 @@ public class HomeAdapter extends BaseAdapter {
         holder.home_item_top_layout_include.setTag(indexItems);
         //如果是认证买手
         if (indexItems.getStoreLeave().equals("8")) {
-            holder.home_item_top_desp_imageview.setVisibility(View.VISIBLE);
-            holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getLocation()));
-            holder.home_item_top_destance_textview.setText("距离信息" + position);
-            holder.home_item_top_destance_textview.setVisibility(View.VISIBLE);
-
-        } else {
             holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getDescription()));
             holder.home_item_top_desp_imageview.setVisibility(View.GONE);
             holder.home_item_top_destance_textview.setText("");
             holder.home_item_top_destance_textview.setVisibility(View.GONE);
+
+        } else {
+
+            holder.home_item_top_desp_imageview.setVisibility(View.VISIBLE);
+            holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getLocation()));
+            holder.home_item_top_destance_textview.setText("距离信息" + position);
+            holder.home_item_top_destance_textview.setVisibility(View.VISIBLE);
         }
 
         holder.home_item_top_layout_time_textview.setTag(indexItems);
@@ -212,6 +213,7 @@ public class HomeAdapter extends BaseAdapter {
                 view_array.get(i).setVisibility(View.VISIBLE);
                 //根据级别设置 是否显示 导购头像
                 View daogouview=view_array.get(i).findViewById(R.id.home_item_pic1_include);
+                //如果是认证
                 if(indexItems.getStoreLeave().equals("8"))
                 {
                     daogouview.setVisibility(View.VISIBLE);
@@ -222,7 +224,7 @@ public class HomeAdapter extends BaseAdapter {
 
                 if (i < product_list.size()) {
                     IndexProductInfo product = product_list.get(i);
-                    view_array.get(i).setVisibility(View.VISIBLE);
+                    //view_array.get(i).setVisibility(View.VISIBLE);
                     //商品图片
                     ImageView authentication_child_iten_layout_pic_imageview = (ImageView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_pic_imageview);
                     String url = ToolsUtil.nullToString(product.getPic());
@@ -247,7 +249,8 @@ public class HomeAdapter extends BaseAdapter {
 
                     //头像信息
                     LinearLayout home_item_pic1_include = (LinearLayout) view_array.get(i).findViewById(R.id.home_item_pic1_include);
-                    if (indexItems.getStoreLeave().equals("4")) {
+                    //如果是 认证 则显示 导购头像  否则 隐藏
+                    if (indexItems.getStoreLeave().equals("8")) {
                         home_item_pic1_include.setVisibility(View.VISIBLE);
                     } else {
                         home_item_pic1_include.setVisibility(View.GONE);
