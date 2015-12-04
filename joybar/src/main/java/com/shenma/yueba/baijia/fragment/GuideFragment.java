@@ -20,6 +20,7 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.AttationListActivity;
 import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
+import com.shenma.yueba.baijia.activity.ShopMainActivity;
 import com.shenma.yueba.baijia.modle.ProductsInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
 import com.shenma.yueba.baijia.modle.newmodel.RecommondBuyerlistBackBean;
@@ -242,6 +243,12 @@ public class GuideFragment extends BaseFragment {
             tv_buyer_name.setText(ToolsUtil.nullToString(mList.get(position).getNickName()));
             tv_address.setText(ToolsUtil.nullToString(mList.get(position).getAddress()));
             MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getLogo(), riv_head);
+            riv_head.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    forwardShopMainActivity(getActivity(),Integer.valueOf(mList.get(position).getBuyerId()));
+                }
+            });
             tv_attention.setText(mList.get(position).isFllowed() ? "已关注" : "关注");
             tv_attention.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -318,4 +325,12 @@ public class GuideFragment extends BaseFragment {
         ctx.startActivity(intent);
     }
 
+    /******
+     * @param id int
+     ****/
+    public static void forwardShopMainActivity(Context ctx, int id) {
+        Intent intent = new Intent(ctx, ShopMainActivity.class);
+        intent.putExtra("userID", id);
+        ctx.startActivity(intent);
+    }
 }
