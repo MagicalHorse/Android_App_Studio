@@ -84,7 +84,7 @@ public class ChatFragment extends Fragment {
     boolean isloading = false;// 是否加载中
     boolean haveMoreData = true;// 是否有更多的数据可以加载
     private ProgressBar loadmorePB;// 加载进度条
-    private HttpControl httpControl;
+    private HttpControl httpControl=new HttpControl();
     int currPage=-1;
     String roomId=null;//房间id
     private int formUser_id;//当前用户的id
@@ -105,13 +105,17 @@ public class ChatFragment extends Fragment {
     private RequestRoomInfo requestRoomInfo;//房间信息对象
     private List<Integer> int_array=new ArrayList<Integer>();
     boolean isPrepare=false;//是否准备完成 即 是否已经获取到 房间号
-    Bundle bundle;
+    boolean isrunning=false;
+    //圈子信息
+    CircleDetailBackBean circleDetailBackBean;
 
+
+    int buyerId=-1;
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         layoutInflater = LayoutInflater.from(activity);
-        bundle=getArguments();
+        buyerId = getArguments().getInt("userID", -1);
         Log.i(TAG, "ChatFragment--->>onAttach ");
     }
 
@@ -120,14 +124,13 @@ public class ChatFragment extends Fragment {
         if (parentView == null) {
             parentView = layoutInflater.inflate(R.layout.activity_chat, null);
             initView();
-            //获取用户默认圈子信息
-            getDefaultCircle(null,null);
         }
         Log.i(TAG, "ChatFragment--->>onCreateView ");
         ViewGroup vg = (ViewGroup) parentView.getParent();
         if (vg != null) {
             vg.removeView(parentView);
         }
+
         return parentView;
     }
 
@@ -140,6 +143,16 @@ public class ChatFragment extends Fragment {
             SocketManger.the().setContext(getActivity());
             registerImBroadcastReceiver();//注册广播（接收 消息）
             regiestSockIoBroadCase();//监听sockeoio链接变化
+
+            if(circleDetailBackBean==null)
+            {
+                if(!isrunning)
+                {
+                    //获取用户默认圈子信息
+                    requestBaseCircleInfo();
+                }
+            }
+
             if(roomId==null && circleId>0)
             {
                 getMessageByCircleId();
@@ -668,6 +681,10 @@ public class ChatFragment extends Fragment {
      * ***/
     void getMessageByCircleId()
     {
+        if(isrunning)
+        {
+            return;
+        }
         // 获取房间号
         getRoomdId(circleId, formUser_id, toUser_id);
     }
@@ -687,11 +704,13 @@ public class ChatFragment extends Fragment {
         {
             httpControl=new HttpControl();
         }
+        isrunning=true;
         httpControl.getRoom_Id(groupId, fromUser, toUser, true,
                 new HttpControl.HttpCallBackInterface() {
 
                     @Override
                     public void http_Success(Object obj) {
+                        isrunning=false;
                         if (obj != null && obj instanceof RequestRoomInfoBean) {
                             RequestRoomInfoBean bean = (RequestRoomInfoBean) obj;
                             if (bean.getData() == null) {
@@ -704,7 +723,7 @@ public class ChatFragment extends Fragment {
                                 getMessage();// 获取历史数据
                                 Log.i("TAG", "---->>>socket roomId:" + roomId);
                                 inroom();
-                                isPrepare=true;
+                                isPrepare = true;
                                 setAlertMsgView();//设置 顶部的提示信息自动消失
                             }
 
@@ -713,14 +732,13 @@ public class ChatFragment extends Fragment {
 
                     @Override
                     public void http_Fails(int error, String msg) {
-                        MyApplication.getInstance().showMessage(
-                                getActivity(), msg);
-
+                        isrunning=false;
+                        MyApplication.getInstance().showMessage(getActivity(), msg);
                         /********
                          * 获取失败 显示 失败视图  显示 重新获取  按钮
                          *
                          * ********/
-                        MyApplication.getInstance().showMessage(getActivity(),msg);
+                        MyApplication.getInstance().showMessage(getActivity(), msg);
                     }
                 }, getActivity());
     }
@@ -945,31 +963,36 @@ public class ChatFragment extends Fragment {
         Log.i(TAG, "ChatFragment--->>onActivityCreated ");
     }
 
-
-    void getDefaultCircle(String buyerId,String userId)
+    /*********
+     * 请求 基础圈子信息
+     * ******/
+    void requestBaseCircleInfo()
     {
-        HttpControl HttpControl=new HttpControl();
-        HttpControl.getBaseCircleDetailByUserID(buyerId, userId, false, new HttpControl.HttpCallBackInterface() {
+        isrunning=true;
+        String userId= SharedUtil.getStringPerfernece(getActivity(),SharedUtil.user_id);
+        httpControl.getBaseCircleDetailByUserID(Integer.toString(buyerId), userId, true, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
-                if(obj!=null && obj instanceof CircleDetailBackBean)
+                isrunning=false;
+                circleDetailBackBean=(CircleDetailBackBean)obj;
+                if(circleDetailBackBean.getData()!=null)
                 {
-                    CircleDetailBackBean bean=(CircleDetailBackBean)obj;
-                    if(bean.getData()==null)
+                    circleId= Integer.valueOf(circleDetailBackBean.getData().getGroupId());
+                    View circlesettings_imageview=getActivity().findViewById(R.id.circlesettings_imageview);
+                    if(circlesettings_imageview!=null)
                     {
-                        http_Fails(500,"数据信息不存在");
-                    }else
-                    {
-                        //bean.getData().get
+                        circlesettings_imageview.setVisibility(View.VISIBLE);
                     }
-                }else
-                {
-                    http_Fails(500,"获取数据失败");
+                    if(roomId==null && circleId>0)
+                    {
+                        getMessageByCircleId();
+                    }
                 }
             }
 
             @Override
             public void http_Fails(int error, String msg) {
+                isrunning=false;
                 MyApplication.getInstance().showMessage(getActivity(),msg);
             }
         },getActivity());

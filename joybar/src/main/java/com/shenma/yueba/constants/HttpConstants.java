@@ -50,7 +50,7 @@ public class HttpConstants {
 	/**
 	 * 首页除去banner外的其他数据
 	 */
-	public static String METHOD_index = USERURLFORREAD + "GetMyInfoV3";
+	public static String METHOD_index = V3FORREAD + "index";
 
 	/**
 	 * 商场首页商品列表
@@ -598,7 +598,7 @@ public class HttpConstants {
 	 * 败家 -用户获取自己的订单详情
 	 */
 	
-	public static String GETORDERLISTDETAILS = OrderFORREAD+ "GetUserOrderDetail";
+	public static String GETORDERLISTDETAILS = OrderFORREAD+ "GetUserOrderDetailV3";
 	
 	/**
 	 * 败家 -获取用户是否可以养家等操作
@@ -705,7 +705,7 @@ public class HttpConstants {
 	/*****
 	 * 客户获取自己的基本信息（新）
 	 * **/
-	public static String METHOD_MYINFO = USERURLFORREAD+ "GetMyInfo";
+	public static String METHOD_MYINFO = USERURLFORREAD+ "GetMyInfoV3";
 	
 	/*****
 	 * 获取买手的商品列表、上新商品列表

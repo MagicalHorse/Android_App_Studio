@@ -155,13 +155,17 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         layoutInflater = LayoutInflater.from(activity);
         bean = (RequestCKProductDeatilsInfo) activity.getIntent().getSerializableExtra("ProductInfo");
         Data = bean.getData();
-        productID=Integer.valueOf(Data.getProductId());
-        if(ckProductCountDownBean==null)
+        if(Data!=null)
         {
-            ckProductCountDownBean=new CKProductCountDownBean();
-            ckProductCountDownBean.setCkProductDeatilsInfoBean(bean.getData());
-            ckProductCountDownBean.startTimer();
+            productID=Integer.valueOf(Data.getProductId());
+            if(ckProductCountDownBean==null)
+            {
+                ckProductCountDownBean=new CKProductCountDownBean();
+                ckProductCountDownBean.setCkProductDeatilsInfoBean(bean.getData());
+                ckProductCountDownBean.startTimer();
+            }
         }
+
     }
 
     @Override

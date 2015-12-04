@@ -18,6 +18,9 @@ import com.shenma.yueba.baijia.fragment.ChatFragment;
 import com.shenma.yueba.baijia.fragment.ShopMainFragment;
 import com.shenma.yueba.baijia.modle.FragmentBean;
 import com.shenma.yueba.baijia.view.TabViewpagerManager;
+import com.shenma.yueba.util.HttpControl;
+import com.shenma.yueba.util.SharedUtil;
+import com.shenma.yueba.yangjia.modle.CircleDetailBackBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +40,14 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
     // 存储Tab切换的视图对象
     List<View> footer_list = new ArrayList<View>();
     int userID = -1;//用户id
-    int circleId = -1;//圈子id
     ViewPager shop_main_layout_contact_viewpager;//切换的viewpager控件
     FragmentManager fragmentManager;
     TabViewpagerManager tabViewpagerManager;
-
+    boolean isrunning=false;
+    HttpControl httpControl=new HttpControl();
+    CircleDetailBackBean circleDetailBackBean;
+    ShopMainFragment shopMainFragment;
+    ChatFragment chatFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         MyApplication.getInstance().addActivity(this);//加入回退栈
@@ -72,9 +78,13 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
                 if (!MyApplication.getInstance().isUserLogin(ShopMainActivity.this)) {
                     return;
                 }
-                Intent intent = new Intent(ShopMainActivity.this, CircleInfoActivity.class);
-                intent.putExtra("circleId", circleId);
-                startActivity(intent);
+                if (circlesettings_imageview.getTag()!=null && circlesettings_imageview.getTag() instanceof Integer) {
+                    int circleId = (Integer)circlesettings_imageview.getTag();
+                    Intent intent = new Intent(ShopMainActivity.this, CircleInfoActivity.class);
+                    intent.putExtra("circleId", circleId);
+                    startActivity(intent);
+                }
+
             }
         });
         initHeadTab();
@@ -93,9 +103,19 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
      * 初始化 顶部TAB 切换的 数据
      ***/
     void initHeadTab() {
+        if(shopMainFragment==null)
+        {
+            shopMainFragment=new ShopMainFragment();
+        }
+
+        if(chatFragment==null)
+        {
+            chatFragment=new ChatFragment();
+        }
+        chatFragment=new ChatFragment();
         shop_main_layout_headcontant_linearlayout = (LinearLayout) findViewById(R.id.shop_main_layout_headcontant_linearlayout);
-        head_data.add(new FragmentBean("店铺", -1, new ShopMainFragment()));
-        head_data.add(new FragmentBean("圈子", -1, new ChatFragment()));
+        head_data.add(new FragmentBean("店铺", -1, shopMainFragment));
+        head_data.add(new FragmentBean("圈子", -1, chatFragment));
         shop_main_layout_contact_viewpager = (ViewPager) findViewById(R.id.shop_main_layout_contact_viewpager);
         tabViewpagerManager = new TabViewpagerManager(this, head_data, shop_main_layout_headcontant_linearlayout, shop_main_layout_contact_viewpager);
         Bundle bundle = new Bundle();
@@ -109,15 +129,7 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
 
             @Override
             public void onPageSelected(int position) {
-                //如果 没有获取到圈子信息
-                if(circleId<=0)
-                {
-                    //请求默认圈子接口
-                    shop_main_layout_contact_viewpager.setCurrentItem(position,false);
-                }else
-                {
-                    setCurrView(position);
-                }
+                setCurrView(position);
             }
 
             @Override
@@ -132,14 +144,7 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
      ***/
     void setCurrView(int i) {
         shop_main_layout_contact_viewpager.setCurrentItem(i);
-        switch (i) {
-            case 1:
-                tabViewpagerManager.setCurrView(i);
-                circlesettings_imageview.setVisibility(View.VISIBLE);
-                break;
-            default:
-                tabViewpagerManager.setCurrView(i);
-                circlesettings_imageview.setVisibility(View.INVISIBLE);
-        }
+        tabViewpagerManager.setCurrView(i);
     }
+
 }
