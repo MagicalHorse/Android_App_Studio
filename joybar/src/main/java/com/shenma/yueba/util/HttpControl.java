@@ -1475,9 +1475,7 @@ public class HttpControl {
         Map<String, String> map = new HashMap<String, String>();
         map.put("buyerId", buyerId);
         map.put("userId", userId);
-        BasehttpSend(map, context,
-                HttpConstants.METHOD_CIRCLE_GETBUYERGROUPDETAIL, httpCallBack,
-                CircleDetailBackBean.class, showDialog, false);
+        BasehttpSend(map, context,HttpConstants.METHOD_GetBuyerBaseCircle, httpCallBack,CircleDetailBackBean.class, showDialog, false);
     }
 
 

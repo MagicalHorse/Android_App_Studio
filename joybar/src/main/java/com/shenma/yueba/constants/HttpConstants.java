@@ -50,7 +50,7 @@ public class HttpConstants {
 	/**
 	 * 首页除去banner外的其他数据
 	 */
-	public static String METHOD_index = V3FORREAD + "index";
+	public static String METHOD_index = USERURLFORREAD + "GetMyInfoV3";
 
 	/**
 	 * 商场首页商品列表

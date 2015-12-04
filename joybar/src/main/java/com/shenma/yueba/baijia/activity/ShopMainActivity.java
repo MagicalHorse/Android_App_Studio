@@ -109,7 +109,15 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
 
             @Override
             public void onPageSelected(int position) {
-                setCurrView(position);
+                //如果 没有获取到圈子信息
+                if(circleId<=0)
+                {
+                    //请求默认圈子接口
+                    shop_main_layout_contact_viewpager.setCurrentItem(position,false);
+                }else
+                {
+                    setCurrView(position);
+                }
             }
 
             @Override
@@ -123,13 +131,14 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
      * 设置当前需要显示的 item
      ***/
     void setCurrView(int i) {
-        tabViewpagerManager.setCurrView(i);
         shop_main_layout_contact_viewpager.setCurrentItem(i);
         switch (i) {
             case 1:
+                tabViewpagerManager.setCurrView(i);
                 circlesettings_imageview.setVisibility(View.VISIBLE);
                 break;
             default:
+                tabViewpagerManager.setCurrView(i);
                 circlesettings_imageview.setVisibility(View.INVISIBLE);
         }
     }
