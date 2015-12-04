@@ -85,7 +85,7 @@ public class ChatFragment extends Fragment {
     boolean haveMoreData = true;// 是否有更多的数据可以加载
     private ProgressBar loadmorePB;// 加载进度条
     private HttpControl httpControl=new HttpControl();
-    int currPage=-1;
+    int currPage=1;
     String roomId=null;//房间id
     private int formUser_id;//当前用户的id
     private int toUser_id;//发送指定的人的id
@@ -981,6 +981,7 @@ public class ChatFragment extends Fragment {
                     View circlesettings_imageview=getActivity().findViewById(R.id.circlesettings_imageview);
                     if(circlesettings_imageview!=null)
                     {
+                        circlesettings_imageview.setTag(circleId);
                         circlesettings_imageview.setVisibility(View.VISIBLE);
                     }
                     if(roomId==null && circleId>0)

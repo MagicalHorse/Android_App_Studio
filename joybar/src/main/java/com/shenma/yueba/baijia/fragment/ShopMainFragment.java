@@ -229,7 +229,7 @@ public class ShopMainFragment extends Fragment {
                         MyApplication.getInstance().showMessage(getActivity(), "取消成功");
                         break;
                     case 1:
-                        ((TextView)textview).setText("取消关注");
+                        ((TextView)textview).setText("已关注");
                         shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_unguanzhu), null, null, null);
                         bean.setIsFollowing(true);
                         MyApplication.getInstance().showMessage(getActivity(), "关注成功");
@@ -307,7 +307,7 @@ public class ShopMainFragment extends Fragment {
         shop_main_attention_imagebutton.setTag(userInfoBean);
         if (userInfoBean.isIsFollowing()) {
 
-            shop_main_attention_imagebutton.setText("取消关注");
+            shop_main_attention_imagebutton.setText("已关注");
         } else {
 
             shop_main_attention_imagebutton.setText("关注");
