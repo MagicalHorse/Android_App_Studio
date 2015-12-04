@@ -2,6 +2,7 @@ package com.shenma.yueba.baijia.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.AttationListActivity;
+import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
+import com.shenma.yueba.baijia.activity.ShopMainActivity;
 import com.shenma.yueba.baijia.modle.ProductsInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
 import com.shenma.yueba.baijia.modle.newmodel.RecommondBuyerlistBackBean;
@@ -126,6 +129,12 @@ public class GuideFragment extends BaseFragment {
                     params1.width = ToolsUtil.getDisplayWidth(getActivity()) - ToolsUtil.dip2px(getActivity(), 60);
                     params1.height = ToolsUtil.getDisplayWidth(getActivity()) - ToolsUtil.dip2px(getActivity(), 60);
                     iv_one.setLayoutParams(params1);
+                    iv_one.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(0).getProductId());
+                        }
+                    });
                     MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
                     guide_ll_container.addView(imageView1);
                 } else if (mList.get(position).getProducts() != null && mList.get(position).getProducts().size() == 2) {
@@ -137,6 +146,18 @@ public class GuideFragment extends BaseFragment {
                     params1.height = ToolsUtil.getDisplayWidth(getActivity()) - ToolsUtil.dip2px(getActivity(), 60);
                     iv_one.setLayoutParams(params1);
                     iv_two.setLayoutParams(params1);
+                    iv_one.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(0).getProductId());
+                        }
+                    });
+                    iv_two.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(1).getProductId());
+                        }
+                    });
                     MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
                     MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(1).getPic(), iv_two);
                     guide_ll_container.addView(imageView2);
@@ -151,6 +172,24 @@ public class GuideFragment extends BaseFragment {
                     iv_one.setLayoutParams(params1);
                     iv_two.setLayoutParams(params1);
                     iv_three.setLayoutParams(params1);
+                    iv_one.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(0).getProductId());
+                        }
+                    });
+                    iv_two.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(1).getProductId());
+                        }
+                    });
+                    iv_three.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(2).getProductId());
+                        }
+                    });
                     MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
                     MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(1).getPic(), iv_two);
                     MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(2).getPic(), iv_three);
@@ -168,10 +207,28 @@ public class GuideFragment extends BaseFragment {
                     iv_two.setLayoutParams(params1);
                     iv_three.setLayoutParams(params1);
                     iv_four.setLayoutParams(params1);
+                    iv_one.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(0).getProductId());
+                        }
+                    });
+                    iv_two.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(1).getProductId());
+                        }
+                    });
+                    iv_three.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(2).getProductId());
+                        }
+                    });
                     iv_four.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(getActivity(), "aaaaaaa", Toast.LENGTH_SHORT).show();
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(3).getProductId());
                         }
                     });
                     MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
@@ -186,6 +243,12 @@ public class GuideFragment extends BaseFragment {
             tv_buyer_name.setText(ToolsUtil.nullToString(mList.get(position).getNickName()));
             tv_address.setText(ToolsUtil.nullToString(mList.get(position).getAddress()));
             MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getLogo(), riv_head);
+            riv_head.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    forwardShopMainActivity(getActivity(),Integer.valueOf(mList.get(position).getBuyerId()));
+                }
+            });
             tv_attention.setText(mList.get(position).isFllowed() ? "已关注" : "关注");
             tv_attention.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -249,4 +312,25 @@ public class GuideFragment extends BaseFragment {
         }
     }
 
+
+
+    /******
+     * 跳转到商品详情
+     *
+     * @param id int
+     ****/
+    public static void forwardProductInfoActivity(Context ctx, int id) {
+        Intent intent = new Intent(ctx, BaijiaProductInfoActivity.class);
+        intent.putExtra("productID", id);
+        ctx.startActivity(intent);
+    }
+
+    /******
+     * @param id int
+     ****/
+    public static void forwardShopMainActivity(Context ctx, int id) {
+        Intent intent = new Intent(ctx, ShopMainActivity.class);
+        intent.putExtra("userID", id);
+        ctx.startActivity(intent);
+    }
 }
