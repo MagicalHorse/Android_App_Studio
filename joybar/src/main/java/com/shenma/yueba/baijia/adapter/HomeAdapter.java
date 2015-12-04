@@ -137,7 +137,13 @@ public class HomeAdapter extends BaseAdapter {
         }
 
         holder.home_item_top_layout_time_textview.setTag(indexItems);
-        holder.home_item_top_layout_time_textview.setText("");
+        if(indexItems.isDayangGou())
+        {
+            holder.home_item_top_layout_time_textview.setText("剩余结束时间："+indexItems.getShowstr());
+        }else
+        {
+            holder.home_item_top_layout_time_textview.setText("剩余开始时间："+indexItems.getShowstr());
+        }
         indexItems.setTimerLinstener(new IndexItems.TimerLinstener() {
             @Override
             public void timerCallBack() {
