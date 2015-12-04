@@ -192,6 +192,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             }
             if(tabViewPgerImageManager!=null)
             {
+                //通知 数据更新 刷新视图
                 tabViewPgerImageManager.notification();
             }
         }
@@ -200,14 +201,19 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         {
             head_ll.addView(tabViewPgerImageManager.getTabView());
         }
+
         //加载主题
         if (horizontalScrollView == null) {
             horizontalScrollView = new HorizontalScrollView(getActivity());
             horizontalScrollView.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+            horizontalScrollView.setVerticalScrollBarEnabled(false);
+            horizontalScrollView.setHorizontalScrollBarEnabled(false);
+            horizontalScrollView.setPadding(0, 20, 0, 20);
         }
         head_ll.addView(horizontalScrollView);
+        horizontalScrollView.removeAllViews();
+
         getScrollRoundView();
-        //通知 数据更新 刷新视图
 
     }
 
@@ -329,16 +335,14 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
      * 生成 顶部 圆形  滚动 视图
      **********/
     void getScrollRoundView() {
-        horizontalScrollView.removeAllViews();
+
         if (binnerBackBean.getData() != null) {
             if (binnerBackBean.getData().getBanners() != null && binnerBackBean.getData().getSubjects().size() > 0) {
                 subjectrBean_array = binnerBackBean.getData().getSubjects();
             }
         }
 
-        horizontalScrollView.setVerticalScrollBarEnabled(false);
-        horizontalScrollView.setHorizontalScrollBarEnabled(false);
-        horizontalScrollView.setPadding(0, 20, 0, 20);
+
         LinearLayout ll = new LinearLayout(getActivity());
         HorizontalScrollView.LayoutParams params = new HorizontalScrollView.LayoutParams(HorizontalScrollView.LayoutParams.MATCH_PARENT, HorizontalScrollView.LayoutParams.WRAP_CONTENT);
         horizontalScrollView.addView(ll, params);

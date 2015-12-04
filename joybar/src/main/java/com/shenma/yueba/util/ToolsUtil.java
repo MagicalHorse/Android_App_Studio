@@ -1186,7 +1186,7 @@ public class ToolsUtil {
     public static String Distance(double long1, double lat1, double long2,double lat2) {
         if(long1<=0 || lat1<=0 || long2<=0 || lat2<=0)
         {
-            return "未知";
+            return "";
         }
         double a, b, R;
         R = 6378137; // 地球半径

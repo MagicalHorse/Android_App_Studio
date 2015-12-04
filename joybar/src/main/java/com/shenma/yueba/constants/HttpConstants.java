@@ -585,7 +585,7 @@ public class HttpConstants {
 	 * 败家 -获取订单列表
 	 */
 	
-	public static String GETORDERLIST = OrderFORREAD+ "GetOrderListByState";
+	public static String GETORDERLIST = OrderFORREAD+ "GetOrderListByStateV3";
 
 	/**
 	 * 败家 -获取用户信息（新）
@@ -777,7 +777,7 @@ public class HttpConstants {
 	/**
 	 * 获取商品可用会员卡
 	 */
-	public static String METHOD_GetVipCards = V3FORREAD + "GetVipCards";
+	public static String METHOD_GetVipCards = V3FORREAD + "GetProductCanUserVipCards";
 	
 	
 	

@@ -144,6 +144,7 @@ public class HomeAdapter extends BaseAdapter {
         {
             holder.home_item_top_layout_time_textview.setText("剩余开始时间："+indexItems.getShowstr());
         }
+
         indexItems.setTimerLinstener(new IndexItems.TimerLinstener() {
             @Override
             public void timerCallBack() {

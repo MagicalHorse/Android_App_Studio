@@ -36,8 +36,7 @@ import java.util.List;
  * 商场主页
  */
 public class MarketMainActivity extends BaseActivityWithTopView {
-    //最大显示品牌个数
-    int maxBrandCount = 6;
+
     PullToRefreshListView baijia_authentication_listview;
     //图片
     ImageView baijia_marketmain_head_background_layout_imageview;
