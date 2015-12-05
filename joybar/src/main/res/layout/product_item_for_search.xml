@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dip"
+    android:descendantFocusability="blocksDescendants"
     android:padding="10dip">
 
 
@@ -20,12 +21,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_toRightOf="@id/iv_product"
+        style="@style/text_middle_grey_style"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="aaa" />
 
 
     <TextView
+        android:textSize="@dimen/little_text_size"
         android:layout_marginBottom="3dip"
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
@@ -33,6 +36,7 @@
         android:layout_alignLeft="@id/tv_introduce"
         android:layout_alignParentBottom="true"
         android:text="$899"
+        android:textStyle="bold"
         android:textColor="@color/red_text_color" />
 
 

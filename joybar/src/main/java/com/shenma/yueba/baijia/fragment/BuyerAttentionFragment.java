@@ -14,11 +14,13 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.adapter.BuyerSearchAdapter;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
+import com.shenma.yueba.baijia.modle.newmodel.FavBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.util.PerferneceUtil;
 import com.shenma.yueba.util.SharedUtil;
+import com.shenma.yueba.yangjia.adapter.ProductSearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,35 +69,29 @@ public class BuyerAttentionFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-				getSearchBuyerList(getActivity(),storeId, false,false,key);
-
+				getAttentionBuyer(false,true);
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page++;
 				isRefresh = false;
-				getSearchBuyerList(getActivity(),storeId, false,false,key);
+				getAttentionBuyer(false,false);
 			}
 		});
 		return view;
 	}
-	
 
 
 	/**
-	 * 获取搜到的买手列表
+	 * 获取关注的买手
 	 */
-	public void getSearchBuyerList(Context ctx,String storeId,boolean showDialog,boolean focusRefresh,String key){
-		this.key = key;
-		if(showDialog && mList!=null && mList.size()>0 && !focusRefresh){
+	public void getAttentionBuyer(boolean showDialog,final boolean foucusRefresh) {
+		if(showDialog && mList!=null && mList.size()>0 && !foucusRefresh){
 			return;
 		}
 		HttpControl httpControl = new HttpControl();
-		String cityId = SharedUtil.getStringPerfernece(getActivity(), SharedUtil.getStringPerfernece(getActivity(), PerferneceConfig.SELECTED_CITY_ID));
-		String latitude = PerferneceUtil.getString(PerferneceConfig.LATITUDE);
-		String longitude = PerferneceUtil.getString(PerferneceConfig.LONGITUDE);
-		httpControl.searchBuyer(key, SharedUtil.getUserId(ctx), cityId, storeId, longitude, latitude,showDialog ,page, new HttpCallBackInterface() {
+		httpControl.getFavBuyers(page, new HttpControl.HttpCallBackInterface() {
 			@Override
 			public void http_Success(Object obj) {
 				pull_refresh_list.postDelayed(new Runnable() {
@@ -104,10 +100,10 @@ public class BuyerAttentionFragment extends BaseFragment {
 						pull_refresh_list.onRefreshComplete();
 					}
 				}, 100);
-				SearchBuyerBackBean bean = (SearchBuyerBackBean) obj;
+				FavBuyersBackBean bean = (FavBuyersBackBean) obj;
 				if (isRefresh) {
+					mList.clear();
 					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
-						mList.clear();
 						mList.addAll(bean.getData().getItems());
 						tv_nodata.setVisibility(View.GONE);
 					} else {
@@ -128,7 +124,9 @@ public class BuyerAttentionFragment extends BaseFragment {
 			public void http_Fails(int error, String msg) {
 				Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 			}
-		}, ctx);
-
+		}, getActivity());
 	}
+
+
+
 }

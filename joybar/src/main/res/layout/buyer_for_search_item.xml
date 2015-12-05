@@ -20,6 +20,7 @@
         <!--名称-->
         <TextView
             android:id="@+id/tv_name"
+            style="@style/text_middle_grey_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/riv_head"
@@ -31,8 +32,10 @@
 
         <TextView
             android:id="@+id/tv_attention"
-            android:layout_width="wrap_content"
+            android:layout_width="80dip"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/little_text_size"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/tv_name"
             android:background="@drawable/yellow_roundsilod_background"

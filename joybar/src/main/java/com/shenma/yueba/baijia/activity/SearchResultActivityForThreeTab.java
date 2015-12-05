@@ -37,26 +37,20 @@ import java.util.List;
  * @author a
  */
 
-public class SearchResultActivity extends BaseFragmentActivity implements
+public class SearchResultActivityForThreeTab extends BaseFragmentActivity implements
         OnClickListener {
-    private static final String[] TITLE = new String[]{"商品", "品牌", "买手",
-            "商场"};
-    private static final String[]  TITLE2 =  new String[]{"商品", "品牌", "买手"};
     private ProductSearchFragment productSearchFragment;//商品
     private BrandSearchFragment brandSearchFragment;//品牌
     private BuyerSearchFragment buyerSearchFragment;//买手
-    private MarketSearchFragment marketSearchFragment;//商场
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
     private EditText et_search;
     private ImageView iv_back, iv_search;
     private ImageView iv_cursor_left;
-    private ImageView iv_cursor_left2;
-    private ImageView iv_cursor_right2;
+    private ImageView iv_cursor_center;
     private ImageView iv_cursor_right;
     private TextView tv_product;
     private TextView tv_brand;
     private TextView tv_buyer;
-    private TextView tv_market;
     private String key;
     private ViewPager search_result_viewpager;
     private ArrayList<ImageView> cursorImageList = new ArrayList<ImageView>();
@@ -67,7 +61,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         MyApplication.getInstance().addActivity(this);// 加入回退栈
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.search_result_layout);
+        setContentView(R.layout.search_result_layou_for_three_tab);
         super.onCreate(savedInstanceState);
         key = getIntent().getStringExtra("key");
         setFragmentList();
@@ -85,30 +79,25 @@ public class SearchResultActivity extends BaseFragmentActivity implements
         iv_back.setOnClickListener(this);
         iv_search.setOnClickListener(this);
         iv_cursor_left = (ImageView) findViewById(R.id.iv_cursor_left);
-        iv_cursor_left2 = (ImageView) findViewById(R.id.iv_cursor_left2);
-        iv_cursor_right2 = (ImageView) findViewById(R.id.iv_cursor_right2);
+        iv_cursor_center = (ImageView) findViewById(R.id.iv_cursor_center);
         iv_cursor_right = (ImageView) findViewById(R.id.iv_cursor_right);
         cursorImageList.add(iv_cursor_left);
-        cursorImageList.add(iv_cursor_left2);
-        cursorImageList.add(iv_cursor_right2);
+        cursorImageList.add(iv_cursor_center);
         cursorImageList.add(iv_cursor_right);
         iv_cursor_left.setVisibility(View.VISIBLE);
         tv_product = (TextView) findViewById(R.id.tv_product);
         tv_brand = (TextView) findViewById(R.id.tv_brand);
         tv_buyer = (TextView) findViewById(R.id.tv_buyer);
-        tv_market = (TextView) findViewById(R.id.tv_market);
         tv_product.setTextSize(20);
         tv_product.setTextColor(getResources().getColor(R.color.main_color));
         titleTextList.add(tv_product);
         titleTextList.add(tv_brand);
         titleTextList.add(tv_buyer);
-        titleTextList.add(tv_market);
         tv_product.setOnClickListener(this);
         tv_brand.setOnClickListener(this);
         tv_buyer.setOnClickListener(this);
-        tv_market.setOnClickListener(this);
         search_result_viewpager = (ViewPager) findViewById(R.id.search_result_viewpager);
-        productSearchFragment.getProductList(SearchResultActivity.this,true,false,key);
+        productSearchFragment.getProductList(SearchResultActivityForThreeTab.this,true,false,key);
     }
 
     private void initViewPager() {
@@ -123,21 +112,18 @@ public class SearchResultActivity extends BaseFragmentActivity implements
              * 页面跳转完成后调用的方法
              */
             public void onPageSelected(int arg0) {
-              switch (arg0){
-                  case 0:
-                      productSearchFragment.getProductList(SearchResultActivity.this,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
-                      break;
-                  case 1:
-                      brandSearchFragment.getBrand(SearchResultActivity.this,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
-                      break;
-                  case 2:
-                      buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
-                      break;
-                  case 3:
-                      marketSearchFragment.getMarketList(SearchResultActivity.this,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
-                      break;
+                switch (arg0){
+                    case 0:
+                        productSearchFragment.getProductList(SearchResultActivityForThreeTab.this, true, false, ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                        break;
+                    case 1:
+                        brandSearchFragment.getBrand(SearchResultActivityForThreeTab.this, true, false, ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                        break;
+                    case 2:
+                        buyerSearchFragment.getSearchBuyerList(SearchResultActivityForThreeTab.this, storeId, true, false, ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                        break;
 
-              }
+                }
                 setCursorAndText(arg0, cursorImageList, titleTextList);
 
             }
@@ -157,11 +143,9 @@ public class SearchResultActivity extends BaseFragmentActivity implements
         productSearchFragment = new ProductSearchFragment(key,storeId);
         brandSearchFragment = new BrandSearchFragment(key);
         buyerSearchFragment = new BuyerSearchFragment(key,storeId);
-        marketSearchFragment = new MarketSearchFragment(key);
         fragmentList.add(productSearchFragment);
         fragmentList.add(brandSearchFragment);
         fragmentList.add(buyerSearchFragment);
-        fragmentList.add(marketSearchFragment);
     }
 
     /**
@@ -194,7 +178,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:// 返回
-                SearchResultActivity.this.finish();
+                SearchResultActivityForThreeTab.this.finish();
                 break;
             case R.id.tv_product://商品
                 search_result_viewpager.setCurrentItem(0);
@@ -212,17 +196,15 @@ public class SearchResultActivity extends BaseFragmentActivity implements
                 int position = search_result_viewpager.getCurrentItem();
                 switch (position){
                     case 0:
-                        productSearchFragment.getProductList(SearchResultActivity.this,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                        productSearchFragment.getProductList(SearchResultActivityForThreeTab.this, true, true, ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                     case 1:
-                        brandSearchFragment.getBrand(SearchResultActivity.this,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                        brandSearchFragment.getBrand(SearchResultActivityForThreeTab.this, true, true, ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                     case 2:
-                        buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                        buyerSearchFragment.getSearchBuyerList(SearchResultActivityForThreeTab.this, storeId, true, true, ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
-                    case 3:
-                        marketSearchFragment.getMarketList(SearchResultActivity.this,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
-                        break;
+
                 }
                 break;
             default:

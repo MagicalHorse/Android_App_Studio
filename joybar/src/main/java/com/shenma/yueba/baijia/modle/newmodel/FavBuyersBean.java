@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class FavBuyersBean {
 
-
+    private List<BuyerInfo> items;
     private String sourcetype;//0-用户关注的买手信息，1-保留,
     private List<BuyerInfo> Buyers;
     private String pageindex;
@@ -70,5 +70,13 @@ public class FavBuyersBean {
 
     public void setIspaged(String ispaged) {
         this.ispaged = ispaged;
+    }
+
+    public List<BuyerInfo> getItems() {
+        return items;
+    }
+
+    public void setItems(List<BuyerInfo> items) {
+        this.items = items;
     }
 }

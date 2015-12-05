@@ -2,6 +2,7 @@ package com.shenma.yueba.baijia.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shenma.yueba.R;
+import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.baijia.activity.ShopMainActivity;
 import com.shenma.yueba.baijia.modle.BaseRequest;
 import com.shenma.yueba.baijia.modle.ProductsInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
@@ -57,18 +60,34 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
         if (convertView == null) {
 
             holder = new Holder();
-            convertView = View.inflate(ctx,R.layout.buyer_for_search_item,null);
-            holder.tv_name = (TextView)convertView.findViewById(R.id.tv_name);
-            holder.ll_touch = (LinearLayout)convertView.findViewById(R.id.ll_touch);
-            holder.tv_touch = (TextView)convertView.findViewById(R.id.tv_touch);
-            holder.tv_attention = (TextView)convertView.findViewById(R.id.tv_attention);
-            holder.tv_store_name = (TextView)convertView.findViewById(R.id.tv_store_name);
-            holder.tv_address = (TextView)convertView.findViewById(R.id.tv_address);
-            holder.riv_head = (RoundImageView)convertView.findViewById(R.id.riv_head);
+            convertView = View.inflate(ctx, R.layout.buyer_for_search_item, null);
+            holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+            holder.ll_touch = (LinearLayout) convertView.findViewById(R.id.ll_touch);
+            holder.tv_touch = (TextView) convertView.findViewById(R.id.tv_touch);
+            holder.tv_attention = (TextView) convertView.findViewById(R.id.tv_attention);
+            holder.tv_attention.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean isFllowed = mList.get(position).isFllowed();
+                    String buyerId = mList.get(position).getBuyerId();
+                    sendAttation(position,buyerId, isFllowed, holder.tv_attention);
+                }
+            });
+            holder.tv_store_name = (TextView) convertView.findViewById(R.id.tv_store_name);
+            holder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
+            holder.riv_head = (RoundImageView) convertView.findViewById(R.id.riv_head);
+            holder.riv_head.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        Intent intent = new Intent(ctx, ShopMainActivity.class);
+                        intent.putExtra("userID", mList.get(position).getBuyerId());
+                        ctx.startActivity(intent);
+                    }
+            });
             holder.tv_touch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    touch(mList.get(position).getBuyerId());
+                    touch(mList.get(position - 1).getBuyerId());
                 }
             });
             holder.authentication_item_productlist_linearlayout = (LinearLayout) convertView.findViewById(R.id.authentication_item_productlist_linearlayout);
@@ -79,23 +98,23 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
         holder.cvm = new CreateAutoSizeViewManager(((Activity) ctx), ctx.getResources().getDimensionPixelSize(R.dimen.item_margin), R.layout.authentication_chid_item_layout, 3, holder.authentication_item_productlist_linearlayout, new CreateAutoSizeViewManager.InflaterSucessListener() {
             @Override
             public void returnChildListView(List<View> view_array) {
-                List<ProductsInfoBean> products =   mList.get(position).getProducts();
-                for (int i=0;i<products.size();i++){
-                    String pic  = products.get(i).getPic();
-                    bitmapUtils.display((view_array.get(i)),pic);
+                List<ProductsInfoBean> products = mList.get(position).getProducts();
+                for (int i = 0; i < products.size(); i++) {
+                    String pic = products.get(i).getPic();
+                    bitmapUtils.display((view_array.get(i)), pic);
                 }
             }
         });
-        if(mList.get(position).getProducts()==null || mList.get(position).getProducts().size() == 0){
+        if (mList.get(position).getProducts() == null || mList.get(position).getProducts().size() == 0) {
             holder.ll_touch.setVisibility(View.VISIBLE);
             holder.authentication_item_productlist_linearlayout.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.ll_touch.setVisibility(View.GONE);
             holder.authentication_item_productlist_linearlayout.setVisibility(View.VISIBLE);
         }
         bitmapUtils.display(holder.riv_head, mList.get(position).getLogo());
         holder.tv_name.setText(ToolsUtil.nullToString(mList.get(position).getNickname()));
-        holder.tv_attention.setText(ToolsUtil.nullToString(mList.get(position).isFllowed() ? "已关注" : "关注"));
+        holder.tv_attention.setText(ToolsUtil.nullToString(mList.get(position).isFllowed() ? "取消关注" : "关注"));
         holder.tv_store_name.setText(ToolsUtil.nullToString(mList.get(position).getStoreName()));
         holder.tv_address.setText(ToolsUtil.nullToString(mList.get(position).getStoreLocal()));
         ;
@@ -134,6 +153,31 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
             @Override
             public void http_Fails(int error, String msg) {
                 Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
+            }
+        }, ctx);
+    }
+
+
+    void sendAttation(final int position,final String userId, final boolean isFllowed, final TextView tv_attention) {
+        HttpControl httpControl = new HttpControl();
+        httpControl.setFavoite(userId, isFllowed ? 0 : 1, new HttpControl.HttpCallBackInterface() {
+            @Override
+            public void http_Success(Object obj) {
+                if (isFllowed) //1表示关注 0表示取消关注
+                {
+                    tv_attention.setText("关注");
+                    Toast.makeText(ctx,"取消成功",Toast.LENGTH_SHORT).show();
+                    mList.get(position).setIsFllowed(false);
+                } else {
+                    tv_attention.setText("取消关注");
+                    Toast.makeText(ctx,"关注成功",Toast.LENGTH_SHORT).show();
+                    mList.get(position).setIsFllowed(true);
+                }
+            }
+
+            @Override
+            public void http_Fails(int error, String msg) {
+                MyApplication.getInstance().showMessage(ctx, msg);
             }
         }, ctx);
     }

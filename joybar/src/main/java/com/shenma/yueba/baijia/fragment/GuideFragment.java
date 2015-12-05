@@ -317,7 +317,7 @@ public class GuideFragment extends BaseFragment {
     /******
      * 跳转到商品详情
      *
-     * @param id int
+     * @param id intd
      ****/
     public static void forwardProductInfoActivity(Context ctx, int id) {
         Intent intent = new Intent(ctx, BaijiaProductInfoActivity.class);

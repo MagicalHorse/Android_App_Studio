@@ -100,7 +100,7 @@ public class HttpConstants {
 	 * 找导购--获取关注的买手
 	 *
 	 */
-	public static String METHOD_FavBuyers = BuyerV3FORREAD + "FavBuyers";
+	public static String METHOD_FavBuyers = V3FORREAD + "FavBuyers";
 
 
 

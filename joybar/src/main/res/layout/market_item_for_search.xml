@@ -21,15 +21,13 @@
 
 
         <TextView
-
             android:id="@+id/tv_shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_market_head"
             android:layout_toRightOf="@+id/iv_market_head"
-            android:text="华宇商场导购"
-            android:textColor="@color/black"
-            android:textSize="@dimen/center_text_size" />
+            style="@style/text_middle_grey_style"
+            android:text="buyesrname" />
 
         <TextView
             android:id="@+id/tv_distance"
@@ -52,7 +50,7 @@
             android:layout_toRightOf="@+id/iv_market_head"
             android:drawableLeft="@drawable/address"
             android:singleLine="true"
-            android:text="中关村南大街6号aaaaaaaaaaaaaaaaaaaaaaaaa"
+            android:text="address"
             android:textColor="@color/text_gray_color"
             android:textSize="@dimen/little_text_size" />
 

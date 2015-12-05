@@ -145,7 +145,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                             SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
                         }
                 }
-                Intent intent = new Intent(mContext,SearchResultActivity.class);
+                Intent intent = new Intent(mContext,SearchResultActivityForThreeTab.class);
                 intent.putExtra("key",et_search.getText().toString().trim());
                 startActivity(intent);
                 break;
@@ -203,7 +203,7 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
             sb.append(allList.get(i)).append(",");
         }
         SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
-        Intent intent = new Intent(SearchProductActivity.this, SearchResultActivity.class);
+        Intent intent = new Intent(SearchProductActivity.this, SearchResultActivityForThreeTab.class);
         intent.putExtra("key",key);
         startActivity(intent);
     }

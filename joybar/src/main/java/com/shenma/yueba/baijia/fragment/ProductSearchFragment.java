@@ -1,10 +1,12 @@
 package com.shenma.yueba.baijia.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
+import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
 import com.shenma.yueba.baijia.modle.ProductsInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchProductBackBean;
 import com.shenma.yueba.constants.Constants;
@@ -68,20 +71,30 @@ public class ProductSearchFragment extends BaseFragment {
 				mList);
 		pull_refresh_list.setMode(PullToRefreshBase.Mode.BOTH);
 		pull_refresh_list.setAdapter(adapter);
+		pull_refresh_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(position>0){
+					Intent intent = new Intent(getActivity(), BaijiaProductInfoActivity.class);
+					intent.putExtra("productID", mList.get(position-1).getProductId());
+					getActivity().startActivity(intent);
+				}
+			}
+		});
 		pull_refresh_list.setOnRefreshListener(new OnRefreshListener2() {
 
 			@Override
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-				getProductList(getActivity(),false,true,key);
+				getProductList(getActivity(), false, true, key);
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page++;
 				isRefresh = false;
-				getProductList(getActivity(),false,false,key);
+				getProductList(getActivity(), false, false, key);
 			}
 		});
 		return view;

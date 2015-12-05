@@ -1,10 +1,12 @@
 package com.shenma.yueba.baijia.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
+import com.shenma.yueba.baijia.activity.ShopMainActivity;
 import com.shenma.yueba.baijia.modle.BrandInfo;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBrandBackBean;
 import com.shenma.yueba.constants.Constants;
@@ -66,6 +69,14 @@ public class BrandSearchFragment extends BaseFragment {
 				mList);
 		pull_refresh_list.setMode(PullToRefreshBase.Mode.BOTH);
 		pull_refresh_list.setAdapter(adapter);
+		pull_refresh_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(getActivity(), ShopMainActivity.class);
+				intent.putExtra("userID", mList.get(position).getBrandId());
+				getActivity().startActivity(intent);
+			}
+		});
 		pull_refresh_list.setOnRefreshListener(new OnRefreshListener2() {
 
 			@Override
@@ -137,4 +148,9 @@ public class BrandSearchFragment extends BaseFragment {
 			}
 		},ctx);
 	}
+
+
+
+
+
 }

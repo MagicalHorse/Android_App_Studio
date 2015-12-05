@@ -105,11 +105,13 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
                 setCursorAndText(0, cursorImageList, titleTextList);
                 transaction.replace(R.id.ll_contener,guideFragment);
                 transaction.commit();
+                guideFragment.getRecommondBuyerlist(false);
                 break;
             case R.id.tv_attention://关注
                 setCursorAndText(1, cursorImageList, titleTextList);
                 transaction.replace(R.id.ll_contener,attentionFragment);
                 transaction.commit();
+                attentionFragment.getAttentionBuyer(false,false);
                 break;
             default:
                 break;

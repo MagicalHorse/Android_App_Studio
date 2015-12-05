@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="10dip">
+    android:padding="10dip"
+>
 
 
     <ImageView
@@ -17,7 +18,7 @@
 
 
     <TextView
-
+        style="@style/text_middle_grey_style"
         android:id="@+id/tv_brand_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
