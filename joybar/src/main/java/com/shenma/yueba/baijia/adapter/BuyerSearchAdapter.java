@@ -81,8 +81,12 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                 @Override
                 public void onClick(View v) {
                         Intent intent = new Intent(ctx, ShopMainActivity.class);
-                        intent.putExtra("userID", mList.get(position).getBuyerId());
+                    try{
+                        intent.putExtra("userID", Integer.valueOf(mList.get(position).getBuyerId()));
                         ctx.startActivity(intent);
+                    }catch (Exception e){
+                    }
+
                     }
             });
             holder.tv_touch.setOnClickListener(new View.OnClickListener() {

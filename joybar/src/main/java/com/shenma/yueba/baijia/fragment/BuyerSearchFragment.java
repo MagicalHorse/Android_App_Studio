@@ -116,8 +116,8 @@ public class BuyerSearchFragment extends BaseFragment {
 				}, 100);
 				SearchBuyerBackBean bean = (SearchBuyerBackBean) obj;
 				if (isRefresh) {
+					mList.clear();
 					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
-						mList.clear();
 						mList.addAll(bean.getData().getItems());
 						tv_nodata.setVisibility(View.GONE);
 					} else {
