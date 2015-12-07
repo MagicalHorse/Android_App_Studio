@@ -5,7 +5,8 @@
     android:orientation="vertical" >
 
 
-  <include layout="@layout/find_shopping_guide_title"/>
+  <include layout="@layout/find_shopping_guide_title"
+      />
 
     <View style="@style/style_horizontal_line" />
 

@@ -471,6 +471,12 @@
         <activity
             android:name="com.shenma.yueba.baijia.activity.SearchBrandListActivity"
             android:screenOrientation="portrait" />
+        <!--败家更多品牌首页-->
+        <activity
+            android:name="com.shenma.yueba.baijia.activity.BuyerSearchActivity"
+            android:screenOrientation="portrait" />
+
+
 
         <!-- 网络状态变化的广播 -->
         <receiver

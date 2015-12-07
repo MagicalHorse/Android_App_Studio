@@ -32,7 +32,7 @@ import java.util.List;
 import config.PerferneceConfig;
 
 /**
- * 社交管理中的-----我的关注 and 我的粉丝
+ *
  * 
  * @author a
  * 

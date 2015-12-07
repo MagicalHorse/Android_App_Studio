@@ -36,12 +36,14 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
     private ArrayList<String> allList = new ArrayList<String>();
     private SearchHistoryAdapter adapter;
     private int maxLengh = 10;
+    private String flag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         MyApplication.getInstance().addActivity(this);//加入回退栈
         setContentView(R.layout.search_product_activity);
         super.onCreate(savedInstanceState);
+        flag = getIntent().getStringExtra("flag");
         setTitle("搜索");
         setLeftTextView(new View.OnClickListener() {
             @Override
@@ -145,9 +147,16 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                             SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
                         }
                 }
-                Intent intent = new Intent(mContext,SearchResultActivityForThreeTab.class);
-                intent.putExtra("key",et_search.getText().toString().trim());
-                startActivity(intent);
+                if("searchBuyer".equals(flag)){
+                    Intent intent = new Intent(SearchProductActivity.this, BuyerSearchActivity.class);
+                    intent.putExtra("key",et_search.getText().toString().trim());
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(mContext,SearchResultActivity.class);
+                    intent.putExtra("key",et_search.getText().toString().trim());
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.bt_delete:
                 et_search.setText("");
@@ -199,12 +208,21 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
         allList.add(0,mList.get(position));
         SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, "");
         StringBuffer sb = new StringBuffer();
+        SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
         for (int i=0;i<allList.size();i++){
             sb.append(allList.get(i)).append(",");
         }
-        SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
-        Intent intent = new Intent(SearchProductActivity.this, SearchResultActivityForThreeTab.class);
-        intent.putExtra("key",key);
-        startActivity(intent);
+
+        if("searchBuyer".equals(flag)){//单纯的搜买手
+            Intent intent = new Intent(SearchProductActivity.this, BuyerSearchActivity.class);
+            intent.putExtra("key",key);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(SearchProductActivity.this, SearchResultActivity.class);
+            intent.putExtra("key",key);
+            startActivity(intent);
+        }
+
+
     }
 }

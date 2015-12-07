@@ -1,6 +1,7 @@
 package com.shenma.yueba.baijia.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -11,12 +12,14 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenma.yueba.BaseFragmentActivity;
 import com.shenma.yueba.R;
+import com.shenma.yueba.baijia.activity.SearchProductActivity;
 import com.shenma.yueba.util.CustomProgressDialog;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.yangjia.fragment.IncomeDetailFragment;
@@ -38,6 +41,7 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
     private String mParam1;
     private String mParam2;
     View parentView;
+    private Button bt_search;
 
     /**
      * Use this factory method to create a new instance of
@@ -69,30 +73,39 @@ public class FindShoppingGuideFragmnet extends BaseFragment implements View.OnCl
 
     }
 
-    private void initView() {
-        guideFragment = new GuideFragment();
-        attentionFragment = new BuyerAttentionFragment();
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction =  manager.beginTransaction();
-        transaction.replace(R.id.ll_contener, guideFragment);
-        transaction.commit();
-        LinearLayout ll_contener = (LinearLayout)parentView.findViewById(R.id.ll_contener);
-        tv_guide = (TextView) parentView.findViewById(R.id.tv_guide);
-        tv_attention = (TextView) parentView.findViewById(R.id.tv_attention);
-        iv_cursor_right = (ImageView) parentView.findViewById(R.id.iv_cursor_right);
-        iv_cursor_left = (ImageView) parentView.findViewById(R.id.iv_cursor_left);
-        cursorImageList.add(iv_cursor_left);
-        cursorImageList.add(iv_cursor_right);
-        iv_cursor_left.setVisibility(View.VISIBLE);
-        tv_guide.setTextSize(20);
-        tv_guide.setTextColor(getResources().getColor(R.color.main_color));
-        titleTextList.add(tv_guide);
-        titleTextList.add(tv_attention);
-        tv_guide.setOnClickListener(this);
-        tv_attention.setOnClickListener(this);
+    private void initView()         {
+            guideFragment = new GuideFragment();
+            attentionFragment = new BuyerAttentionFragment();
+            FragmentManager manager = getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction =  manager.beginTransaction();
+            transaction.replace(R.id.ll_contener, guideFragment);
+            transaction.commit();
+            LinearLayout ll_contener = (LinearLayout)parentView.findViewById(R.id.ll_contener);
+            bt_search = (Button)parentView.findViewById(R.id.bt_search);
+            bt_search.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), SearchProductActivity.class);
+                    intent.putExtra("flag","searchBuyer");
+                    startActivity(intent);
+                }
+            });
+            tv_guide = (TextView) parentView.findViewById(R.id.tv_guide);
+            tv_attention = (TextView) parentView.findViewById(R.id.tv_attention);
+            iv_cursor_right = (ImageView) parentView.findViewById(R.id.iv_cursor_right);
+            iv_cursor_left = (ImageView) parentView.findViewById(R.id.iv_cursor_left);
+            cursorImageList.add(iv_cursor_left);
+            cursorImageList.add(iv_cursor_right);
+            iv_cursor_left.setVisibility(View.VISIBLE);
+            tv_guide.setTextSize(20);
+            tv_guide.setTextColor(getResources().getColor(R.color.main_color));
+            titleTextList.add(tv_guide);
+            titleTextList.add(tv_attention);
+            tv_guide.setOnClickListener(this);
+            tv_attention.setOnClickListener(this);
 
 
-    }
+        }
 
 
 
