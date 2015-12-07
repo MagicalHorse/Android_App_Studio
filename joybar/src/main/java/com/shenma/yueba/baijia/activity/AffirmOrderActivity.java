@@ -26,6 +26,7 @@ import com.shenma.yueba.baijia.modle.RequestCreatOrderInfoBean;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.util.ListViewUtils;
+import com.shenma.yueba.util.OrderChangeRefreshObserver;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
@@ -233,13 +234,12 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 
 					@Override
 					public void http_Success(Object obj) {
-						if (obj != null
-								&& obj instanceof RequestCreatOrderInfoBean) {
+						if (obj != null && obj instanceof RequestCreatOrderInfoBean) {
 							RequestCreatOrderInfoBean requestCreatOrderInfoBean = (RequestCreatOrderInfoBean) obj;
 							if (requestCreatOrderInfoBean.getData() != null) {
 								MyApplication.getInstance().showMessage(AffirmOrderActivity.this, "下单成功");
 								ToolsUtil.frowardPayActivity(AffirmOrderActivity.this,productsDetailsInfoBean.getProductName(),buyCount,requestCreatOrderInfoBean.getData().getOrderNo(),requestCreatOrderInfoBean.getData().getActualAmount());
-								ToolsUtil.sendOrderBroadcase();
+								OrderChangeRefreshObserver.getInstance().refreshList(0,null);
 							}
 							finish();
 						}

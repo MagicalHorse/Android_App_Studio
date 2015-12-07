@@ -350,7 +350,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		approvebuyerdetails_layout_shoucang_linerlayout_textview.setTag(Data);
 		if(Data.isFavorite())
 		{
-			approvebuyerdetails_layout_shoucang_linerlayout_textview.setText("取消收藏");
+			approvebuyerdetails_layout_shoucang_linerlayout_textview.setText("已收藏");
 		}else
 		{
 			approvebuyerdetails_layout_shoucang_linerlayout_textview.setText("收藏");
@@ -616,7 +616,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 									bean.setIsFavorite(false);
 									break;
 								case 1:
-									((TextView) v).setText("取消收藏");
+									((TextView) v).setText("已收藏");
 									v.setSelected(true);
 									bean.setIsFavorite(true);
 									break;

@@ -61,7 +61,6 @@ import com.shenma.yueba.baijia.modle.BaseRequest;
 import com.shenma.yueba.baijia.modle.PayResponseFormBean;
 import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
 import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
-import com.shenma.yueba.broadcaseReceiver.OrderBroadcaseReceiver;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.yangjia.modle.AliYunKeyBackBean;
 import com.shenma.yueba.yangjia.modle.AliYunKeyBean;
@@ -874,15 +873,6 @@ public class ToolsUtil {
     }
 
 
-    /*******
-     * 发送 订单通知 刷新 广播
-     ****/
-    public static void sendOrderBroadcase() {
-        Intent intent = new Intent(OrderBroadcaseReceiver.IntentFilter);
-        MyApplication.getInstance().getApplicationContext().sendBroadcast(intent);
-    }
-
-
     /**
      * 判断当前应用程序处于前台还是后台
      *
@@ -963,13 +953,14 @@ public class ToolsUtil {
     /*****
      * 跳转到聊天界面
      *
-     * @param Chat_NAME   String  圈子名称  没有 传 null
-     * @param toUser_id   int 私聊对象id  没有 传 0
-     * @param circleId    int 圈子id  没有 传 0
-     * @param Chat_RoomID String 房间id  没有 传 null
-     * @param bean        RequestProductDetailsInfoBean 商品信息 没有穿null
+     * @param Chat_NAME             String  圈子名称  没有 传 null
+     * @param toUser_id             int 私聊对象id  没有 传 0
+     * @param circleId              int 圈子id  没有 传 0
+     * @param Chat_RoomID           String 房间id  没有 传 null
+     * @param bean                  RequestProductDetailsInfoBean 商品信息 没有穿null
+     * @param requestCk_SPECDetails RequestCk_SPECDetails 商品的尺寸信息  没有传NULL
      ****/
-    public static void forwardChatActivity(Context ctx, String Chat_NAME, int toUser_id, int circleId, String Chat_RoomID, RequestCKProductDeatilsInfo bean,RequestCk_SPECDetails requestCk_SPECDetails) {
+    public static void forwardChatActivity(Context ctx, String Chat_NAME, int toUser_id, int circleId, String Chat_RoomID, RequestCKProductDeatilsInfo bean, RequestCk_SPECDetails requestCk_SPECDetails) {
         MyApplication.getInstance().finishActivity(ChatActivity.class);
         Intent intent = new Intent(ctx, ChatActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -978,7 +969,7 @@ public class ToolsUtil {
         intent.putExtra("toUser_id", toUser_id);
         intent.putExtra("Chat_RoomID", Chat_RoomID);
         intent.putExtra("DATA", bean);
-        intent.putExtra("standard_data",requestCk_SPECDetails);
+        intent.putExtra("standard_data", requestCk_SPECDetails);
         ctx.startActivity(intent);
     }
 
@@ -1150,22 +1141,22 @@ public class ToolsUtil {
 
     /*********
      * 跳转 支付选页面择
-     * @param  activity  Activity
-     * @param  producetName  String商品名称
-     * @param  buycount int 购买数量
-     * @param  orderNo String 订单号
-     * @param  price double 订单金额
-     * ******/
-    public static void frowardPayActivity(Activity activity,String producetName,int buycount,String orderNo,double price)
-    {
-        PayResponseFormBean bean=new PayResponseFormBean();
+     *
+     * @param activity     Activity
+     * @param producetName String商品名称
+     * @param buycount     int 购买数量
+     * @param orderNo      String 订单号
+     * @param price        double 订单金额
+     ******/
+    public static void frowardPayActivity(Activity activity, String producetName, int buycount, String orderNo, double price) {
+        PayResponseFormBean bean = new PayResponseFormBean();
         bean.setContent(producetName);
-        bean.setDesc(producetName+ "  x " + buycount);
+        bean.setDesc(producetName + "  x " + buycount);
         bean.setOrderNo(orderNo);
         bean.setPrice(price);
         bean.setUrl(com.shenma.yueba.constants.Constants.WX_NOTIFY_URL);
-        Intent intent=new Intent(activity,BaijiaPayActivity.class);
-        intent.putExtra("PAYDATA",bean);
+        Intent intent = new Intent(activity, BaijiaPayActivity.class);
+        intent.putExtra("PAYDATA", bean);
         activity.startActivity(intent);
     }
 
@@ -1173,19 +1164,14 @@ public class ToolsUtil {
     /**
      * 计算地球上任意两点(经纬度)距离
      *
-     * @param long1
-     *            第一点经度
-     * @param lat1
-     *            第一点纬度
-     * @param long2
-     *            第二点经度
-     * @param lat2
-     *            第二点纬度
+     * @param long1 第一点经度
+     * @param lat1  第一点纬度
+     * @param long2 第二点经度
+     * @param lat2  第二点纬度
      * @return 返回距离 单位：米
      */
-    public static String Distance(double long1, double lat1, double long2,double lat2) {
-        if(long1<=0 || lat1<=0 || long2<=0 || lat2<=0)
-        {
+    public static String Distance(double long1, double lat1, double long2, double lat2) {
+        if (long1 <= 0 || lat1 <= 0 || long2 <= 0 || lat2 <= 0) {
             return "";
         }
         double a, b, R;

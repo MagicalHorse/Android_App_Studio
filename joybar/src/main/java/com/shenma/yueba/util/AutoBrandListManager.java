@@ -33,6 +33,7 @@ public class AutoBrandListManager extends  AbsBrandListManager{
     LinearLayout ll=null;
     List<TextView> view_array=new ArrayList<TextView>();
     int childWidth=0;
+
     public void settextSize(int textSizeResource_id)
     {
         this.textSize_id=textSizeResource_id;
@@ -143,30 +144,42 @@ public class AutoBrandListManager extends  AbsBrandListManager{
             //所能使用的的宽视的图度
             int width = ll_width-(parentPaddingLeft+parentPaddingRight) -textwidth;
             int LastMarginLeft=0;
-            for(int i=0;i<array_list.size();i++)
-            {
-                TextView tv = new TextView(activity);
-                //tv.setBackgroundColor(activity.getResources().getColor(R.color.color_deeoyellow));
-                tv.setSingleLine();
-                tv.setEllipsize(TextUtils.TruncateAt.END);
-                int item_childWidth=getMoreTextWidth(array_list.get(i).trim(),textSize_id);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                params.gravity= Gravity.LEFT|Gravity.BOTTOM;
-                params.leftMargin = marginvalue;
-                params.rightMargin = marginvalue;
-                if((childWidth+item_childWidth)>width)
-                {
-                    //addLastView(LastMarginLeft);
-                    return;
-                }else
-                {
-                    int textsize=getTextSize(textSize_id);
-                    tv.setTextSize(textsize);
-                    tv.setText(ToolsUtil.nullToString(array_list.get(i)));
-                    ll.addView(tv, params);
-                    childWidth+=item_childWidth;
-                    view_array.add(tv);
 
+            if(array_list.size()>0)
+            {
+                for(int i=0;i<array_list.size();i++)
+                {
+                    TextView tv = new TextView(activity);
+                    //tv.setBackgroundColor(activity.getResources().getColor(R.color.color_deeoyellow));
+                    tv.setSingleLine();
+                    tv.setPadding(textpadding, 0, textpadding, 0);
+                    tv.setBackgroundResource(R.color.color_lightgrey);
+                    tv.setEllipsize(TextUtils.TruncateAt.END);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    params.gravity= Gravity.LEFT|Gravity.BOTTOM;
+                    params.leftMargin = marginvalue;
+                    params.rightMargin = marginvalue;
+                    int item_childWidth=getMoreTextWidth(array_list.get(i).trim(),textSize_id);
+                    if(i==0)
+                    {
+                        item_childWidth=item_childWidth-marginvalue;
+                        params.leftMargin=0;
+                    }
+
+                    if((childWidth+item_childWidth)>width)
+                    {
+                        //addLastView(LastMarginLeft);
+                        break;
+                    }else
+                    {
+                        int textsize=getTextSize(textSize_id);
+                        tv.setTextSize(textsize);
+                        tv.setText(ToolsUtil.nullToString(array_list.get(i)));
+                        ll.addView(tv, params);
+                        childWidth+=item_childWidth;
+                        view_array.add(tv);
+
+                    }
                 }
                 LastMarginLeft=width-childWidth;
                 addLastView(LastMarginLeft);
@@ -182,6 +195,8 @@ public class AutoBrandListManager extends  AbsBrandListManager{
         params.leftMargin = marginleft+marginvalue;
         params.rightMargin = 0;
         TextView tv = new TextView(activity);
+        tv.setPadding(textpadding,0,textpadding,0);
+        tv.setBackgroundResource(R.color.color_lightgrey);
         tv.setSingleLine();
         tv.setEllipsize(TextUtils.TruncateAt.END);
         tv.setText(ToolsUtil.nullToString(more));

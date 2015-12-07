@@ -178,9 +178,10 @@ public class HomeAdapter extends BaseAdapter {
         final IndexItems indexItems = infoList.get(position);
         LinearLayout home_item_layout_brand_linearlayout = (LinearLayout) view.findViewById(R.id.home_item_layout_brand_linearlayout);
         AbsBrandListManager bm = new AutoBrandListManager(activity, home_item_layout_brand_linearlayout);
-        bm.settextSize(R.dimen.text_authentication_textsize);
-        bm.setChildMargin(activity.getResources().getDimensionPixelSize(R.dimen.branditem_margin));
-        bm.setLastText("更多品牌", R.dimen.text_authentication_textsize);
+        bm.setTextpadding(R.dimen.shop_main_width5_dimen);//设置文本padding值
+        bm.settextSize(R.dimen.text_authentication_textsize);//设置 品牌文本大小
+        bm.setChildMargin(activity.getResources().getDimensionPixelSize(R.dimen.branditem_margin));//设置文本 margin 左右的值
+        bm.setLastText("更多品牌", R.dimen.text_authentication_textsize);//设置最后一位文本的大小
         bm.setOnClickListener(new AbsBrandListManager.OnBrandItemListener() {
             @Override
             public void onItemClick(View v, int i) {

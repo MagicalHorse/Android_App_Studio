@@ -42,8 +42,10 @@ public class MarketSearchFragment extends BaseFragment {
 	private String key;
 
 
-	public MarketSearchFragment(String key){
-		this.key = key;
+	public static MarketSearchFragment getInstance(String key) {
+		MarketSearchFragment instance = new MarketSearchFragment();
+		instance.key = key;
+		return instance;
 	}
 
 

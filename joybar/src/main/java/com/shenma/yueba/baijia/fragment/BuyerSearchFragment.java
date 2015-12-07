@@ -52,11 +52,13 @@ public class BuyerSearchFragment extends BaseFragment {
 		super.onCreate(savedInstanceState);
 	}
 
-
-	public BuyerSearchFragment(String key,String storeId){
-		this.key = key;
-		this.storeId =  storeId;
+	public static BuyerSearchFragment getInstance(String key, String storeId) {
+		BuyerSearchFragment instance = new BuyerSearchFragment();
+		instance.key = key;
+		instance.storeId = storeId;
+		return instance;
 	}
+
 
 
 	@Override

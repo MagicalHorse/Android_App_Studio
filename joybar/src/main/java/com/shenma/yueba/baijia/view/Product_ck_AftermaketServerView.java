@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
+import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.MyListView;
 
 /**
@@ -43,7 +44,7 @@ public class Product_ck_AftermaketServerView {
         {
             str=bean.getData().getStoreService();
         }
-        parentView.setText(Html.fromHtml(str));
+        parentView.setText(Html.fromHtml(ToolsUtil.nullToString(str)));
     }
 
 

@@ -154,10 +154,10 @@ public class SearchResultActivity extends BaseFragmentActivity implements
      * 初始化ItemFragment3
      */
     private void setFragmentList() {
-        productSearchFragment = new ProductSearchFragment(key,storeId);
-        brandSearchFragment = new BrandSearchFragment(key,storeId);
-        buyerSearchFragment = new BuyerSearchFragment(key,storeId);
-        marketSearchFragment = new MarketSearchFragment(key);
+        productSearchFragment = ProductSearchFragment.getInstance(key,storeId);
+        brandSearchFragment =  BrandSearchFragment.getInstance(key,storeId);
+        buyerSearchFragment =  BuyerSearchFragment.getInstance(key,storeId);
+        marketSearchFragment =  MarketSearchFragment.getInstance(key);
         fragmentList.add(productSearchFragment);
         fragmentList.add(brandSearchFragment);
         fragmentList.add(buyerSearchFragment);

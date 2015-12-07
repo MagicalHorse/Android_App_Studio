@@ -18,6 +18,11 @@ import java.util.ArrayList;
 
 public class BaseFragment extends Fragment {
 
+	public BaseFragment()
+	{
+
+	}
+
 
 	private HttpUtils httpUtils;
 	@Override

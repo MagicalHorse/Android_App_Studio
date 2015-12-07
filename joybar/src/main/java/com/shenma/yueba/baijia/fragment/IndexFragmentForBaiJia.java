@@ -105,7 +105,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //MyApplication.getInstance().getCityChangeRefreshService().addToList(this);
+        MyApplication.getInstance().getCityChangeRefreshService().addToList(this);
         super.onCreate(savedInstanceState);
         fragmentManager = getActivity().getSupportFragmentManager();
     }

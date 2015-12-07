@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,7 +16,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.modle.FragmentBean;
 import com.shenma.yueba.baijia.modle.MyFavoriteProductListInfo;
 import com.shenma.yueba.baijia.modle.MyFavoriteProductListInfoBean;
 import com.shenma.yueba.baijia.modle.MyFavoriteProductListPic;
@@ -27,12 +25,13 @@ import com.shenma.yueba.baijia.modle.UserInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.CollectobserverManage;
-import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.PubuliuManager;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -220,16 +219,15 @@ public class ShopMainFragment extends Fragment {
 
             @Override
             public void http_Success(Object obj) {
-                switch(Status)
-                {
+                switch (Status) {
                     case 0:
-                        ((TextView)textview).setText("关注");
+                        ((TextView) textview).setText("关注");
                         shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_guanzhu), null, null, null);
                         bean.setIsFollowing(false);
                         MyApplication.getInstance().showMessage(getActivity(), "取消成功");
                         break;
                     case 1:
-                        ((TextView)textview).setText("已关注");
+                        ((TextView) textview).setText("已关注");
                         shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_unguanzhu), null, null, null);
                         bean.setIsFollowing(true);
                         MyApplication.getInstance().showMessage(getActivity(), "关注成功");
@@ -312,14 +310,14 @@ public class ShopMainFragment extends Fragment {
 
             shop_main_attention_imagebutton.setText("关注");
         }
-
+        //粉丝
+        TextView shop_main_fans_textview=(TextView)activity.findViewById(R.id.shop_main_fans_textview);
+        shop_main_fans_textview.setText("粉丝："+ToolsUtil.nullToString(Integer.toString(userInfoBean.getFollowerCount())));
         MyApplication.getInstance().getBitmapUtil().display(shop_main_layout_icon_imageview, ToolsUtil.nullToString(userInfoBean.getLogo()));
         shop_main_layout_name_textview.setText(ToolsUtil.nullToString(userInfoBean.getUserName()));
         shop_main_layout_market_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
 
         shap_main_description1_textview.setText(ToolsUtil.nullToString(userInfoBean.getDescription()));
-        TextView tv_product_count = (TextView) contantView.findViewById(R.id.tv_product_count);
-        tv_product_count.setText("商品：" + userInfoBean.getProductCount());
 
         shop_main_head_layout_address_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
     }
@@ -348,6 +346,17 @@ public class ShopMainFragment extends Fragment {
     {
         if(bean!=null && bean.getItems()!=null && bean.getItems().size()>0)
         {
+            if(activity!=null)
+            {
+                //商品
+                TextView tv_product_count=(TextView)activity.findViewById(R.id.tv_product_count);
+                if(tv_product_count!=null)
+                {
+                    tv_product_count.setText("商品："+bean.getItems().size());
+                }
+
+            }
+
             item.clear();
             item.addAll(getTransformData(bean.getItems()));
             if(pubuliuManager==null)

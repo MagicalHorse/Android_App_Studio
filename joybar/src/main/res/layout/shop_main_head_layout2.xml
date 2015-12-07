@@ -33,7 +33,7 @@
             android:layout_alignTop="@id/shop_main_layout_icon_imageview"
             android:layout_marginLeft="10dip"
             android:layout_toRightOf="@id/shop_main_layout_icon_imageview"
-            android:text="买手"
+            android:text=""
             android:textSize="@dimen/textsize18sp" />
         <!-- 商场 -->
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/shop_main_layout_name_textview"
             android:layout_centerVertical="true"
-            android:text="门店"
+            android:text=""
             android:textColor="@color/color_textgray"
             android:textSize="@dimen/textsize13sp" />
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/shop_main_layout_icon_imageview"
             android:layout_alignLeft="@id/shop_main_layout_market_textview"
-            android:text="粉丝：23" />
+            android:text="粉丝：0" />
 
         <TextView
             android:id="@+id/tv_product_count"
@@ -63,7 +63,7 @@
             android:layout_alignTop="@id/shop_main_fans_textview"
             android:layout_marginLeft="10dip"
             android:layout_toRightOf="@id/shop_main_fans_textview"
-            android:text="商品：13" />
+            android:text="商品：0" />
 
 
         <TextView
@@ -93,7 +93,7 @@
         android:layout_marginTop="10dip"
         android:layout_toRightOf="@id/shop_main_head_layout_address_imageview"
         android:drawableLeft="@drawable/address"
-        android:text="北京市海淀区"
+        android:text=""
         android:textColor="@color/color_gray" />
 
     <View

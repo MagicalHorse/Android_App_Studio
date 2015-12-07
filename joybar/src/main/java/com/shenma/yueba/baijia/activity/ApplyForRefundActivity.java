@@ -23,6 +23,7 @@ import com.shenma.yueba.baijia.modle.ProductInfoBean;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
+import com.shenma.yueba.util.OrderChangeRefreshObserver;
 import com.shenma.yueba.util.ToolsUtil;
 import com.umeng.analytics.MobclickAgent;
 
@@ -224,7 +225,7 @@ int maxValue=0;
 				{
 					MyApplication.getInstance().showMessage(ApplyForRefundActivity.this, "申请成功");
 					//setResult(200, ApplyForRefundActivity.this.getIntent().putExtra("PAYRESULT", "SUCESS"));
-					ToolsUtil.sendOrderBroadcase();
+					OrderChangeRefreshObserver.getInstance().refreshList(0,null);
 					finish();
 				}
 			}

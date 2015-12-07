@@ -141,9 +141,9 @@ public class SearchResultActivityForThreeTab extends BaseFragmentActivity implem
      * 初始化ItemFragment3
      */
     private void setFragmentList() {
-        productSearchFragment = new ProductSearchFragment(key,storeId);
-        brandSearchFragment = new BrandSearchFragment(key,storeId);
-        buyerSearchFragment = new BuyerSearchFragment(key,storeId);
+        productSearchFragment =  ProductSearchFragment.getInstance(key,storeId);
+        brandSearchFragment =  BrandSearchFragment.getInstance(key,storeId);
+        buyerSearchFragment =  BuyerSearchFragment.getInstance(key,storeId);
         fragmentList.add(productSearchFragment);
         fragmentList.add(brandSearchFragment);
         fragmentList.add(buyerSearchFragment);

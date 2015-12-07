@@ -240,6 +240,14 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
 
         // 收藏按钮
         approvebuyerdetails_layout_shoucang_linerlayout_textview = (TextView) parentView.findViewById(R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview);
+        approvebuyerdetails_layout_shoucang_linerlayout_textview.setOnClickListener(this);
+        if(Data.isFavorite())
+        {
+            approvebuyerdetails_layout_shoucang_linerlayout_textview.setText("已收藏");
+        }else
+        {
+            approvebuyerdetails_layout_shoucang_linerlayout_textview.setText("收藏");
+        }
         //头像包裹视图
         ll_attentionpeople_contener = (LinearLayout) parentView.findViewById(R.id.ll_attentionpeople_contener);
         // 活动父视图
@@ -464,9 +472,11 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 checked_ProductColorTypeBean = bean;
                 //根据选择的颜色 设置尺寸
                 spectypelist.clear();
-                ;
                 spectypelist.addAll(bean.getSize());
-
+                if(spectypelist.size()>0)
+                {
+                    setSpecdimentOnCheck(0);
+                }
             }
 
         }
@@ -550,6 +560,12 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 case 200:
                     scrollToxy();
                     break;
+                case 100:
+                    if(approvebuyerdetails_srcollview!=null)
+                    {
+                        approvebuyerdetails_srcollview.smoothScrollTo(0, 0);
+                    }
+                    break;
             }
         }
     };
@@ -582,11 +598,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             return;
         }
 
-        Intent intent = new Intent(activity, ChatActivity.class);
-        intent.putExtra("Chat_NAME", bean.getData().getBuyerName());// 圈子名字
-        intent.putExtra("toUser_id", bean.getData().getBuyerId());// 私聊的话需要传对方id
-        intent.putExtra("DATA", bean);
-        startActivity(intent);
+        ToolsUtil.forwardChatActivity(getActivity(),ToolsUtil.nullToString(bean.getData().getBuyerName()),Integer.valueOf(bean.getData().getBuyerId()),0,null,null,null);
     }
 
 
@@ -906,12 +918,11 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             approvebuyerdetails_closeinginfo_textview.setText(ToolsUtil.nullToString(productsDetailsPromotion.getTipText()));
         }
         setFont();
-
-        approvebuyerdetails_srcollview.smoothScrollTo(0, 0);
         footer_right_linerlayout.setVisibility(View.VISIBLE);
         approvebuyerbuybutton.setVisibility(View.VISIBLE);
         approvebuyerdetails_layout_siliao_linerlayout_textview.setVisibility(View.VISIBLE);
         ll_footer.setVisibility(View.VISIBLE);
+        handler.sendMessageDelayed(handler.obtainMessage(100),300);
     }
 
     @Override
@@ -1086,7 +1097,6 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 if (!MyApplication.getInstance().isUserLogin(activity)) {
                     return;
                 }
-
                 if (Data != null) {
                     if (Data.isFavorite()) {
                         submitAttention(0, Data, v);
@@ -1152,7 +1162,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                             bean.setIsFavorite(false);
                             break;
                         case 1:
-                            ((TextView) v).setText("取消收藏");
+                            ((TextView) v).setText("已收藏");
                             v.setSelected(true);
                             bean.setIsFavorite(true);
                             break;

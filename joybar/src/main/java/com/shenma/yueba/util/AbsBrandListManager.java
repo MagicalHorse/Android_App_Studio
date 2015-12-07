@@ -23,6 +23,16 @@ public abstract class AbsBrandListManager {
     int textSize_id=R.dimen.text_authentication_textsize;
     Activity activity;
     String more="更多品牌...";
+    //设置位子padding 左和右的 距离
+    int textpadding=0;
+
+    public void setTextpadding(int textpadding) {
+        if(textpadding>0)
+        {
+            this.textpadding=activity.getResources().getDimensionPixelSize(textpadding);
+        }
+    }
+
     //点击回调
     OnBrandItemListener onBrandItemListener;
     public AbsBrandListManager(Activity activity)
@@ -79,7 +89,7 @@ public abstract class AbsBrandListManager {
         int textsize=activity.getResources().getDimensionPixelSize(resourceID);
         textPaint.setTextSize(textsize);
         int textwidth=(int)textPaint.measureText(str);
-        textwidth=textwidth+marginvalue*2;
+        textwidth=textwidth+(marginvalue*2)+(textpadding*2);;
         return textwidth;
     }
 
@@ -92,7 +102,7 @@ public abstract class AbsBrandListManager {
         int textsize=activity.getResources().getDimensionPixelSize(resourceID);
         textPaint.setTextSize(textsize);
         int textwidth=(int)textPaint.measureText(str);
-        textwidth=textwidth+marginvalue;
+        textwidth=textwidth+marginvalue+(textpadding*2);
         return textwidth;
     }
 

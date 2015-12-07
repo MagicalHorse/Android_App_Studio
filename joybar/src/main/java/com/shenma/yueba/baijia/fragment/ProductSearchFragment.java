@@ -54,10 +54,13 @@ public class ProductSearchFragment extends BaseFragment {
 	}
 
 
-	public ProductSearchFragment(String key,String storeId){
-		this.key = key;
-		this.storeId = storeId;
+	public static ProductSearchFragment getInstance(String key, String storeId) {
+		ProductSearchFragment instance = new ProductSearchFragment();
+		instance.key = key;
+		instance.storeId = storeId;
+		return instance;
 	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {

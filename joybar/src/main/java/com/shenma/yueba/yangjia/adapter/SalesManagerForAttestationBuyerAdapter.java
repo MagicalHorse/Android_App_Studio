@@ -176,7 +176,7 @@ public class SalesManagerForAttestationBuyerAdapter extends BaseAdapterWithUtil 
 	
 	/**
 	 * 确认退款
-	 * @param position
+	 * @param orderItem OrderItem
 	 */
 	private void confirmBack(OrderItem orderItem){
 		HttpControl httpControl = new HttpControl();
