@@ -315,9 +315,10 @@ public class HttpControl {
      * @param httpCallBack
      * @param context
      */
-    public void searchbrand(String key, int Page, boolean showDialog, final HttpCallBackInterface httpCallBack, Context context) {
+    public void searchbrand(String key, int Page,String storeId, boolean showDialog, final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("key", key);
+        map.put("storeId", storeId);
         map.put("Page", Page + "");
         map.put("PageSize", Constants.PageSize);
         BasehttpSend(map, context, HttpConstants.METHOD_searchbrand, httpCallBack, SearchBrandBackBean.class, showDialog, false);

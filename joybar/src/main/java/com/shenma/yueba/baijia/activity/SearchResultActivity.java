@@ -131,7 +131,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
                       brandSearchFragment.getBrand(SearchResultActivity.this,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                       break;
                   case 2:
-                      buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                      buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                       break;
                   case 3:
                       marketSearchFragment.getMarketList(SearchResultActivity.this,true,false,ToolsUtil.nullToString(et_search.getText().toString().trim()));
@@ -155,7 +155,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
      */
     private void setFragmentList() {
         productSearchFragment = new ProductSearchFragment(key,storeId);
-        brandSearchFragment = new BrandSearchFragment(key);
+        brandSearchFragment = new BrandSearchFragment(key,storeId);
         buyerSearchFragment = new BuyerSearchFragment(key,storeId);
         marketSearchFragment = new MarketSearchFragment(key);
         fragmentList.add(productSearchFragment);
@@ -218,7 +218,7 @@ public class SearchResultActivity extends BaseFragmentActivity implements
                         brandSearchFragment.getBrand(SearchResultActivity.this,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                     case 2:
-                        buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,storeId,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                        buyerSearchFragment.getSearchBuyerList(SearchResultActivity.this,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                     case 3:
                         marketSearchFragment.getMarketList(SearchResultActivity.this,true,true,ToolsUtil.nullToString(et_search.getText().toString().trim()));

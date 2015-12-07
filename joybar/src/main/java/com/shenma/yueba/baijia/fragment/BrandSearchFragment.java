@@ -44,7 +44,7 @@ public class BrandSearchFragment extends BaseFragment {
 	private boolean isRefresh = true;
 	private int status = 1;// 0表示我关注的人   1表示我的粉丝
 	public TextView tv_nodata;
-	private String key;
+	private String key,storeId;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,8 +53,9 @@ public class BrandSearchFragment extends BaseFragment {
 
 
 
-	public BrandSearchFragment(String key){
+	public BrandSearchFragment(String key,String storeId){
 		this.key =  key;
+		this.storeId = storeId;
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,11 +110,7 @@ public class BrandSearchFragment extends BaseFragment {
 			return;
 		}
 		HttpControl httpControl = new HttpControl();
-		int userID=Integer.parseInt(SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_id));
-		//当前登录的用户id
-		int CurrentUserId=Integer.parseInt(SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_id));
-
-		httpControl.searchbrand(key,page,showDialog,new HttpCallBackInterface(){
+		httpControl.searchbrand(key,page,storeId,showDialog,new HttpCallBackInterface(){
 			@Override
 			public void http_Success(Object obj) {
 				pull_refresh_list.postDelayed(new Runnable() {

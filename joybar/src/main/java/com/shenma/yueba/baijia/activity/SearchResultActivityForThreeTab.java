@@ -64,6 +64,7 @@ public class SearchResultActivityForThreeTab extends BaseFragmentActivity implem
         setContentView(R.layout.search_result_layou_for_three_tab);
         super.onCreate(savedInstanceState);
         key = getIntent().getStringExtra("key");
+        storeId = getIntent().getStringExtra("storeId");
         setFragmentList();
         initView();
         initViewPager();
@@ -120,7 +121,7 @@ public class SearchResultActivityForThreeTab extends BaseFragmentActivity implem
                         brandSearchFragment.getBrand(SearchResultActivityForThreeTab.this, true, false, ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                     case 2:
-                        buyerSearchFragment.getSearchBuyerList(SearchResultActivityForThreeTab.this, storeId, true, false, ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                        buyerSearchFragment.getSearchBuyerList(SearchResultActivityForThreeTab.this, true, false, ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
 
                 }
@@ -141,7 +142,7 @@ public class SearchResultActivityForThreeTab extends BaseFragmentActivity implem
      */
     private void setFragmentList() {
         productSearchFragment = new ProductSearchFragment(key,storeId);
-        brandSearchFragment = new BrandSearchFragment(key);
+        brandSearchFragment = new BrandSearchFragment(key,storeId);
         buyerSearchFragment = new BuyerSearchFragment(key,storeId);
         fragmentList.add(productSearchFragment);
         fragmentList.add(brandSearchFragment);
@@ -202,7 +203,7 @@ public class SearchResultActivityForThreeTab extends BaseFragmentActivity implem
                         brandSearchFragment.getBrand(SearchResultActivityForThreeTab.this, true, true, ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
                     case 2:
-                        buyerSearchFragment.getSearchBuyerList(SearchResultActivityForThreeTab.this, storeId, true, true, ToolsUtil.nullToString(et_search.getText().toString().trim()));
+                        buyerSearchFragment.getSearchBuyerList(SearchResultActivityForThreeTab.this,true, true, ToolsUtil.nullToString(et_search.getText().toString().trim()));
                         break;
 
                 }

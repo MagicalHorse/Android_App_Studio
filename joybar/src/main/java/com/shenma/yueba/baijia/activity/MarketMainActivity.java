@@ -111,7 +111,9 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         setTopRightTextView("", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(mContext,SearchResultActivityForThreeTab.class);
+                intent.putExtra("storeId",StoreId);
+                startActivity(intent);
             }
         });
 
@@ -325,7 +327,11 @@ public class MarketMainActivity extends BaseActivityWithTopView {
             {
                 StoreIndexItem storeIndexItem= data.getItems().get(i);
                 PubuliuBeanInfo pubuliuBeanInfo=new PubuliuBeanInfo();
-                pubuliuBeanInfo.setFavoriteCount(Integer.valueOf(storeIndexItem.getFavoriteCount()));
+                try{
+                    pubuliuBeanInfo.setFavoriteCount(Integer.valueOf(storeIndexItem.getFavoriteCount()));
+                }catch (Exception e){
+                }
+
                 pubuliuBeanInfo.setPrice(Double.parseDouble(storeIndexItem.getPrice()));
                 pubuliuBeanInfo.setIscollection(storeIndexItem.isFavorite());
                 pubuliuBeanInfo.setRation(storeIndexItem.getRatio());
