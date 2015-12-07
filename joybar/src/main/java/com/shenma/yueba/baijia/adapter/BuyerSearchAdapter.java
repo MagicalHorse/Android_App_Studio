@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
 import com.shenma.yueba.baijia.activity.ShopMainActivity;
 import com.shenma.yueba.baijia.modle.BaseRequest;
 import com.shenma.yueba.baijia.modle.ProductsInfoBean;
@@ -97,12 +98,23 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
         }
         holder.cvm = new CreateAutoSizeViewManager(((Activity) ctx), ctx.getResources().getDimensionPixelSize(R.dimen.item_margin), R.layout.authentication_chid_item_layout, 3, holder.authentication_item_productlist_linearlayout, new CreateAutoSizeViewManager.InflaterSucessListener() {
             @Override
-            public void returnChildListView(List<View> view_array) {
-                List<ProductsInfoBean> products = mList.get(position).getProducts();
+            public void returnChildListView(final List<View> view_array) {
+                final List<ProductsInfoBean> products = mList.get(position).getProducts();
                 for (int i = 0; i < products.size(); i++) {
                     String pic = products.get(i).getPic();
                     bitmapUtils.display((view_array.get(i)), pic);
+                    view_array.get(i).setTag(products.get(i).getProductId());
+                    view_array.get(i).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int productId = (Integer)v.getTag();
+                            Intent intent = new Intent(ctx, BaijiaProductInfoActivity.class);
+                            intent.putExtra("productID",productId);
+                            ctx.startActivity(intent);
+                        }
+                    });
                 }
+
             }
         });
         if (mList.get(position).getProducts() == null || mList.get(position).getProducts().size() == 0) {
