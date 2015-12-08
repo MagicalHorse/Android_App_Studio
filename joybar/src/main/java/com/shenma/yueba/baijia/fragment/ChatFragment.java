@@ -51,11 +51,11 @@ import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.faceview.FaceView;
 import com.shenma.yueba.yangjia.modle.CircleDetailBackBean;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import im.broadcast.ImBroadcastReceiver;
 import im.control.SocketManger;
@@ -75,6 +75,8 @@ public class ChatFragment extends Fragment {
     LayoutInflater layoutInflater;
     View parentView;
     LinearLayout chat_alertmsg_linearlayout;// 顶部提示信息
+    LinearLayout resertaddinfo_linearlayout;//重新加载页面父视图对象
+    TextView resertaddinfo_textview;
     ImBroadcastReceiver imBroadcastReceiver;
     String usericon;//本地头像
     private int circleId=-1;// 圈子id
@@ -143,21 +145,28 @@ public class ChatFragment extends Fragment {
             SocketManger.the().setContext(getActivity());
             registerImBroadcastReceiver();//注册广播（接收 消息）
             regiestSockIoBroadCase();//监听sockeoio链接变化
+            requestChatInfo();
+        }
+    }
 
-            if(circleDetailBackBean==null)
+    /********
+     * 获取圈子信息及 房间信息
+     * *******/
+    void requestChatInfo()
+    {
+        //如果未圈子信息
+        if(circleDetailBackBean==null)
+        {
+            if(!isrunning)
             {
-                if(!isrunning)
-                {
-                    //获取用户默认圈子信息
-                    requestBaseCircleInfo();
-                }
+                //获取用户默认圈子信息
+                requestBaseCircleInfo();
             }
-
-            if(roomId==null && circleId>0)
-            {
-                getMessageByCircleId();
-            }
-
+        }
+        //如果未获得房间信息
+        if(roomId==null && circleId>0)
+        {
+            getMessageByCircleId();
         }
     }
 
@@ -168,8 +177,6 @@ public class ChatFragment extends Fragment {
         FontManager.changeFonts(getActivity(), chat_alertmsg_textview);
         // 我的头像
         usericon = SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_logo);
-        //注册监听广播 监听收到的信息
-        registerImBroadcase();
 
         // 我的 userid
         if(SharedUtil.getUserId(getActivity())!=null)
@@ -332,6 +339,18 @@ public class ChatFragment extends Fragment {
          * ***************/
         btnContainer = (LinearLayout)parentView.findViewById(R.id.ll_btn_container);
 
+
+        /********
+         * 重新加载
+         * *******/
+        resertaddinfo_linearlayout=(LinearLayout)parentView.findViewById(R.id.resertaddinfo_linearlayout);
+        resertaddinfo_textview=(TextView)parentView.findViewById(R.id.resertaddinfo_textview);
+        resertaddinfo_textview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestChatInfo();
+            }
+        });
 
     }
 
@@ -623,32 +642,6 @@ public class ChatFragment extends Fragment {
 
     }
 
-
-
-    /*******
-     * 注册监听广播 监听接收到的 聊天信息
-     ***/
-    void registerImBroadcase() {
-        imBroadcastReceiver = new ImBroadcastReceiver(new ImBroadcastReceiver.ImBroadcastReceiverLinstener() {
-
-            @Override
-            public void newMessage(Object obj) {
-                roomMsg(obj);
-            }
-
-            @Override
-            public void roomMessage(Object obj) {
-
-            }
-
-            @Override
-            public void clearMsgNotation(ImBroadcastReceiver.RECEIVER_type type) {
-
-            }
-        });
-    }
-
-
     /*****
      * 加入 房间内 接收到消息
      ***/
@@ -656,6 +649,12 @@ public class ChatFragment extends Fragment {
         if (obj != null && obj instanceof RequestMessageBean) {
             BaseChatBean baseChatBean = null;
             RequestMessageBean bean = (RequestMessageBean) obj;
+            //判断 接受到的消息是否 是当然roomid 是则 显示 不是则不处理
+            if(bean.getRoomId()==null || roomId==null || !bean.getRoomId().equals(roomId))
+            {
+                return;
+            }
+
             String type = bean.getType();
             if (type.equals(RequestMessageBean.type_img))// 如果是图片
             {
@@ -685,6 +684,7 @@ public class ChatFragment extends Fragment {
         {
             return;
         }
+        resertaddinfo_linearlayout.setVisibility(View.GONE);
         // 获取房间号
         getRoomdId(circleId, formUser_id, toUser_id);
     }
@@ -739,6 +739,8 @@ public class ChatFragment extends Fragment {
                          *
                          * ********/
                         MyApplication.getInstance().showMessage(getActivity(), msg);
+                        //显示重新加载页面
+                        resertaddinfo_linearlayout.setVisibility(View.VISIBLE);
                     }
                 }, getActivity());
     }
@@ -829,10 +831,29 @@ public class ChatFragment extends Fragment {
     /******
      * 注册广播监听 用于接收消息
      * ***/
-    void registerImBroadcastReceiver()
+    synchronized  void registerImBroadcastReceiver()
     {
         if(!isregister)
         {
+            if(imBroadcastReceiver==null) {
+                imBroadcastReceiver = new ImBroadcastReceiver(new ImBroadcastReceiver.ImBroadcastReceiverLinstener() {
+
+                    @Override
+                    public void newMessage(Object obj) {
+                        roomMsg(obj);
+                    }
+
+                    @Override
+                    public void roomMessage(Object obj) {
+
+                    }
+
+                    @Override
+                    public void clearMsgNotation(ImBroadcastReceiver.RECEIVER_type type) {
+
+                    }
+                });
+            }
             isregister=true;
             getActivity().registerReceiver(imBroadcastReceiver, new IntentFilter(ImBroadcastReceiver.IntentFilter));
         }
@@ -842,11 +863,12 @@ public class ChatFragment extends Fragment {
     /****
      * 注销广播监听
      * **/
-    void unRegisterImBroadcastReceiver()
+    synchronized  void unRegisterImBroadcastReceiver()
     {
         if(isregister)
         {
             getActivity().unregisterReceiver(imBroadcastReceiver);
+            isregister=false;
         }
 
     }
@@ -854,7 +876,7 @@ public class ChatFragment extends Fragment {
     /*******
      * 注册socketio  链接变化监听
      * ******/
-    void regiestSockIoBroadCase()
+    synchronized void regiestSockIoBroadCase()
     {
         if(!isRegisterbroadcase)
         {
@@ -888,7 +910,7 @@ public class ChatFragment extends Fragment {
     /*******
      * 注销socketio  链接变化监听
      * ******/
-    void unRegiestSockIoBroadCase()
+    synchronized void unRegiestSockIoBroadCase()
     {
         if(isRegisterbroadcase)
         {
@@ -968,6 +990,11 @@ public class ChatFragment extends Fragment {
      * ******/
     void requestBaseCircleInfo()
     {
+        if(isrunning)
+        {
+            return;
+        }
+        resertaddinfo_linearlayout.setVisibility(View.GONE);
         isrunning=true;
         String userId= SharedUtil.getStringPerfernece(getActivity(),SharedUtil.user_id);
         httpControl.getBaseCircleDetailByUserID(Integer.toString(buyerId), userId, true, new HttpControl.HttpCallBackInterface() {
@@ -995,6 +1022,7 @@ public class ChatFragment extends Fragment {
             public void http_Fails(int error, String msg) {
                 isrunning=false;
                 MyApplication.getInstance().showMessage(getActivity(),msg);
+                resertaddinfo_linearlayout.setVisibility(View.VISIBLE);
             }
         },getActivity());
     }

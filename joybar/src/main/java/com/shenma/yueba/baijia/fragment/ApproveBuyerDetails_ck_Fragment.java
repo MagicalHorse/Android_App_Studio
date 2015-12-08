@@ -455,6 +455,12 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
          * **************/
         ll_footer = (LinearLayout) parentView.findViewById(R.id.ll_footer);
 
+        /*****
+         * 进圈按钮
+         * ***/
+        Button in_circle_button=(Button)parentView.findViewById(R.id.in_circle_button);
+        in_circle_button.setOnClickListener(this);
+
     }
 
 
@@ -1080,7 +1086,14 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 if (!MyApplication.getInstance().isUserLogin(activity)) {
                     return;
                 }
-                ToolsUtil.forwardShopMainActivity(activity, Integer.valueOf(bean.getData().getBuyerId()));
+                try
+                {
+                    ToolsUtil.forwardShopMainActivity(activity, Integer.valueOf(bean.getData().getBuyerId()));
+                }catch(Exception e)
+                {
+                    MyApplication.getInstance().showMessage(getActivity(),"商户id错误");
+                }
+
                 break;
             case R.id.approvebuyerdetails_layout_siliao_linerlayout_textview:
                 forwardSiLiao();
@@ -1103,6 +1116,18 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                     } else {
                         submitAttention(1, Data, v);
                     }
+                }
+                break;
+            case R.id.in_circle_button://进圈
+                if (!MyApplication.getInstance().isUserLogin(activity)) {
+                    return;
+                }
+                try
+                {
+                    ToolsUtil.forwardShopMainCircleActivity(getActivity(),Integer.valueOf(bean.getData().getBuyerId()));
+                }catch(Exception e)
+                {
+                    MyApplication.getInstance().showMessage(getActivity(),"商户id错误");
                 }
                 break;
         }

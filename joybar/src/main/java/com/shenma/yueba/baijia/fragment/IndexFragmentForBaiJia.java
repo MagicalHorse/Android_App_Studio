@@ -3,10 +3,8 @@ package com.shenma.yueba.baijia.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +17,16 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
 import com.shenma.yueba.baijia.activity.ChooseCityActivity;
 import com.shenma.yueba.baijia.activity.SearchProductActivity;
 import com.shenma.yueba.baijia.activity.WebActivity;
 import com.shenma.yueba.baijia.adapter.HomeAdapter;
+import com.shenma.yueba.baijia.modle.CityInfoBackBean;
 import com.shenma.yueba.baijia.modle.CityListItembean;
 import com.shenma.yueba.baijia.modle.newmodel.BannerBean;
 import com.shenma.yueba.baijia.modle.newmodel.BinnerBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.IndexBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.IndexItems;
-import com.shenma.yueba.baijia.modle.newmodel.Request_CityInfo;
 import com.shenma.yueba.baijia.modle.newmodel.SubjectrBean;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.CityChangeRefreshObserver;
@@ -45,9 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import config.PerferneceConfig;
-import https.CommonHttpControl;
 import interfaces.CityChangeRefreshInter;
-import interfaces.HttpCallBackInterface;
 import interfaces.LocationBackListner;
 
 /******
@@ -63,7 +58,6 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     boolean isRunning = false;//访问网络是否进行中
     boolean isSuncess = false;//数据是否加载完成
     HomeAdapter homeAdapter;
-    HttpControl httpControl = new HttpControl();
     List<String> array_str = new ArrayList<String>();
     TabViewPgerImageManager tabViewPgerImageManager;
     //首页顶部 列表
@@ -78,8 +72,10 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
     //门店列表数据
     List<IndexItems> indexItemses_list = new ArrayList<IndexItems>();
     //是否所以数据加载完毕
-    boolean isAllLoadSucess=false;
+    boolean isAllLoadSucess = false;
     LinearLayout head_ll;
+    HttpControl httpControl = new HttpControl();
+
     @Override
     public void onAttach(Activity activity) {
         // TODO Auto-generated method stub
@@ -166,8 +162,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
      * 初始化图片循环滚动视图 并添加到当前页面中
      ************/
     void initTabImage() {
-        if(head_ll==null)
-        {
+        if (head_ll == null) {
             head_ll = new LinearLayout(getActivity());
             baijia_contact_listview.getRefreshableView().addHeaderView(head_ll);
         }
@@ -175,8 +170,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         head_ll.removeAllViews();
         head_ll.setOrientation(LinearLayout.VERTICAL);
         //加载tab 图片
-        if(array_str.size()>0)
-        {
+        if (array_str.size() > 0) {
             if (tabViewPgerImageManager == null) {
                 tabViewPgerImageManager = new TabViewPgerImageManager(getActivity(), array_str);
                 tabViewPgerImageManager.setTabViewPagerImageOnClickListener(new TabViewPgerImageManager.TabViewPagerImageOnClickListener() {
@@ -190,15 +184,13 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                     }
                 });
             }
-            if(tabViewPgerImageManager!=null)
-            {
+            if (tabViewPgerImageManager != null) {
                 //通知 数据更新 刷新视图
                 tabViewPgerImageManager.notification();
             }
         }
 
-        if(tabViewPgerImageManager!=null)
-        {
+        if (tabViewPgerImageManager != null) {
             head_ll.addView(tabViewPgerImageManager.getTabView());
         }
 
@@ -262,9 +254,12 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 if (result) {
                     customProgressDialog.show();
                     //开始调用接口，根据经纬度获取城市名称
-                    CommonHttpControl.getCityNameByGPS(getActivity(), new HttpCallBackInterface<Request_CityInfo>() {
+                    String longitude = PerferneceUtil.getString(PerferneceConfig.LONGITUDE);
+                    String latitude = PerferneceUtil.getString(PerferneceConfig.LATITUDE);
+                    httpControl.getCityInfoById(new HttpControl.HttpCallBackInterface() {
                         @Override
-                        public void http_Success(Request_CityInfo back) {
+                        public void http_Success(Object obj) {
+                            CityInfoBackBean back = (CityInfoBackBean) obj;
                             customProgressDialog.cancel();
                             String str = back.getData().getName();
                             tv_city.setText(str);
@@ -284,7 +279,8 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                             PerferneceUtil.setString(PerferneceConfig.SELECTED_CITY_ID, "");
                             refreshDataByHttp();
                         }
-                    });
+                    }, getActivity(), longitude, latitude);
+
                 } else {
                     Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_SHORT).show();
                     PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, "");
@@ -393,7 +389,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
             return;
         }
         isRunning = true;
-        isAllLoadSucess=false;
+        isAllLoadSucess = false;
         currPage = Constants.CURRPAGE_VALUE;
         requestIndexData(1, 0);
     }
@@ -454,13 +450,13 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
 
             }
-            isAllLoadSucess=true;
+            isAllLoadSucess = true;
             ToolsUtil.showNoDataView(getActivity(), parentView, true);
         } else if (page != 1 && (data.getData() == null || data.getData().getItems() == null || data.getData().getItems().size() == 0)) {
             if (baijia_contact_listview != null) {
                 baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
             }
-            isAllLoadSucess=true;
+            isAllLoadSucess = true;
             MyApplication.getInstance().showMessage(getActivity(), getActivity().getResources().getString(R.string.lastpagedata_str));
         } else {
             if (baijia_contact_listview != null) {

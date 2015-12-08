@@ -119,7 +119,8 @@ public class BrandListActivity extends BaseActivityWithTopView {
 
     void requestFalshData() {
         showDialog = true;
-        sendHttp(1, 0);
+        currPage=1;
+        sendHttp(currPage, 0);
     }
 
 

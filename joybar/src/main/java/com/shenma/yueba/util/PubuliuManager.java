@@ -1,25 +1,20 @@
 package com.shenma.yueba.util;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.modle.BaseRequest;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.umeng.socialize.utils.Log;
 
@@ -27,9 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import https.CommonHttpControl;
-import interfaces.HttpCallBackInterface;
 
 /**
  * @author gyj
@@ -50,6 +42,8 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
     //存储收藏的视图对象 key -商品id   value --视图中的 收藏视图对象
     Map<String,LinearLayout> collect_map=new HashMap<String,LinearLayout>();
     RotateAnimation animation;
+
+    HttpControl httpControl=new HttpControl();
 
     public PubuliuManager(Activity activity, ViewGroup parent) {
         this.activity = activity;
@@ -155,6 +149,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
 
                 pubuliu_item_layout_like_imageview.setSelected(bean.iscollection());
                 pubuliu_item_layout_like_textview.setText(Integer.toString(bean.getFavoriteCount()));
+                pubuliu_item_layout_like_textview.setVisibility(View.GONE);
                 pubuliu_item_layout_like_linearlayout.setTag(bean);
                 collect_map.put(bean.getId(),pubuliu_item_layout_like_linearlayout);
                 ImageView iv = (ImageView) parentview.findViewById(R.id.pubuliu_item_layout_imageview);
@@ -263,9 +258,9 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
         }
         bean.setIsruning(true);
         startAnimation(v);
-        CommonHttpControl.setFavor(activity,Integer.toString(Status), bean.getId(), new HttpCallBackInterface<BaseRequest>() {
+        httpControl.setFavor(bean.getId(), Status, new HttpControl.HttpCallBackInterface() {
             @Override
-            public void http_Success(BaseRequest obj) {
+            public void http_Success(Object obj) {
                 if (v != null) {
                     int count = bean.getFavoriteCount();
                     switch (Status) {
@@ -295,7 +290,8 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
                 MyApplication.getInstance().showMessage(activity, msg);
                 stopAnimation(v);
             }
-        });
+        }, activity);
+
     }
 
 

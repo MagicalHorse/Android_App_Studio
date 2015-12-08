@@ -941,11 +941,24 @@ public class ToolsUtil {
 
 
     /******
+     * 进入个人店铺首页
      * @param id int
      ****/
     public static void forwardShopMainActivity(Context ctx, int id) {
         Intent intent = new Intent(ctx, ShopMainActivity.class);
         intent.putExtra("userID", id);
+        ctx.startActivity(intent);
+    }
+
+
+    /******
+     * 进入默认圈子
+     * @param id int
+     ****/
+    public static void forwardShopMainCircleActivity(Context ctx, int id) {
+        Intent intent = new Intent(ctx, ShopMainActivity.class);
+        intent.putExtra("userID", id);
+        intent.putExtra("Type","Circle");
         ctx.startActivity(intent);
     }
 

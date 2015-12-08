@@ -162,7 +162,8 @@ public class SearchBrandListActivity extends BaseActivityWithTopView {
             return;
         }
         showDialog = true;
-        sendHttp(1, 0);
+        currPage=1;
+        sendHttp(currPage, 0);
     }
 
 

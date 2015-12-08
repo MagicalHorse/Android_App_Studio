@@ -243,6 +243,12 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		//喜欢的人的 头像列表
 		LinearLayout approvebuyerdetails_attention_linearlayout=(LinearLayout)parentView.findViewById(R.id.approvebuyerdetails_attention_linearlayout);
 		approvebuyerdetails_attention_linearlayout.setVisibility(View.GONE);
+
+		/*****
+		 * 进圈按钮
+		 * ***/
+		Button in_circle_button=(Button)parentView.findViewById(R.id.in_circle_button);
+		in_circle_button.setOnClickListener(this);
 	}
 
 
@@ -558,7 +564,15 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 			{
 				return;
 			}
-			ToolsUtil.forwardShopMainActivity(activity,Integer.valueOf(bean.getData().getBuyerId()));
+
+			try
+			{
+				ToolsUtil.forwardShopMainActivity(activity, Integer.valueOf(bean.getData().getBuyerId()));
+			}catch(Exception e)
+			{
+				MyApplication.getInstance().showMessage(getActivity(),"商户id错误");
+			}
+
 			break;
 		case R.id.approvebuyerdetails_layout_siliao_linerlayout_textview:
 			startChatActivity();
@@ -588,6 +602,18 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 
 			}
 			break;
+			case R.id.in_circle_button://进圈
+				if (!MyApplication.getInstance().isUserLogin(activity)) {
+					return;
+				}
+				try
+				{
+					ToolsUtil.forwardShopMainCircleActivity(getActivity(),Integer.valueOf(bean.getData().getBuyerId()));
+				}catch(Exception e)
+				{
+					MyApplication.getInstance().showMessage(getActivity(),"商户id错误");
+				}
+				break;
 		}
 
 	}

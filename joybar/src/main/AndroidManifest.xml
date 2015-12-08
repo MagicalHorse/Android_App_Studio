@@ -352,6 +352,7 @@
         <!-- 买手主页 -->
         <activity
             android:name=".baijia.activity.ShopMainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
 
         <!-- 分享列表页 -->

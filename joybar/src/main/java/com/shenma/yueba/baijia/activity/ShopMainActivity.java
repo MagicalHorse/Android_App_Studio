@@ -48,6 +48,7 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
     CircleDetailBackBean circleDetailBackBean;
     ShopMainFragment shopMainFragment;
     ChatFragment chatFragment;
+    String Type=null;//类型 如果不为空 且为 Circle 则加载圈子 否则加载店铺
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         MyApplication.getInstance().addActivity(this);//加入回退栈
@@ -60,9 +61,46 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
             finish();
             return;
         }
+
         fragmentManager = getSupportFragmentManager();
         initView();
-        setCurrView(0);
+        setCurrTabView();
+    }
+
+
+    void setCurrTabView()
+    {
+        Type=this.getIntent().getStringExtra("Type");
+        if(Type!=null && Type.equals("Circle"))
+        {
+            setCurrView(1);
+        }else
+        {
+            setCurrView(0);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(intent!=null)
+        {
+            int newuserID = intent.getIntExtra("userID", -1);
+            if(newuserID!=userID) {
+                startActivity(intent);
+                finish();
+            }else
+            {
+                setIntent(intent);
+                setCurrTabView();
+            }
+        }else
+        {
+            startActivity(intent);
+            finish();
+
+        }
+
     }
 
     /****
@@ -145,6 +183,18 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
     void setCurrView(int i) {
         shop_main_layout_contact_viewpager.setCurrentItem(i);
         tabViewpagerManager.setCurrView(i);
+        switch(i)
+        {
+            case 0:
+                circlesettings_imageview.setVisibility(View.INVISIBLE);
+                break;
+            case 1:
+                if (circlesettings_imageview.getTag()!=null )
+                {
+                    circlesettings_imageview.setVisibility(View.VISIBLE);
+                }
+                break;
+        }
     }
 
 }

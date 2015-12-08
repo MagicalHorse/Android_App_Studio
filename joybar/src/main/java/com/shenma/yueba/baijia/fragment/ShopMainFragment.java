@@ -255,7 +255,8 @@ public class ShopMainFragment extends Fragment {
         }
         ishow =true;
         getBaijiaUserInfo();
-        sendReuqestAllProductHttp(0, 0);
+        currPage=1;
+        sendReuqestAllProductHttp(currPage, 0);
     }
 
     /******
@@ -306,9 +307,12 @@ public class ShopMainFragment extends Fragment {
         if (userInfoBean.isIsFollowing()) {
 
             shop_main_attention_imagebutton.setText("已关注");
+            shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_unguanzhu), null, null, null);
+
         } else {
 
             shop_main_attention_imagebutton.setText("关注");
+            shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_guanzhu), null, null, null);
         }
         //粉丝
         TextView shop_main_fans_textview=(TextView)activity.findViewById(R.id.shop_main_fans_textview);
@@ -366,6 +370,7 @@ public class ShopMainFragment extends Fragment {
             }
             pubuliuManager.onResher(item);
         }
+        currPage++;
     }
 
 
@@ -377,6 +382,7 @@ public class ShopMainFragment extends Fragment {
             item.addAll(childitem);
             pubuliuManager.onaddData(childitem);
         }
+        currPage++;
     }
 
 
