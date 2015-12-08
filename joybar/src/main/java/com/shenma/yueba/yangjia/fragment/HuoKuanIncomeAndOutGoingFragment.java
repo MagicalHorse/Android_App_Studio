@@ -221,7 +221,7 @@ public class HuoKuanIncomeAndOutGoingFragment extends BaseFragment implements On
 							&& bean.getData().getItems().size() > 0) {
 						mList.addAll(bean.getData().getItems());
 					} else {
-						Toast.makeText(getActivity(), "没有更多数据了...", 1000)
+						Toast.makeText(getActivity(), "没有更多数据了...", Toast.LENGTH_SHORT)
 								.show();
 					}
 					adapter.notifyDataSetChanged();
@@ -231,7 +231,7 @@ public class HuoKuanIncomeAndOutGoingFragment extends BaseFragment implements On
 			@Override
 			public void http_Fails(int error, String msg) {
 				rlv.onRefreshComplete();
-				Toast.makeText(getActivity(), msg, 1000).show();
+				Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 			}
 		}, ctx, true, false);
 	}
@@ -257,7 +257,7 @@ public class HuoKuanIncomeAndOutGoingFragment extends BaseFragment implements On
 			}
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(getActivity(), msg, 1000).show();
+				Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 				
 				
 			}
@@ -272,7 +272,7 @@ public class HuoKuanIncomeAndOutGoingFragment extends BaseFragment implements On
 				dialog.alertDialog(getActivity(), "提示", "您需要绑定微信才可以提款，现在去绑定吗？", new DialogUtilInter() {
 					@Override
 					public void dialogCallBack(int... which) {
-						Toast.makeText(getActivity(), "正在绑定微信", 1000).show();
+						Toast.makeText(getActivity(), "正在绑定微信", Toast.LENGTH_SHORT).show();
 						// 绑定手机号
 						WXLoginUtil wxLoginUtil = new WXLoginUtil(getActivity());
 						wxLoginUtil.initWeiChatLogin(false,false,false);
@@ -281,7 +281,7 @@ public class HuoKuanIncomeAndOutGoingFragment extends BaseFragment implements On
 				return;
 			}
 			if(ids ==null || ids.size()==0){
-				Toast.makeText(getActivity(), "请选择提现订单", 1000).show();
+				Toast.makeText(getActivity(), "请选择提现订单", Toast.LENGTH_SHORT).show();
 			}else{
 				GetUserFlowStatus();
 			}
@@ -322,7 +322,7 @@ public class HuoKuanIncomeAndOutGoingFragment extends BaseFragment implements On
 
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(getActivity(), msg, 1000).show();
+				Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 			}
 		}, getActivity(), true);
 	}

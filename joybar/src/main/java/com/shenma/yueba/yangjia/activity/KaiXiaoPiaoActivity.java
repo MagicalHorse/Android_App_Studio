@@ -53,6 +53,28 @@ public class KaiXiaoPiaoActivity extends BaseActivityWithTopView implements
 				KaiXiaoPiaoActivity.this.finish();
 			}
 		});
+		setTopRightTextView("创建", new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (TextUtils.isEmpty(et_product_number.getText().toString())) {
+					Toast.makeText(mContext, "货号不能为空", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if (TextUtils.isEmpty(et_product_price.getText().toString())) {
+					Toast.makeText(mContext, "售价不能为空", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if (!ToolsUtil.isDecimal(et_product_price.getText().toString())) {
+					Toast.makeText(mContext, "售价不合法", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if(!ToolsUtil.isPointTwo(et_product_price.getText().toString())){
+					Toast.makeText(mContext, "售价小数点后最多两位", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				checkCreateGeneralOrder();
+			}
+		});
 		et_product_number = (EditText) findViewById(R.id.et_product_number);
 		et_product_price = (EditText) findViewById(R.id.et_product_price);
 		tv_tishi = (TextView) findViewById(R.id.tv_tishi);
@@ -67,19 +89,19 @@ public class KaiXiaoPiaoActivity extends BaseActivityWithTopView implements
 		switch (v.getId()) {
 		case R.id.tv_facetoface_product:// 创建面对面小票
 			if (TextUtils.isEmpty(et_product_number.getText().toString())) {
-				Toast.makeText(mContext, "货号不能为空", 1000).show();
+				Toast.makeText(mContext, "货号不能为空", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (TextUtils.isEmpty(et_product_price.getText().toString())) {
-				Toast.makeText(mContext, "售价不能为空", 1000).show();
+				Toast.makeText(mContext, "售价不能为空", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (!ToolsUtil.isDecimal(et_product_price.getText().toString())) {
-				Toast.makeText(mContext, "售价不合法", 1000).show();
+				Toast.makeText(mContext, "售价不合法", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if(!ToolsUtil.isPointTwo(et_product_price.getText().toString())){
-				Toast.makeText(mContext, "售价小数点后最多两位", 1000).show();
+				Toast.makeText(mContext, "售价小数点后最多两位", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			checkCreateGeneralOrder();
@@ -105,12 +127,12 @@ public class KaiXiaoPiaoActivity extends BaseActivityWithTopView implements
 						if(back!=null && back.isSuccessful()){
 							KaiXiaoPiao();
 						}else{
-							Toast.makeText(mContext, "当前时间不可以开小票", 1000).show();
+							Toast.makeText(mContext, "当前时间不可以开小票", Toast.LENGTH_SHORT).show();
 						}
 					}
 					@Override
 					public void http_Fails(int error, String msg) {
-						Toast.makeText(mContext, msg, 1000).show();
+						Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 
 					}
 				}, mContext, true);
@@ -136,7 +158,7 @@ public class KaiXiaoPiaoActivity extends BaseActivityWithTopView implements
 
 					@Override
 					public void http_Fails(int error, String msg) {
-						Toast.makeText(mContext, msg, 1000).show();
+						Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 
 					}
 				}, mContext, true);

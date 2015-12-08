@@ -50,6 +50,7 @@ public class OrderDetailActivity extends BaseActivityWithTopView {
 	private TextView tv_get_address_content;
 	private TextView tv_connection;
 	private String orderId;
+	private String phone;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,17 +90,7 @@ public class OrderDetailActivity extends BaseActivityWithTopView {
 		tv_get_address_title = (TextView) findViewById(R.id.tv_get_address_title);
 		tv_get_address_content = (TextView) findViewById(R.id.tv_get_address_content);
 		tv_connection = (TextView) findViewById(R.id.tv_connection);
-		tv_connection.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String phone = tv_customer_phone_content.getText().toString().trim();
-				if (TextUtils.isEmpty(phone)) {
-					Toast.makeText(mContext, "暂无联系电话", 1000).show();
-				} else {
-					ToolsUtil.callActivity(mContext, phone);
-				}
-			}
-		});
+
 		FontManager.changeFonts(mContext, order_no_title, order_no_content, order_wating_title, order_wating_content,
 				order_money_title, order_money_count, tv_shifu, order_commission_title, order_commission_count,
 				order_date_title, order_date_count, customer_account_title, customer_account_content, riv_customer_head,
@@ -110,8 +101,8 @@ public class OrderDetailActivity extends BaseActivityWithTopView {
 
 	/**
 	 * 联网获取数据
-	 * 
-	 * @param isRefresh
+	 *
+	 *
 	 */
 	public void getData() {
 		HttpControl hControl = new HttpControl();
@@ -127,6 +118,22 @@ public class OrderDetailActivity extends BaseActivityWithTopView {
 				order_date_count.setText(ToolsUtil.nullToString(orderDetail.getCreateTime()));
 				customer_account_content.setText(ToolsUtil.nullToString(orderDetail.getCustomerName()));
 				tv_customer_phone_content.setText(ToolsUtil.nullToString(orderDetail.getCustomerMobile()));
+				phone = tv_customer_phone_content.getText().toString().trim();
+				if(TextUtils.isEmpty(phone)){
+					tv_connection.setVisibility(View.GONE);
+				}else{
+					tv_connection.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							if (TextUtils.isEmpty(phone)) {
+								Toast.makeText(mContext, "暂无联系电话", Toast.LENGTH_SHORT).show();
+							} else {
+								ToolsUtil.callActivity(mContext, phone);
+							}
+						}
+					});
+				}
+
 				tv_get_address_content.setText(ToolsUtil.nullToString(orderDetail.getCustomerAddress()));
 				initBitmap(ToolsUtil.nullToString(orderDetail.getCustomerLogo()), riv_customer_head);
 			}
