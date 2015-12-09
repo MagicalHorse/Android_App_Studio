@@ -265,8 +265,10 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                             tv_city.setText(str);
                             Toast.makeText(getActivity(), "定位成功,当前城市--" + str, Toast.LENGTH_SHORT).show();
                             selectCityId = back.getData().getId();
-                            PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, back.getData().getId());
+                            PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID,back.getData().getId());
                             PerferneceUtil.setString(PerferneceConfig.SELECTED_CITY_ID, back.getData().getId());
+                            PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_NAME, back.getData().getName());
+                            PerferneceUtil.setString(PerferneceConfig.CURRENT_DISTRICT_NAME, back.getData().getDistrict());
                             refreshDataByHttp();
                         }
 

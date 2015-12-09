@@ -27,4 +27,6 @@ public class PerferneceConfig {
     /*******************城市******************/
     public static final String CURRENT_CITY_ID = "current_city_id";//当前定位城市ID
     public static final String SELECTED_CITY_ID = "selected_city_id";//当前选择城市ID
+    public static final String CURRENT_DISTRICT_NAME = "selected_District_name";//当前选择城市区域 如：海淀区
+    public static final String CURRENT_CITY_NAME = "selected_city_name";//当前选择城市区域 如：北京市
 }

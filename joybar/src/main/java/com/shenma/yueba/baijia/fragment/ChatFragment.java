@@ -684,7 +684,10 @@ public class ChatFragment extends Fragment {
         {
             return;
         }
-        resertaddinfo_linearlayout.setVisibility(View.GONE);
+        if(resertaddinfo_linearlayout!=null)
+        {
+            resertaddinfo_linearlayout.setVisibility(View.GONE);
+        }
         // 获取房间号
         getRoomdId(circleId, formUser_id, toUser_id);
     }
@@ -740,7 +743,11 @@ public class ChatFragment extends Fragment {
                          * ********/
                         MyApplication.getInstance().showMessage(getActivity(), msg);
                         //显示重新加载页面
-                        resertaddinfo_linearlayout.setVisibility(View.VISIBLE);
+                        if(resertaddinfo_linearlayout!=null)
+                        {
+                            resertaddinfo_linearlayout.setVisibility(View.VISIBLE);
+                        }
+
                     }
                 }, getActivity());
     }
@@ -994,7 +1001,10 @@ public class ChatFragment extends Fragment {
         {
             return;
         }
-        resertaddinfo_linearlayout.setVisibility(View.GONE);
+        if(resertaddinfo_linearlayout!=null)
+        {
+            resertaddinfo_linearlayout.setVisibility(View.GONE);
+        }
         isrunning=true;
         String userId= SharedUtil.getStringPerfernece(getActivity(),SharedUtil.user_id);
         httpControl.getBaseCircleDetailByUserID(Integer.toString(buyerId), userId, true, new HttpControl.HttpCallBackInterface() {
@@ -1021,8 +1031,12 @@ public class ChatFragment extends Fragment {
             @Override
             public void http_Fails(int error, String msg) {
                 isrunning=false;
-                MyApplication.getInstance().showMessage(getActivity(),msg);
-                resertaddinfo_linearlayout.setVisibility(View.VISIBLE);
+                MyApplication.getInstance().showMessage(getActivity(), msg);
+                if(resertaddinfo_linearlayout!=null)
+                {
+                    resertaddinfo_linearlayout.setVisibility(View.VISIBLE);
+                }
+
             }
         },getActivity());
     }

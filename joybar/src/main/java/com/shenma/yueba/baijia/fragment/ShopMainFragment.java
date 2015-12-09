@@ -69,9 +69,11 @@ public class ShopMainFragment extends Fragment {
     Activity activity;
     PubuliuManager pubuliuManager;
     boolean ishow=true;
-    int currPage = Constants.CURRPAGE_VALUE;
+    int currPage = -1;
     int pageSize = Constants.PAGESIZE_VALUE;
     List<PubuliuBeanInfo> item=new ArrayList<PubuliuBeanInfo>();
+    //用户信息
+    RequestUserInfoBean userinfobean;
 
     @Override
     public void onAttach(Activity activity) {
@@ -85,21 +87,43 @@ public class ShopMainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (contantView == null) {
+            initView();
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (contantView == null) {
-            initView();
-            requestRefreshData();
-        }
-
         ViewGroup parentview=(ViewGroup)contantView.getParent();
         if(parentview!=null)
         {
             parentview.removeView(contantView);
         }
         return contantView;
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser && activity!=null)
+        {
+            if(isrunning)
+            {
+                return;
+            }
+            if(userinfobean==null)
+            {
+                ishow =true;
+                getBaijiaUserInfo();
+            }
+
+            if(currPage<0)
+            {
+                currPage=1;
+                sendReuqestAllProductHttp(currPage, 0);
+            }
+        }
     }
 
     /*****
@@ -255,6 +279,7 @@ public class ShopMainFragment extends Fragment {
         }
         ishow =true;
         getBaijiaUserInfo();
+
         currPage=1;
         sendReuqestAllProductHttp(currPage, 0);
     }
@@ -281,9 +306,9 @@ public class ShopMainFragment extends Fragment {
             @Override
             public void http_Success(Object obj) {
                 if (obj != null && obj instanceof RequestUserInfoBean) {
-                    RequestUserInfoBean bean = (RequestUserInfoBean) obj;
-                    if (bean.getData() != null) {
-                        userInfoBean = bean.getData();
+                    userinfobean = (RequestUserInfoBean) obj;
+                    if (userinfobean.getData() != null) {
+                        userInfoBean = userinfobean.getData();
                         setHeadValue();
                     } else {
                         http_Fails(500, "信息不存在");

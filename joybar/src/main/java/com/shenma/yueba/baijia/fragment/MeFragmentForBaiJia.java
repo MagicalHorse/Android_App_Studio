@@ -38,6 +38,8 @@ import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.util.WXLoginUtil;
 import com.shenma.yueba.yangjia.activity.MainActivityForYangJia;
 
+import config.PerferneceConfig;
+
 /**
  * 败家--个人账户
  * 
@@ -57,7 +59,7 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 	private TextView tv_will_yangjia;//我要养家
 	private TextView tv_my_collection;//我的收藏
 
-	TextView tv_style;//养家模式
+	TextView tv_style;//区域
 
 	TextView tv_all_order_count_textview;//总订单数
 	TextView tv_waiting_for_send_count_textview;//待支付订单数
@@ -114,6 +116,9 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 	
 		//类型 养家模式
 		tv_style = (TextView) view.findViewById(R.id.tv_style);
+		String cityname=SharedUtil.getStringPerfernece(getActivity(), PerferneceConfig.CURRENT_CITY_NAME);
+		String Districtname=SharedUtil.getStringPerfernece(getActivity(), PerferneceConfig.CURRENT_DISTRICT_NAME);
+		tv_style.setText(ToolsUtil.nullToString(cityname)+"  "+ToolsUtil.nullToString(Districtname));
 
 		tv_all_order = (TextView) view.findViewById(R.id.tv_all_order);
 		tv_waiting_for_send = (TextView) view.findViewById(R.id.tv_waiting_for_send);
