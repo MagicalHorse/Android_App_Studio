@@ -49,6 +49,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
     Activity activity;
     HttpControl httpControl;
     PullToRefreshScrollView brand_list_layout_pulltorefreshscrollview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
