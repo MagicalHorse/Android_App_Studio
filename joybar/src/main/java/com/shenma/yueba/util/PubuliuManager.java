@@ -70,9 +70,9 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
                 case 200:
                     if(msg.obj!=null && msg.obj instanceof List)
                     {
-                        List<PubuliuBeanInfo> item=(List<PubuliuBeanInfo>)msg.obj;
+                        List<PubuliuBeanInfo> chiditem=(List<PubuliuBeanInfo>)msg.obj;
+                        addItem(chiditem);
                     }
-                    addItem(item);
                     break;
             }
 

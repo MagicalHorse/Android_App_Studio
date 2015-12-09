@@ -31,7 +31,6 @@ import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -432,6 +431,7 @@ public class ShopMainFragment extends Fragment {
         }
         return pubuliuBeanInfos;
     }
+
 
     /******
      * 访问网络获取 全部商品或上新商品
