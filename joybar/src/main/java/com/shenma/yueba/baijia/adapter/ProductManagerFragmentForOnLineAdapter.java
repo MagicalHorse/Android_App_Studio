@@ -267,7 +267,7 @@ public class ProductManagerFragmentForOnLineAdapter extends BaseAdapterWithUtil 
 		httpControl.productCopy(productId, new HttpCallBackInterface() {
 			@Override
 			public void http_Success(Object obj) {
-				Toast.makeText(ctx, "复制成功", 1000).show();
+				Toast.makeText(ctx, "复制成功", Toast.LENGTH_SHORT).show();
 				if (flag == 1) {// 在线商品
 					inter.refreshOnLineProduct(0);
 				}
@@ -281,7 +281,7 @@ public class ProductManagerFragmentForOnLineAdapter extends BaseAdapterWithUtil 
 
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(ctx, msg, 1000).show();
+				Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
 
 			}
 		}, ctx);
@@ -290,8 +290,7 @@ public class ProductManagerFragmentForOnLineAdapter extends BaseAdapterWithUtil 
 
 	/**
 	 * 上线/下线接口
-	 * 
-	 * @param orderId
+	 *
 	 * @param status
 	 */
 	private void setOnLineOrOffLine(final int position, String id,
@@ -302,7 +301,7 @@ public class ProductManagerFragmentForOnLineAdapter extends BaseAdapterWithUtil 
 
 					@Override
 					public void http_Success(Object obj) {
-						Toast.makeText(ctx, status == 1 ? "上线成功" : "下架成功", 1000)
+						Toast.makeText(ctx, status == 1 ? "上线成功" : "下架成功", Toast.LENGTH_SHORT)
 								.show();
 						if (flag == 1) {// 在线商品
 							inter.refreshOnLineProduct(0);
@@ -326,9 +325,7 @@ public class ProductManagerFragmentForOnLineAdapter extends BaseAdapterWithUtil 
 
 	/**
 	 * 删除商品接口
-	 * 
-	 * @param orderId
-	 * @param status
+	 *
 	 */
 	private void deleteProduct(final int position, String id) {
 		HttpControl httpControl = new HttpControl();
@@ -336,13 +333,13 @@ public class ProductManagerFragmentForOnLineAdapter extends BaseAdapterWithUtil 
 
 			@Override
 			public void http_Success(Object obj) {
-				Toast.makeText(ctx, "删除成功", 1000).show();
+				Toast.makeText(ctx, "删除成功", Toast.LENGTH_SHORT).show();
 				inter.refreshOnLineProduct(2);
 			}
 
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(ctx, msg, 1000).show();
+				Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
 
 			}
 		}, ctx, true, true);

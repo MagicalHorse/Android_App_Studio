@@ -1,5 +1,7 @@
 package com.shenma.yueba.yangjia.modle;
 
+import com.shenma.yueba.util.SizeBean;
+
 import java.util.List;
 
 public class ProductItemBean {
@@ -14,8 +16,12 @@ public class ProductItemBean {
 	private String SizeName;//规格
 	private String  ColorName;//颜色
 	private String Picture;//商品图片
-	
-	
+	private String UnitPrice;//吊牌价
+	private String Sku_Code;//销售编码
+	private String PublishStatus;//商品发布状态
+;	private String Desc;//商品描述
+	private List<SizeBean> Sizes;//规格库存
+	private List<ImageItem> Images;//图片
 	private String productImage;//商品图片
 	private String productName;//商品名
 	private String productPrice;//商品价格
@@ -119,8 +125,51 @@ public class ProductItemBean {
 		Picture = picture;
 	}
 
-	
-	
-	
-	
+	public String getUnitPrice() {
+		return UnitPrice;
+	}
+
+	public void setUnitPrice(String unitPrice) {
+		UnitPrice = unitPrice;
+	}
+
+	public String getSku_Code() {
+		return Sku_Code;
+	}
+
+	public void setSku_Code(String sku_Code) {
+		Sku_Code = sku_Code;
+	}
+
+	public String getPublishStatus() {
+		return PublishStatus;
+	}
+
+	public void setPublishStatus(String publishStatus) {
+		PublishStatus = publishStatus;
+	}
+
+	public String getDesc() {
+		return Desc;
+	}
+
+	public void setDesc(String desc) {
+		Desc = desc;
+	}
+
+	public List<SizeBean> getSizes() {
+		return Sizes;
+	}
+
+	public void setSizes(List<SizeBean> sizes) {
+		Sizes = sizes;
+	}
+
+	public List<ImageItem> getImages() {
+		return Images;
+	}
+
+	public void setImages(List<ImageItem> images) {
+		Images = images;
+	}
 }

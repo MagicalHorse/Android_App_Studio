@@ -14,6 +14,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
+import com.shenma.yueba.baijia.activity.BrandListActivity;
 import com.shenma.yueba.baijia.activity.ShopMainActivity;
 import com.shenma.yueba.baijia.modle.BrandInfo;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBrandBackBean;
@@ -68,8 +69,9 @@ public class BrandSearchFragment extends BaseFragment {
         pull_refresh_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), ShopMainActivity.class);
-                intent.putExtra("userID", mList.get(position).getBrandId());
+                Intent intent = new Intent(getActivity(), BrandListActivity.class);
+                intent.putExtra("BrandName", mList.get(position-1).getBrandName());
+                intent.putExtra("BrandId", mList.get(position-1).getBrandId());
                 getActivity().startActivity(intent);
             }
         });

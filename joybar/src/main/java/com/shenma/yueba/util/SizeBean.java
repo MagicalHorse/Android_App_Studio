@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class SizeBean implements Serializable{
 
-	private String Name;
-	private String Inventory;
-	
+	private String Name;//规格
+	private String Inventory;//库存
+
 	public String getInventory() {
 		return Inventory;
 	}

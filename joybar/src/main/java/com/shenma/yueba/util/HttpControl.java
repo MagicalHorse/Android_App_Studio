@@ -34,6 +34,7 @@ import com.shenma.yueba.baijia.modle.HuoKuanManagerBackBean;
 import com.shenma.yueba.baijia.modle.ModifyLogoBackBean;
 import com.shenma.yueba.baijia.modle.MoreBrandBackBean;
 import com.shenma.yueba.baijia.modle.MyRequestProductListInfoBean;
+import com.shenma.yueba.baijia.modle.ProductInfoBean;
 import com.shenma.yueba.baijia.modle.ProvinceCityListBeanRequest;
 import com.shenma.yueba.baijia.modle.RequestBaiJiaOrdeDetailsInfoBean;
 import com.shenma.yueba.baijia.modle.RequestBaiJiaOrderListInfoBean;
@@ -68,6 +69,7 @@ import com.shenma.yueba.baijia.modle.newmodel.BuyerProductsBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.FavBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.IndexBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.OtherBuyersBackBean;
+import com.shenma.yueba.baijia.modle.newmodel.ProductDetailBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.RecommondBuyerlistBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBrandBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
@@ -91,6 +93,7 @@ import com.shenma.yueba.yangjia.modle.IncomeHistoryBackBean;
 import com.shenma.yueba.yangjia.modle.KaiXiaoPiaoBackBean;
 import com.shenma.yueba.yangjia.modle.OrderDetailBackBean;
 import com.shenma.yueba.yangjia.modle.OrderListBackBean;
+import com.shenma.yueba.yangjia.modle.ProductItemBean;
 import com.shenma.yueba.yangjia.modle.RewardDetailBackBean;
 import com.shenma.yueba.yangjia.modle.TastRewardListBackBean;
 
@@ -826,6 +829,20 @@ public class HttpControl {
                 httpCallBack, BrandDetailInfoBean.class, true, false);
     }
 
+
+    /**
+     * 获取商品详细
+     * @param httpCallBack
+     * @param context
+     * @param ProductId
+     */
+    public void getProductDetail(final HttpCallBackInterface httpCallBack,
+                                   Context context, String ProductId) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("ProductId", ProductId);
+        BasehttpSend(map, context, HttpConstants.METHOD_PRODUCT_DETAIL,
+                httpCallBack, ProductDetailBackBean.class, true, false);
+    }
 
     /**
      * 根据关键字搜索商品

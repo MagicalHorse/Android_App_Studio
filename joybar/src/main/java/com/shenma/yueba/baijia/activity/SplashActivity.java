@@ -10,6 +10,7 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
+import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -34,6 +35,7 @@ public class SplashActivity extends BaseActivity {
 		MobclickAgent.updateOnlineConfig( mContext );
 		MobclickAgent.setCatchUncaughtExceptions(true);
 		MobclickAgent.setDebugMode( true );
+		AnalyticsConfig.enableEncrypt(true);//对日志进行加密
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {

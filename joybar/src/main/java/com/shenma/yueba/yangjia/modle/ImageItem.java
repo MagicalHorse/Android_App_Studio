@@ -1,10 +1,14 @@
 package com.shenma.yueba.yangjia.modle;
 
+import java.util.List;
+
 public class ImageItem {
 
 	private String id;
 	private String sortorder;
 	private String url;
+	private String ImageUrl;
+	private List<TagsBean> Tags;
 
 	public String getId() {
 		return id;
@@ -30,4 +34,19 @@ public class ImageItem {
 		this.url = url;
 	}
 
+	public String getImageUrl() {
+		return ImageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		ImageUrl = imageUrl;
+	}
+
+	public List<TagsBean> getTags() {
+		return Tags;
+	}
+
+	public void setTags(List<TagsBean> tags) {
+		Tags = tags;
+	}
 }

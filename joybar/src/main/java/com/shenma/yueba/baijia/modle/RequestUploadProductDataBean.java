@@ -18,6 +18,7 @@ import com.shenma.yueba.util.SizeBean;
 public class RequestUploadProductDataBean implements Serializable{
 	private String Id;
 	private String Price;//价格
+	private String UnitPrice;//吊牌价
 	private String Desc;
 	private String Sku_Code;
 	private List<SizeBean> Sizes;

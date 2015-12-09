@@ -280,6 +280,11 @@ public class HttpConstants {
 	public static String METHOD_BRANDMANAGEER_DETAIL = PRODUCTFORREAD + "GetProductListByBrandId";
 
 	/**
+	 * 获取商品详情接口
+	 */
+	public static String METHOD_PRODUCT_DETAIL = PRODUCTFORREAD + "ProductDetail";
+
+	/**
 	 * 根据关键字获取商品
 	 */
 	public static String METHOD_GET_PRODUCT_BY_KEY = PRODUCTFORREAD + "Search";
