@@ -130,7 +130,7 @@ public class HomeAdapter extends BaseAdapter {
             }
             if(PerferneceUtil.getString(PerferneceConfig.LATITUDE)!=null  && !PerferneceUtil.getString(PerferneceConfig.LATITUDE).equals(""))
             {
-                long2=Double.parseDouble(PerferneceUtil.getString(PerferneceConfig.LATITUDE));
+                lat2=Double.parseDouble(PerferneceUtil.getString(PerferneceConfig.LATITUDE));
             }
             holder.home_item_top_destance_textview.setText(ToolsUtil.Distance(long1, lat1, long2, lat2));
             holder.home_item_top_destance_textview.setVisibility(View.VISIBLE);

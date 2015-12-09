@@ -24,6 +24,26 @@ public class UserInfoBean implements Serializable{
 	String Logo="";//头像
 	int ProductCount;//商品总数
 	boolean IsBindMobile=false;//是否绑定过手机号
+	String StoreName="";//门店名称
+
+	public String getSectionName() {
+		return SectionName;
+	}
+
+	public void setSectionName(String sectionName) {
+		SectionName = sectionName;
+	}
+
+	public String getStoreName() {
+		return StoreName;
+	}
+
+	public void setStoreName(String storeName) {
+		StoreName = storeName;
+	}
+
+	String SectionName="";//专柜名称
+
 
 	public boolean isBindMobile() {
 		return IsBindMobile;

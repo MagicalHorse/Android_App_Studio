@@ -316,14 +316,17 @@ public class ShopMainFragment extends Fragment {
         }
         //粉丝
         TextView shop_main_fans_textview=(TextView)activity.findViewById(R.id.shop_main_fans_textview);
-        shop_main_fans_textview.setText("粉丝："+ToolsUtil.nullToString(Integer.toString(userInfoBean.getFollowerCount())));
+        shop_main_fans_textview.setText("粉丝：" + ToolsUtil.nullToString(Integer.toString(userInfoBean.getFollowerCount())));
         MyApplication.getInstance().getBitmapUtil().display(shop_main_layout_icon_imageview, ToolsUtil.nullToString(userInfoBean.getLogo()));
         shop_main_layout_name_textview.setText(ToolsUtil.nullToString(userInfoBean.getUserName()));
-        shop_main_layout_market_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
+        shop_main_layout_market_textview.setText(ToolsUtil.nullToString(userInfoBean.getSectionName()));
 
         shap_main_description1_textview.setText(ToolsUtil.nullToString(userInfoBean.getDescription()));
 
         shop_main_head_layout_address_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
+        //商品
+        TextView tv_product_count=(TextView)activity.findViewById(R.id.tv_product_count);
+        tv_product_count.setText("商品："+userInfoBean.getProductCount());
     }
 
 
@@ -350,17 +353,6 @@ public class ShopMainFragment extends Fragment {
     {
         if(bean!=null && bean.getItems()!=null && bean.getItems().size()>0)
         {
-            if(activity!=null)
-            {
-                //商品
-                TextView tv_product_count=(TextView)activity.findViewById(R.id.tv_product_count);
-                if(tv_product_count!=null)
-                {
-                    tv_product_count.setText("商品："+bean.getItems().size());
-                }
-
-            }
-
             item.clear();
             item.addAll(getTransformData(bean.getItems()));
             if(pubuliuManager==null)

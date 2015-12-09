@@ -13,7 +13,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/me_bg"
-            android:paddingBottom="10dip" >
+            android:paddingBottom="10dip">
 
             <ImageView
                 android:id="@+id/iv_setting"
@@ -40,7 +40,7 @@
                 android:layout_below="@id/iv_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dip"
-                android:text="@null"
+                android:text="111111"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textsize15sp" />
 
@@ -54,127 +54,8 @@
                 android:text="养家模式"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/shop_main_lineheight10_dimen"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="@dimen/shop_main_width5_dimen" >
-
-            <!-- 圆形 -->
-
-            <LinearLayout
-                android:id="@+id/me_fragment_for_baijie_layout_attention_linearlayout"
-                android:layout_width="@dimen/user_config_iconwidth70_dimen"
-                android:layout_height="@dimen/user_config_iconwidth70_dimen"
-                android:background="@drawable/round_background"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <!-- 关注 -->
-
-                <TextView
-                    android:id="@+id/shop_main_attentionvalue_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:gravity="bottom"
-                    android:singleLine="true"
-                    android:text="0"
-                    android:textColor="@color/color_textgray"
-                    android:textSize="@dimen/textsize14sp" />
-
-                <TextView
-                    android:id="@+id/shop_main_attention_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="top"
-                    android:paddingTop="@dimen/shop_main_width3_dimen"
-                    android:text="@string/shop_attention_str"
-                    android:textColor="@color/color_textgray"
-                    android:textSize="@dimen/textsize14sp" />
-            </LinearLayout>
-
-            <!-- 圆形 -->
-
-            <LinearLayout
-                android:id="@+id/me_fragment_for_baijie_layout_fans_linearlayout"
-                android:layout_width="@dimen/user_config_iconwidth70_dimen"
-                android:layout_height="@dimen/user_config_iconwidth70_dimen"
-                android:layout_marginLeft="@dimen/shop_main_lineheight10_dimen"
-                android:background="@drawable/round_background"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <!-- 粉丝 -->
-
-                <TextView
-                    android:id="@+id/shop_main_fansvalue_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:gravity="bottom"
-                    android:singleLine="true"
-                    android:text="0"
-                    android:textColor="@color/color_textgray"
-                    android:textSize="@dimen/textsize14sp" />
-
-                <TextView
-                    android:id="@+id/shop_main_fans_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="top"
-                    android:paddingTop="@dimen/shop_main_width3_dimen"
-                    android:text="@string/shop_fans_str"
-                    android:textColor="@color/color_textgray"
-                    android:textSize="@dimen/textsize14sp" />
-            </LinearLayout>
-
-            <!-- 圆形 -->
-
-            <LinearLayout
-                android:id="@+id/me_fragment_for_baijie_layout_mycircle_linearlayout"
-                android:layout_width="@dimen/user_config_iconwidth70_dimen"
-                android:layout_height="@dimen/user_config_iconwidth70_dimen"
-                android:layout_marginLeft="@dimen/shop_main_lineheight10_dimen"
-                android:background="@drawable/round_background"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <!-- 赞 -->
-
-                <TextView
-                    android:id="@+id/shop_main_praisevalue_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:gravity="bottom"
-                    android:singleLine="true"
-                    android:text="0"
-                    android:textColor="@color/color_textgray"
-                    android:textSize="@dimen/textsize14sp" />
-
-                <TextView
-                    android:id="@+id/shop_main_praise_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="top"
-                    android:paddingTop="@dimen/shop_main_width3_dimen"
-                    android:text="圈子"
-                    android:textColor="@color/color_textgray"
-                    android:textSize="@dimen/textsize14sp" />
-            </LinearLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -322,10 +203,34 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_my_collection"
+            android:id="@+id/tv_my_attention"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
+            android:background="@color/white"
+            android:drawableRight="@drawable/arrow_right"
+            android:padding="15dip"
+            android:text="我的关注"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_my_circle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dip"
+            android:background="@color/white"
+            android:drawableRight="@drawable/arrow_right"
+            android:padding="15dip"
+            android:text="我的圈子"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_my_collection"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dip"
             android:background="@color/white"
             android:drawableRight="@drawable/arrow_right"
             android:padding="15dip"
@@ -337,13 +242,16 @@
             android:id="@+id/tv_will_yangjia"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dip"
+            android:layout_marginTop="10dip"
             android:background="@color/white"
             android:drawableRight="@drawable/arrow_right"
             android:padding="15dip"
-            android:text="我要养家"
+            android:text="我是买手"
             android:textColor="@color/black"
             android:textSize="17sp" />
+
+
+        ssssss
     </LinearLayout>
 
 </ScrollView>

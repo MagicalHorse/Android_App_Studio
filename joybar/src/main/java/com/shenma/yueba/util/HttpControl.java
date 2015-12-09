@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.alibaba.sdk.android.oss.OSSService;
 import com.alibaba.sdk.android.oss.OSSServiceProvider;
@@ -32,7 +31,6 @@ import com.shenma.yueba.baijia.modle.CityListRequestBean;
 import com.shenma.yueba.baijia.modle.GetUserFlowStatusBackBean;
 import com.shenma.yueba.baijia.modle.HuoKuanManagerBackBean;
 import com.shenma.yueba.baijia.modle.ModifyLogoBackBean;
-import com.shenma.yueba.baijia.modle.MoreBrandBackBean;
 import com.shenma.yueba.baijia.modle.MyRequestProductListInfoBean;
 import com.shenma.yueba.baijia.modle.ProductInfoBean;
 import com.shenma.yueba.baijia.modle.ProvinceCityListBeanRequest;
@@ -260,7 +258,7 @@ public class HttpControl {
         map.put("UserId", UserId);
         map.put("Page", Integer.toString(Page));
         map.put("PageSize", Integer.toString(PageSize));
-        BasehttpSend(map, context, HttpConstants.METHOD_brandproduct, httpCallBack, MoreBrandBackBean.class, isShow, false);
+        BasehttpSend(map, context, HttpConstants.METHOD_brandproduct, httpCallBack, RequestMyFavoriteProductListInfoBean.class, isShow, false);
     }
 
 

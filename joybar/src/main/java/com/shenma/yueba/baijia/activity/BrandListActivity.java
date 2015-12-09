@@ -12,7 +12,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
-import com.shenma.yueba.baijia.modle.MoreBrandBackBean;
+import com.shenma.yueba.baijia.modle.MyFavoriteProductListInfo;
+import com.shenma.yueba.baijia.modle.MyFavoriteProductListPic;
+import com.shenma.yueba.baijia.modle.RequestMyFavoriteProductListInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.shenma.yueba.baijia.modle.newmodel.StoreIndexItem;
 import com.shenma.yueba.constants.Constants;
@@ -61,15 +63,13 @@ public class BrandListActivity extends BaseActivityWithTopView {
             CityId="0";
         }
         UserId= PerferneceUtil.getString(Constants.USER_ID);
-        if(CityId.equals(""))
+        if(CityId==null || CityId.equals(""))
         {
             UserId="0";
         }
         if(StoreId==null || BrandId<0)
         {
-            MyApplication.getInstance().showMessage(this,"参数错误");
-            finish();
-            return;
+            StoreId="0";
         }
         activity=this;
         initView();
@@ -127,7 +127,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
     /***
      * 刷新viewpager数据
      * ***/
-    void falshData(MoreBrandBackBean bean) {
+    void falshData(RequestMyFavoriteProductListInfoBean bean) {
         currPage++;
         if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null)
         {
@@ -144,7 +144,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
     /***
      * 加载数据
      * **/
-    void addData(MoreBrandBackBean bean) {
+    void addData(RequestMyFavoriteProductListInfoBean bean) {
         currPage++;
         if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null)
         {
@@ -169,7 +169,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
                 ToolsUtil.pullResfresh(brand_list_layout_pulltorefreshscrollview);
                 currPage = page;
                 showDialog = false;
-                MoreBrandBackBean bean=(MoreBrandBackBean)obj;
+                RequestMyFavoriteProductListInfoBean bean=(RequestMyFavoriteProductListInfoBean)obj;
                 switch (type) {
                     case 0:
                         falshData(bean);
@@ -190,7 +190,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
     }
 
 
-    void setPageStatus(MoreBrandBackBean data, int page) {
+    void setPageStatus(RequestMyFavoriteProductListInfoBean data, int page) {
         if (page == 1 && (data.getData() == null
                 || data.getData().getItems() == null || data
                 .getData().getItems().size() == 0)) {
@@ -221,7 +221,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
     /******
      * 数据进行转换
      * *****/
-    List<PubuliuBeanInfo> getTransformData(List<StoreIndexItem> brandInfoInfos)
+    List<PubuliuBeanInfo> getTransformData(List<MyFavoriteProductListInfo> brandInfoInfos)
     {
         List<PubuliuBeanInfo> pubuliuBeanInfos=new ArrayList<PubuliuBeanInfo>();
         if(brandInfoInfos!=null)
@@ -229,15 +229,18 @@ public class BrandListActivity extends BaseActivityWithTopView {
             for(int i=0;i<brandInfoInfos.size();i++)
             {
                 PubuliuBeanInfo pubuliuBeanInfo=new PubuliuBeanInfo();
-                StoreIndexItem storeIndexItem= brandInfoInfos.get(i);
+                MyFavoriteProductListInfo storeIndexItem= brandInfoInfos.get(i);
                 pubuliuBeanInfo.setFavoriteCount(pubuliuBeanInfo.getFavoriteCount());
-                pubuliuBeanInfo.setId(storeIndexItem.getProductId());
+                pubuliuBeanInfo.setId(Integer.toString(storeIndexItem.getId()));
                 pubuliuBeanInfo.setIscollection(false);
-                pubuliuBeanInfo.setName(storeIndexItem.getProductName());
-                pubuliuBeanInfo.setPicurl(storeIndexItem.getPic());
-                pubuliuBeanInfo.setPrice(Double.parseDouble(storeIndexItem.getPrice()));
-                pubuliuBeanInfo.setRation(storeIndexItem.getRatio());
-
+                pubuliuBeanInfo.setName(storeIndexItem.getName());
+                MyFavoriteProductListPic pic=storeIndexItem.getPic();
+                if(pic!=null)
+                {
+                    pubuliuBeanInfo.setPicurl(pic.getPic());
+                    pubuliuBeanInfo.setRation(pic.getRatio());
+                }
+                pubuliuBeanInfo.setPrice(storeIndexItem.getPrice());
                 pubuliuBeanInfos.add(pubuliuBeanInfo);
             }
         }

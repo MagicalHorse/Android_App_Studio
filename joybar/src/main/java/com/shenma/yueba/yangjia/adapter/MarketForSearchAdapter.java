@@ -76,7 +76,7 @@ public class MarketForSearchAdapter extends BaseAdapterWithUtil {
 		bitmapUtils.display(holder.iv_market_head,mList.get(position).getStoreLogo());
 		holder.tv_shop_name.setText(mList.get(position).getStoreName());
 		holder.tv_address.setText(mList.get(position).getStoreLocation());
-		holder.tv_distance.setText(""+ToolsUtil.getDistance(mList.get(position).getLat(),mList.get(position).getLon(),Double.valueOf(PerferneceUtil.getString(PerferneceConfig.LATITUDE)),Double.valueOf(PerferneceUtil.getString(PerferneceConfig.LONGITUDE))));
+		holder.tv_distance.setText(""+ToolsUtil.Distance(mList.get(position).getLat(),mList.get(position).getLon(),Double.valueOf(PerferneceUtil.getString(PerferneceConfig.LATITUDE)),Double.valueOf(PerferneceUtil.getString(PerferneceConfig.LONGITUDE))));
 		return convertView;
 	}
 

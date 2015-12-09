@@ -50,25 +50,19 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 	private ImageView iv_setting;
 	private ImageView iv_icon;
 	private TextView tv_nickname;
-	private TextView tv_style;
-	private TextView tv_attention_count;
-	private TextView tv_fans_count;
-	private TextView tv_fans_title;
 	private TextView tv_all_order;
 	private TextView tv_waiting_for_send;
 	private TextView tv_waiting_for_recieve;
 	private TextView tv_pick_by_myself;
 	private TextView tv_will_yangjia;//我要养家
 	private TextView tv_my_collection;//我的收藏
-	TextView shop_main_attentionvalue_textview;//关注
-	TextView shop_main_fansvalue_textview ;//粉丝
-	TextView shop_main_praisevalue_textview ;//收藏
+
+	TextView tv_style;//养家模式
+
 	TextView tv_all_order_count_textview;//总订单数
 	TextView tv_waiting_for_send_count_textview;//待支付订单数
 	TextView tv_waiting_for_recieve_count_textview;//专柜自提订单数
 	TextView tv_pick_by_myself_count_textview;//售后订单数
-	LinearLayout me_fragment_for_baijie_layout_fans_linearlayout;//粉丝
-	LinearLayout me_fragment_for_baijie_layout_attention_linearlayout;//关注
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.i("CircleFragment", "oncreate");
@@ -97,20 +91,20 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 	 */
 	private void initViews(LayoutInflater inflater) {
 		view = inflater.inflate(R.layout.me_fragment_for_baijia, null);
-		
-		me_fragment_for_baijie_layout_attention_linearlayout=(LinearLayout)view.findViewById(R.id.me_fragment_for_baijie_layout_attention_linearlayout);
-		me_fragment_for_baijie_layout_attention_linearlayout.setOnClickListener(this);
-		me_fragment_for_baijie_layout_fans_linearlayout=(LinearLayout)view.findViewById(R.id.me_fragment_for_baijie_layout_fans_linearlayout);
-		me_fragment_for_baijie_layout_fans_linearlayout.setOnClickListener(this);
+
+		//关注
+		TextView tv_my_attention=(TextView)view.findViewById(R.id.tv_my_attention);
+		tv_my_attention.setOnClickListener(this);
+
 		tv_all_order_count_textview=(TextView)view.findViewById(R.id.tv_all_order_count_textview);
 		tv_waiting_for_send_count_textview=(TextView)view.findViewById(R.id.tv_waiting_for_send_count_textview);
 		tv_waiting_for_recieve_count_textview=(TextView)view.findViewById(R.id.tv_waiting_for_recieve_count_textview);
 		tv_pick_by_myself_count_textview=(TextView)view.findViewById(R.id.tv_pick_by_myself_count_textview);
 		
 		
-		LinearLayout me_fragment_for_baijie_layout_mycircle_linearlayout=(LinearLayout)view.findViewById(R.id.me_fragment_for_baijie_layout_mycircle_linearlayout);
-		me_fragment_for_baijie_layout_mycircle_linearlayout.setOnClickListener(this);
-		ToolsUtil.setFontStyle(getActivity(), view, R.id.tv_nickname,R.id.tv_nickname,R.id.shop_main_attentionvalue_textview,R.id.shop_main_attention_textview,R.id.shop_main_fansvalue_textview,R.id.shop_main_fans_textview,R.id.shop_main_praisevalue_textview,R.id.shop_main_praise_textview,R.id.tv_all_order,R.id.tv_waiting_for_send,R.id.tv_waiting_for_recieve,R.id.tv_pick_by_myself,R.id.tv_my_collection,R.id.tv_will_yangjia);
+		TextView tv_my_circle=(TextView)view.findViewById(R.id.tv_my_circle);
+		tv_my_circle.setOnClickListener(this);
+
 		iv_setting = (ImageView) view.findViewById(R.id.iv_setting);
 		iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
 		iv_icon.setImageResource(R.drawable.default_pic);
@@ -120,15 +114,7 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 	
 		//类型 养家模式
 		tv_style = (TextView) view.findViewById(R.id.tv_style);
-		tv_attention_count = (TextView) view.findViewById(R.id.tv_attention_count);
-		//关注
-		shop_main_attentionvalue_textview = (TextView) view.findViewById(R.id.shop_main_attentionvalue_textview);
-		//粉丝
-		shop_main_fansvalue_textview = (TextView) view.findViewById(R.id.shop_main_fansvalue_textview);
-		//收藏
-		shop_main_praisevalue_textview = (TextView) view.findViewById(R.id.shop_main_praisevalue_textview);
-		
-		tv_fans_count = (TextView) view.findViewById(R.id.tv_fans_count);
+
 		tv_all_order = (TextView) view.findViewById(R.id.tv_all_order);
 		tv_waiting_for_send = (TextView) view.findViewById(R.id.tv_waiting_for_send);
 		tv_waiting_for_recieve = (TextView) view.findViewById(R.id.tv_waiting_for_recieve);
@@ -160,18 +146,18 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 	public void onClick(View v) {
 		int userID=Integer.parseInt(SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_id));
 		switch (v.getId()) {
-		case R.id.me_fragment_for_baijie_layout_mycircle_linearlayout://圈子
+		case R.id.tv_my_circle://圈子
 			Intent intent=new Intent(getActivity(),CircleListActivity.class);
 			intent.putExtra("userID", userID);
 			startActivity(intent);
 			break;
-		case R.id.me_fragment_for_baijie_layout_fans_linearlayout://粉丝
+		/*case R.id.me_fragment_for_baijie_layout_fans_linearlayout://粉丝
 			Intent fansintent=new Intent(getActivity(),AttationListActivity.class);
 			fansintent.putExtra("TYPE", AttationListActivity.TYPE_FANS);
 			fansintent.putExtra("userID", userID);
 			startActivity(fansintent);
-			break;
-		case R.id.me_fragment_for_baijie_layout_attention_linearlayout://关注
+			break;*/
+		case R.id.tv_my_attention://关注
 			Intent attentionintent=new Intent(getActivity(),AttationListActivity.class);
 			attentionintent.putExtra("TYPE", AttationListActivity.TYPE_ATTATION);
 			attentionintent.putExtra("userID", userID);
@@ -267,7 +253,7 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 				dialog.alertDialog(getActivity(), "提示--申请认证买手第一步", "申请认证买手需绑定微信以便后期金钱交易，现在去绑定吗？", new DialogUtilInter() {
 					@Override
 					public void dialogCallBack(int... which) {
-						Toast.makeText(getActivity(), "正在绑定微信", 1000).show();
+						MyApplication.getInstance().showMessage(getActivity(), "正在绑定微信");
 						// 绑定手机号
 						WXLoginUtil wxLoginUtil = new WXLoginUtil(getActivity());
 						wxLoginUtil.initWeiChatLogin(false,false,false);
@@ -311,9 +297,7 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 	void setValue(MyInfoBean myInfoBean)
 	{
 		initPic(ToolsUtil.nullToString(myInfoBean.getLogo()), iv_icon);
-		shop_main_attentionvalue_textview.setText(myInfoBean.getFollowingCount()+"");
-		shop_main_fansvalue_textview.setText(myInfoBean.getFollowerCount()+"");
-		shop_main_praisevalue_textview.setText(myInfoBean.getCommunityCount()+"");
+
 		if(0 != myInfoBean.getAllOrderCount()){
 			tv_all_order_count_textview.setVisibility(View.VISIBLE);
 		}else{
@@ -406,7 +390,7 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(getActivity(), msg, 1000).show();
+				MyApplication.getInstance().showMessage(getActivity(), msg);
 			}
 		}, getActivity(), true);
 	}

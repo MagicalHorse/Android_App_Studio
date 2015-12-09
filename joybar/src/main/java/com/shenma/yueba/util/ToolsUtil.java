@@ -1137,6 +1137,13 @@ public class ToolsUtil {
         return d * Math.PI / 180.0;
     }
 
+   /* *//*******
+     * @param  lat1 纬度
+     * @param  lng1 经度
+     * @param  lat2 纬度
+     * @param  lng2 经度
+     * 根据 经纬度 计算 距离
+     * *****//*
     public static double getDistance(double lat1, double lng1, double lat2,
                                      double lng2) {
         double radLat1 = rad(lat1);
@@ -1149,7 +1156,7 @@ public class ToolsUtil {
         s = s * EARTH_RADIUS;
         s = Math.round(s * 10000) / 10000;
         return s;
-    }
+    }*/
 
 
     /*********
@@ -1184,7 +1191,7 @@ public class ToolsUtil {
      * @return 返回距离 单位：米
      */
     public static String Distance(double long1, double lat1, double long2, double lat2) {
-        if (long1 <= 0 || lat1 <= 0 || long2 <= 0 || lat2 <= 0) {
+        if (long1 < 0 || lat1 <0 || long2 <0 || lat2 < 0) {
             return "";
         }
         double a, b, R;
@@ -1201,8 +1208,8 @@ public class ToolsUtil {
                 * R
                 * Math.asin(Math.sqrt(sa2 * sa2 + Math.cos(lat1)
                 * Math.cos(lat2) * sb2 * sb2));
-
-        return Double.toString(d);
+        d=Math.abs(d/1000);
+        return ToolsUtil.DounbleToString_2(d)+"km";
     }
 
 }
