@@ -170,7 +170,7 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 				return;
 			}
 			break;
-		case 4:
+		case 3:
 			if (!MyApplication.getInstance().isUserLogin(
 					MainActivityForBaiJia.this)) {
 				return;
