@@ -2705,13 +2705,13 @@ public class HttpControl {
         if (!TextUtils.isEmpty(imageLocalPath)) {
             ossService = OSSServiceProvider.getService();
             bucket = ossService.getOssBucket("2".equals(Constants.PublishStatus) ? Constants.aliyunDirForWork : Constants.aliyunDirForDev);//开发环境和生产环境的判断
-            OSSFile bigfFile = ossService.getOssFile(bucket, imageLocalPath
-                    .substring(imageLocalPath.lastIndexOf("/") + 1,
-                            imageLocalPath.length()));
             try {
+                OSSFile bigfFile = ossService.getOssFile(bucket, imageLocalPath
+                        .substring(imageLocalPath.lastIndexOf("/") + 1,
+                                imageLocalPath.length()));
                 bigfFile.setUploadFilePath(imageLocalPath, "image/*");
                 bigfFile.ResumableUploadInBackground(callBack);
-            } catch (FileNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

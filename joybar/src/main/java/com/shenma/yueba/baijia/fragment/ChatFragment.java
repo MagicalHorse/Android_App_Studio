@@ -5,9 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Spannable;
@@ -37,7 +40,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.baijia.activity.BaiJiaShareDataActivity;
 import com.shenma.yueba.baijia.adapter.ChattingAdapter;
+import com.shenma.yueba.baijia.modle.BaiJiaShareInfoBean;
 import com.shenma.yueba.baijia.modle.RequestImMessageInfoBean;
 import com.shenma.yueba.baijia.modle.RequestRoomInfo;
 import com.shenma.yueba.baijia.modle.RequestRoomInfoBean;
@@ -45,13 +50,12 @@ import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.NetUtils;
+import com.shenma.yueba.util.PhotoUtils;
 import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.SoftKeyboardUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.faceview.FaceView;
 import com.shenma.yueba.yangjia.modle.CircleDetailBackBean;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -70,7 +74,7 @@ import im.form.TextChatBean;
 /**
  * Created by Administrator on 2015/10/8.
  */
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements View.OnClickListener {
     String TAG = "TAG";
     LayoutInflater layoutInflater;
     View parentView;
@@ -79,20 +83,20 @@ public class ChatFragment extends Fragment {
     TextView resertaddinfo_textview;
     ImBroadcastReceiver imBroadcastReceiver;
     String usericon;//本地头像
-    private int circleId=-1;// 圈子id
+    private int circleId = -1;// 圈子id
     private TextView pb_reserttitle_textview;//提示socke重连文本对象
     InputMethodManager manager;
     PullToRefreshListView chat_list;//聊天信息列表对象
     boolean isloading = false;// 是否加载中
     boolean haveMoreData = true;// 是否有更多的数据可以加载
     private ProgressBar loadmorePB;// 加载进度条
-    private HttpControl httpControl=new HttpControl();
-    int currPage=1;
-    String roomId=null;//房间id
+    private HttpControl httpControl = new HttpControl();
+    int currPage = 1;
+    String roomId = null;//房间id
     private int formUser_id;//当前用户的id
     private int toUser_id;//发送指定的人的id
-    String  userName;//我的昵称
-    String socketType="group";
+    String userName;//我的昵称
+    String socketType = "group";
     private LinkedList<BaseChatBean> bean_list = new LinkedList<BaseChatBean>();// 消息列表
     ChattingAdapter chattingAdapter;
     FaceView fView;//表情视图对象
@@ -102,17 +106,22 @@ public class ChatFragment extends Fragment {
     private LinearLayout btnContainer;// 扩展视图（照相 图片 链接 收藏 ）
     private ImageView iv_emoticons_normal;// 表情按钮
     Button btnMore;//更多的按钮
-    private boolean isregister=false;
-    boolean isRegisterbroadcase=false;
+    private boolean isregister = false;
+    boolean isRegisterbroadcase = false;
     private RequestRoomInfo requestRoomInfo;//房间信息对象
-    private List<Integer> int_array=new ArrayList<Integer>();
-    boolean isPrepare=false;//是否准备完成 即 是否已经获取到 房间号
-    boolean isrunning=false;
+    private List<Integer> int_array = new ArrayList<Integer>();
+    boolean isPrepare = false;//是否准备完成 即 是否已经获取到 房间号
+    boolean isrunning = false;
     //圈子信息
     CircleDetailBackBean circleDetailBackBean;
 
+    private String littlePicPath;
+    private String littlePicPath_cache;
+    public static final int Result_code_link = 400;// 链接
+    public static final int Result_code_collection = 500;// 收藏
 
-    int buyerId=-1;
+    int buyerId = -1;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -151,26 +160,36 @@ public class ChatFragment extends Fragment {
 
     /********
      * 获取圈子信息及 房间信息
-     * *******/
-    void requestChatInfo()
-    {
+     *******/
+    void requestChatInfo() {
         //如果未圈子信息
-        if(circleDetailBackBean==null)
-        {
-            if(!isrunning)
-            {
+        if (circleDetailBackBean == null) {
+            if (!isrunning) {
                 //获取用户默认圈子信息
                 requestBaseCircleInfo();
             }
         }
         //如果未获得房间信息
-        if(roomId==null && circleId>0)
-        {
+        if (roomId == null && circleId > 0) {
             getMessageByCircleId();
         }
     }
 
     void initView() {
+        //照相
+        ImageView btn_camera=(ImageView)parentView.findViewById(R.id.btn_camera);
+        btn_camera.setOnClickListener(this);
+        //图片
+        ImageView btn_picture=(ImageView)parentView.findViewById(R.id.btn_picture);
+        btn_picture.setOnClickListener(this);
+        //链接
+        ImageView btn_link=(ImageView)parentView.findViewById(R.id.btn_link);
+        btn_link.setOnClickListener(this);
+        //收藏
+        ImageView btn_collention=(ImageView)parentView.findViewById(R.id.btn_collention);
+        btn_collention.setOnClickListener(this);
+
+
         chat_alertmsg_linearlayout = (LinearLayout) parentView.findViewById(R.id.chat_alertmsg_linearlayout);
         chat_alertmsg_linearlayout.setVisibility(View.VISIBLE);
         TextView chat_alertmsg_textview = (TextView) parentView.findViewById(R.id.chat_alertmsg_textview);
@@ -179,8 +198,7 @@ public class ChatFragment extends Fragment {
         usericon = SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_logo);
 
         // 我的 userid
-        if(SharedUtil.getUserId(getActivity())!=null)
-        {
+        if (SharedUtil.getUserId(getActivity()) != null) {
             formUser_id = Integer.parseInt(SharedUtil.getUserId(getActivity()));
         }
 
@@ -232,7 +250,7 @@ public class ChatFragment extends Fragment {
         /***************
          * 初始化聊天界面
          * ***************/
-        fView = (FaceView)parentView.findViewById(R.id.faceLayout);//表情
+        fView = (FaceView) parentView.findViewById(R.id.faceLayout);//表情
         fView.setOnChickCallback(new FaceView.OnChickCallback() {
             @Override
             public void onChick(int arg1, int resId, String arg2) {
@@ -244,8 +262,8 @@ public class ChatFragment extends Fragment {
                 mEditTextContent.getText().insert(mEditTextContent.getSelectionStart(), ss);
             }
         });
-        edittext_layout = (RelativeLayout)parentView.findViewById(R.id.edittext_layout);
-        mEditTextContent = (EditText)parentView.findViewById(R.id.et_sendmessage);
+        edittext_layout = (RelativeLayout) parentView.findViewById(R.id.edittext_layout);
+        mEditTextContent = (EditText) parentView.findViewById(R.id.et_sendmessage);
         mEditTextContent.setBackgroundResource(R.drawable.shape_linearlayout10);
         mEditTextContent.setOnClickListener(new View.OnClickListener() {
 
@@ -283,25 +301,23 @@ public class ChatFragment extends Fragment {
             }
         });
 
-        buttonSend = (Button)parentView.findViewById(R.id.btn_send);
+        buttonSend = (Button) parentView.findViewById(R.id.btn_send);
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String content = mEditTextContent.getText().toString().trim();
-                if(!isPrepare)
-                {
+                if (!isPrepare) {
                     return;
                 }
                 if ("".equals(content)) {
-                    Toast.makeText(getActivity(), "发送消息不能为空", 1000).show();
+                    MyApplication.getInstance().showMessage(getActivity(), "发送消息不能为空");
                     return;
                 }
                 if (!NetUtils.isNetworkConnected(getActivity())) {
-                    Toast.makeText(getActivity(), "网络不可用", 1000).show();
+                    MyApplication.getInstance().showMessage(getActivity(), "网络不可用");
                     return;
                 }
-                if(!showOrHiddenAlertView())
-                {
+                if (!showOrHiddenAlertView()) {
                     MyApplication.getInstance().showMessage(getActivity(), "通信已断开，正在重连");
                     return;
                 }
@@ -309,7 +325,7 @@ public class ChatFragment extends Fragment {
                 mEditTextContent.setText("");
             }
         });
-        iv_emoticons_normal = (ImageView)parentView.findViewById(R.id.iv_emoticons_normal);
+        iv_emoticons_normal = (ImageView) parentView.findViewById(R.id.iv_emoticons_normal);
         iv_emoticons_normal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -318,7 +334,7 @@ public class ChatFragment extends Fragment {
         });
         iv_emoticons_normal.setVisibility(View.VISIBLE);
 
-        btnMore = (Button)parentView.findViewById(R.id.btn_more);
+        btnMore = (Button) parentView.findViewById(R.id.btn_more);
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -337,14 +353,14 @@ public class ChatFragment extends Fragment {
         /************
          * 扩展 示图信息   扩展视图（照相 图片 链接 收藏 ）
          * ***************/
-        btnContainer = (LinearLayout)parentView.findViewById(R.id.ll_btn_container);
+        btnContainer = (LinearLayout) parentView.findViewById(R.id.ll_btn_container);
 
 
         /********
          * 重新加载
          * *******/
-        resertaddinfo_linearlayout=(LinearLayout)parentView.findViewById(R.id.resertaddinfo_linearlayout);
-        resertaddinfo_textview=(TextView)parentView.findViewById(R.id.resertaddinfo_textview);
+        resertaddinfo_linearlayout = (LinearLayout) parentView.findViewById(R.id.resertaddinfo_linearlayout);
+        resertaddinfo_textview = (TextView) parentView.findViewById(R.id.resertaddinfo_textview);
         resertaddinfo_textview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -353,7 +369,6 @@ public class ChatFragment extends Fragment {
         });
 
     }
-
 
 
     /**
@@ -400,7 +415,6 @@ public class ChatFragment extends Fragment {
     }
 
 
-
     /**
      * 显示表情
      */
@@ -420,10 +434,9 @@ public class ChatFragment extends Fragment {
     }
 
 
-
     /*****
      * 设置 文本信息内容
-     * ****/
+     ****/
     void setTextMsgData(String str) {
         BaseChatBean msgbean = new TextChatBean(getActivity());
         setSendValue(msgbean, str);
@@ -432,9 +445,8 @@ public class ChatFragment extends Fragment {
     /******
      * 发送数据的通用赋值
      *
-     * @param bean
-     *            BaseChatBean消息类型对象
-     * ***/
+     * @param bean BaseChatBean消息类型对象
+     ***/
     void setSendValue(BaseChatBean bean, String content) {
         if (bean == null) {
             return;
@@ -461,24 +473,18 @@ public class ChatFragment extends Fragment {
 
     /******
      * 根据socket是否连接 显示 或隐藏  提示信息
-     * ***/
-    boolean  showOrHiddenAlertView()
-    {
-        boolean isconnect=false;
-        if(SocketManger.the().isConnect())
-        {
-            isconnect=true;
-        }else
-        {
-            isconnect=false;
+     ***/
+    boolean showOrHiddenAlertView() {
+        boolean isconnect = false;
+        if (SocketManger.the().isConnect()) {
+            isconnect = true;
+        } else {
+            isconnect = false;
         }
-        if(pb_reserttitle_textview!=null)
-        {
-            if(isconnect)
-            {
+        if (pb_reserttitle_textview != null) {
+            if (isconnect) {
                 pb_reserttitle_textview.setVisibility(View.GONE);
-            }else
-            {
+            } else {
                 pb_reserttitle_textview.setVisibility(View.VISIBLE);
             }
 
@@ -489,7 +495,7 @@ public class ChatFragment extends Fragment {
 
     /***
      * 获取消息
-     * **/
+     **/
     void getMessage() {
         if (isloading) {
             return;
@@ -504,19 +510,14 @@ public class ChatFragment extends Fragment {
     /****
      * 获取聊天记录
      *
-     * @param roomId
-     *            int 房间id
-     * @param lastMessageId
-     *            int 信息id 小于0 可不传
-     * @param page
-     *            int 访问页数
-     * @param pageSize
-     *            int 每页大小
-     * ***/
-    void getMessageRecord(String roomId, int lastMessageId, final int page,int pageSize) {
-        if(httpControl==null)
-        {
-            httpControl=new HttpControl();
+     * @param roomId        int 房间id
+     * @param lastMessageId int 信息id 小于0 可不传
+     * @param page          int 访问页数
+     * @param pageSize      int 每页大小
+     ***/
+    void getMessageRecord(String roomId, int lastMessageId, final int page, int pageSize) {
+        if (httpControl == null) {
+            httpControl = new HttpControl();
         }
         httpControl.getRoomMessage(roomId, lastMessageId, page, pageSize,
                 false, new HttpControl.HttpCallBackInterface() {
@@ -566,11 +567,9 @@ public class ChatFragment extends Fragment {
     }
 
 
-
-
     /*****
      * 从网络获取 历史聊天信息 成功后 进行赋值
-     * ****/
+     ****/
     void dataSuceeValue(List<RequestMessageBean> items) {
         isloading = false;
         loadmorePB.setVisibility(View.GONE);
@@ -614,8 +613,7 @@ public class ChatFragment extends Fragment {
     // 定位到知道位置
     void pointLast(int i) {
         if (i <= bean_list.size()) {
-            if(chat_list!=null)
-            {
+            if (chat_list != null) {
                 chat_list.getRefreshableView().setSelection(i);
             }
 
@@ -626,12 +624,12 @@ public class ChatFragment extends Fragment {
     /*****
      * 同步添加数据 到列表
      *
-     * @param isfirst  boolean true 加入列表前面 false 加入列表后面
-     * ****/
+     * @param isfirst boolean true 加入列表前面 false 加入列表后面
+     ****/
     synchronized void addListData(boolean isfirst, BaseChatBean... chatBean) {
         if (chatBean != null && chatBean.length > 0) {
             for (int i = 0; i < chatBean.length; i++) {
-                BaseChatBean bbean=chatBean[i];
+                BaseChatBean bbean = chatBean[i];
                 if (isfirst) {
                     bean_list.addFirst(chatBean[i]);
                 } else {
@@ -650,8 +648,7 @@ public class ChatFragment extends Fragment {
             BaseChatBean baseChatBean = null;
             RequestMessageBean bean = (RequestMessageBean) obj;
             //判断 接受到的消息是否 是当然roomid 是则 显示 不是则不处理
-            if(bean.getRoomId()==null || roomId==null || !bean.getRoomId().equals(roomId))
-            {
+            if (bean.getRoomId() == null || roomId == null || !bean.getRoomId().equals(roomId)) {
                 return;
             }
 
@@ -677,15 +674,12 @@ public class ChatFragment extends Fragment {
 
     /*******
      * 通过用圈子id获取历史数据信息
-     * ***/
-    void getMessageByCircleId()
-    {
-        if(isrunning)
-        {
+     ***/
+    void getMessageByCircleId() {
+        if (isrunning) {
             return;
         }
-        if(resertaddinfo_linearlayout!=null)
-        {
+        if (resertaddinfo_linearlayout != null) {
             resertaddinfo_linearlayout.setVisibility(View.GONE);
         }
         // 获取房间号
@@ -693,27 +687,23 @@ public class ChatFragment extends Fragment {
     }
 
     /****
-     *
      * 获取房间号  根据圈子id
-     * @param groupId
-     *            int 圈子id
-     * @param fromUser
-     *            int
-     * @param toUser
-     *            int
-     * **/
+     *
+     * @param groupId  int 圈子id
+     * @param fromUser int
+     * @param toUser   int
+     **/
     void getRoomdId(int groupId, int fromUser, int toUser) {
-        if(httpControl==null)
-        {
-            httpControl=new HttpControl();
+        if (httpControl == null) {
+            httpControl = new HttpControl();
         }
-        isrunning=true;
+        isrunning = true;
         httpControl.getRoom_Id(groupId, fromUser, toUser, true,
                 new HttpControl.HttpCallBackInterface() {
 
                     @Override
                     public void http_Success(Object obj) {
-                        isrunning=false;
+                        isrunning = false;
                         if (obj != null && obj instanceof RequestRoomInfoBean) {
                             RequestRoomInfoBean bean = (RequestRoomInfoBean) obj;
                             if (bean.getData() == null) {
@@ -735,7 +725,7 @@ public class ChatFragment extends Fragment {
 
                     @Override
                     public void http_Fails(int error, String msg) {
-                        isrunning=false;
+                        isrunning = false;
                         MyApplication.getInstance().showMessage(getActivity(), msg);
                         /********
                          * 获取失败 显示 失败视图  显示 重新获取  按钮
@@ -743,8 +733,7 @@ public class ChatFragment extends Fragment {
                          * ********/
                         MyApplication.getInstance().showMessage(getActivity(), msg);
                         //显示重新加载页面
-                        if(resertaddinfo_linearlayout!=null)
-                        {
+                        if (resertaddinfo_linearlayout != null) {
                             resertaddinfo_linearlayout.setVisibility(View.VISIBLE);
                         }
 
@@ -773,7 +762,7 @@ public class ChatFragment extends Fragment {
 
     /****
      * 加入房间
-     * **/
+     **/
     void inroom() {
         // 加入房间
         RoomBean roomBean = new RoomBean();
@@ -795,7 +784,6 @@ public class ChatFragment extends Fragment {
             Log.i("TAG", "socketio---->>加入房间 roomId=" + roomId);
         }
     }
-
 
 
     /*******
@@ -834,15 +822,12 @@ public class ChatFragment extends Fragment {
     }
 
 
-
     /******
      * 注册广播监听 用于接收消息
-     * ***/
-    synchronized  void registerImBroadcastReceiver()
-    {
-        if(!isregister)
-        {
-            if(imBroadcastReceiver==null) {
+     ***/
+    synchronized void registerImBroadcastReceiver() {
+        if (!isregister) {
+            if (imBroadcastReceiver == null) {
                 imBroadcastReceiver = new ImBroadcastReceiver(new ImBroadcastReceiver.ImBroadcastReceiverLinstener() {
 
                     @Override
@@ -861,7 +846,7 @@ public class ChatFragment extends Fragment {
                     }
                 });
             }
-            isregister=true;
+            isregister = true;
             getActivity().registerReceiver(imBroadcastReceiver, new IntentFilter(ImBroadcastReceiver.IntentFilter));
         }
 
@@ -869,26 +854,22 @@ public class ChatFragment extends Fragment {
 
     /****
      * 注销广播监听
-     * **/
-    synchronized  void unRegisterImBroadcastReceiver()
-    {
-        if(isregister)
-        {
+     **/
+    synchronized void unRegisterImBroadcastReceiver() {
+        if (isregister) {
             getActivity().unregisterReceiver(imBroadcastReceiver);
-            isregister=false;
+            isregister = false;
         }
 
     }
 
     /*******
      * 注册socketio  链接变化监听
-     * ******/
-    synchronized void regiestSockIoBroadCase()
-    {
-        if(!isRegisterbroadcase)
-        {
-            isRegisterbroadcase=true;
-            IntentFilter intentFilter=new IntentFilter();
+     ******/
+    synchronized void regiestSockIoBroadCase() {
+        if (!isRegisterbroadcase) {
+            isRegisterbroadcase = true;
+            IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(Constants.IntentFilterChatAtConnect);
             intentFilter.addAction(Constants.IntentFilterChatAtUnConnect);
             getActivity().registerReceiver(broadcastReceiver, intentFilter);
@@ -896,15 +877,12 @@ public class ChatFragment extends Fragment {
     }
 
 
-    BroadcastReceiver broadcastReceiver=new BroadcastReceiver()
-    {
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent!=null)
-            {
-                if(intent.getAction().equals(Constants.IntentFilterChatAtConnect) || intent.getAction().equals(Constants.IntentFilterChatAtUnConnect))
-                {
+            if (intent != null) {
+                if (intent.getAction().equals(Constants.IntentFilterChatAtConnect) || intent.getAction().equals(Constants.IntentFilterChatAtUnConnect)) {
                     showOrHiddenAlertView();
                 }
             }
@@ -913,16 +891,13 @@ public class ChatFragment extends Fragment {
     };
 
 
-
     /*******
      * 注销socketio  链接变化监听
-     * ******/
-    synchronized void unRegiestSockIoBroadCase()
-    {
-        if(isRegisterbroadcase)
-        {
+     ******/
+    synchronized void unRegiestSockIoBroadCase() {
+        if (isRegisterbroadcase) {
             getActivity().unregisterReceiver(broadcastReceiver);
-            isRegisterbroadcase=false;
+            isRegisterbroadcase = false;
         }
     }
 
@@ -968,9 +943,8 @@ public class ChatFragment extends Fragment {
 
     /*****
      * 离开房间
-     * ***/
-    void outRoom()
-    {
+     ***/
+    void outRoom() {
         SocketManger.the().outinroon();
     }
 
@@ -994,35 +968,29 @@ public class ChatFragment extends Fragment {
 
     /*********
      * 请求 基础圈子信息
-     * ******/
-    void requestBaseCircleInfo()
-    {
-        if(isrunning)
-        {
+     ******/
+    void requestBaseCircleInfo() {
+        if (isrunning) {
             return;
         }
-        if(resertaddinfo_linearlayout!=null)
-        {
+        if (resertaddinfo_linearlayout != null) {
             resertaddinfo_linearlayout.setVisibility(View.GONE);
         }
-        isrunning=true;
-        String userId= SharedUtil.getStringPerfernece(getActivity(),SharedUtil.user_id);
+        isrunning = true;
+        String userId = SharedUtil.getStringPerfernece(getActivity(), SharedUtil.user_id);
         httpControl.getBaseCircleDetailByUserID(Integer.toString(buyerId), userId, true, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
-                isrunning=false;
-                circleDetailBackBean=(CircleDetailBackBean)obj;
-                if(circleDetailBackBean.getData()!=null)
-                {
-                    circleId= Integer.valueOf(circleDetailBackBean.getData().getGroupId());
-                    View circlesettings_imageview=getActivity().findViewById(R.id.circlesettings_imageview);
-                    if(circlesettings_imageview!=null)
-                    {
+                isrunning = false;
+                circleDetailBackBean = (CircleDetailBackBean) obj;
+                if (circleDetailBackBean.getData() != null) {
+                    circleId = Integer.valueOf(circleDetailBackBean.getData().getGroupId());
+                    View circlesettings_imageview = getActivity().findViewById(R.id.circlesettings_imageview);
+                    if (circlesettings_imageview != null) {
                         circlesettings_imageview.setTag(circleId);
                         circlesettings_imageview.setVisibility(View.VISIBLE);
                     }
-                    if(roomId==null && circleId>0)
-                    {
+                    if (roomId == null && circleId > 0) {
                         getMessageByCircleId();
                     }
                 }
@@ -1030,14 +998,226 @@ public class ChatFragment extends Fragment {
 
             @Override
             public void http_Fails(int error, String msg) {
-                isrunning=false;
+                isrunning = false;
                 MyApplication.getInstance().showMessage(getActivity(), msg);
-                if(resertaddinfo_linearlayout!=null)
-                {
+                if (resertaddinfo_linearlayout != null) {
                     resertaddinfo_linearlayout.setVisibility(View.VISIBLE);
                 }
 
             }
-        },getActivity());
+        }, getActivity());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_camera:// 拍照
+                openCamera();
+                break;
+            case R.id.btn_picture:// 照片
+                openPicture();
+                break;
+            case R.id.btn_link:// 链接
+                openLink();
+                break;
+            case R.id.btn_collention:// 收藏
+                openCollention();
+                break;
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case PhotoUtils.INTENT_REQUEST_CODE_CAMERA:
+                cameraCallBack(data, resultCode);// 相机回调
+                break;
+            case PhotoUtils.INTENT_REQUEST_CODE_ALBUM:
+                picCallBack(data, resultCode);// 图片回调
+                break;
+            case PhotoUtils.INTENT_REQUEST_CODE_CROP:
+                clipCallBack(data, resultCode);
+                break;
+            case Result_code_link:// 链接回调
+                linkOrCollectCallBack(data);
+                break;
+            case Result_code_collection:// 收藏
+                linkOrCollectCallBack(data);
+                break;
+            case Constants.REQUESTCODE:
+                if (resultCode == Constants.RESULTCODE) {
+                    getActivity().setResult(Constants.RESULTCODE);
+                    getActivity().finish();
+                }
+        }
+    }
+
+
+    /****
+     * 相机回调
+     **/
+    void cameraCallBack(Intent data, int resultCode) {
+        if (resultCode == getActivity().RESULT_OK) {
+            if (littlePicPath != null) {
+                upLoadPic(littlePicPath);
+            }
+        }
+    }
+
+
+    /****
+     * 打开照相机并回去返回的图片
+     **/
+    void openCamera() {
+        /*
+		 * Intent intent = new Intent();
+		 * intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+		 * startActivityForResult(intent, Result_code_camera);
+		 */
+        if (ToolsUtil.isAvailableSpace(getActivity())) {
+            littlePicPath = PhotoUtils.takePicture(getActivity());
+            Log.i("TAG", "littlePicPath:" + littlePicPath);
+        }
+
+    }
+
+    /****
+     * 打开照图片
+     **/
+    void openPicture() {
+        if (ToolsUtil.isAvailableSpace(getActivity())) {
+            PhotoUtils.selectPhoto(getActivity());
+        }
+    }
+
+    /**
+     * 裁剪返回
+     */
+    void clipCallBack(Intent data, int resultCode) {
+        if (resultCode == getActivity().RESULT_OK) {
+            if (littlePicPath_cache != null) {
+                upLoadPic(littlePicPath_cache);
+            }
+
+        }
+    }
+
+    /****
+     * 图片回调
+     **/
+    void picCallBack(Intent data, int resultCode) {
+        // 调用相册返回
+        if (resultCode == getActivity().RESULT_OK) {
+            if (data.getData() == null) {
+                return;
+            }
+            Uri uri = data.getData();
+            String[] proj = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getActivity().managedQuery(uri, proj, null, null, null);
+            if (cursor != null) {
+                int column_index = cursor
+                        .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                if (cursor.getCount() > 0 && cursor.moveToFirst()) {
+                    littlePicPath = cursor.getString(column_index);
+                    if (littlePicPath != null) {
+                        upLoadPic(littlePicPath);
+                    }
+                }
+            }
+        }
+    }
+
+    /****
+     * 链接
+     **/
+    void openLink() {
+        Intent intent = new Intent(getActivity(),
+                BaiJiaShareDataActivity.class);
+        intent.putExtra("TYPE", BaiJiaShareDataActivity.LINK);
+        startActivityForResult(intent, Result_code_link);
+    }
+
+    /****
+     * 收藏
+     **/
+    void openCollention() {
+        Intent intent = new Intent(getActivity(), BaiJiaShareDataActivity.class);
+        intent.putExtra("TYPE", BaiJiaShareDataActivity.COLLECT);
+        startActivityForResult(intent, Result_code_collection);
+    }
+
+    /*****
+     * 链接或收藏的回调
+     **/
+    void linkOrCollectCallBack(Intent data) {
+        if (data != null && data.getSerializableExtra("RESULT_DATA") != null) {
+            List<BaiJiaShareInfoBean> check_list = (List<BaiJiaShareInfoBean>) data
+                    .getSerializableExtra("RESULT_DATA");
+            sendLinkOrCollect(check_list);
+        }
+
+    }
+
+    /***
+     * 发送链接或收藏数据
+     ***/
+    void sendLinkOrCollect(List<BaiJiaShareInfoBean> check_list) {
+        if (check_list != null) {
+            for (int i = 0; i < check_list.size(); i++) {
+                BaiJiaShareInfoBean sharebean = check_list.get(i);
+                BaseChatBean msgbean = new ProductChatBean(getActivity());
+                msgbean.setProductId(sharebean.getId());
+                setSendValue(msgbean,
+                        ToolsUtil.nullToString(sharebean.getLogo()));
+
+            }
+        }
+    }
+
+
+    /*****
+     * 通过阿里云上传
+     ***/
+    void upLoadPic(String imageLocalPath) {
+        if (imageLocalPath == null || imageLocalPath.equals("")) {
+            return;
+        }
+        final PicChatBean baseChatBean = new PicChatBean(getActivity());
+        baseChatBean.setListener(new PicChatBean.PicChatBean_Listener() {
+
+            @Override
+            public void pic_showMsg(final String msg) {
+                getActivity().runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        MyApplication.getInstance().showMessage(getActivity(), msg);
+                    }
+                });
+
+            }
+
+            @Override
+            public void pic_notifaction() {
+                getActivity().runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (chattingAdapter != null) {
+                            chattingAdapter.notifyDataSetChanged();
+                            // chat_list.invalidate();
+                        }
+                    }
+                });
+
+            }
+        });
+
+        baseChatBean.setPicaddress(imageLocalPath);
+
+        setSendValue(baseChatBean, "");
+
     }
 }

@@ -408,6 +408,7 @@
         <activity
             android:name=".ChatActivity"
             android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
             android:screenOrientation="portrait"></activity>
         <!-- 店铺介绍界面 -->
         <activity

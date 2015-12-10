@@ -25,7 +25,7 @@ boolean isFails=false;//是否上传失败
 String picaddress="";//本地图片的地址
 String ali_content;//阿里云返回的数据
 PicChatBean_Listener listener;
-
+	HttpControl httpControl;
 	public PicChatBean_Listener getListener() {
 	return listener;
 }
@@ -115,7 +115,10 @@ public void setPicaddress(String picaddress) {
 	 * **/
 	 void uploadPic()
 	{
-		HttpControl httpControl=new HttpControl();
+		if(httpControl==null)
+		{
+			httpControl=new HttpControl();
+		}
 		httpControl.getUploadChatImage(ali_content, false, new HttpCallBackInterface() {
 			
 			@Override
@@ -156,7 +159,10 @@ public void setPicaddress(String picaddress) {
 	 * **/
 	void UploadAlI()
 	{
-		HttpControl httpControl=new HttpControl();
+		if(httpControl==null)
+		{
+			httpControl=new HttpControl();
+		}
 		httpControl.syncUpload(picaddress, new SaveCallback() {
 			
 			@Override
