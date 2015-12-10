@@ -221,7 +221,10 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.pubuliu_item_layout_like_linearlayout:
-
+                    if(!MyApplication.getInstance().isUserLogin(activity))
+                    {
+                        return;
+                    }
                     if (v.getTag() != null && v.getTag() instanceof PubuliuBeanInfo) {
                         PubuliuBeanInfo bean = (PubuliuBeanInfo) v.getTag();
                         if (bean.iscollection()) {

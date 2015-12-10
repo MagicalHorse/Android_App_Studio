@@ -1,6 +1,7 @@
 package com.shenma.yueba.baijia.modle.newmodel;
 
 import com.shenma.yueba.baijia.modle.BrandInfo;
+import com.shenma.yueba.baijia.modle.MyFavoriteProductListInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class StoreIndexBean {
 
-    private List<StoreIndexItem> items;
+    private List<MyFavoriteProductListInfo> items;
     private int pageindex;
     private int pagesize;
     private int totalcount;
@@ -100,11 +101,11 @@ public class StoreIndexBean {
         CityName = cityName;
     }
 
-    public List<StoreIndexItem> getItems() {
+    public List<MyFavoriteProductListInfo> getItems() {
         return items;
     }
 
-    public void setItems(List<StoreIndexItem> items) {
+    public void setItems(List<MyFavoriteProductListInfo> items) {
         this.items = items;
     }
 

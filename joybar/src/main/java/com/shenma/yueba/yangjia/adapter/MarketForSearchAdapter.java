@@ -1,9 +1,7 @@
 package com.shenma.yueba.yangjia.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,14 +10,8 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.BaseAdapterWithUtil;
 import com.shenma.yueba.baijia.modle.StoreItem;
-import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBean;
-import com.shenma.yueba.baijia.modle.newmodel.StoreIndexItem;
 import com.shenma.yueba.util.PerferneceUtil;
-import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
-import com.shenma.yueba.view.RoundImageView;
-import com.shenma.yueba.yangjia.activity.SalesManagerForBuyerActivity;
-import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
 
 import java.util.List;
 

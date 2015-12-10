@@ -282,7 +282,7 @@ public class MyCollectionActivity extends BaseActivityWithTopView {
 						.findViewById(R.id.pubuliu_item_layout_like_imageview);
 				pubuliu_item_layout_like_linearlayout.setOnClickListener(onClickListener);
 
-				pubuliu_item_layout_like_imageview.setSelected(bean.isIsFavorite());
+				pubuliu_item_layout_like_imageview.setSelected(bean.isFavorite());
 				pubuliu_item_layout_like_textview.setText(Integer.toString(bean.getFavoriteCount()));
 				pubuliu_item_layout_like_linearlayout.setTag(bean);
 				/*

@@ -16,7 +16,6 @@ import com.shenma.yueba.baijia.modle.MyFavoriteProductListInfo;
 import com.shenma.yueba.baijia.modle.MyFavoriteProductListPic;
 import com.shenma.yueba.baijia.modle.RequestMyFavoriteProductListInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
-import com.shenma.yueba.baijia.modle.newmodel.StoreIndexItem;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.HttpControl;
@@ -151,7 +150,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
         {
             List<PubuliuBeanInfo> childitem=getTransformData(bean.getData().getItems());
             pubuliuManager.onaddData(childitem);
-            item.addAll(getTransformData(bean.getData().getItems()));
+            item.addAll(childitem);
         }
     }
 

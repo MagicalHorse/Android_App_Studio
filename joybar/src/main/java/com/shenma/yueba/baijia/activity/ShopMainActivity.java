@@ -128,6 +128,16 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
         initHeadTab();
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(chatFragment!=null)
+        {
+            chatFragment.onActivityResult(requestCode,resultCode,data);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
