@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +22,8 @@ import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.util.ToolsUtil;
 import com.umeng.analytics.MobclickAgent;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 /***
@@ -186,6 +189,14 @@ public class ThemeWebActivity extends BaseActivityWithTopView {
 			}
 		}
 
+		try {
+			typeValue= URLDecoder.decode(ToolsUtil.nullToString(typeValue),"UTF-8");
+			idValue= URLDecoder.decode(ToolsUtil.nullToString(idValue),"UTF-8");
+			keyValue= URLDecoder.decode(ToolsUtil.nullToString(keyValue),"UTF-8");
+			Log.i("TAG", "forwardActivityForType --->typeValue:" + typeValue + "  idValue:" + idValue + "  keyValue:" + keyValue);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		//如果获取的 类型有值
 		if(typeValue!=null && typeValue.length()>0)
 		{
