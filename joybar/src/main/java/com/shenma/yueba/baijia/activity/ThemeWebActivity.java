@@ -2,8 +2,10 @@ package com.shenma.yueba.baijia.activity;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +18,10 @@ import android.widget.Toast;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.util.ToolsUtil;
 import com.umeng.analytics.MobclickAgent;
+
+import java.util.Map;
 
 /***
  * 所有的需要显示网页的界面
@@ -27,9 +32,25 @@ import com.umeng.analytics.MobclickAgent;
 public class ThemeWebActivity extends BaseActivityWithTopView {
 	private WebView webView;
 	private String url, title, orderId;
-	private String client = "A1";
-//	private String client = "CLIENT001";
-	private String bindforward = "payment";
+	Map<String,Class> map=new ArrayMap<String,Class>();
+	enum contentKey
+	{
+		type,
+		id,
+		key
+	}
+
+	enum ContenttypeValue
+	{
+		product,
+		brand,
+		buyer,
+		store
+	}
+
+	String urlHead="app://";
+	String urlContent="";
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +58,23 @@ public class ThemeWebActivity extends BaseActivityWithTopView {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.web_layout);
 		super.onCreate(savedInstanceState);
+		addMapData();
 		getIntentData();
 		initBaseView();
 		initWebView();
 	}
-	
+
+
+	void  addMapData()
+	{
+		map.put(ContenttypeValue.product.name(),BaijiaProductInfoActivity.class);
+		map.put(ContenttypeValue.brand.name(),BrandListActivity.class);
+		map.put(ContenttypeValue.buyer.name(),ShopMainActivity.class);
+		map.put(ContenttypeValue.store.name(),MarketMainActivity.class);
+	}
+
+
+
 	/**
 	 * 获取传过来的数据
 	 */
@@ -97,9 +130,19 @@ public class ThemeWebActivity extends BaseActivityWithTopView {
 		webView.setWebViewClient(new WebViewClient() {
 
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				view.loadUrl(url);
-				webView.requestFocus();
-				return true;
+				//判断URL类型 是否属于app
+				if(judgeUrlType(url))
+				{
+					//根据 类型 跳转页面
+					forwardActivityForType();
+					return true;
+				}else
+				{
+					view.loadUrl(url);
+					webView.requestFocus();
+					return true;
+				}
+
 			}
 
 		});
@@ -119,7 +162,103 @@ public class ThemeWebActivity extends BaseActivityWithTopView {
 		}, "demo");
 	}
 
-	
+
+	void forwardActivityForType()
+	{
+		String typeValue=null;
+		String idValue=null;
+		String keyValue=null;
+		if(urlContent!=null && urlContent.length()>0)
+		{
+			String[] str_array=urlContent.split("&");
+			for(int i=0;i<str_array.length;i++)
+			{
+				if(str_array[i].indexOf(contentKey.type.name() + "=")==0)
+				{
+					typeValue=str_array[i].substring((contentKey.type.name()+"=").length());
+				}else if(str_array[i].indexOf(contentKey.id.name()+"=")==0)
+				{
+					idValue=str_array[i].substring((contentKey.id.name()+"=").length());
+				}else if(str_array[i].indexOf(contentKey.key.name()+"=")==0)
+				{
+					keyValue=str_array[i].substring((contentKey.key.name()+"=").length());
+				}
+			}
+		}
+
+		//如果获取的 类型有值
+		if(typeValue!=null && typeValue.length()>0)
+		{
+			if(map.get(typeValue)!=null)
+			{
+				Class c=map.get(typeValue);
+				Intent intent=new Intent(ThemeWebActivity.this,c);
+				if(typeValue.equals(ContenttypeValue.product.name()))
+				{
+					try {
+						if (idValue != null) {
+							int id = Integer.valueOf(idValue);
+							intent.putExtra("productID", id);
+						}
+					}catch(Exception e)
+					{
+						e.printStackTrace();
+					}
+
+				}else if(typeValue.equals(ContenttypeValue.brand.name()))
+				{
+					try {
+						if (idValue != null) {
+							int id = Integer.valueOf(idValue);
+							intent.putExtra("BrandId", id);
+							intent.putExtra("BrandName",ToolsUtil.nullToString(keyValue));
+						}
+					}catch(Exception e)
+					{
+						e.printStackTrace();
+					}				}
+				else if(typeValue.equals(ContenttypeValue.buyer.name()))
+				{
+					try {
+						if (idValue != null) {
+							int id = Integer.valueOf(idValue);
+							intent.putExtra("userID", id);
+						}
+					}catch(Exception e)
+					{
+						e.printStackTrace();
+					}
+				}else if(typeValue.equals(ContenttypeValue.store.name()))
+				{
+					intent.putExtra("StoreId", ToolsUtil.nullToString(idValue));
+				}
+				startActivity(intent);
+			}
+		}
+
+
+	}
+
+
+
+	/*******
+	 * 判断 url 是否是 app 开头
+	 * *****/
+	boolean judgeUrlType(String url)
+	{
+		if(url!=null && url.length()>0)
+		{
+			if(url.indexOf(urlHead)==0)
+			{
+				urlContent=url.substring(urlHead.length());
+				return  true;
+			}
+		}
+		return  false;
+	}
+
+
+
 	 public class WebChromeClient extends android.webkit.WebChromeClient {
 	        @Override
 	        public void onProgressChanged(WebView view, int newProgress) {

@@ -4,15 +4,25 @@ package com.shenma.yueba.baijia.modle.newmodel;
  * Created by a on 2015/11/24.
  */
 public class SubjectrBean {
+    String Name;//             主题名称
+    String Pic ;//            主题logo
+    String Link ;//          Url地址
 
+    public String getLink() {
+        return Link;
+    }
 
+    public void setLink(String link) {
+        Link = link;
+    }
 
-    private String Pic;
-    private String SubjectType;
-    private String DataId;
-    private String id;
-    private String idUrl;
+    public String getName() {
+        return Name;
+    }
 
+    public void setName(String name) {
+        Name = name;
+    }
 
     public String getPic() {
         return Pic;
@@ -20,37 +30,5 @@ public class SubjectrBean {
 
     public void setPic(String pic) {
         Pic = pic;
-    }
-
-    public String getSubjectType() {
-        return SubjectType;
-    }
-
-    public void setSubjectType(String subjectType) {
-        SubjectType = subjectType;
-    }
-
-    public String getDataId() {
-        return DataId;
-    }
-
-    public void setDataId(String dataId) {
-        DataId = dataId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getIdUrl() {
-        return idUrl;
-    }
-
-    public void setIdUrl(String idUrl) {
-        this.idUrl = idUrl;
     }
 }

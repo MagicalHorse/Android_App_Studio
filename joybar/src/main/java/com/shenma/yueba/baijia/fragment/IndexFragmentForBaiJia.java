@@ -19,6 +19,7 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ChooseCityActivity;
 import com.shenma.yueba.baijia.activity.SearchProductActivity;
+import com.shenma.yueba.baijia.activity.ThemeWebActivity;
 import com.shenma.yueba.baijia.activity.WebActivity;
 import com.shenma.yueba.baijia.adapter.HomeAdapter;
 import com.shenma.yueba.baijia.modle.CityInfoBackBean;
@@ -265,7 +266,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                             tv_city.setText(str);
                             Toast.makeText(getActivity(), "定位成功,当前城市--" + str, Toast.LENGTH_SHORT).show();
                             selectCityId = back.getData().getId();
-                            PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID,back.getData().getId());
+                            PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_ID, back.getData().getId());
                             PerferneceUtil.setString(PerferneceConfig.SELECTED_CITY_ID, back.getData().getId());
                             PerferneceUtil.setString(PerferneceConfig.CURRENT_CITY_NAME, back.getData().getName());
                             PerferneceUtil.setString(PerferneceConfig.CURRENT_DISTRICT_NAME, back.getData().getDistrict());
@@ -346,11 +347,19 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         horizontalScrollView.addView(ll, params);
         for (int i = 0; i < subjectrBean_array.size(); i++) {
             RoundImageView riv = new RoundImageView(getActivity());
+            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getPic()),riv,MyApplication.getInstance().getDisplayImageOptions());
             riv.setTag(subjectrBean_array.get(i));
             riv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SubjectrBean subjectrBean = (SubjectrBean) v.getTag();
+                    String url=ToolsUtil.nullToString(subjectrBean.getLink());
+                    if(url!=null & url.length()>0)
+                    {
+                        Intent intent=new Intent(getActivity(), ThemeWebActivity.class);
+                        intent.putExtra("url",url);
+                        startActivity(intent);
+                    }
                     MyApplication.getInstance().showMessage(getActivity(), "点击操作");
                 }
             });
