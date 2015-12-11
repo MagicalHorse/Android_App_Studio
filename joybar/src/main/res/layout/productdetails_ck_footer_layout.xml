@@ -70,7 +70,7 @@
                 android:layout_margin="1dip"
                 android:background="@drawable/nowbuy_background"
                 android:gravity="center"
-                android:text="@string/shop_buy_str"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="15dip"
                 android:visibility="visible" />

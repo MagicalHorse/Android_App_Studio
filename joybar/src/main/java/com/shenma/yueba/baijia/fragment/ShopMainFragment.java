@@ -114,7 +114,15 @@ public class ShopMainFragment extends Fragment {
             if(userinfobean==null)
             {
                 ishow =true;
-                getBaijiaUserInfo();
+                //如果用户登陆成功
+                if(MyApplication.getInstance().isUserLogin(getActivity()))
+                {
+                    getBaijiaUserInfo();
+                }else
+                {
+                    //ssssss
+                }
+
             }
 
             if(currPage<0)
@@ -245,15 +253,13 @@ public class ShopMainFragment extends Fragment {
                 switch (Status) {
                     case 0:
                         ((TextView) textview).setText("关注");
-                        shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_guanzhu), null, null, null);
                         bean.setIsFollowing(false);
-                        MyApplication.getInstance().showMessage(getActivity(), "取消成功");
+                        //MyApplication.getInstance().showMessage(getActivity(), "取消成功");
                         break;
                     case 1:
                         ((TextView) textview).setText("已关注");
-                        shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_unguanzhu), null, null, null);
                         bean.setIsFollowing(true);
-                        MyApplication.getInstance().showMessage(getActivity(), "关注成功");
+                        //MyApplication.getInstance().showMessage(getActivity(), "关注成功");
                         break;
                 }
             }
@@ -331,12 +337,10 @@ public class ShopMainFragment extends Fragment {
         if (userInfoBean.isIsFollowing()) {
 
             shop_main_attention_imagebutton.setText("已关注");
-            shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_unguanzhu), null, null, null);
 
         } else {
 
             shop_main_attention_imagebutton.setText("关注");
-            shop_main_attention_imagebutton.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.shop_guanzhu), null, null, null);
         }
         //粉丝
         TextView shop_main_fans_textview=(TextView)activity.findViewById(R.id.shop_main_fans_textview);

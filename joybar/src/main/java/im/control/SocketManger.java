@@ -348,6 +348,11 @@ public class SocketManger {
 	public void inroon(String userId,RoomBean bean) {
 		//Map<String, String> data2=getMap(bean);
 		//Log.i("TAG", new JSONObject(data2).toString());
+		if(socket==null)
+		{
+			contentSocket();
+			return;
+		}
 		if(socket.connected())
 		{
 			if(bean==null || bean.getRoom_id()==null || bean.getRoom_id().equals(""))

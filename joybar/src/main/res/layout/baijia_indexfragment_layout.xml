@@ -17,12 +17,6 @@
         android:layout_height="match_parent"
         android:divider="@color/color_transparent"
         android:dividerHeight="@null"/>
-
-    <!-- 无数据视图 -->
-
-    <include
-        layout="@layout/nodata_layout"
-        />
     </RelativeLayout>
 
 </LinearLayout>

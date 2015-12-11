@@ -150,7 +150,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         Log.i(TAG, "ChatFragment--->>setUserVisibleHint isVisibleToUser:" + isVisibleToUser);
-        if (isVisibleToUser) {
+        //如果用户已经登录
+        if (isVisibleToUser && MyApplication.getInstance().isUserLogin(getActivity())) {
             SocketManger.the().setContext(getActivity());
             registerImBroadcastReceiver();//注册广播（接收 消息）
             regiestSockIoBroadCase();//监听sockeoio链接变化
