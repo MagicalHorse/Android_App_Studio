@@ -254,9 +254,9 @@ public class GuideFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     if (mList.get(position).isFllowed()) {
-                        sendAttation(position,mList.get(position).getBuyerId(), 0, tv_attention);
+                        sendAttation(position,mList.get(position).getUserId(), 0, tv_attention);
                     } else {
-                        sendAttation(position,mList.get(position).getBuyerId(), 1, tv_attention);
+                        sendAttation(position,mList.get(position).getUserId(), 1, tv_attention);
                     }
                 }
             });

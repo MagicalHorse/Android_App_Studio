@@ -70,7 +70,7 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                 @Override
                 public void onClick(View v) {
                     boolean isFllowed = mList.get(position).isFllowed();
-                    String buyerId = mList.get(position).getBuyerId();
+                    String buyerId = mList.get(position).getUserId();
                     sendAttation(position,buyerId, isFllowed, holder.tv_attention);
                 }
             });

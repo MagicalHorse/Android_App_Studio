@@ -19,6 +19,7 @@ public class BuyerInfo {
     private String Lon;// 门店经度            0表示没有坐标
     private String Lat;//门店所在纬度        0表示没有坐标
     private List<ProductsInfoBean> Products;//商品列表
+    private String UserId;
     private String BuyerId;//买手Id
     private String UserLevel;//用户等级
     private String ProvinceName;//省名称
@@ -27,6 +28,14 @@ public class BuyerInfo {
     private String Address;//地址
     private List<String> Brands;//品牌
 
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
 
     public String getNickName() {
         return NickName;
