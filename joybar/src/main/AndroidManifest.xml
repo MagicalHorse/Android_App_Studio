@@ -205,6 +205,11 @@
         <activity
             android:name=".baijia.activity.WebActivity"
             android:screenOrientation="portrait"></activity>
+        <!--主题-->
+        <activity
+            android:name=".baijia.activity.ThemeWebActivity"
+            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name=".view.imageshow.ImageShowActivity"
             android:screenOrientation="portrait"></activity>
@@ -387,7 +392,7 @@
         <!-- 商品详情 -->
         <activity
             android:name=".baijia.activity.BaijiaProductInfoActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <!-- 品牌详细页面 -->
         <activity
@@ -407,8 +412,8 @@
         <!-- 聊天界面 -->
         <activity
             android:name=".ChatActivity"
-            android:launchMode="singleTop"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"></activity>
         <!-- 店铺介绍界面 -->
         <activity
@@ -477,7 +482,6 @@
         <activity
             android:name="com.shenma.yueba.baijia.activity.BuyerSearchActivity"
             android:screenOrientation="portrait" />
-
 
 
         <!-- 网络状态变化的广播 -->
