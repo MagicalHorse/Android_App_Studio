@@ -360,7 +360,6 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                         intent.putExtra("url",url);
                         startActivity(intent);
                     }
-                    MyApplication.getInstance().showMessage(getActivity(), "点击操作");
                 }
             });
             MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getPic()), riv, MyApplication.getInstance().getDisplayImageOptions());
