@@ -14,7 +14,8 @@
             android:id="@+id/iv_one"
             android:layout_weight="1"
             android:layout_width="0dip"
-            android:scaleType="centerCrop"
+            android:background="#aaaaaa"
+            android:scaleType="fitCenter"
             android:layout_height="fill_parent" />
 
 
@@ -26,8 +27,9 @@
 
         <ImageView
             android:id="@+id/iv_two"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
+            android:background="#aaaaaa"
             android:layout_width="0dip"
             android:layout_height="fill_parent" />
 
