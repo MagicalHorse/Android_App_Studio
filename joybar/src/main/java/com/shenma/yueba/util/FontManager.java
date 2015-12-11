@@ -19,17 +19,17 @@ import android.widget.TextView;
  */
 public class FontManager {
 	public static void changeFonts(Context ctx, View... views) {
-		Typeface tf = MyApplication.getInstance().getTypeface();
-		for (int i = 0; i < views.length; i++) {
-			if (views[i] instanceof TextView) {
-				((TextView) views[i]).setTypeface(tf);
-			} else if (views[i] instanceof Button) {
-				((Button) views[i]).setTypeface(tf);
-			} else if (views[i] instanceof EditText) {
-				((EditText) views[i]).setTypeface(tf);
-			}else if (views[i] instanceof CheckBox) {
-				((CheckBox) views[i]).setTypeface(tf);
-			}
-		}
+//		Typeface tf = MyApplication.getInstance().getTypeface();
+//		for (int i = 0; i < views.length; i++) {
+//			if (views[i] instanceof TextView) {
+//				((TextView) views[i]).setTypeface(tf);
+//			} else if (views[i] instanceof Button) {
+//				((Button) views[i]).setTypeface(tf);
+//			} else if (views[i] instanceof EditText) {
+//				((EditText) views[i]).setTypeface(tf);
+//			}else if (views[i] instanceof CheckBox) {
+//				((CheckBox) views[i]).setTypeface(tf);
+//			}
+//		}
 	}
 }

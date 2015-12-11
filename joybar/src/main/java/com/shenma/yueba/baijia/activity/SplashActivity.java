@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.shenma.yueba.GuideActivity;
 import com.shenma.yueba.R;
@@ -12,6 +13,8 @@ import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.common.SocializeConstants;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 /**
  * 程序刚启动的时候，加载页面
@@ -28,13 +31,14 @@ public class SplashActivity extends BaseActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.loading_layout);
 		MyApplication.getInstance().addActivity(this);
-		Log.i("screen", ToolsUtil.getDisplayWidth(mContext)+"");
-		Log.i("screen", ToolsUtil.getDisplayHeight(mContext)+"");
+		Log.i("screen", ToolsUtil.getDisplayWidth(mContext) + "");
+		Log.i("screen", ToolsUtil.getDisplayHeight(mContext) + "");
 		MobclickAgent.openActivityDurationTrack(true); // 统计在线时长
 		MobclickAgent.onEvent(this, "SplashActivity"); // 打开客户端
-		MobclickAgent.updateOnlineConfig( mContext );
+		MobclickAgent.updateOnlineConfig(mContext);
 		MobclickAgent.setCatchUncaughtExceptions(true);
-		MobclickAgent.setDebugMode( true );
+		MobclickAgent.setDebugMode(true);
+		Toast.makeText(mContext,SocializeConstants.SDK_VERSION,Toast.LENGTH_SHORT).show();
 		AnalyticsConfig.enableEncrypt(true);//对日志进行加密
 		handler.postDelayed(new Runnable() {
 			@Override

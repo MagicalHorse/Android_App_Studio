@@ -82,7 +82,7 @@ public class GuideFragment extends BaseFragment {
      */
     public void getRecommondBuyerlist(boolean first) {
         HttpControl httpControl = new HttpControl();
-        httpControl.getRecommondBuyerlist(page, new HttpControl.HttpCallBackInterface() {
+        httpControl.getRecommondBuyerlist(first,page, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
                 RecommondBuyerlistBackBean bean = (RecommondBuyerlistBackBean) obj;

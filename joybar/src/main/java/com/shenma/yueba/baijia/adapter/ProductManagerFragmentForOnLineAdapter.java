@@ -191,7 +191,7 @@ public class ProductManagerFragmentForOnLineAdapter extends BaseAdapterWithUtil 
 							PublishProductActivity.class);
 					intent.putExtra("from", "productManager");
 					intent.putExtra("id", mList.get(position).getProductId());
-					intent.putExtra("data", mList.get(position).getDetail());
+					//intent.putExtra("data", mList.get(position).getDetail());
 					((Activity)ctx).startActivityForResult(intent, 100);
 				} else if (flag == 0) {// 删除
 					dialog.alertDialog(ctx, "提示", "您确认要删除该商品吗？",

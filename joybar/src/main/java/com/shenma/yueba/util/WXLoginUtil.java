@@ -46,6 +46,7 @@ public class WXLoginUtil {
 		UMWXHandler wxHandler = new UMWXHandler(ctx, Constants.WX_APP_ID,
 				Constants.WX_SECRET);
 		wxHandler.addToSocialSDK();
+		wxHandler.setRefreshTokenAvailable(false);
 		/*
 		 * mController.doOauthVerify(ctx, SHARE_MEDIA.WEIXIN, new
 		 * UMAuthListener() {
@@ -158,7 +159,7 @@ public class WXLoginUtil {
 
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(ctx, msg, 1000).show();
+				Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
 
 			}
 		}, ctx, true);
@@ -173,7 +174,7 @@ public class WXLoginUtil {
 			@Override
 			public void http_Success(Object obj) {
 				
-				Toast.makeText(ctx, "绑定成功", 1000).show();
+				Toast.makeText(ctx, "绑定成功", Toast.LENGTH_SHORT).show();
 				SharedUtil.setBooleanPerfernece(ctx, SharedUtil.user_IsBindWeiXin, true);
 				if(hasCallBack){
 					((BindInter)ctx).refresh();
@@ -185,7 +186,7 @@ public class WXLoginUtil {
 
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(ctx, msg, 1000).show();
+				Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
 
 			}
 		}, ctx, true);

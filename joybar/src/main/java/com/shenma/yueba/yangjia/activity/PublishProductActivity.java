@@ -35,6 +35,7 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.BaseActivityWithTopView;
 import com.shenma.yueba.baijia.modle.RequestUploadProductDataBean;
+import com.shenma.yueba.baijia.modle.newmodel.ProductDetailBackBean;
 import com.shenma.yueba.camera2.ActivityCapture;
 import com.shenma.yueba.util.CustomProgressDialog;
 import com.shenma.yueba.util.DialogUtilInter;
@@ -89,7 +90,7 @@ public class PublishProductActivity extends BaseActivityWithTopView implements
 	private boolean onePicLoadFinished, twoPicLoadFinished, ThreePicFinished;
 	private String productId;
 	private String from;
-
+	RequestUploadProductDataBean detailBean;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		MyApplication.getInstance().addActivity(this);// 加入回退栈
@@ -104,13 +105,31 @@ public class PublishProductActivity extends BaseActivityWithTopView implements
 		from = getIntent().getStringExtra("from");
 		TagListBean tagListBean = (TagListBean) getIntent()
 				.getSerializableExtra("tagListBean");
-		RequestUploadProductDataBean detailBean = (RequestUploadProductDataBean) getIntent()
-				.getSerializableExtra("data");
 		productId = getIntent().getStringExtra("id");
-		if (TextUtils.isEmpty(productId)
+		if (TextUtils.isEmpty(productId)//发布商品
 				&& TextUtils.isEmpty(MyApplication.getInstance()
-						.getPublishUtil().getBean().getId())) {// 说明是修改商品
+						.getPublishUtil().getBean().getId())) {
 			tv_publish.setText("发布");
+			if (tagListBean != null) {
+				tagList = tagListBean.getTagList();
+				if (tagList != null && tagList.size() > 0) {
+					int index = Integer.valueOf(MyApplication.getInstance()
+							.getPublishUtil().getIndex());
+					List<ProductImagesBean> images = MyApplication.getInstance()
+							.getPublishUtil().getBean().getImages();
+					int currentLength = images.size();
+					if (currentLength < index + 1) {
+						for (int i = 0; i < index - currentLength + 1; i++) {
+							ProductImagesBean productImagesBean = new ProductImagesBean();
+							MyApplication.getInstance().getPublishUtil().getBean()
+									.getImages().add(productImagesBean);
+						}
+					}
+					MyApplication.getInstance().getPublishUtil().getBean()
+							.getImages().get(index).setTags(tagList);
+				}
+			}
+			setImageView();
 		} else {
 			if (productId != null) {
 				MyApplication.getInstance().getPublishUtil().getBean()
@@ -133,118 +152,8 @@ public class PublishProductActivity extends BaseActivityWithTopView implements
 							PublishProductActivity.class);
 				}
 			});
-			if (detailBean != null) {
-				List<ProductImagesBean> images = detailBean.getImages();
-				MyApplication.getInstance().getPublishUtil()
-						.setBean(detailBean);
-			} else {
-				detailBean = MyApplication.getInstance().getPublishUtil()
-						.getBean();
-			}
+			getProductDetail();
 		}
-
-		if (tagListBean != null) {
-			tagList = tagListBean.getTagList();
-			if (tagList != null && tagList.size() > 0) {
-				int index = Integer.valueOf(MyApplication.getInstance()
-						.getPublishUtil().getIndex());
-				List<ProductImagesBean> images = MyApplication.getInstance()
-						.getPublishUtil().getBean().getImages();
-				int currentLength = images.size();
-				if (currentLength < index + 1) {
-					for (int i = 0; i < index - currentLength + 1; i++) {
-						ProductImagesBean productImagesBean = new ProductImagesBean();
-						MyApplication.getInstance().getPublishUtil().getBean()
-								.getImages().add(productImagesBean);
-					}
-				}
-				MyApplication.getInstance().getPublishUtil().getBean()
-						.getImages().get(index).setTags(tagList);
-			}
-		}
-
-		// 修改商品
-		if (detailBean != null) {
-			if ("editPic".equals(from)) {
-
-			} else if ("productManager".equals(from)) {
-				FileUtils.delAllFile(FileUtils.getRootPath() + "/tagPic/");
-			}
-			List<ProductImagesBean> imagesList = MyApplication.getInstance()
-					.getPublishUtil().getBean().getImages();
-			if (imagesList != null && imagesList.size() > 0) {
-				String imageUrl = imagesList.get(0).getImageUrl();
-				if (!TextUtils.isEmpty(imageUrl)) {// 缓存有网络图片地址
-					saveBitmapToFile(0, imageUrl);
-				} else {// 说明图片已经本地修改的时候删除完，所以没有了图片
-					setImageView();
-				}
-			}
-			MyApplication.getInstance().getPublishUtil().setBean(detailBean);
-			MyApplication.getInstance().getPublishUtil().getBean()
-					.setId(productId);
-
-			MyApplication.getInstance().getPublishUtil().getTagCacheList()
-					.clear();
-			ArrayList<List<TagCacheBean>> tagCacheList = MyApplication
-					.getInstance().getPublishUtil().getTagCacheList();
-			for (int i = 0; i < detailBean.getImages().size(); i++) {
-				if (detailBean.getImages().get(i).getTags().size() > 0) {
-					List<TagsBean> tagsBean = detailBean.getImages().get(i)
-							.getTags();
-					for (int j = 0; j < tagsBean.size(); j++) {
-						TagCacheBean tagcacheBean = new TagCacheBean();
-						tagcacheBean.setName(tagsBean.get(j).getName());
-						tagcacheBean.setId(Integer.valueOf(tagsBean.get(j)
-								.getSourceId()));
-						tagcacheBean.setType(tagsBean.get(j).getSourceType());
-						tagcacheBean.setX((int) (ToolsUtil
-								.getDisplayWidth(mContext) * Double
-								.parseDouble(tagsBean.get(j).getPosX())));
-						tagcacheBean.setY((int) (ToolsUtil
-								.getDisplayWidth(mContext) * Double
-								.parseDouble(tagsBean.get(j).getPosY())));
-						tagCacheList.get(i).add(tagcacheBean);
-					}
-				}
-			}
-			MyApplication.getInstance().getPublishUtil()
-					.setTagCacheList(tagCacheList);
-
-			et_product_number.setText(ToolsUtil.nullToString(MyApplication
-					.getInstance().getPublishUtil().getBean().getSku_Code()));
-			et_price.setText(ToolsUtil.nullToString(MyApplication.getInstance()
-					.getPublishUtil().getBean().getPrice()));
-			et_introduce.setText(ToolsUtil.nullToString(MyApplication
-					.getInstance().getPublishUtil().getBean().getDesc()));
-			List<SizeBean> sizeList = MyApplication.getInstance()
-					.getPublishUtil().getBean().getSizes();
-			if (sizeList != null) {
-				for (int i = 0; i < sizeList.size(); i++) {
-					if (i == 0) {
-						et_guige.setText(sizeList.get(i).getName());
-						et_kucun.setText(sizeList.get(i).getInventory());
-					} else {
-						View view = View.inflate(mContext, R.layout.guige_item,
-								null);
-						EditText et_guige = (EditText) view
-								.findViewById(R.id.et_guige);
-						EditText et_kucun = (EditText) view
-								.findViewById(R.id.et_kucun);
-						FontManager.changeFonts(mContext, et_guige, et_kucun);
-						et_guige.setText(sizeList.get(i).getName());
-						et_kucun.setText(sizeList.get(i).getInventory());
-						ll_guige_container.addView(view);
-					}
-					ll_guige_container.setVisibility(View.VISIBLE);
-
-				}
-			}
-			return;
-		}
-
-		setImageView();
-
 	}
 
 	private void initView() {
@@ -517,6 +426,112 @@ public class PublishProductActivity extends BaseActivityWithTopView implements
 
 	}
 
+
+
+	private void getProductDetail(){
+		HttpControl httpControl = new HttpControl();
+		httpControl.getProductDetail(new HttpCallBackInterface() {
+			@Override
+			public void http_Success(Object obj) {
+				ProductDetailBackBean bean = (ProductDetailBackBean)obj;
+				detailBean =  bean.getData();
+				if (detailBean != null) {
+					List<ProductImagesBean> images = detailBean.getImages();
+					MyApplication.getInstance().getPublishUtil()
+							.setBean(detailBean);
+				} else {
+					detailBean = MyApplication.getInstance().getPublishUtil()
+							.getBean();
+				}
+// 修改商品
+				if (detailBean != null) {
+					if ("editPic".equals(from)) {
+
+					} else if ("productManager".equals(from)) {
+						FileUtils.delAllFile(FileUtils.getRootPath() + "/tagPic/");
+					}
+					List<ProductImagesBean> imagesList = MyApplication.getInstance()
+							.getPublishUtil().getBean().getImages();
+					if (imagesList != null && imagesList.size() > 0) {
+						String imageUrl = imagesList.get(0).getImageUrl();
+						if (!TextUtils.isEmpty(imageUrl)) {// 缓存有网络图片地址
+							saveBitmapToFile(0, imageUrl);
+						} else {// 说明图片已经本地修改的时候删除完，所以没有了图片
+							setImageView();
+						}
+					}
+					MyApplication.getInstance().getPublishUtil().setBean(detailBean);
+					MyApplication.getInstance().getPublishUtil().getBean()
+							.setId(productId);
+
+					MyApplication.getInstance().getPublishUtil().getTagCacheList()
+							.clear();
+					ArrayList<List<TagCacheBean>> tagCacheList = MyApplication
+							.getInstance().getPublishUtil().getTagCacheList();
+					for (int i = 0; i < detailBean.getImages().size(); i++) {
+						if (detailBean.getImages().get(i).getTags().size() > 0) {
+							List<TagsBean> tagsBean = detailBean.getImages().get(i)
+									.getTags();
+							for (int j = 0; j < tagsBean.size(); j++) {
+								TagCacheBean tagcacheBean = new TagCacheBean();
+								tagcacheBean.setName(tagsBean.get(j).getName());
+								tagcacheBean.setId(Integer.valueOf(tagsBean.get(j)
+										.getSourceId()));
+								tagcacheBean.setType(tagsBean.get(j).getSourceType());
+								tagcacheBean.setX((int) (ToolsUtil
+										.getDisplayWidth(mContext) * Double
+										.parseDouble(tagsBean.get(j).getPosX())));
+								tagcacheBean.setY((int) (ToolsUtil
+										.getDisplayWidth(mContext) * Double
+										.parseDouble(tagsBean.get(j).getPosY())));
+								tagCacheList.get(i).add(tagcacheBean);
+							}
+						}
+					}
+					MyApplication.getInstance().getPublishUtil()
+							.setTagCacheList(tagCacheList);
+
+					et_product_number.setText(ToolsUtil.nullToString(MyApplication
+							.getInstance().getPublishUtil().getBean().getSku_Code()));
+					et_price.setText(ToolsUtil.nullToString(MyApplication.getInstance()
+							.getPublishUtil().getBean().getPrice()));
+					et_introduce.setText(ToolsUtil.nullToString(MyApplication
+							.getInstance().getPublishUtil().getBean().getDesc()));
+					List<SizeBean> sizeList = MyApplication.getInstance()
+							.getPublishUtil().getBean().getSizes();
+					if (sizeList != null) {
+						for (int i = 0; i < sizeList.size(); i++) {
+							if (i == 0) {
+								et_guige.setText(sizeList.get(i).getName());
+								et_kucun.setText(sizeList.get(i).getInventory());
+							} else {
+								View view = View.inflate(mContext, R.layout.guige_item,
+										null);
+								EditText et_guige = (EditText) view
+										.findViewById(R.id.et_guige);
+								EditText et_kucun = (EditText) view
+										.findViewById(R.id.et_kucun);
+								FontManager.changeFonts(mContext, et_guige, et_kucun);
+								et_guige.setText(sizeList.get(i).getName());
+								et_kucun.setText(sizeList.get(i).getInventory());
+								ll_guige_container.addView(view);
+							}
+							ll_guige_container.setVisibility(View.VISIBLE);
+
+						}
+					}
+					return;
+				}
+
+			}
+
+			@Override
+			public void http_Fails(int error, String msg) {
+
+			}
+		},mContext,productId);
+	}
+
 	private void publishProduct() {
 		HttpControl httpControl = new HttpControl();
 		List<ProductImagesBean> imageList = MyApplication.getInstance()
@@ -540,7 +555,7 @@ public class PublishProductActivity extends BaseActivityWithTopView implements
 					if (progressDialog != null && progressDialog.isShowing()) {
 						progressDialog.dismiss();
 					}
-					Toast.makeText(mContext, "发布成功", 1000).show();
+					Toast.makeText(mContext, "发布成功", Toast.LENGTH_SHORT).show();
 					// FileUtils.delAllFile(FileUtils.getRootPath() +
 					// "/tagPic/");
 					PublishProductActivity.this.finish();
@@ -567,7 +582,7 @@ public class PublishProductActivity extends BaseActivityWithTopView implements
 					if (progressDialog != null && progressDialog.isShowing()) {
 						progressDialog.dismiss();
 					}
-					Toast.makeText(mContext, "修改成功", 1000).show();
+					Toast.makeText(mContext, "修改成功", Toast.LENGTH_SHORT).show();
 					// FileUtils.delAllFile(FileUtils.getRootPath() +
 					// "/tagPic/");
 					setResult(101);
@@ -649,33 +664,33 @@ public class PublishProductActivity extends BaseActivityWithTopView implements
 		}
 		if (TextUtils.isEmpty(pic1) && TextUtils.isEmpty(pic2)
 				&& TextUtils.isEmpty(pic3)) {
-			Toast.makeText(mContext, "商品图片不能为空", 1000).show();
+			Toast.makeText(mContext, "商品图片不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if (TextUtils.isEmpty(et_product_number.getText().toString().trim())) {
-			Toast.makeText(mContext, "货号不能为空", 1000).show();
+			Toast.makeText(mContext, "货号不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if (TextUtils.isEmpty(et_price.getText().toString().trim())) {
-			Toast.makeText(mContext, "价格不能为空", 1000).show();
+			Toast.makeText(mContext, "价格不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if (TextUtils.isEmpty(et_introduce.getText().toString().trim())) {
-			Toast.makeText(mContext, "商品介绍不能为空", 1000).show();
+			Toast.makeText(mContext, "商品介绍不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		Sizes.clear();
 		SizeBean bean1 = new SizeBean();
 		String guige = et_guige.getText().toString().trim();
 		if (TextUtils.isEmpty(guige)) {
-			Toast.makeText(mContext, "规格不能为空", 1000).show();
+			Toast.makeText(mContext, "规格不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		} else {
 			bean1.setName(guige);
 		}
 		String kucun = et_kucun.getText().toString().trim();
 		if (TextUtils.isEmpty(kucun)) {
-			Toast.makeText(mContext, "库存不能为空", 1000).show();
+			Toast.makeText(mContext, "库存不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		} else {
 			bean1.setInventory(kucun);
@@ -689,7 +704,7 @@ public class PublishProductActivity extends BaseActivityWithTopView implements
 					.findViewById(R.id.et_kucun);
 			if (TextUtils.isEmpty(et_guige.getText().toString().trim())
 					|| TextUtils.isEmpty(et_kucun.getText().toString().trim())) {
-				Toast.makeText(mContext, "请将库存规格填写完整", 1000).show();
+				Toast.makeText(mContext, "请将库存规格填写完整", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			SizeBean bean = new SizeBean();
