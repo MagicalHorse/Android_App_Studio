@@ -80,11 +80,14 @@ public class GuideFragment extends BaseFragment {
     /**
      * 推荐的买手/导购
      */
-    public void getRecommondBuyerlist(boolean first) {
+    public void getRecommondBuyerlist(final boolean first) {
         HttpControl httpControl = new HttpControl();
         httpControl.getRecommondBuyerlist(first,page, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
+                if(first){
+                    mList.clear();
+                }
                 RecommondBuyerlistBackBean bean = (RecommondBuyerlistBackBean) obj;
                 if (bean != null && bean.getData() != null) {
                     List<BuyerInfo> buyers = bean.getData().getBuyers();
