@@ -307,9 +307,7 @@ public class HomeAdapter extends BaseAdapter {
                             if(MyApplication.getInstance().isUserLogin(activity))
                             {
                                 IndexProductInfo product = (IndexProductInfo) v.getTag();
-                                Intent intent = new Intent(activity, ShopMainActivity.class);
-                                intent.putExtra("userID", Integer.valueOf(product.getBuyerId()));
-                                activity.startActivity(intent);
+                                ToolsUtil.forwardShopMainActivity(activity, Integer.valueOf(product.getBuyerId()));
                             }
                         }
                     });

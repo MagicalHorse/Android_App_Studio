@@ -450,11 +450,11 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
 		case R.id.btn_send:// 发送消息
 			String content = mEditTextContent.getText().toString().trim();
 			if ("".equals(content)) {
-				Toast.makeText(ChatActivity.this, "发送消息不能为空", 1000).show();
+				MyApplication.getInstance().showMessage(ChatActivity.this, "发送消息不能为空");
 				return;
 			}
 			if (!NetUtils.isNetworkConnected(this)) {
-				Toast.makeText(ChatActivity.this, "网络不可用", 1000).show();
+				MyApplication.getInstance().showMessage(ChatActivity.this,"网络不可用");
 				return;
 			}
 			if(!showOrHiddenAlertView())

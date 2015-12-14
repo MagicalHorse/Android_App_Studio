@@ -597,6 +597,12 @@ public class HttpConstants {
 	 */
 	
 	public static String GETUSERINFO = USERURLFORREAD+ "GetUserInfo";
+
+	/**
+	 * 败家 -获取用户信息（新）
+	 */
+
+	public static String GET_GetBuyerInfo= V3FORREAD+ "GetBuyerInfo";
 	
 	
 	/**
@@ -715,8 +721,15 @@ public class HttpConstants {
 	/*****
 	 * 获取买手的商品列表、上新商品列表
 	 * **/
+	public static String METHOD_GetBuyerProduct = V3FORREAD+ "GetBuyerProduct";
+
+
+	/*****
+	 * 获取买手的商品列表V3
+	 * **/
 	public static String METHOD_GETUSERPRODUCTLIST = PRODUCTFORREAD+ "GetUserProductList";
-	
+
+
 	/*****
 	 * 获取败家消息列表
 	 * **/

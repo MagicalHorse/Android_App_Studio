@@ -329,8 +329,6 @@ public class GuideFragment extends BaseFragment {
      * @param id int
      ****/
     public static void forwardShopMainActivity(Context ctx, int id) {
-        Intent intent = new Intent(ctx, ShopMainActivity.class);
-        intent.putExtra("userID", id);
-        ctx.startActivity(intent);
+        ToolsUtil.forwardShopMainActivity(ctx, id);
     }
 }

@@ -1718,6 +1718,27 @@ public class HttpControl {
 
 
     /**
+     * 获取败家获取用户信息（新）
+     * @param showDialog boolean 当前页
+     * @param  buyerId String 商家用户id
+     * @param  userid  String 用户id
+     * @return void
+     **/
+    public void GetBuyerInfoToV3(String userid,int buyerId ,boolean showDialog, final HttpCallBackInterface httpCallBack, Context context) {
+        Map<String, String> map = new HashMap<String, String>();
+        if(userid==null || userid.equals(""))
+        {
+            map.put("userid","0");
+        }else
+        {
+            map.put("userid", userid);
+        }
+        map.put("buyerId",Integer.toString(buyerId));
+        BasehttpSend(map, context, HttpConstants.GET_GetBuyerInfo, httpCallBack, RequestUserInfoBean.class, showDialog, false);
+    }
+
+
+    /**
      * 获取败家订单列表
      *
      * @param currPage int 当前页
@@ -1977,6 +1998,32 @@ public class HttpControl {
         map.put("Filter", Integer.toString(Filter));
         map.put("UserId", Integer.toString(UserId));
         BasehttpSend(map, context, HttpConstants.METHOD_GETUSERPRODUCTLIST, httpCallBack, RequestMyFavoriteProductListInfoBean.class, showDialog, false);
+    }
+
+
+    /**
+     * 获取买手的商品列表
+     *
+     * @param page     int 当前页
+     * @param buyerId   String 买手id
+     * @param UserId   String 当前用户id
+     * @param pagesize int 页大小
+     * @return void
+     **/
+    public void getBuyerProduct(String UserId,String buyerId,int page, int pagesize, boolean showDialog, final HttpCallBackInterface httpCallBack, Context context) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put(Constants.PAGE, Integer.toString(page));
+        map.put(Constants.PAGESIZE, Integer.toString(pagesize));
+        map.put("buyerId", buyerId);
+        if(UserId==null|| UserId.equals(""))
+        {
+            map.put("UserId", "0");
+        }else
+        {
+            map.put("UserId", UserId);
+        }
+
+        BasehttpSend(map, context, HttpConstants.METHOD_GetBuyerProduct, httpCallBack, RequestMyFavoriteProductListInfoBean.class, showDialog, false);
     }
 
 

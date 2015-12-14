@@ -359,6 +359,20 @@ public class MyApplication extends Application {
         }
     }
 
+
+    /*****
+     * 判断用户是否已经登录 不自动跳转到登陆页
+     * return true 已经登录 false 未登录
+     ***/
+    public boolean isUserLoginNoForward(Context context) {
+        boolean status = SharedUtil.getBooleanPerfernece(this.getApplicationContext(), SharedUtil.user_loginstatus);
+        if (status) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /***
      * 跳转到登录页
      **/

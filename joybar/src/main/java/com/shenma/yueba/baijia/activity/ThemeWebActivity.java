@@ -233,7 +233,7 @@ public class ThemeWebActivity extends BaseActivityWithTopView {
 					try {
 						if (idValue != null) {
 							int id = Integer.valueOf(idValue);
-							intent.putExtra("userID", id);
+							intent.putExtra("buyerId", id);
 						}
 					}catch(Exception e)
 					{

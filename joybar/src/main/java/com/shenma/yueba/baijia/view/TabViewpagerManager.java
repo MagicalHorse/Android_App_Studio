@@ -143,20 +143,28 @@ public class TabViewpagerManager {
     /***
      * 设置当前需要显示的 item
      ***/
-    public void setCurrView(int i) {
+    public  synchronized void setCurrView(int i) {
+        setCurrView(i,true);
+    }
+
+    /***
+     * 设置当前需要显示的 item
+     * @param  b boolean
+     ***/
+    public  synchronized void setCurrView(int i,boolean b) {
         if (currid == i) {
             return;
         }
         currid = i;
         setTextColor(i);
-        viewpager.setCurrentItem(i);
+        viewpager.setCurrentItem(i,b);
     }
 
 
     /*****
      * 设置字体颜色及选中后显示的图片
      ***/
-    void setTextColor(int value) {
+   public void setTextColor(int value) {
         for (int i = 0; i < footer_list.size(); i++) {
             RelativeLayout rl = (RelativeLayout) footer_list.get(i);
             TextView tv = (TextView) rl.findViewById(R.id.tab_line_textview);

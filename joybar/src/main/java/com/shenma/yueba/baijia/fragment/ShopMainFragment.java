@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.PubuliuManager;
+import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
@@ -64,7 +66,8 @@ public class ShopMainFragment extends Fragment {
     boolean isrunning=false;
     HttpControl httpControl = new HttpControl();
     UserInfoBean userInfoBean;
-    int userID = -1;
+    int buyerId = -1;
+    String userId="";//当前登录用户的ID
     Activity activity;
     PubuliuManager pubuliuManager;
     boolean ishow=true;
@@ -73,12 +76,12 @@ public class ShopMainFragment extends Fragment {
     List<PubuliuBeanInfo> item=new ArrayList<PubuliuBeanInfo>();
     //用户信息
     RequestUserInfoBean userinfobean;
-
+    boolean isSUCESS;//是否加载完成 true 是  false 否（主要用于判断 是否访问网络获取数据）
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.activity = activity;
-        userID = getArguments().getInt("userID", -1);
+        buyerId = getArguments().getInt("buyerId", -1);
         layoutInflater = LayoutInflater.from(activity);
         fragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
     }
@@ -111,27 +114,10 @@ public class ShopMainFragment extends Fragment {
             {
                 return;
             }
-            if(userinfobean==null)
-            {
-                ishow =true;
-                //如果用户登陆成功
-                if(MyApplication.getInstance().isUserLogin(getActivity()))
-                {
-                    getBaijiaUserInfo();
-                }else
-                {
-                    //ssssss
-                }
-
-            }
-
-            if(currPage<0)
-            {
-                currPage=1;
-                sendReuqestAllProductHttp(currPage, 0);
-            }
+            requestRefreshData();
         }
     }
+
 
     /*****
      * 初始化数据
@@ -156,6 +142,7 @@ public class ShopMainFragment extends Fragment {
 
             @Override
             public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+                isSUCESS=false;
                 requestRefreshData();
             }
 
@@ -212,7 +199,7 @@ public class ShopMainFragment extends Fragment {
                     if (!MyApplication.getInstance().isUserLogin(getActivity())) {
                         return;
                     }
-                    ToolsUtil.forwardChatActivity(getActivity(), userInfoBean.getUserName(), userID, 0, null, null,null);
+                    ToolsUtil.forwardChatActivity(getActivity(), userInfoBean.getUserName(), buyerId, 0, null, null,null);
                     break;
                 case R.id.shop_main_attention_imagebutton://关注
                     if(!MyApplication.getInstance().isUserLogin(getActivity()))
@@ -246,7 +233,7 @@ public class ShopMainFragment extends Fragment {
      * **/
     void submitAttention(final View textview,final int Status,final UserInfoBean bean)
     {
-        httpControl.setFavoite(Integer.toString(userID), Status, new HttpControl.HttpCallBackInterface() {
+        httpControl.setFavoite(Integer.toString(buyerId), Status, new HttpControl.HttpCallBackInterface() {
 
             @Override
             public void http_Success(Object obj) {
@@ -277,16 +264,33 @@ public class ShopMainFragment extends Fragment {
     /******
      * 下拉刷新
      ***/
-    void requestRefreshData() {
+    synchronized void requestRefreshData() {
         if(isrunning)
         {
             return;
         }
-        ishow =true;
-        getBaijiaUserInfo();
 
-        currPage=1;
-        sendReuqestAllProductHttp(currPage, 0);
+        //获取当前登录的用户id
+        String currUserid= SharedUtil.getStringPerfernece(activity,SharedUtil.user_id);
+        if(userinfobean==null || !currUserid.equals(userId))
+        {
+            ishow =true;
+            getBaijiaUserInfo(currUserid);
+        }
+        //如果没有加载完成  或 当前的用户id 与 之前记录的不一样
+        if(!isSUCESS || !currUserid.equals(userId))
+        {
+            currPage=1;
+            userId=currUserid;
+            ishow =true;
+            sendReuqestAllProductHttp(currPage, 0);
+            if(pubuliuManager!=null && item!=null)
+            {
+                item.clear();
+                pubuliuManager.onResher(item);
+            }
+        }
+
     }
 
     /******
@@ -300,13 +304,12 @@ public class ShopMainFragment extends Fragment {
         sendReuqestAllProductHttp(currPage, 1);
     }
 
-
     /*****
      * 获取用户信息
      ***/
 
-    void getBaijiaUserInfo() {
-        httpControl.getBaijiaUserInfo(userID, true, new HttpControl.HttpCallBackInterface() {
+    void getBaijiaUserInfo(String currUserid) {
+        httpControl.GetBuyerInfoToV3(currUserid, buyerId, true, new HttpControl.HttpCallBackInterface() {
 
             @Override
             public void http_Success(Object obj) {
@@ -354,7 +357,7 @@ public class ShopMainFragment extends Fragment {
         shop_main_head_layout_address_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
         //商品
         TextView tv_product_count=(TextView)activity.findViewById(R.id.tv_product_count);
-        tv_product_count.setText("商品："+userInfoBean.getProductCount());
+        tv_product_count.setText("商品：" + userInfoBean.getProductCount());
     }
 
 
@@ -368,7 +371,8 @@ public class ShopMainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(getActivity());
-
+        Log.i("TAG", "onResume ----------------------------------->>");
+        requestRefreshData();
     }
 
     public void onPause() {
@@ -449,7 +453,7 @@ public class ShopMainFragment extends Fragment {
     {
         isrunning=true;
         ToolsUtil.showNoDataView(getActivity(), false);
-        httpControl.GetBaijiaGetUserProductList(userID,page, pageSize, 0, ishow, new HttpControl.HttpCallBackInterface() {
+        httpControl.getBuyerProduct(userId,Integer.toString(buyerId),page, pageSize,ishow, new HttpControl.HttpCallBackInterface() {
 
             @Override
             public void http_Success(Object obj) {
@@ -467,6 +471,7 @@ public class ShopMainFragment extends Fragment {
                 ishow=false;
                 setPageStatus(bean, page);
                 isrunning=false;
+                isSUCESS=true;
             }
 
             @Override

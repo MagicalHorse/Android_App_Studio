@@ -946,7 +946,7 @@ public class ToolsUtil {
      ****/
     public static void forwardShopMainActivity(Context ctx, int id) {
         Intent intent = new Intent(ctx, ShopMainActivity.class);
-        intent.putExtra("userID", id);
+        intent.putExtra("buyerId", id);
         ctx.startActivity(intent);
     }
 

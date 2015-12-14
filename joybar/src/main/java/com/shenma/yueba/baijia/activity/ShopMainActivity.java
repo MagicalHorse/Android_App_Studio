@@ -19,7 +19,6 @@ import com.shenma.yueba.baijia.fragment.ShopMainFragment;
 import com.shenma.yueba.baijia.modle.FragmentBean;
 import com.shenma.yueba.baijia.view.TabViewpagerManager;
 import com.shenma.yueba.util.HttpControl;
-import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.yangjia.modle.CircleDetailBackBean;
 
 import java.util.ArrayList;
@@ -39,24 +38,25 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
     List<FragmentBean> head_data = new ArrayList<FragmentBean>();
     // 存储Tab切换的视图对象
     List<View> footer_list = new ArrayList<View>();
-    int userID = -1;//用户id
+    int buyerId = -1;//买手用户id
     ViewPager shop_main_layout_contact_viewpager;//切换的viewpager控件
     FragmentManager fragmentManager;
     TabViewpagerManager tabViewpagerManager;
-    boolean isrunning=false;
-    HttpControl httpControl=new HttpControl();
+    boolean isrunning = false;
+    HttpControl httpControl = new HttpControl();
     CircleDetailBackBean circleDetailBackBean;
     ShopMainFragment shopMainFragment;
     ChatFragment chatFragment;
-    String Type=null;//类型 如果不为空 且为 Circle 则加载圈子 否则加载店铺
+    String Type = null;//类型 如果不为空 且为 Circle 则加载圈子 否则加载店铺
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         MyApplication.getInstance().addActivity(this);//加入回退栈
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_main_layout);
-        userID = this.getIntent().getIntExtra("userID", -1);
-        if (userID < 0) {
+        buyerId = this.getIntent().getIntExtra("buyerId", -1);
+        if (buyerId < 0) {
             MyApplication.getInstance().showMessage(ShopMainActivity.this, "数据错误，请重试");
             finish();
             return;
@@ -68,14 +68,11 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
     }
 
 
-    void setCurrTabView()
-    {
-        Type=this.getIntent().getStringExtra("Type");
-        if(Type!=null && Type.equals("Circle"))
-        {
+    void setCurrTabView() {
+        Type = this.getIntent().getStringExtra("Type");
+        if (Type != null && Type.equals("Circle")) {
             setCurrView(1);
-        }else
-        {
+        } else {
             setCurrView(0);
         }
     }
@@ -83,19 +80,16 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if(intent!=null)
-        {
-            int newuserID = intent.getIntExtra("userID", -1);
-            if(newuserID!=userID) {
+        if (intent != null) {
+            int newuserID = intent.getIntExtra("buyerId", -1);
+            if (newuserID != buyerId) {
                 startActivity(intent);
                 finish();
-            }else
-            {
+            } else {
                 setIntent(intent);
                 setCurrTabView();
             }
-        }else
-        {
+        } else {
             startActivity(intent);
             finish();
 
@@ -116,8 +110,8 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
                 if (!MyApplication.getInstance().isUserLogin(ShopMainActivity.this)) {
                     return;
                 }
-                if (circlesettings_imageview.getTag()!=null && circlesettings_imageview.getTag() instanceof Integer) {
-                    int circleId = (Integer)circlesettings_imageview.getTag();
+                if (circlesettings_imageview.getTag() != null && circlesettings_imageview.getTag() instanceof Integer) {
+                    int circleId = (Integer) circlesettings_imageview.getTag();
                     Intent intent = new Intent(ShopMainActivity.this, CircleInfoActivity.class);
                     intent.putExtra("circleId", circleId);
                     startActivity(intent);
@@ -132,9 +126,8 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(chatFragment!=null)
-        {
-            chatFragment.onActivityResult(requestCode,resultCode,data);
+        if (chatFragment != null) {
+            chatFragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -151,24 +144,44 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
      * 初始化 顶部TAB 切换的 数据
      ***/
     void initHeadTab() {
-        if(shopMainFragment==null)
-        {
-            shopMainFragment=new ShopMainFragment();
+        if (shopMainFragment == null) {
+            shopMainFragment = new ShopMainFragment();
         }
 
-        if(chatFragment==null)
-        {
-            chatFragment=new ChatFragment();
+        if (chatFragment == null) {
+            chatFragment = new ChatFragment();
         }
-        chatFragment=new ChatFragment();
+        chatFragment = new ChatFragment();
         shop_main_layout_headcontant_linearlayout = (LinearLayout) findViewById(R.id.shop_main_layout_headcontant_linearlayout);
         head_data.add(new FragmentBean("店铺", -1, shopMainFragment));
         head_data.add(new FragmentBean("圈子", -1, chatFragment));
         shop_main_layout_contact_viewpager = (ViewPager) findViewById(R.id.shop_main_layout_contact_viewpager);
-        tabViewpagerManager = new TabViewpagerManager(this, head_data, shop_main_layout_headcontant_linearlayout, shop_main_layout_contact_viewpager);
+        tabViewpagerManager = new TabViewpagerManager(this, head_data, shop_main_layout_headcontant_linearlayout, shop_main_layout_contact_viewpager){
+            //重写 方法
+            @Override
+            public synchronized void setCurrView(int i) {
+                //super.setCurrView(i);
+                switch (i)
+                {
+                    case 0:
+                        tabViewpagerManager.setCurrView(0,true);
+                        break;
+                    case 1:
+                        if(!MyApplication.getInstance().isUserLogin(ShopMainActivity.this))
+                        {
+                            tabViewpagerManager.setCurrView(0,false);
+                        }else
+                        {
+                            tabViewpagerManager.setCurrView(1,true);
+                        }
+                        break;
+                }
+            }
+        };
         Bundle bundle = new Bundle();
-        bundle.putInt("userID", userID);
+        bundle.putInt("buyerId", buyerId);
         tabViewpagerManager.initFragmentViewPager(fragmentManager, bundle);
+
         shop_main_layout_contact_viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -177,7 +190,23 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
 
             @Override
             public void onPageSelected(int position) {
-                setCurrView(position);
+                switch (position)
+                {
+                    case 0:
+                        setCurrView(0);
+                        break;
+                    case 1:
+                        if(!MyApplication.getInstance().isUserLogin(ShopMainActivity.this))
+                        {
+                            setCurrView(0);
+                            shop_main_layout_contact_viewpager.setCurrentItem(0,false);
+                        }else
+                        {
+                            setCurrView(1);
+
+                        }
+                        break;
+                }
             }
 
             @Override
@@ -191,16 +220,13 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
      * 设置当前需要显示的 item
      ***/
     void setCurrView(int i) {
-        shop_main_layout_contact_viewpager.setCurrentItem(i);
         tabViewpagerManager.setCurrView(i);
-        switch(i)
-        {
+        switch (i) {
             case 0:
                 circlesettings_imageview.setVisibility(View.INVISIBLE);
                 break;
             case 1:
-                if (circlesettings_imageview.getTag()!=null )
-                {
+                if (circlesettings_imageview.getTag() != null) {
                     circlesettings_imageview.setVisibility(View.VISIBLE);
                 }
                 break;

@@ -126,7 +126,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         layoutInflater = LayoutInflater.from(activity);
-        buyerId = getArguments().getInt("userID", -1);
+        buyerId = getArguments().getInt("buyerId", -1);
         Log.i(TAG, "ChatFragment--->>onAttach ");
     }
 
@@ -151,7 +151,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         super.setUserVisibleHint(isVisibleToUser);
         Log.i(TAG, "ChatFragment--->>setUserVisibleHint isVisibleToUser:" + isVisibleToUser);
         //如果用户已经登录
-        if (isVisibleToUser && MyApplication.getInstance().isUserLogin(getActivity())) {
+        if (isVisibleToUser && MyApplication.getInstance().isUserLoginNoForward(getActivity())) {
             SocketManger.the().setContext(getActivity());
             registerImBroadcastReceiver();//注册广播（接收 消息）
             regiestSockIoBroadCase();//监听sockeoio链接变化
@@ -232,9 +232,12 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 if (view.getFirstVisiblePosition() == 0 && !isloading && haveMoreData) {
                     switch (scrollState) {
                         case SCROLL_STATE_IDLE:
-                            loadmorePB.setVisibility(View.VISIBLE);// 显示 加载视图
-                            // 从网络获取消息数据
-                            getMessage();
+                            if(MyApplication.getInstance().isUserLoginNoForward(getActivity()))
+                            {
+                                loadmorePB.setVisibility(View.VISIBLE);// 显示 加载视图
+                                // 从网络获取消息数据
+                                getMessage();
+                            }
                     }
 
                 }
