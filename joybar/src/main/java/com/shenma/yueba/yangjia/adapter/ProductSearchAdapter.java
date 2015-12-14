@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.BaseAdapterWithUtil;
 import com.shenma.yueba.baijia.modle.ProductsInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchProductBackBean;
+import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.yangjia.fragment.MsgListFragment;
 import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
@@ -69,7 +71,13 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 		initBitmap(ToolsUtil.nullToString(mList.get(position).getPic()), holder.iv_product);
 		holder.tv_introduce.setText(mList.get(position).getProductName());
 		holder.tv_price.setText("￥"+mList.get(position).getPrice());
-		holder.cb_collection.setChecked(mList.get(position).isFavite());
+		holder.cb_collection.setChecked(mList.get(position).isFavorite());
+		holder.cb_collection.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setFavor(position, mList.get(position).getProductId(), mList.get(position).isFavorite());
+			}
+		});
 		return convertView;
 	}
 
@@ -80,6 +88,35 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 		TextView tv_price;
 
 	}
+
+
+	/**
+	 * 收藏或者取消收藏
+	 * @param id
+	 * @param isFavite
+	 */
+	private void setFavor(final int position,int id, final boolean isFavite){
+		HttpControl httpControl = new HttpControl();
+		httpControl.setFavor(id + "", isFavite ? 0 : 1, new HttpControl.HttpCallBackInterface() {
+			@Override
+			public void http_Success(Object obj) {
+				if(isFavite){
+					Toast.makeText(ctx, "取消收藏成功", Toast.LENGTH_SHORT).show();
+					mList.get(position).setIsFavorite(false);
+				}else{
+					Toast.makeText(ctx, "收藏成功", Toast.LENGTH_SHORT).show();
+					mList.get(position).setIsFavorite(true);
+				}
+				notifyDataSetChanged();
+			}
+
+			@Override
+			public void http_Fails(int error, String msg) {
+				Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
+			}
+		}, ctx);
+	}
+
 
 	void initBitmap(final String url, final ImageView iv) {
 		MyApplication.getInstance().getBitmapUtil().display(iv, url);

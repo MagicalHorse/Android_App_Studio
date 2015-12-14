@@ -24,7 +24,7 @@ public class ProductsInfoBean implements Serializable{
 	private String Brandid;
 	private String BrandId;
 	private String  Brand;
-	private String IsFavorite;// 当前用户是否关注
+	private boolean IsFavorite;// 当前用户是否关注
 	private String Pic="";//图片"
 	private String StoreItemNo;//商店编号",
 	private String UnitPrice;//吊牌价
@@ -149,11 +149,19 @@ public class ProductsInfoBean implements Serializable{
 		Brand = brand;
 	}
 
-	public String getIsFavorite() {
+	public String getBrandId() {
+		return BrandId;
+	}
+
+	public void setBrandId(String brandId) {
+		BrandId = brandId;
+	}
+
+	public boolean isFavorite() {
 		return IsFavorite;
 	}
 
-	public void setIsFavorite(String isFavorite) {
+	public void setIsFavorite(boolean isFavorite) {
 		IsFavorite = isFavorite;
 	}
 
