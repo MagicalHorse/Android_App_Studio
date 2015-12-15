@@ -957,7 +957,7 @@ public class ToolsUtil {
      ****/
     public static void forwardShopMainCircleActivity(Context ctx, int id) {
         Intent intent = new Intent(ctx, ShopMainActivity.class);
-        intent.putExtra("userID", id);
+        intent.putExtra("buyerId", id);
         intent.putExtra("Type","Circle");
         ctx.startActivity(intent);
     }

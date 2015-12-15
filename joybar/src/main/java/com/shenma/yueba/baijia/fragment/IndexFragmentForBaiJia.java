@@ -208,10 +208,10 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
 
         getScrollRoundView();
         //加载 无视图数据
-        View nodataview=LayoutInflater.from(getActivity()).inflate(R.layout.nodata_layout,null);
-        LinearLayout.LayoutParams nodataparam=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        nodataparam.topMargin=80;
-        head_ll.addView(nodataview,nodataparam);
+        //View nodataview=LayoutInflater.from(getActivity()).inflate(R.layout.nodata_layout,null);
+        //LinearLayout.LayoutParams nodataparam=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        //nodataview.setPadding(0,80,0,0);
+        //head_ll.addView(nodataview,nodataparam);
     }
 
 

@@ -146,15 +146,17 @@ public class CircleInfoActivity extends BaseActivityWithTopView implements
 		FontManager.changeFonts(mContext, tv_cirlce_head_title,
 				tv_cirlce_name_title, tv_circle_title, tv_circle_name, bt_action, tv_top_title,tv_cirlce_head_erweima_title);
 
-		//二维码
+		/*//二维码
 		riv_circle_head_erweima_imageview = (ImageView) findViewById(R.id.riv_circle_head_erweima_imageview);
 		riv_circle_head_erweima_imageview.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				kaixiaoPiaoBean bean=new kaixiaoPiaoBean();
+
 				QRCodeShareDialog qrCodeShareDialog = new QRCodeShareDialog(CircleInfoActivity.this,null);
 				qrCodeShareDialog.show();
 			}
-		});
+		});*/
 
 	}
 

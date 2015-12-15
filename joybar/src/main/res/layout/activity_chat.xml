@@ -257,6 +257,7 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <!--商品信息-->
     <include
         android:layout_below="@id/top_bar"
         android:id="@+id/chat_product_head_layout_include"
@@ -267,7 +268,7 @@
         />
     <RelativeLayout
         android:background="@color/main_bg"
-        android:layout_below="@+id/chat_product_head_layout_include"
+        android:layout_below="@+id/chat_alertmsg_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bar_bottom"
@@ -313,7 +314,7 @@
 
     <!--提示信息-->
     <LinearLayout
-        android:layout_below="@+id/top_bar"
+        android:layout_below="@+id/chat_product_head_layout_include"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="10dp"

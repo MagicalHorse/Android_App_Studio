@@ -142,7 +142,14 @@ public class HomeAdapter extends BaseAdapter {
             holder.home_item_top_layout_time_textview.setText("剩余结束时间："+indexItems.getShowstr());
         }else
         {
-            holder.home_item_top_layout_time_textview.setText("剩余开始时间："+indexItems.getShowstr());
+            holder.home_item_top_layout_time_textview.setText("剩余开始时间：" + indexItems.getShowstr());
+        }
+        if(indexItems.getShowstr()==null || indexItems.getShowstr().toString().trim().equals(""))
+        {
+            holder.home_item_top_layout_time_textview.setVisibility(View.GONE);
+        }else
+        {
+            holder.home_item_top_layout_time_textview.setVisibility(View.VISIBLE);
         }
 
         indexItems.setTimerLinstener(new IndexItems.TimerLinstener() {
@@ -161,6 +168,13 @@ public class HomeAdapter extends BaseAdapter {
                             }else
                             {
                                 holder.home_item_top_layout_time_textview.setText("剩余开始时间："+_indexItems.getShowstr());
+                            }
+                            if(_indexItems.getShowstr()==null || _indexItems.getShowstr().toString().trim().equals(""))
+                            {
+                                holder.home_item_top_layout_time_textview.setVisibility(View.GONE);
+                            }else
+                            {
+                                holder.home_item_top_layout_time_textview.setVisibility(View.VISIBLE);
                             }
                         }
                     });

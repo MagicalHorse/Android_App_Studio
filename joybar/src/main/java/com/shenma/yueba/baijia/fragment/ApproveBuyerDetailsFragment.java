@@ -298,7 +298,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 			intent.putExtra("toUser_id", bean.getData().getBuyerId());// 私聊的话需要传对方id
 			intent.putExtra("DATA", bean);
 			startActivity(intent);*/
-			ToolsUtil.forwardChatActivity(activity, bean.getData().getBuyerName(), Integer.valueOf(bean.getData().getBuyerId()), 0, null, bean,requestCk_SPECDetails);
+			ToolsUtil.forwardChatActivity(activity, bean.getData().getBuyerName(), Integer.valueOf(bean.getData().getBuyerId()), 0, null, bean, requestCk_SPECDetails);
 		}
 	}
 
@@ -575,7 +575,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 
 			break;
 		case R.id.approvebuyerdetails_layout_siliao_linerlayout_textview:
-			startChatActivity();
+			forwardSiLiao();
 			break;
 		case R.id.approvebuyerbuybutton:
 			if(!ckProductCountDownBean.isDayangGou())
@@ -618,6 +618,14 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 
 	}
 
+
+	void forwardSiLiao() {
+		if (!MyApplication.getInstance().isUserLogin(activity)) {
+			return;
+		}
+
+		ToolsUtil.forwardChatActivity(getActivity(),ToolsUtil.nullToString(bean.getData().getBuyerName()),Integer.valueOf(bean.getData().getBuyerId()),0,null,null,null);
+	}
 
 	/****
 	 * 提交收藏与取消收藏商品

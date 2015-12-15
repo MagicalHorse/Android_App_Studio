@@ -721,7 +721,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                                 Log.i("TAG", "---->>>socket roomId:" + roomId);
                                 inroom();
                                 isPrepare = true;
-                                setAlertMsgView();//设置 顶部的提示信息自动消失
+                                //asetAlertMsgView();//设置 顶部的提示信息自动消失
                             }
 
                         }
