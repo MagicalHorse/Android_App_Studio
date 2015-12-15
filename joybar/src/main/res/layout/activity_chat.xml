@@ -10,6 +10,7 @@
         android:id="@+id/top_bar"
         layout="@layout/chat_layout_title" />
     <View
+        android:id="@+id/top_bar_line"
         android:layout_below="@id/top_bar"
         style="@style/style_horizontal_line"
         />
@@ -259,7 +260,7 @@
 
     <!--商品信息-->
     <include
-        android:layout_below="@id/top_bar"
+        android:layout_below="@id/top_bar_line"
         android:id="@+id/chat_product_head_layout_include"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
