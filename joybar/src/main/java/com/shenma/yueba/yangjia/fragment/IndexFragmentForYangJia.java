@@ -160,7 +160,7 @@ public class IndexFragmentForYangJia extends BaseFragment implements
     		//刷新数据
     		getIndexInfo(false);
     	}else{
-			Toast.makeText(getActivity(), "网络不可用，请稍后重试", 1000).show();
+			Toast.makeText(getActivity(), "网络不可用，请稍后重试", Toast.LENGTH_SHORT).show();
 		}
 			}
 		});
@@ -334,7 +334,7 @@ public class IndexFragmentForYangJia extends BaseFragment implements
 				intent.putExtra("imageUrl", codeUrl);
 				startActivity(intent);
 			}else{
-				Toast.makeText(getActivity(), "二维码为空", 1000).show();
+				Toast.makeText(getActivity(), "二维码为空", Toast.LENGTH_SHORT).show();
 			}
 //			Intent imageShowIntent = new Intent(getActivity(), ImageShowActivity.class);
 //			imageShowIntent.putStringArrayListExtra(ImageShowActivity.BIGIMAGES,urlList);
@@ -441,7 +441,7 @@ public class IndexFragmentForYangJia extends BaseFragment implements
 			
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(getActivity(), msg, 1000).show();
+				Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 				
 			}
 		}, getActivity(), showProgress, true);

@@ -96,18 +96,21 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
             public void returnChildListView(final List<View> view_array) {
                 final List<ProductsInfoBean> products = mList.get(position).getProducts();
                 for (int i = 0; i < products.size(); i++) {
-                    String pic = products.get(i).getPic();
-                    bitmapUtils.display((view_array.get(i)), pic);
-                    view_array.get(i).setTag(products.get(i).getProductId());
-                    view_array.get(i).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            int productId = (Integer)v.getTag();
-                            Intent intent = new Intent(ctx, BaijiaProductInfoActivity.class);
-                            intent.putExtra("productID",productId);
-                            ctx.startActivity(intent);
-                        }
-                    });
+                    if(view_array.size()>i){
+                        String pic = products.get(i).getPic();
+                        bitmapUtils.display((view_array.get(i)), pic);
+                        view_array.get(i).setTag(products.get(i).getProductId());
+                        view_array.get(i).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                int productId = (Integer)v.getTag();
+                                Intent intent = new Intent(ctx, BaijiaProductInfoActivity.class);
+                                intent.putExtra("productID",productId);
+                                ctx.startActivity(intent);
+                            }
+                        });
+                    }
+
                 }
 
             }
