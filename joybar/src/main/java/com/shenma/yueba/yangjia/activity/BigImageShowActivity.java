@@ -50,12 +50,13 @@ public class BigImageShowActivity extends BaseActivityWithTopView {
 			}
 		});
 		tv_content = getView(R.id.tv_content);
+		tv_content.setText(ToolsUtil.nullToString(title)+"的二维码店铺");
 		iv_big = getView(R.id.iv_big);
 		LayoutParams params = iv_big.getLayoutParams();
 		params.height = ToolsUtil.getDisplayWidth(mContext)-ToolsUtil.dip2px(mContext, 20);
 		params.width = ToolsUtil.getDisplayWidth(mContext)-ToolsUtil.dip2px(mContext, 20);
 		iv_big.setLayoutParams(params);
-		setTitle(ToolsUtil.nullToString(title));
+		setTitle("首页");
 		byte[] bytes = Base64Coder.decode(imageUrl);
 		iv_big.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
 		FontManager.changeFonts(mContext, tv_content,tv_top_title);

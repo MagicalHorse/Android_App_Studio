@@ -80,6 +80,7 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
                 GuideFragment.this.state =  state;
             }
         });
+        page = 1;
         getRecommondBuyerlist(true);
         return view;
     }
