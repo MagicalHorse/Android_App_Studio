@@ -5,8 +5,15 @@ package com.shenma.yueba.baijia.modle.newmodel;
  */
 public class SubjectrBean {
     String Name;//             主题名称
-    String Pic ;//            主题logo
     String Link ;//          Url地址
+    String Logo ;//            主题logo
+    public String getLogo() {
+        return Logo;
+    }
+
+    public void setLogo(String logo) {
+        Logo = logo;
+    }
 
     public String getLink() {
         return Link;
@@ -24,11 +31,4 @@ public class SubjectrBean {
         Name = name;
     }
 
-    public String getPic() {
-        return Pic;
-    }
-
-    public void setPic(String pic) {
-        Pic = pic;
-    }
 }

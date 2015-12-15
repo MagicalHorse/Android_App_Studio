@@ -351,7 +351,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         horizontalScrollView.addView(ll, params);
         for (int i = 0; i < subjectrBean_array.size(); i++) {
             RoundImageView riv = new RoundImageView(getActivity());
-            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getPic()),riv,MyApplication.getInstance().getDisplayImageOptions());
+            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getLogo()),riv,MyApplication.getInstance().getDisplayImageOptions());
             riv.setTag(subjectrBean_array.get(i));
             riv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -366,7 +366,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                     }
                 }
             });
-            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getPic()), riv, MyApplication.getInstance().getDisplayImageOptions());
+            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getLogo()), riv, MyApplication.getInstance().getDisplayImageOptions());
             int width = getActivity().getResources().getDimensionPixelOffset(R.dimen.dimen_scrollwidth);
             LinearLayout.LayoutParams chidparam = new LinearLayout.LayoutParams(width, width);
             chidparam.leftMargin = 3;

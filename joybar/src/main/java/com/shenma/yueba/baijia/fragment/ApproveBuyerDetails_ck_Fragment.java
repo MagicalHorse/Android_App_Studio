@@ -1101,11 +1101,11 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 forwardSiLiao();
                 break;
             case R.id.approvebuyerbuybutton:
-                /*if(!ckProductCountDownBean.isDayangGou())
+                if(!ckProductCountDownBean.isDayangGou())
                 {
                     MyApplication.getInstance().showMessage(getActivity(),"活动还没开始");
                     return;
-                }*/
+                }
                 startChatActivity();
                 break;
             case R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview:
