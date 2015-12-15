@@ -72,9 +72,15 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 		holder.tv_introduce.setText(mList.get(position).getProductName());
 		holder.tv_price.setText("￥"+mList.get(position).getPrice());
 		holder.cb_collection.setChecked(mList.get(position).isFavorite());
+		holder.cb_collection.setTag(mList.get(position));
 		holder.cb_collection.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (!MyApplication.getInstance().isUserLogin(
+						ctx)) {
+					holder.cb_collection.setChecked(((ProductsInfoBean) holder.cb_collection.getTag()).isFavorite());
+					return;
+				}
 				setFavor(position, mList.get(position).getProductId(), mList.get(position).isFavorite());
 			}
 		});

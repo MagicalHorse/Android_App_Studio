@@ -1,10 +1,12 @@
 package com.shenma.yueba.baijia.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
+import com.shenma.yueba.baijia.activity.MarketMainActivity;
 import com.shenma.yueba.baijia.modle.StoreItem;
 import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBackBean;
 import com.shenma.yueba.util.HttpControl;
@@ -73,15 +76,23 @@ public class MarketSearchFragment extends BaseFragment {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				isRefresh = true;
-			    getMarketList(getActivity(),false,false,key);
-				
+				getMarketList(getActivity(), false, false, key);
+
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-				page ++;
+				page++;
 				isRefresh = false;
-				getMarketList(getActivity(), false,false,key);
+				getMarketList(getActivity(), false, false, key);
+			}
+		});
+		pull_refresh_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(position>0){
+					forwardMarketActivity(mList.get(position-1).getStoreId());
+				}
 			}
 		});
 		return view;
@@ -99,30 +110,30 @@ public class MarketSearchFragment extends BaseFragment {
 		String cityId = SharedUtil.getStringPerfernece(getActivity(), SharedUtil.getStringPerfernece(getActivity(), PerferneceConfig.SELECTED_CITY_ID));
 		String latitude = PerferneceUtil.getString(PerferneceConfig.LATITUDE);
 		String longitude = PerferneceUtil.getString(PerferneceConfig.LONGITUDE);
-		httpControl.searchMarket(key, cityId, longitude, latitude,showDialog, page, new HttpCallBackInterface() {
+		httpControl.searchMarket(key, cityId, longitude, latitude, showDialog, page, new HttpCallBackInterface() {
 			@Override
 			public void http_Success(Object obj) {
 				pull_refresh_list.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                    	pull_refresh_list.onRefreshComplete();
-                    }
-            }, 100);
+					@Override
+					public void run() {
+						pull_refresh_list.onRefreshComplete();
+					}
+				}, 100);
 				SearchMarketBackBean bean = (SearchMarketBackBean) obj;
 				if (isRefresh) {
 					mList.clear();
-					if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null && bean.getData().getItems().size()>0){
+					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
 						mList.addAll(bean.getData().getItems());
 						tv_nodata.setVisibility(View.GONE);
-					}else{
+					} else {
 						tv_nodata.setVisibility(View.VISIBLE);
 					}
 					adapter.notifyDataSetChanged();
 				} else {
-					if(bean!=null && bean.getData()!=null && bean.getData().getItems()!=null&& bean.getData().getItems().size()>0){
+					if (bean != null && bean.getData() != null && bean.getData().getItems() != null && bean.getData().getItems().size() > 0) {
 						mList.addAll(bean.getData().getItems());
 						adapter.notifyDataSetChanged();
-					}else{
+					} else {
 						Toast.makeText(getActivity(), "没有更多数据了...", Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -130,8 +141,15 @@ public class MarketSearchFragment extends BaseFragment {
 
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 			}
-		},getActivity());
+		}, getActivity());
+	}
+
+
+	void forwardMarketActivity(String StoreId) {
+		Intent intent = new Intent(getActivity(), MarketMainActivity.class);
+		intent.putExtra("StoreId",StoreId);
+		getActivity().startActivity(intent);
 	}
 }

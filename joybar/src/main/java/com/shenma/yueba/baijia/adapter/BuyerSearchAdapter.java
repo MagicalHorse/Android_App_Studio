@@ -66,23 +66,15 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
             holder.ll_touch = (LinearLayout) convertView.findViewById(R.id.ll_touch);
             holder.tv_touch = (TextView) convertView.findViewById(R.id.tv_touch);
             holder.tv_attention = (TextView) convertView.findViewById(R.id.tv_attention);
-            holder.tv_attention.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    boolean isFllowed = mList.get(position).isFllowed();
-                    String buyerId = mList.get(position).getUserId();
-                    sendAttation(position,buyerId, isFllowed, holder.tv_attention);
-                }
-            });
+
             holder.tv_store_name = (TextView) convertView.findViewById(R.id.tv_store_name);
             holder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
             holder.riv_head = (RoundImageView) convertView.findViewById(R.id.riv_head);
             holder.riv_head.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                        Intent intent = new Intent(ctx, ShopMainActivity.class);
                     try{
-                        ToolsUtil.forwardShopMainActivity(ctx,Integer.valueOf(mList.get(position).getBuyerId()));
+                        ToolsUtil.forwardShopMainActivity(ctx,Integer.valueOf(mList.get(position).getUserId()));
                     }catch (Exception e){
                     }
 
@@ -130,6 +122,18 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
         bitmapUtils.display(holder.riv_head, mList.get(position).getLogo());
         holder.tv_name.setText(ToolsUtil.nullToString(mList.get(position).getNickname()));
         holder.tv_attention.setText(ToolsUtil.nullToString(mList.get(position).isFllowed() ? "取消关注" : "关注"));
+        holder.tv_attention.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!MyApplication.getInstance().isUserLogin(
+                        ctx)) {
+                    return;
+                }
+                boolean isFllowed = mList.get(position).isFllowed();
+                String buyerId = mList.get(position).getUserId();
+                sendAttation(position, buyerId, isFllowed, holder.tv_attention);
+            }
+        });
         holder.tv_store_name.setText(ToolsUtil.nullToString(mList.get(position).getStoreName()));
         holder.tv_address.setText(ToolsUtil.nullToString(mList.get(position).getStoreLocal()));
         ;
