@@ -4,6 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +27,7 @@ import java.util.List;
 
 public class ProductSearchAdapter extends BaseAdapterWithUtil {
 	private List<ProductsInfoBean> mList;
-
+	RotateAnimation animation;
 	public ProductSearchAdapter(Context ctx, List<ProductsInfoBean> mList) {
 		super(ctx);
 		this.ctx = ctx;
@@ -60,8 +64,8 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 					.findViewById(R.id.iv_product);
 			holder.tv_introduce = (TextView) convertView
 					.findViewById(R.id.tv_introduce);
-			holder.cb_collection = (CheckBox) convertView
-					.findViewById(R.id.cb_collection);
+			holder.iv_collection = (ImageView) convertView
+					.findViewById(R.id.iv_collection);
 			holder.tv_price = (TextView) convertView
 					.findViewById(R.id.tv_price);
 			convertView.setTag(holder);
@@ -70,25 +74,23 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 		}
 		initBitmap(ToolsUtil.nullToString(mList.get(position).getPic()), holder.iv_product);
 		holder.tv_introduce.setText(mList.get(position).getProductName());
-		holder.tv_price.setText("￥"+mList.get(position).getPrice());
-		holder.cb_collection.setChecked(mList.get(position).isFavorite());
-		holder.cb_collection.setTag(mList.get(position));
-		holder.cb_collection.setOnClickListener(new OnClickListener() {
+		holder.tv_price.setText("￥" + mList.get(position).getPrice());
+		holder.iv_collection.setBackgroundResource(mList.get(position).isFavorite() ? R.drawable.collect : R.drawable.uncollect);
+		holder.iv_collection.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (!MyApplication.getInstance().isUserLogin(
 						ctx)) {
-					holder.cb_collection.setChecked(((ProductsInfoBean) holder.cb_collection.getTag()).isFavorite());
 					return;
 				}
-				setFavor(position, mList.get(position).getProductId(), mList.get(position).isFavorite());
+				setFavor(v,position, mList.get(position).getProductId(), mList.get(position).isFavorite());
 			}
 		});
 		return convertView;
 	}
 
 	class Holder {
-		CheckBox cb_collection;
+		ImageView iv_collection;
 		ImageView iv_product;
 		TextView tv_introduce;
 		TextView tv_price;
@@ -101,7 +103,8 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 	 * @param id
 	 * @param isFavite
 	 */
-	private void setFavor(final int position,int id, final boolean isFavite){
+	private void setFavor(final View v,final int position,int id, final boolean isFavite){
+		startAnimation((ImageView)v);
 		HttpControl httpControl = new HttpControl();
 		httpControl.setFavor(id + "", isFavite ? 0 : 1, new HttpControl.HttpCallBackInterface() {
 			@Override
@@ -114,11 +117,13 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 					mList.get(position).setIsFavorite(true);
 				}
 				notifyDataSetChanged();
+				stopAnimation(v);
 			}
 
 			@Override
 			public void http_Fails(int error, String msg) {
 				Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
+				stopAnimation((ImageView)v);
 			}
 		}, ctx);
 	}
@@ -126,5 +131,28 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 
 	void initBitmap(final String url, final ImageView iv) {
 		MyApplication.getInstance().getBitmapUtil().display(iv, url);
+	}
+
+
+	void startAnimation(View v)
+	{
+		if(animation==null)
+		{
+			animation = new RotateAnimation(360, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+			animation.setInterpolator(new LinearInterpolator());
+			animation.setDuration(800);
+			animation.setRepeatMode(Animation.RESTART);
+			animation.setRepeatCount(Animation.INFINITE);
+			animation.setFillAfter(true);
+		}
+		v.startAnimation(animation);
+	}
+
+	void stopAnimation(View v)
+	{
+		if(animation!=null)
+		{
+			v.clearAnimation();
+		}
 	}
 }

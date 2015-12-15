@@ -123,7 +123,7 @@ public class HttpConstants {
 	 * 找导购--推荐的买手/导购
 	 *
 	 */
-	public static String METHOD_RecommondBuyerlist = BuyerV3FORREAD + "RecommondBuyerlist";
+	public static String METHOD_RecommondBuyerlist = V3FORREAD + "RecommondBuyerlist";
 
 
 	/**

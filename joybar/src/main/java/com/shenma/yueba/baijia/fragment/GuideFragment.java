@@ -8,7 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.EventLog;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import com.shenma.yueba.baijia.modle.ProductsInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
 import com.shenma.yueba.baijia.modle.newmodel.RecommondBuyerlistBackBean;
 import com.shenma.yueba.util.HttpControl;
+import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.JazzyViewPager;
 import com.shenma.yueba.view.MyViewPager;
@@ -39,12 +42,13 @@ import java.util.List;
  * 找导购--导购
  * Created by a on 2015/11/23.
  */
-public class GuideFragment extends BaseFragment {
+public class GuideFragment extends BaseFragment implements View.OnTouchListener{
     private int page = 1;
     private JazzyViewPager jazzy_pager;
     private List<BuyerInfo> mList = new ArrayList<BuyerInfo>();
     private ViewPagerAdapter pageAdapter;
-
+    private int state = -1;
+    private float x1 =0,x2 = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.viewpager_layout, null);
@@ -53,10 +57,14 @@ public class GuideFragment extends BaseFragment {
         jazzy_pager.setPageMargin(30);
         pageAdapter = new ViewPagerAdapter(mList);
         jazzy_pager.setAdapter(pageAdapter);
+
         jazzy_pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+//                if(position == 0 && GuideFragment.this.state == 1 && positionOffset == 0){
+//                    Toast.makeText(getActivity(),"要刷新啦",Toast.LENGTH_SHORT).show();
+//                    GuideFragment.this.state = -1;
+//                }
             }
 
             @Override
@@ -69,7 +77,7 @@ public class GuideFragment extends BaseFragment {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                GuideFragment.this.state =  state;
             }
         });
         getRecommondBuyerlist(true);
@@ -82,10 +90,10 @@ public class GuideFragment extends BaseFragment {
      */
     public void getRecommondBuyerlist(final boolean first) {
         HttpControl httpControl = new HttpControl();
-        httpControl.getRecommondBuyerlist(first,page, new HttpControl.HttpCallBackInterface() {
+        httpControl.getRecommondBuyerlist(first, page, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
-                if(first){
+                if (first) {
                     mList.clear();
                 }
                 RecommondBuyerlistBackBean bean = (RecommondBuyerlistBackBean) obj;
@@ -103,6 +111,18 @@ public class GuideFragment extends BaseFragment {
                 Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
             }
         }, getActivity());
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+      if(MotionEvent.ACTION_DOWN  == event.getAction()){
+          GuideFragment.this.x1 =  v.getX();
+      }
+        if(MotionEvent.ACTION_MOVE  == event.getAction()){
+            GuideFragment.this.x2 =  v.getX();
+        }
+
+        return false;
     }
 
 
@@ -334,4 +354,8 @@ public class GuideFragment extends BaseFragment {
     public static void forwardShopMainActivity(Context ctx, int id) {
         ToolsUtil.forwardShopMainActivity(ctx, id);
     }
+
+
+
+
 }

@@ -40,15 +40,15 @@
         android:textColor="@color/red_text_color" />
 
 
-    <CheckBox
+    <ImageView
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="3dip"
-        android:id="@+id/cb_collection"
+        android:id="@+id/iv_collection"
         android:layout_width="20dip"
         android:layout_height="20dip"
-        android:button="@drawable/collect_check_backgroud"
+       android:background="@drawable/uncollect"
         android:layout_alignBottom="@id/tv_price"
         android:layout_alignParentRight="true"
-         />
+        android:checked="false" />
 
 </RelativeLayout>

@@ -34,7 +34,7 @@ import com.shenma.yueba.yangjia.activity.MainActivityForYangJia;
 public class GuideActivity extends Activity{
 	private static final int TO_THE_END = 0;// 到达最后一张
 	private static final int LEAVE_FROM_END = 1;// 离开最后一张
-	private int[] ids = { R.drawable.splash1, R.drawable.splash2,R.drawable.splash3,R.drawable.splash4};
+	private int[] ids = { R.drawable.page1, R.drawable.page2,R.drawable.page3};
 	private List<View> guides = new ArrayList<View>();
 	private ViewPager pager;
 	private ImageView open;
