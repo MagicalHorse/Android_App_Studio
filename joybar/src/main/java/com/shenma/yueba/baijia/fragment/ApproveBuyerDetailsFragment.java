@@ -618,7 +618,6 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 
 	}
 
-
 	void forwardSiLiao() {
 		if (!MyApplication.getInstance().isUserLogin(activity)) {
 			return;
