@@ -417,7 +417,7 @@ public class HttpControl {
      */
     public void touch(String buyerid, final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("buyerId", buyerid);
+        map.put("buyerId", ToolsUtil.nullToString(buyerid));
         BasehttpSend(map, context, HttpConstants.METHOD_Touch, httpCallBack, BaseRequest.class, false, false);
     }
 

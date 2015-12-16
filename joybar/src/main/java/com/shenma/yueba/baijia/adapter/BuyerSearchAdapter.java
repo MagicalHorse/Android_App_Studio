@@ -83,7 +83,11 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
             holder.tv_touch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    touch(mList.get(position - 1).getBuyerId());
+                    if (!MyApplication.getInstance().isUserLogin(
+                            ctx)) {
+                        return;
+                    }
+                    touch(v,mList.get(position).getUserId());
                 }
             });
             holder.authentication_item_productlist_linearlayout = (LinearLayout) convertView.findViewById(R.id.authentication_item_productlist_linearlayout);
@@ -159,7 +163,11 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
     /**
      * 戳一下
      */
-    public void touch(String buyerId) {
+    public void touch( View v,String buyerId) {
+        final TextView tv_touch = (TextView)v;
+        if(tv_touch.getText().toString().trim().equals("戳过了")){
+            return ;
+        }
         HttpControl httpControl = new HttpControl();
         httpControl.touch(buyerId, new HttpControl.HttpCallBackInterface() {
             @Override
@@ -167,6 +175,7 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                 BaseRequest bean = (BaseRequest) obj;
                 if (bean.isSuccessful()) {
                     Toast.makeText(ctx, "提醒成功！", Toast.LENGTH_SHORT).show();
+                    tv_touch.setText("戳过了");
                 } else {
                     Toast.makeText(ctx, "提醒失败！", Toast.LENGTH_SHORT).show();
                 }
