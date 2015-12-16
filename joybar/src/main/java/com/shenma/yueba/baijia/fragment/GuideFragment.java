@@ -186,16 +186,18 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
                     MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(1).getPic(), iv_two);
                     guide_ll_container.addView(imageView2);
                 } else if (mList.get(position).getProducts() != null && mList.get(position).getProducts().size() == 3) {
-                    View imageView3 = View.inflate(getActivity(), R.layout.three_pic_layout, null);
+                    View imageView3 = View.inflate(getActivity(), R.layout.four_pic_layout, null);
                     ImageView iv_one = (ImageView) imageView3.findViewById(R.id.iv_one);
                     ImageView iv_two = (ImageView) imageView3.findViewById(R.id.iv_two);
                     ImageView iv_three = (ImageView) imageView3.findViewById(R.id.iv_three);
+                    ImageView iv_four = (ImageView) imageView3.findViewById(R.id.iv_four);
                     ViewGroup.LayoutParams params1 = iv_one.getLayoutParams();
                     params1.width = (ToolsUtil.getDisplayWidth(getActivity()) - ToolsUtil.dip2px(getActivity(), 60)) / 2;
                     params1.height = (ToolsUtil.getDisplayWidth(getActivity()) - ToolsUtil.dip2px(getActivity(), 60)) / 2;
                     iv_one.setLayoutParams(params1);
                     iv_two.setLayoutParams(params1);
                     iv_three.setLayoutParams(params1);
+                    iv_four.setLayoutParams(params1);
                     iv_one.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

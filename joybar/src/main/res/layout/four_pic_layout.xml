@@ -13,8 +13,7 @@
         <ImageView
             android:id="@+id/iv_one"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:background="#aaaaaa"
+            android:scaleType="centerCrop"
             android:layout_width="0dip"
             android:layout_height="fill_parent" />
 
@@ -27,9 +26,8 @@
         <ImageView
             android:id="@+id/iv_two"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:layout_width="0dip"
-            android:background="#aaaaaa"
             android:layout_height="fill_parent" />
 
     </LinearLayout>
@@ -44,9 +42,8 @@
         <ImageView
 
             android:id="@+id/iv_three"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:layout_weight="1"
-            android:background="#aaaaaa"
             android:layout_width="0dip"
             android:layout_height="fill_parent" />
 
@@ -57,8 +54,7 @@
         <ImageView
             android:id="@+id/iv_four"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:background="#aaaaaa"
+            android:scaleType="centerCrop"
             android:layout_width="0dip"
             android:layout_height="fill_parent" />
 
