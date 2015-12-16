@@ -32,6 +32,8 @@ import com.shenma.yueba.baijia.modle.ProductsDetailsTagInfo;
 import com.shenma.yueba.baijia.modle.ProductsDetailsTagsInfo;
 import com.shenma.yueba.baijia.modle.RequestCKProductDeatilsInfo;
 import com.shenma.yueba.baijia.modle.RequestCk_SPECDetails;
+import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
+import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
@@ -51,7 +53,7 @@ import java.util.TimerTask;
  * @version 创建时间：2015-5-20 下午6:02:36 程序的简单说明 定义认证买手 商品详情页
  */
 
-public class ApproveBuyerDetailsFragment extends Fragment implements OnClickListener {
+public class ApproveBuyerDetailsFragment extends Fragment implements OnClickListener ,CollectobserverManage.ObserverListener{
 	// 当前选中的id （ViewPager选中的id）
 	int currid = -1;
 	// 滚动图片
@@ -120,6 +122,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 			setDatValue();
 			setFont();
 			getCkrProductSPECDetails();
+			CollectobserverManage.getInstance().addObserver(this);
 		}
 		if (parentView.getParent() != null) {
 			((ViewGroup) parentView.getParent()).removeView(parentView);
@@ -655,6 +658,11 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 									break;
 							}
 
+							//观察者通知数据改变
+							PubuliuBeanInfo pubuliuBeanInfo=new PubuliuBeanInfo();
+							pubuliuBeanInfo.setId(bean.getProductId());
+							pubuliuBeanInfo.setIscollection(bean.isFavorite());
+							CollectobserverManage.getInstance().dataChangeNotication(pubuliuBeanInfo);
 						}
 					}
 
@@ -688,4 +696,24 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		}, activity, true, true);
 	}
 
+	@Override
+	public void observerCallNotification(PubuliuBeanInfo pubuliuBeanInfo) {
+		if(pubuliuBeanInfo!=null)
+		{
+			if(pubuliuBeanInfo.getId().equals(bean.getData().getProductId()))
+			{
+				bean.getData().setIsFavorite(pubuliuBeanInfo.iscollection());
+				if(approvebuyerdetails_layout_shoucang_linerlayout_textview!=null)
+				{
+					approvebuyerdetails_layout_shoucang_linerlayout_textview.setSelected(bean.getData().isFavorite());
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		CollectobserverManage.getInstance().removeObserver(this);
+	}
 }

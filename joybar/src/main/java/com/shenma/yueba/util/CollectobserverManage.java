@@ -23,9 +23,13 @@ public class CollectobserverManage {
      * @param observerListener ObserverListener
      ******/
     public void addObserver(ObserverListener observerListener) {
-        if (!observer_array.contains(observerListener)) {
-            observer_array.add(observerListener);
+        if(observerListener!=null)
+        {
+            if (!observer_array.contains(observerListener)) {
+                observer_array.add(observerListener);
+            }
         }
+
     }
 
 
@@ -35,9 +39,28 @@ public class CollectobserverManage {
      * @param observerListener ObserverListener
      ******/
     public void removeObserver(ObserverListener observerListener) {
-        if (observer_array.contains(observerListener)) {
-            observer_array.add(observerListener);
+        if(observerListener!=null)
+        {
+            if (observer_array.contains(observerListener)) {
+                observer_array.add(observerListener);
+            }
         }
+
+    }
+
+    /*****
+     * 通知数据更新
+     * ***/
+    public synchronized  void dataChangeNotication(PubuliuBeanInfo pubuliuBeanInfo)
+    {
+        if(pubuliuBeanInfo!=null)
+        {
+            for(int i=0;i<observer_array.size();i++)
+            {
+                observer_array.get(i).observerCallNotification(pubuliuBeanInfo);
+            }
+        }
+
     }
 
     /********

@@ -24,6 +24,7 @@ import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.AbsBrandListManager;
 import com.shenma.yueba.util.AutoBrandListManager;
 import com.shenma.yueba.util.BrandListManager;
+import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.PubuliuManager;
 import com.shenma.yueba.util.SharedUtil;
@@ -145,6 +146,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         //瀑布流父类
         LinearLayout baijia_market_main_layout_pubuliu_linearlayout = (LinearLayout) findViewById(R.id.baijia_market_main_layout_pubuliu_linearlayout);
         pubuliuManager = new PubuliuManager(this, baijia_market_main_layout_pubuliu_linearlayout);
+        CollectobserverManage.getInstance().addObserver(pubuliuManager);
     }
 
 
@@ -337,5 +339,11 @@ public class MarketMainActivity extends BaseActivityWithTopView {
             }
         }
         return pubuliuBeanInfos;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CollectobserverManage.getInstance().removeObserver(pubuliuManager);
     }
 }

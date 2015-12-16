@@ -284,6 +284,8 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
                     setDataChange(bean, v);
                     bean.setIsruning(false);
                     stopAnimation(v);
+                    //观察者通知 数据有改变
+                    CollectobserverManage.getInstance().dataChangeNotication(bean);
                 }
             }
 
@@ -345,16 +347,19 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
         if(pubuliuBeanInfo!=null)
         {
             String product_id=pubuliuBeanInfo.getId();
-            if(collect_map.get(collect_map)!=null)
+            if(product_id!=null)
             {
-                LinearLayout ll=collect_map.get(product_id);
-                if(ll!=null  && ll.getTag()!=null)
+                if(collect_map.get(product_id)!=null)
                 {
-                    PubuliuBeanInfo info=(PubuliuBeanInfo)ll.getTag();
-                    info.setIsruning(false);
-                    info.setIscollection(pubuliuBeanInfo.iscollection());
-                    info.setFavoriteCount(pubuliuBeanInfo.getFavoriteCount());
-                    setDataChange(pubuliuBeanInfo, ll);
+                    LinearLayout ll=collect_map.get(product_id);
+                    if(ll!=null  && ll.getTag()!=null)
+                    {
+                        PubuliuBeanInfo info=(PubuliuBeanInfo)ll.getTag();
+                        info.setIsruning(false);
+                        info.setIscollection(pubuliuBeanInfo.iscollection());
+                        info.setFavoriteCount(pubuliuBeanInfo.getFavoriteCount());
+                        setDataChange(pubuliuBeanInfo, ll);
+                    }
                 }
             }
         }
