@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/shop_main_width3_dimen"
-    android:padding="@dimen/shop_main_width5_dimen" >
+    android:layout_marginTop="1dp"
+    android:padding="1dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:id="@+id/pubuliy_right_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/shop_main_width5_dimen"
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:orientation="vertical" >
         </LinearLayout>

@@ -262,20 +262,16 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 			ckProductCountDownBean.setTimerLinstener(new CKProductCountDownBean.TimerLinstener() {
 				@Override
 				public void timerCallBack() {
-					if(approvebuyerbuybutton!=null)
-					{
-						if(getActivity()!=null)
-						{
+					if (approvebuyerbuybutton != null) {
+						if (getActivity() != null) {
 							getActivity().runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
 									//如果打样够开始
-									if(ckProductCountDownBean.isDayangGou())
-									{
+									if (ckProductCountDownBean.isDayangGou()) {
 										approvebuyerbuybutton.setText("立即购买");
-									}else
-									{
-										approvebuyerbuybutton.setText("剩余开始时间："+ckProductCountDownBean.getShowstr());
+									} else {
+										approvebuyerbuybutton.setText("剩余开始时间：" + ckProductCountDownBean.getShowstr());
 									}
 								}
 							});
@@ -339,6 +335,11 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		setdataValue(R.id.address_name_textview,cityAddress);
 		// 价格
 		double price = Data.getPrice();
+		double unitPrice=Data.getUnitPrice();
+		//吊牌价
+		setdataValue(R.id.hangtag_price_textview, "￥" + Double.toString(unitPrice));
+
+
 		// 商品名称
 		String productName = ToolsUtil.nullToString(Data.getProductName());
 		initPic(usericon, approvebuyerdetails_icon_imageview);
@@ -350,8 +351,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 
 		setdataValue(R.id.approvebuyerdetails_name_textview, username);
 		// 金额
-		setdataValue(R.id.approvebuyerdetails_price_textview,
-				"￥" + Double.toString(price));
+		setdataValue(R.id.approvebuyerdetails_price_textview,"￥" + Double.toString(price));
 		// 商品名称
 		setdataValue(R.id.approvebuyerdetails_producename_textview, productName);
         // 收藏按钮
@@ -419,6 +419,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		approvebuyerdetails_srcollview.smoothScrollTo(0, 0);
 		approvebuyerbuybutton.setVisibility(View.VISIBLE);
 	}
+
 
 	@Override
 	public void onResume() {

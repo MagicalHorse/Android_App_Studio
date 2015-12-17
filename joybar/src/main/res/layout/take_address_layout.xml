@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    style="@style/modulepaddingleftandright_style"
+    >
+    <!-- 提货地址 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/approvebuyerdetails_address_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/shop_main_width5_dimen"
+            android:text="自提地点:"
+            android:textColor="@color/color_textgray"
+            android:textSize="@dimen/textsize14sp" />
+
+        <TextView
+            android:id="@+id/approvebuyerdetails_addressvalue_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/shop_main_width5_dimen"
+            android:layout_toRightOf="@id/approvebuyerdetails_address_textview"
+            android:lineSpacingExtra="2dip"
+            android:textColor="@color/color_textgray"
+            android:textSize="@dimen/textsize14sp" />
+    </RelativeLayout>
+
+    <!-- 喜欢人的头像 -->
+
+    <LinearLayout
+        android:id="@+id/approvebuyerdetails_attention_linearlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/approvebuyerdetails_attention_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/like_backgroud"
+            android:gravity="center_vertical" />
+
+        <LinearLayout
+            android:id="@+id/ll_attentionpeople_contener"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"></LinearLayout>
+    </LinearLayout>
+
+    <!--打样购-->
+    <include
+        layout="@layout/dayang_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+</LinearLayout>

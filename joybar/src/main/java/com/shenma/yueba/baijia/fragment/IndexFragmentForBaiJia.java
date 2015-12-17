@@ -146,9 +146,8 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         title_layout_titlename_textview.setText("打样购");
         //右侧搜索
         TextView title_layout_right_textview = (TextView) v.findViewById(R.id.bt_top_right);
-        title_layout_right_textview.setBackgroundColor(getActivity().getResources().getColor(R.color.color_transparent));
+        title_layout_right_textview.setBackground(this.getResources().getDrawable(R.drawable.search));
         title_layout_right_textview.setVisibility(View.VISIBLE);
-        title_layout_right_textview.setCompoundDrawablesWithIntrinsicBounds(null, null, this.getResources().getDrawable(R.drawable.search), null);
         title_layout_right_textview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

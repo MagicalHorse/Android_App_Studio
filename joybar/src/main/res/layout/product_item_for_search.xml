@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="100dip"
     android:descendantFocusability="blocksDescendants"
-    android:padding="10dip">
+    android:padding="10dip"
+    android:background="@color/white"
+    >
 
 
     <ImageView
@@ -23,7 +25,7 @@
         android:layout_toRightOf="@id/iv_product"
         style="@style/text_middle_grey_style"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:maxLines="2"
         android:text="aaa" />
 
 

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/shop_main_layout_title_relativelayout"
@@ -15,12 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <include
-            android:id="@+id/pubuliu_layout_include"
+        <LinearLayout
+            android:id="@+id/baijia_market_main_layout_pubuliu_linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/shop_main_layout_title_relativelayout"
-            layout="@layout/pubuliu_layout" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="vertical" />
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
     <include

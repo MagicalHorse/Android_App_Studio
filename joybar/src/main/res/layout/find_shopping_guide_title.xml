@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/top_title_height"
     android:background="@color/main_bg"
     android:orientation="vertical" >
 
@@ -9,8 +9,10 @@
 
 
     <LinearLayout
+        android:layout_toLeftOf="@+id/bt_search"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/top_title_height"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dip"
@@ -65,15 +67,17 @@
                 android:background="@drawable/line_title"
                 android:visibility="invisible" />
         </LinearLayout>
-
-        <Button
-            android:layout_marginRight="10dip"
-            android:id="@+id/bt_search"
-            android:layout_width="@dimen/title_image_with_height"
-            android:layout_height="@dimen/title_image_with_height"
-            android:background="@drawable/search"
-            android:layout_marginLeft="10dip" />
     </LinearLayout>
+
+    <Button
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dip"
+        android:id="@+id/bt_search"
+        android:layout_width="@dimen/title_image_with_height"
+        android:layout_height="@dimen/title_image_with_height"
+        android:background="@drawable/search"
+        android:layout_marginLeft="10dip" />
 
     <View
         android:layout_width="fill_parent"
@@ -81,7 +85,4 @@
         android:layout_alignParentBottom="true"
         android:background="#66999999" />
 
-
-
-
-</LinearLayout>
+</RelativeLayout>

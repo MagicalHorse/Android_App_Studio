@@ -67,6 +67,8 @@ import com.shenma.yueba.view.RoundImageView;
 import com.shenma.yueba.view.TagImageView;
 import com.shenma.yueba.view.scroll.MyScrollView;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -240,7 +242,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         approvebuyerdetails_attention_linearlayout.setVisibility(View.GONE);
         //隐藏 只支持字体的文字
         View approvebuyerdatails_layout_desc1_textview = parentView.findViewById(R.id.approvebuyerdatails_layout_desc1_textview);
-        approvebuyerdatails_layout_desc1_textview.setVisibility(View.GONE);
+        approvebuyerdatails_layout_desc1_textview.setVisibility(View.INVISIBLE);
 
 
         // 收藏按钮
@@ -513,6 +515,17 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 ProductSPECbean bean = spectypelist.get(position);
                 bean.setIschecked(true);
                 checked_ProductSPECbean = bean;
+                TextView product_spec_layout_stock_textview=(TextView)parentView.findViewById(R.id.product_spec_layout_stock_textview);
+                if(bean.getInventory()<=5)
+                {
+                    product_spec_layout_stock_textview.setVisibility(View.VISIBLE);
+                    product_spec_layout_stockvalue_textview.setVisibility(View.VISIBLE);
+
+                }else
+                {
+                    product_spec_layout_stock_textview.setVisibility(View.GONE);
+                    product_spec_layout_stockvalue_textview.setVisibility(View.GONE);
+                }
                 product_spec_layout_stockvalue_textview.setText(Integer.toString(bean.getInventory()));
                 isTextButtonEnable();
             }
@@ -850,8 +863,6 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         //城市
         String cityAddress = ToolsUtil.nullToString(Data.getCityName());
         setdataValue(R.id.address_name_textview, cityAddress);
-        // 价格
-        double price = Data.getPrice();
         // 商品名称
         String productName = ToolsUtil.nullToString(Data.getProductName());
         initPic(usericon, approvebuyerdetails_icon_imageview);
@@ -866,11 +877,15 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         TextView approvebuyerdetails_buyeraddress_textview = (TextView) parentView.findViewById(R.id.approvebuyerdetails_buyeraddress_textview);
         approvebuyerdetails_buyeraddress_textview.setText(ToolsUtil.nullToString(Data.getPickAddress()));
         setdataValue(R.id.approvebuyerdetails_name_textview, username);
+        double price = Data.getPrice();
         // 金额
-        setdataValue(R.id.approvebuyerdetails_price_textview,
-                "￥" + Double.toString(price));
+        setdataValue(R.id.approvebuyerdetails_price_textview,"￥" + Double.toString(price));
         //吊牌价
-        setdataValue(R.id.hangtag_price_textview, "￥" + Double.toString(Data.getUnitPrice()));
+        double unitPrice=Data.getUnitPrice();
+        //吊牌价
+        setdataValue(R.id.hangtag_price_textview, "￥" + Double.toString(unitPrice));
+        calculateDiscount(price,unitPrice);
+
         TextView hangtag_price_textview = (TextView) parentView.findViewById(R.id.hangtag_price_textview);
         hangtag_price_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         hangtag_price_textview.setVisibility(View.VISIBLE);
@@ -935,6 +950,24 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         ll_footer.setVisibility(View.VISIBLE);
         handler.sendMessageDelayed(handler.obtainMessage(100),300);
     }
+
+    /*******
+     * 计算折扣
+     * @param price double 折扣价格
+     * @param unitPrice  double原价
+     * ***/
+    void calculateDiscount(double price,double unitPrice)
+    {
+        String str="";
+        if(price<unitPrice)
+        {
+            double d=(price/unitPrice)*10;
+            str=ToolsUtil.DounbleToString_2(d);
+        }
+
+        setdataValue(R.id.hangtag_discount_textview,str+"折");
+    }
+
 
     @Override
     public void onResume() {
@@ -1146,31 +1179,38 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             ckProductCountDownBean.setTimerLinstener(new CKProductCountDownBean.TimerLinstener() {
                 @Override
                 public void timerCallBack() {
-                    if(approvebuyerbuybutton!=null)
-                    {
-                        if(getActivity()!=null)
-                        {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //如果打样够开始
-                                    if(ckProductCountDownBean.isDayangGou())
-                                    {
-                                        approvebuyerbuybutton.setText("立即购买");
-                                    }else
-                                    {
-                                        approvebuyerbuybutton.setText("剩余开始时间："+ckProductCountDownBean.getShowstr());
-                                    }
-                                }
-                            });
-
-                        }
-                    }
+                    setBuyerButtonValue();
                 }
             });
         }
+        setBuyerButtonValue();
     }
 
+
+
+    void setBuyerButtonValue()
+    {
+        if(approvebuyerbuybutton!=null && ckProductCountDownBean!=null)
+        {
+            if(getActivity()!=null)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //如果打样够开始
+                        if(ckProductCountDownBean.isDayangGou())
+                        {
+                            approvebuyerbuybutton.setText("立即购买");
+                        }else
+                        {
+                            approvebuyerbuybutton.setText("剩余开始时间："+ckProductCountDownBean.getShowstr());
+                        }
+                    }
+                });
+
+            }
+        }
+    }
 
 
     /****

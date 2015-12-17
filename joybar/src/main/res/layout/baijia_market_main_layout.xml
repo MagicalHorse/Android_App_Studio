@@ -9,7 +9,6 @@
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/baijia_market_main_layout_pullTorefreshscrollview"
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="match_parent">
 
         <RelativeLayout
@@ -25,7 +24,9 @@
                 android:id="@+id/baijia_market_main_layout_pubuliu_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:orientation="vertical" />
 
             <include

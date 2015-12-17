@@ -101,19 +101,15 @@
         <!--圈子按钮-->
         <Button
             android:id="@+id/in_circle_button"
-            android:layout_width="80dp"
-            android:layout_height="38dp"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/yellow_background"
             android:text="进圈"
+            android:textSize="13sp"
             android:textColor="@color/white" />
 
     </RelativeLayout>
-
-    <View
-        android:layout_marginTop="@dimen/shop_main_lineheight8_dimen"
-        style="@style/style_horizontal_line"
-        />
 
 </LinearLayout>

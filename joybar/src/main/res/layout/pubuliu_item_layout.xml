@@ -2,73 +2,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" 
-    android:paddingTop="10dp"
+    android:paddingBottom="15dp"
     >
-
-    <ImageView
-        android:id="@+id/pubuliu_item_layout_imageview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/default_pic" />
-
-    <TextView
-        android:id="@+id/pubuliu_item_layout_name_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/shop_main_width3_dimen"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:text="@null" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/shop_main_width3_dimen"
-        android:gravity="center_vertical" >
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        >
+        <ImageView
+            android:id="@+id/pubuliu_item_layout_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_pic" />
 
         <TextView
-            android:id="@+id/pubuliu_item_layout_price_textview"
-            android:layout_width="wrap_content"
+            android:id="@+id/pubuliu_item_layout_name_textview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="￥" />
+            android:layout_margin="@dimen/shop_main_width3_dimen"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@null" />
 
-        <TextView
-            android:id="@+id/pubuliu_item_layout_pricevalue_textview"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/pubuliu_item_layout_price_textview"
-            android:maxLength="10"
-            android:text="@null"
-            android:textColor="@color/red" />
-
-        <LinearLayout
-            android:id="@+id/pubuliu_item_layout_like_linearlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:gravity="left|center_vertical"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:id="@+id/pubuliu_item_layout_like_imageview"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/collect_backgroud" />
+            android:layout_margin="@dimen/shop_main_width3_dimen"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center_vertical" >
 
             <TextView
-                android:layout_marginLeft="3dp"
-                android:id="@+id/pubuliu_item_layout_like_textview"
+                android:id="@+id/pubuliu_item_layout_price_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@null" />
-        </LinearLayout>
-    </RelativeLayout>
+                android:layout_centerVertical="true"
+                android:textColor="@color/red"
+                android:text="￥" />
 
+            <TextView
+                android:id="@+id/pubuliu_item_layout_pricevalue_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/pubuliu_item_layout_price_textview"
+                android:maxLength="10"
+                android:text="@null"
+                android:textColor="@color/red" />
+
+            <LinearLayout
+                android:id="@+id/pubuliu_item_layout_like_linearlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/pubuliu_item_layout_like_imageview"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/collect_backgroud" />
+
+                <TextView
+                    android:layout_marginLeft="3dp"
+                    android:id="@+id/pubuliu_item_layout_like_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@null" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -3,11 +3,16 @@
     android:id="@+id/approvebuyerdetails_closeingtime_linearlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/modulepaddingleftandright_style"
     android:orientation="vertical"
     android:visibility="visible">
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        style="@style/style_horizontal_line"
+        />
 
     <LinearLayout
+        android:paddingTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -54,8 +59,4 @@
             android:text="@null"
             android:textSize="@dimen/textsize13sp" />
     </LinearLayout>
-    <View
-        android:layout_marginTop="15dp"
-        style="@style/style_horizontal_line"
-        />
 </LinearLayout>

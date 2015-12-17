@@ -26,25 +26,39 @@
 
             <!--商品 信息-->
             <include layout="@layout/productdetails_head_layout" />
+            <View
+                style="@style/style_horizontal_line"
+                />
 
-            <!--打样购-->
+            <!--自提地点-->
             <include
-                layout="@layout/dayang_layout"
+                layout="@layout/take_address_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:layout_marginTop="10dp" />
+            <View
+                style="@style/style_horizontal_line"
+                />
 
             <!--规格尺寸-->
             <include
                 layout="@layout/product_spec_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+            <View
+                style="@style/style_horizontal_line"
+                />
 
             <!--商铺信息-->
             <include
                 layout="@layout/produtcdetails_shops_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+            <View
+                style="@style/style_horizontal_line"
+                />
 
             <!--    Tab备注信息-->
             <LinearLayout
@@ -52,6 +66,7 @@
                 style="@style/modulepaddingleftandright_style"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal" />
 
             <View
@@ -62,8 +77,8 @@
                 android:id="@+id/approvebuydetails_ck_bak_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="3dp"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:paddingTop="3dp" />
         </LinearLayout>
 
     </com.shenma.yueba.view.scroll.MyScrollView>
@@ -86,8 +101,8 @@
         android:visibility="gone" />
 
     <View
-        android:layout_below="@+id/approvebuydetails_ck_suspensiontab_bak_linearlayout"
         android:id="@+id/approvebuydetails_ck_suspensiontab_bak_linearlayout_view"
-        style="@style/style_horizontal_line" />
+        style="@style/style_horizontal_line"
+        android:layout_below="@+id/approvebuydetails_ck_suspensiontab_bak_linearlayout" />
 
 </RelativeLayout>

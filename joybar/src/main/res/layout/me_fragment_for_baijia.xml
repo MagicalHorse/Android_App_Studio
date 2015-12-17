@@ -62,14 +62,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="horizontal"
-            android:padding="10dip" >
+            android:orientation="horizontal" >
 
             <RelativeLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="@dimen/shop_main_width2_dimen" >
+                android:padding="2dp">
 
                 <TextView
                     android:id="@+id/tv_all_order"
@@ -86,8 +85,8 @@
 
                 <TextView
                     android:id="@+id/tv_all_order_count_textview"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:visibility="gone"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dip"
@@ -104,7 +103,7 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="@dimen/shop_main_width2_dimen" >
+                android:padding="2dp" >
 
                 <TextView
                     android:id="@+id/tv_waiting_for_send"
@@ -120,8 +119,8 @@
 
                 <TextView
                     android:id="@+id/tv_waiting_for_send_count_textview"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                      android:visibility="gone"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dip"
@@ -138,7 +137,7 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="@dimen/shop_main_width2_dimen" >
+                android:padding="2dp" >
 
                 <TextView
                     android:id="@+id/tv_waiting_for_recieve"
@@ -154,8 +153,8 @@
 
                 <TextView
                     android:id="@+id/tv_waiting_for_recieve_count_textview"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dip"
                     android:background="@drawable/redandwhileround_background"
@@ -172,7 +171,7 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="@dimen/shop_main_width2_dimen" >
+                android:padding="2dp" >
 
                 <TextView
                     android:id="@+id/tv_pick_by_myself"
@@ -188,8 +187,8 @@
 
                 <TextView
                     android:id="@+id/tv_pick_by_myself_count_textview"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dip"
                     android:background="@drawable/redandwhileround_background"

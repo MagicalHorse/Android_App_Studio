@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    style="@style/modulepaddingleftandright_style"
+    android:paddingLeft="@dimen/shop_main_width15_dimen"
+    android:paddingRight="@dimen/shop_main_width15_dimen"
+    android:paddingBottom="@dimen/shop_main_lineheight8_dimen"
+    android:background="@color/white"
     >
-    <!-- 价格与提货方式 -->
+
+    <TextView
+        android:id="@+id/approvebuyerdatails_layout_desc1_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="*商品只支持商城自提"
+        android:textColor="@color/red_text_color"
+        android:textSize="@dimen/textsize14sp" />
 
     <RelativeLayout
+        android:id="@+id/approvebuyerdatails_content_relativelayout"
+        android:layout_below="@+id/approvebuyerdatails_layout_desc1_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,13 +29,13 @@
             android:id="@+id/approvebuyerdetails_price_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@null"
+            android:hint=""
             android:textColor="@color/red_text_color"
             android:textColorHint="@color/red_text_color"
             android:textSize="@dimen/textsize16sp" />
 
         <TextView
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_alignParentBottom="true"
             android:textSize="@dimen/textsize13sp"
             android:layout_toRightOf="@+id/approvebuyerdetails_price_textview"
@@ -30,24 +43,31 @@
             android:id="@+id/hangtag_price_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@null"
+            android:text=""
             android:singleLine="true"
             />
 
         <TextView
-            android:id="@+id/approvebuyerdatails_layout_desc1_textview"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentBottom="true"
+            android:textSize="@dimen/textsize13sp"
+            android:layout_toRightOf="@+id/hangtag_price_textview"
+            android:textColor="@color/white"
+            android:id="@+id/hangtag_discount_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="*商品只支持商城自提"
-            android:textColor="@color/red_text_color"
-            android:textSize="@dimen/textsize12sp" />
+            android:text=""
+            android:background="@color/red_text_color"
+            android:singleLine="true"
+            />
+
+
     </RelativeLayout>
 
     <!-- 商品名称 -->
 
     <TextView
+        android:layout_below="@+id/approvebuyerdatails_content_relativelayout"
         android:layout_marginTop="@dimen/shop_main_width5_dimen"
         android:id="@+id/approvebuyerdetails_producename_textview"
         android:layout_width="wrap_content"
@@ -57,65 +77,4 @@
         android:text="@null"
         android:textSize="@dimen/textsize16sp" />
 
-    <View
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        style="@style/style_horizontal_line"
-        />
-
-    <!-- 提货地址 -->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/approvebuyerdetails_address_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/shop_main_width5_dimen"
-            android:text="自提地点:"
-            android:textColor="@color/color_textgray"
-            android:textSize="@dimen/textsize12sp" />
-
-        <TextView
-            android:id="@+id/approvebuyerdetails_addressvalue_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/shop_main_width5_dimen"
-            android:layout_toRightOf="@id/approvebuyerdetails_address_textview"
-            android:lineSpacingExtra="2dip"
-            android:textColor="@color/color_textgray"
-            android:textSize="@dimen/textsize12sp" />
-    </RelativeLayout>
-
-    <!-- 喜欢人的头像 -->
-
-    <LinearLayout
-        android:id="@+id/approvebuyerdetails_attention_linearlayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dip"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/approvebuyerdetails_attention_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:drawableLeft="@drawable/like_backgroud"
-            android:gravity="center_vertical" />
-
-        <LinearLayout
-            android:id="@+id/ll_attentionpeople_contener"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal"></LinearLayout>
-    </LinearLayout>
-    <View
-        android:layout_marginTop="15dp"
-        style="@style/style_horizontal_line"
-        />
-</LinearLayout>
+</RelativeLayout>

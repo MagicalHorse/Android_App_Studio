@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     >
 
    <!-- &lt;!&ndash;头文件&ndash;&gt;
@@ -29,24 +28,34 @@
 
             <!--商品 信息-->
             <include layout="@layout/productdetails_head_layout" />
+            <View
+                style="@style/style_horizontal_line"
+                />
 
-
-            <!--打样购-->
+            <!--自提地点-->
             <include
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/dayang_layout" />
+                layout="@layout/take_address_layout" />
+            <View
+                style="@style/style_horizontal_line"
+                />
 
             <!--商铺信息-->
             <include
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/produtcdetails_shops_layout"/>
+            <View
+                style="@style/style_horizontal_line"
+                />
 
 
             <!--导购图-->
             <ImageView
-                android:layout_marginTop="@dimen/shop_main_width3_dimen"
+                android:layout_marginTop="10dp"
                 style="@style/modulepaddingleftandright_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

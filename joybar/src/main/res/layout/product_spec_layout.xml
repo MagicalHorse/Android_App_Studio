@@ -111,7 +111,7 @@
     <TextView
         android:id="@+id/product_spec_layout_notes_textview"
         android:layout_marginTop="@dimen/shop_main_lineheight8_dimen"
-        android:textSize="@dimen/textsize10sp"
+        android:textSize="@dimen/textsize12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/red_text_color"

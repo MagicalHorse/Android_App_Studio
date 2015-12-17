@@ -263,7 +263,12 @@ public class MarketMainActivity extends BaseActivityWithTopView {
                 baijia_marketmain_head_address_layout_textview.setText(ToolsUtil.nullToString(data.getDescription()));
             } else {
                 baijia_marketmain_head_address_layout_imageview.setVisibility(View.VISIBLE);
-                baijia_marketmain_head_address_layout_textview.setText(ToolsUtil.nullToString(data.getStoreLocal()));
+                String address=ToolsUtil.nullToString(data.getStoreLocal());
+                if(address.equals(""))
+                {
+                    address="未知";
+                }
+                baijia_marketmain_head_address_layout_textview.setText(address);
             }
         }
         if (data != null && data.getBrands() != null && data.getBrands().size() > 0) {
