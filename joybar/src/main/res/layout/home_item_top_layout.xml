@@ -54,7 +54,7 @@
             android:layout_height="15dp"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="3dp"
-            android:src="@drawable/dingwei" />
+            android:src="@drawable/address" />
         <!--描述-->
         <TextView
             android:id="@+id/home_item_top_desp_textview"

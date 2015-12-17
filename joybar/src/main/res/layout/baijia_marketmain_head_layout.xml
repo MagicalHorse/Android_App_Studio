@@ -39,7 +39,7 @@
                 android:layout_height="15dp"
                 android:visibility="gone"
                 android:layout_marginRight="3dp"
-                android:src="@drawable/dingwei" />
+                android:src="@drawable/address" />
 
             <TextView
                 android:id="@+id/baijia_marketmain_head_address_layout_textview"

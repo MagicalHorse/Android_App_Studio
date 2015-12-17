@@ -56,7 +56,7 @@
                 android:layout_centerVertical="true"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@drawable/dingwei" />
+                android:src="@drawable/address" />
 
             <!--描述-->
             <TextView

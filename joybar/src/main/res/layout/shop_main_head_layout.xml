@@ -100,7 +100,7 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/dingwei" />
+            android:src="@drawable/address" />
 
         <TextView
             android:layout_toRightOf="@id/shop_main_head_layout_address_imageview"

@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/dingwei"
+            android:background="@drawable/address"
             android:visibility="gone" />
         <TextView
             android:layout_toLeftOf="@id/iv_address"
