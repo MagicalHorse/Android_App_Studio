@@ -227,7 +227,6 @@ List<BrandInfoInfo> object_list=new ArrayList<BrandInfoInfo>();
 	/*****
 	 * 请求数据
 	 * @param page int 当前页
-	 * @param BrandId int 品牌id
 	 * ***/
 	void sendHttp(final int page,final int type)
 	{

@@ -199,7 +199,7 @@ public class SameCityAdapter extends BaseAdapterWithUtil {
 	
 	/****
 	 * 提交收藏与取消收藏商品
-	 * @param type int   0表示取消收藏   1表示收藏
+	 0表示取消收藏   1表示收藏
 	 * @param brandCityWideInfo BrandCityWideInfo  商品对象
 	 * **/
 	void submitAttention(final int Status,final BrandCityWideInfo brandCityWideInfo)
