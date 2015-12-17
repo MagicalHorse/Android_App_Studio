@@ -178,27 +178,7 @@ public class AttationListAdapter extends BaseAdapterWithUtil {
 			
 			@Override
 			public void http_Success(Object obj) {
-//				if(Status==0) //1表示关注 0表示取消关注
-//				{
-//					bean.setFavorite(false);
-//				}else if(Status==1)
-//				{
-//					bean.setFavorite(true);
-//				}
-//				if(pullToRefreshListView.findViewWithTag(bean)!=null &&  pullToRefreshListView.findViewWithTag(bean) instanceof TextView)
-//				{
-//					TextView tv=(TextView)pullToRefreshListView.findViewWithTag(bean);
-//					if(Status==0)
-//					{
-//						tv.setText("关注");
-//					}else if(Status==1)
-//					{
-//						tv.setText("取消关注");
-//					}
-//				}
-				
 				((AttationListActivity)ctx).refresh();
-
 			}
 			
 			@Override
