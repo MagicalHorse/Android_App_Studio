@@ -16,6 +16,8 @@ import com.shenma.yueba.util.CustomProgressDialog;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
+
 public class BaseFragment extends Fragment {
 
 	public BaseFragment()
@@ -29,6 +31,7 @@ public class BaseFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		httpUtils = new HttpUtils();
 		super.onCreate(savedInstanceState);
+
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,5 +67,12 @@ public class BaseFragment extends Fragment {
 				titleTextList.get(j).setTextColor(getResources().getColor(R.color.main_color));
 			}
 		}
+	}
+
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
 	}
 }

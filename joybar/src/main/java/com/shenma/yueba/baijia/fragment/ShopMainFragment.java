@@ -25,6 +25,7 @@ import com.shenma.yueba.baijia.modle.RequestUserInfoBean;
 import com.shenma.yueba.baijia.modle.UserInfoBean;
 import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.shenma.yueba.constants.Constants;
+import com.shenma.yueba.inter.AttentionEvent;
 import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.PubuliuManager;
@@ -36,6 +37,8 @@ import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Administrator on 2015/10/8.
@@ -243,6 +246,8 @@ public class ShopMainFragment extends Fragment {
 
             @Override
             public void http_Success(Object obj) {
+                EventBus.getDefault().post(
+                        new AttentionEvent(Integer.toString(buyerId)));
                 switch (Status) {
                     case 0:
                         ((TextView) textview).setText("关注");

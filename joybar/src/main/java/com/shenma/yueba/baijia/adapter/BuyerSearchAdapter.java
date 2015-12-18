@@ -74,7 +74,9 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                 @Override
                 public void onClick(View v) {
                     try{
-                        ToolsUtil.forwardShopMainActivity(ctx,Integer.valueOf(mList.get(position).getUserId()));
+                        Intent intent = new Intent(ctx, ShopMainActivity.class);
+                        intent.putExtra("buyerId", Integer.valueOf(mList.get(position).getUserId()));
+                        ctx.startActivity(intent);
                     }catch (Exception e){
                     }
 

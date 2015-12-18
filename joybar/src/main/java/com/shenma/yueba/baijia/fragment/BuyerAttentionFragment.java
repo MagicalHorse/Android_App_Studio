@@ -16,6 +16,7 @@ import com.shenma.yueba.baijia.adapter.BuyerSearchAdapter;
 import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
 import com.shenma.yueba.baijia.modle.newmodel.FavBuyersBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
+import com.shenma.yueba.inter.AttentionEvent;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.util.PerferneceUtil;
@@ -26,9 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import config.PerferneceConfig;
+import de.greenrobot.event.EventBus;
 
 /**
- * 社交管理中的-----我的关注 and 我的粉丝
+ *
  * 
  * @author a
  * 
@@ -46,9 +48,29 @@ public class BuyerAttentionFragment extends BaseFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		EventBus.getDefault().register(this);
+
 	}
 
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
+
+	public void onEventMainThread(AttentionEvent event) {
+		for (int i = 0;i<mList.size();i++){
+			if(mList.get(i).getUserId().equals(event.getMsg())){
+				mList.remove(i);
+				break;
+			}
+		}
+		adapter.notifyDataSetChanged();
+		String msg = "onEventMainThread收到了消息：" + event.getMsg();
+		Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
+
+	}
 
 
 	@Override
