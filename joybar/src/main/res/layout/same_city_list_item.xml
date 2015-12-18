@@ -128,4 +128,9 @@
         </LinearLayout>
     </LinearLayout>
 
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dip"
+        android:background="@color/main_bg" />
 </LinearLayout>

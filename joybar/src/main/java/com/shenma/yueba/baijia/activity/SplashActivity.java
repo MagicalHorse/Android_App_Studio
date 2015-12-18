@@ -38,7 +38,7 @@ public class SplashActivity extends BaseActivity {
 		MobclickAgent.updateOnlineConfig(mContext);
 		MobclickAgent.setCatchUncaughtExceptions(true);
 		MobclickAgent.setDebugMode(true);
-		Toast.makeText(mContext,SocializeConstants.SDK_VERSION,Toast.LENGTH_SHORT).show();
+		//Toast.makeText(mContext,SocializeConstants.SDK_VERSION,Toast.LENGTH_SHORT).show();
 		AnalyticsConfig.enableEncrypt(true);//对日志进行加密
 		handler.postDelayed(new Runnable() {
 			@Override

@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="10dip"
     android:background="@color/white"
-    android:paddingRight="10dip"
      >
 
     <RelativeLayout
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.73"
@@ -132,4 +132,9 @@
     </LinearLayout>
  <View style="@style/style_horizontal_line" />
 
+
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="5dip"
+    android:background="@color/main_bg" />
 </LinearLayout>

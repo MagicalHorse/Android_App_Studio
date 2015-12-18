@@ -5,6 +5,8 @@
     android:orientation="vertical" >
     
 <LinearLayout
+
+    android:background="@color/white"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/top_title_height"
         android:orientation="horizontal" >
