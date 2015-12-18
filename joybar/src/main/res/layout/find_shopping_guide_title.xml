@@ -18,22 +18,22 @@
         android:paddingLeft="20dip"
         android:paddingRight="10dip" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/tv_guide"
                 android:layout_width="fill_parent"
-                android:layout_height="0dip"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="导购"
                 android:textSize="@dimen/title_text_size" />
 
             <ImageView
+                android:layout_alignParentBottom="true"
                 android:id="@+id/iv_cursor_left"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -41,24 +41,25 @@
                 android:layout_marginRight="5dip"
                 android:background="@drawable/line_title"
                 android:visibility="invisible" />
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:orientation="vertical" >
+            >
 
             <TextView
                 android:id="@+id/tv_attention"
                 android:layout_width="fill_parent"
-                android:layout_height="0dip"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="关注"
                 android:textSize="@dimen/title_text_size" />
 
             <ImageView
+                android:layout_alignParentBottom="true"
                 android:id="@+id/iv_cursor_right"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +67,7 @@
                 android:layout_marginRight="5dip"
                 android:background="@drawable/line_title"
                 android:visibility="invisible" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <Button

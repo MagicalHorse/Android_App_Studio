@@ -44,8 +44,7 @@
     </RelativeLayout>
 
     <View style="@style/style_horizontal_line" />
-    <include layout="@layout/search_result_title"
-        />
+    <include layout="@layout/search_result_title" />
 
     <View style="@style/style_horizontal_line" />
 

@@ -165,7 +165,7 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
      */
     public void touch( View v,String buyerId) {
         final TextView tv_touch = (TextView)v;
-        if(tv_touch.getText().toString().trim().equals("戳过了")){
+        if(tv_touch.getText().toString().trim().equals("已 提 醒")){
             return ;
         }
         HttpControl httpControl = new HttpControl();
@@ -175,7 +175,7 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                 BaseRequest bean = (BaseRequest) obj;
                 if (bean.isSuccessful()) {
                     Toast.makeText(ctx, "提醒成功！", Toast.LENGTH_SHORT).show();
-                    tv_touch.setText("戳过了");
+                    tv_touch.setText("已 提 醒");
                 } else {
                     Toast.makeText(ctx, "提醒失败！", Toast.LENGTH_SHORT).show();
                 }

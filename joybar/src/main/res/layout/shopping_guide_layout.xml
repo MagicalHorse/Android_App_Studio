@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -36,10 +37,11 @@
              />
         <!--导购头像信息-->
         <RelativeLayout
+            android:gravity="center_vertical"
             android:paddingTop="5dip"
             android:background="@color/white"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:paddingLeft="10dip"
             android:paddingRight="10dip">
 
