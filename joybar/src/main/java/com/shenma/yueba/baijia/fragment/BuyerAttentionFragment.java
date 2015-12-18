@@ -67,9 +67,6 @@ public class BuyerAttentionFragment extends BaseFragment {
 			}
 		}
 		adapter.notifyDataSetChanged();
-		String msg = "onEventMainThread收到了消息：" + event.getMsg();
-		Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
-
 	}
 
 

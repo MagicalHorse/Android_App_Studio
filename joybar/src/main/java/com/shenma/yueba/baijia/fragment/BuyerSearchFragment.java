@@ -17,6 +17,7 @@ import com.shenma.yueba.baijia.modle.newmodel.BuyerInfo;
 import com.shenma.yueba.baijia.modle.newmodel.SearchBuyerBackBean;
 import com.shenma.yueba.baijia.modle.newmodel.SearchMarketBackBean;
 import com.shenma.yueba.constants.Constants;
+import com.shenma.yueba.inter.AttentionEvent;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
 import com.shenma.yueba.util.PerferneceUtil;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import config.PerferneceConfig;
+import de.greenrobot.event.EventBus;
 
 /**
  *
@@ -50,6 +52,7 @@ public class BuyerSearchFragment extends BaseFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		EventBus.getDefault().register(this);
 	}
 
 	public static BuyerSearchFragment getInstance(String key, String storeId) {
@@ -59,7 +62,22 @@ public class BuyerSearchFragment extends BaseFragment {
 		return instance;
 	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
 
+
+	public void onEventMainThread(AttentionEvent event) {
+		for (int i = 0;i<mList.size();i++){
+			if(mList.get(i).getUserId().equals(event.getMsg())){
+				mList.get(i).setIsFllowed(!mList.get(i).isFllowed());
+				break;
+			}
+		}
+		adapter.notifyDataSetChanged();
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
