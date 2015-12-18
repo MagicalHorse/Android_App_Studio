@@ -97,6 +97,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         if (vp != null) {
             vp.removeView(parentView);
         }
+        CityChangeRefreshObserver.getInstance().addObserver(this);
         return parentView;
     }
 
@@ -115,6 +116,7 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         if (isRunning) {
             return;
         }
+
         customProgressDialog.show();
         baijia_contact_listview.setRefreshing();
         requestBannerData();
@@ -251,7 +253,6 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         });
 
         baijia_contact_listview.setAdapter(homeAdapter);
-        CityChangeRefreshObserver.getInstance().addObserver(this);
         LocationUtil.getLocation(getActivity(), new LocationBackListner() {
             @Override
             public void callBack(boolean result) {

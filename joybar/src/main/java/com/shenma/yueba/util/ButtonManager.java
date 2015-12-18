@@ -28,7 +28,7 @@ import java.util.List;
 
 public class ButtonManager {
     public final static String WAITPAY = "付款";//0
-    public final static String CANCELPAY = "撤销退款";//1
+    public final static String CANCELPAY = "取消退款";//1
     public final static String QUERENTIHUO = "确认提货";//2
     public final static String SHENQINGTUIKUAN = "申请退款";//3
     public final static String SHENSU = "申诉";//4
@@ -42,8 +42,8 @@ public class ButtonManager {
         List<View> view_list = new ArrayList<View>();
         switch (type) {
             case 0://代付款
-                view_list.add(createWaitPayButton(activity, 0));//付款按钮
                 view_list.add(createWaitPayButton(activity, 6));//取消订单
+                view_list.add(createWaitPayButton(activity, 0));//付款按钮
                 break;
             case 1://申请退款 确认提货
                 view_list.add(createWaitPayButton(activity, 3));//申请退款
@@ -56,7 +56,7 @@ public class ButtonManager {
                 break;
             //申请退款
             case 3:
-                view_list.add(createWaitPayButton(activity, 1));//撤销退款
+                view_list.add(createWaitPayButton(activity, 1));//取消退款
                 //撤销退款
                 break;
         }
@@ -74,38 +74,47 @@ public class ButtonManager {
         View v = activity.getLayoutInflater().inflate(R.layout.button_layout, null);
         Button btn = (Button) v.findViewById(R.id.baijia_orderdetails_sqtk_button);
         String str = "";
-        int back_resource_id = -1;
+        int back_resource_id = R.drawable.back_background;
+        int text_resource_id=R.color.text_gray_color;
         switch (type) {
             case 0:
                 str = WAITPAY;
                 back_resource_id = R.drawable.yeollow_background;
+                text_resource_id=R.color.color_deeoyellow;
                 break;
             case 1:
                 str = CANCELPAY;
-                back_resource_id = R.drawable.applyrefund_background;
+                back_resource_id = R.drawable.yeollow_background;
+                text_resource_id=R.color.color_deeoyellow;
                 break;
             case 2:
                 str = QUERENTIHUO;
                 back_resource_id = R.drawable.yeollow_background;
+                text_resource_id=R.color.color_deeoyellow;
                 break;
             case 3:
                 str = SHENQINGTUIKUAN;
                 back_resource_id = R.drawable.applyrefund_background;
+                text_resource_id=R.color.text_gray_color;
                 break;
             case 4:
                 str = SHENSU;
                 back_resource_id = R.drawable.back_background;
+                text_resource_id=R.color.text_gray_color;
                 break;
             case 5:
                 str = SHENSULOADING;
                 back_resource_id = R.drawable.back_background;
+                text_resource_id=R.color.text_gray_color;
                 break;
             case 6:
                 str = CANCELORDER;
-                back_resource_id = R.drawable.back_background;
+                back_resource_id = R.drawable.applyrefund_background;
+                text_resource_id=R.color.text_gray_color;
 
         }
         btn.setText(str);
+        btn.setTextColor(activity.getResources().getColor(text_resource_id));
         btn.setBackgroundResource(back_resource_id);
         btn.setOnClickListener(custonOnClickListener);
         return v;

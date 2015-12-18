@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/shop_main_lineheight8_dimen"
+                android:visibility="gone"
              style="@style/chat_name_time_style" />
 
             <RelativeLayout

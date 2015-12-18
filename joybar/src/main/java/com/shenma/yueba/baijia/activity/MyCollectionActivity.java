@@ -250,12 +250,16 @@ public class MyCollectionActivity extends BaseActivityWithTopView implements Col
         {
             if(item.get(i).getId().equals(pubuliuBeanInfo.getId()))
             {
-                item.remove(i);
-                if(pubuliuManager!=null)
+                //如果 当前没有收藏
+                if(!pubuliuBeanInfo.iscollection())
                 {
-                    pubuliuManager.onResher(item);
+                    item.remove(i);
+                    if(pubuliuManager!=null)
+                    {
+                        pubuliuManager.onResher(item);
+                    }
+                    break;
                 }
-                break;
             }
         }
     }

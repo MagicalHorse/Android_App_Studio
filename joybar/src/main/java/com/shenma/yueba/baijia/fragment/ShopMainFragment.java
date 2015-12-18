@@ -114,7 +114,14 @@ public class ShopMainFragment extends Fragment {
             {
                 return;
             }
-            requestRefreshData();
+            //获取当前登录的用户id
+            String currUserid= SharedUtil.getStringPerfernece(activity,SharedUtil.user_id);
+            if(!isSUCESS || !currUserid.equals(userId))
+            {
+                userId=currUserid;
+                requestRefreshData();
+            }
+
         }
     }
 
@@ -142,7 +149,6 @@ public class ShopMainFragment extends Fragment {
 
             @Override
             public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-                isSUCESS=false;
                 requestRefreshData();
             }
 
@@ -267,30 +273,24 @@ public class ShopMainFragment extends Fragment {
     synchronized void requestRefreshData() {
         if(isrunning)
         {
+            ToolsUtil.pullResfresh(shop_main_layout_title_pulltorefreshscrollview);
             return;
         }
-
-        //获取当前登录的用户id
-        String currUserid= SharedUtil.getStringPerfernece(activity,SharedUtil.user_id);
-        if(userinfobean==null || !currUserid.equals(userId))
+        if(userinfobean==null)
         {
             ishow =true;
-            getBaijiaUserInfo(currUserid);
-        }
-        //如果没有加载完成  或 当前的用户id 与 之前记录的不一样
-        if(!isSUCESS || !currUserid.equals(userId))
-        {
-            currPage=1;
-            userId=currUserid;
-            ishow =true;
-            sendReuqestAllProductHttp(currPage, 0);
-            if(pubuliuManager!=null && item!=null)
-            {
-                item.clear();
-                pubuliuManager.onResher(item);
-            }
+            getBaijiaUserInfo(userId);
         }
 
+        currPage=1;
+        ishow =true;
+        if(pubuliuManager!=null && item!=null)
+        {
+            //item.clear();
+            //pubuliuManager.onResher(item);
+        }
+
+        sendReuqestAllProductHttp(currPage, 0);
     }
 
     /******
@@ -354,7 +354,12 @@ public class ShopMainFragment extends Fragment {
 
         shap_main_description1_textview.setText(ToolsUtil.nullToString(userInfoBean.getDescription()));
 
-        shop_main_head_layout_address_textview.setText(ToolsUtil.nullToString(userInfoBean.getAddress()));
+        String address=ToolsUtil.nullToString(userInfoBean.getAddress());
+        if(address.equals(""))
+        {
+            address="未知";
+        }
+        shop_main_head_layout_address_textview.setText(address);
         //商品
         TextView tv_product_count=(TextView)activity.findViewById(R.id.tv_product_count);
         tv_product_count.setText("商品：" + userInfoBean.getProductCount());
@@ -381,7 +386,7 @@ public class ShopMainFragment extends Fragment {
     }
 
 
-    void onRefresh(MyFavoriteProductListInfoBean bean)
+    synchronized void onRefresh(MyFavoriteProductListInfoBean bean)
     {
         if(bean!=null && bean.getItems()!=null && bean.getItems().size()>0)
         {
@@ -398,7 +403,7 @@ public class ShopMainFragment extends Fragment {
     }
 
 
-    void onAddData(MyFavoriteProductListInfoBean bean)
+    synchronized  void onAddData(MyFavoriteProductListInfoBean bean)
     {
         if(bean!=null && bean.getItems()!=null && bean.getItems().size()>0)
         {

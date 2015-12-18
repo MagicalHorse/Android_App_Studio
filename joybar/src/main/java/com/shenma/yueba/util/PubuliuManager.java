@@ -91,7 +91,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
      *
      * @param _item List<MyFavoriteProductListInfo>
      ***/
-    public void onResher(List<PubuliuBeanInfo> _item) {
+    public synchronized void onResher(List<PubuliuBeanInfo> _item) {
         item.clear();
         collect_map.clear();
         if(item!=null)
@@ -112,7 +112,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
      *
      * @param _item List<MyFavoriteProductListInfo>
      ****/
-    public void onaddData(List<PubuliuBeanInfo> _item) {
+    public synchronized void onaddData(List<PubuliuBeanInfo> _item) {
         if(item!=null)
         {
             item.addAll(_item);

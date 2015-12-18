@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="2dp"
-    android:background="@color/white">
+    android:background="@color/main_bg">
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/shop_main_layout_title_pulltorefreshscrollview"
@@ -21,7 +20,9 @@
                 layout="@layout/shop_main_head_layout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/shop_main_layout_title_relativelayout" />
+                android:layout_below="@id/shop_main_layout_title_relativelayout"
+                android:background="@color/white"
+                />
 
             <LinearLayout
                 android:layout_below="@id/shop_main_layout_head_relativelayout"
@@ -44,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/yellow_background"
+        android:background="@color/color_deeoyellow"
         android:gravity="center"
         android:text="私聊"
         android:textColor="@color/white"

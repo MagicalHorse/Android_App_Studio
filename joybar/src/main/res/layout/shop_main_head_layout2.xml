@@ -93,6 +93,7 @@
         android:layout_marginTop="10dip"
         android:layout_toRightOf="@id/shop_main_head_layout_address_imageview"
         android:drawableLeft="@drawable/address"
+        android:drawablePadding="5dp"
         android:text=""
         android:textColor="@color/color_gray" />
 
