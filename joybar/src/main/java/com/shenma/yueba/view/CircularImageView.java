@@ -50,7 +50,7 @@ public class CircularImageView extends ImageView {
 				R.styleable.CircularImageView, defStyle, 0);
 
 		if (attributes.getBoolean(R.styleable.CircularImageView_border, true)) {
-			int defaultBorderSize = (int) (4 * getContext().getResources()
+			int defaultBorderSize = (int) (2 * getContext().getResources()
 					.getDisplayMetrics().density + 0.5f);
 			setBorderWidth(attributes.getDimensionPixelOffset(
 					R.styleable.CircularImageView_border_width,
