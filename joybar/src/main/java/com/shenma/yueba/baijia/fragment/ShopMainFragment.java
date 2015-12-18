@@ -382,7 +382,6 @@ public class ShopMainFragment extends Fragment {
         super.onResume();
         MobclickAgent.onResume(getActivity());
         Log.i("TAG", "onResume ----------------------------------->>");
-        requestRefreshData();
     }
 
     public void onPause() {
