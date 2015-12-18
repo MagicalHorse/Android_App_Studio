@@ -331,7 +331,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
                 MyFavoriteProductListInfo storeIndexItem= brandInfoInfos.get(i);
                 pubuliuBeanInfo.setFavoriteCount(pubuliuBeanInfo.getFavoriteCount());
                 pubuliuBeanInfo.setId(Integer.toString(storeIndexItem.getId()));
-                pubuliuBeanInfo.setIscollection(false);
+                pubuliuBeanInfo.setIscollection(storeIndexItem.isFavorite());
                 pubuliuBeanInfo.setName(storeIndexItem.getName());
                 MyFavoriteProductListPic pic=storeIndexItem.getPic();
                 if(pic!=null)

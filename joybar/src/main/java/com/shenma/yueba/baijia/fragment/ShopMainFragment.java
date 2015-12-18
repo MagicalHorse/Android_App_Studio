@@ -425,7 +425,7 @@ public class ShopMainFragment extends Fragment {
                 MyFavoriteProductListInfo myFavoriteProductListInfo= brandInfoInfos.get(i);
                 pubuliuBeanInfo.setFavoriteCount(myFavoriteProductListInfo.getFavoriteCount());
                 pubuliuBeanInfo.setId(Integer.toString(myFavoriteProductListInfo.getId()));
-                pubuliuBeanInfo.setIscollection(false);
+                pubuliuBeanInfo.setIscollection(myFavoriteProductListInfo.isFavorite());
                 pubuliuBeanInfo.setName(myFavoriteProductListInfo.getName());
                 MyFavoriteProductListPic myFavoriteProductListPic=myFavoriteProductListInfo.getPic();
                 if(myFavoriteProductListPic!=null)

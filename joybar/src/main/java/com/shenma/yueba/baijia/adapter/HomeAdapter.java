@@ -119,7 +119,12 @@ public class HomeAdapter extends BaseAdapter {
         } else {
 
             holder.home_item_top_desp_imageview.setVisibility(View.VISIBLE);
-            holder.home_item_top_desp_textview.setText(ToolsUtil.nullToString(indexItems.getLocation()));
+            String address=ToolsUtil.nullToString(indexItems.getLocation());
+            if(address.equals(""))
+            {
+                address="未知";
+            }
+            holder.home_item_top_desp_textview.setText(address);
             double long1=indexItems.getLon();
             double lat1=indexItems.getLat();
             double long2=0;

@@ -345,7 +345,12 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		initPic(usericon, approvebuyerdetails_icon_imageview);
 
 		TextView approvebuyerdetails_buyeraddress_textview=(TextView)parentView.findViewById(R.id.approvebuyerdetails_buyeraddress_textview);
-		approvebuyerdetails_buyeraddress_textview.setText(ToolsUtil.nullToString(Data.getPickAddress()));
+		String buyeraddress=ToolsUtil.nullToString(Data.getPickAddress());
+		if(buyeraddress.equals(""))
+		{
+			buyeraddress="未知";
+		}
+		approvebuyerdetails_buyeraddress_textview.setText(buyeraddress);
 		// 自提地址
 		setdataValue(R.id.approvebuyerdetails_addressvalue_textview, address);
 

@@ -875,7 +875,12 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         //approvebuyerdetails_address_textview.setVisibility(View.GONE);
 
         TextView approvebuyerdetails_buyeraddress_textview = (TextView) parentView.findViewById(R.id.approvebuyerdetails_buyeraddress_textview);
-        approvebuyerdetails_buyeraddress_textview.setText(ToolsUtil.nullToString(Data.getPickAddress()));
+        String buyeraddress=ToolsUtil.nullToString(Data.getPickAddress());
+        if(buyeraddress.equals(""))
+        {
+            buyeraddress="未知";
+        }
+        approvebuyerdetails_buyeraddress_textview.setText(buyeraddress);
         setdataValue(R.id.approvebuyerdetails_name_textview, username);
         double price = Data.getPrice();
         // 金额

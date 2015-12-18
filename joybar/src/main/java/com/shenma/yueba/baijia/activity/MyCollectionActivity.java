@@ -36,7 +36,7 @@ import java.util.List;
  */
 
 
-public class MyCollectionActivity extends BaseActivityWithTopView {
+public class MyCollectionActivity extends BaseActivityWithTopView implements CollectobserverManage.ObserverListener {
     HttpControl httpCntrol = new HttpControl();
     int currPage = Constants.CURRPAGE_VALUE;
     int pageSize = Constants.PAGESIZE_VALUE;
@@ -98,7 +98,7 @@ public class MyCollectionActivity extends BaseActivityWithTopView {
 
         pubuliuManager = new PubuliuManager(this, baijia_market_main_layout_pubuliu_linearlayout);
         //添加观察者
-        CollectobserverManage.getInstance().addObserver(pubuliuManager);
+        CollectobserverManage.getInstance().addObserver(this);
     }
 
     void requestData() {
@@ -199,7 +199,7 @@ public class MyCollectionActivity extends BaseActivityWithTopView {
                 MyFavoriteProductListInfo storeIndexItem = brandInfoInfos.get(i);
                 pubuliuBeanInfo.setFavoriteCount(pubuliuBeanInfo.getFavoriteCount());
                 pubuliuBeanInfo.setId(Integer.toString(storeIndexItem.getId()));
-                pubuliuBeanInfo.setIscollection(false);
+                pubuliuBeanInfo.setIscollection(storeIndexItem.isFavorite());
                 pubuliuBeanInfo.setName(storeIndexItem.getName());
                 MyFavoriteProductListPic pic = storeIndexItem.getPic();
                 if (pic != null) {
@@ -241,7 +241,22 @@ public class MyCollectionActivity extends BaseActivityWithTopView {
     protected void onDestroy() {
         super.onDestroy();
         //移除观察者
-        CollectobserverManage.getInstance().removeObserver(pubuliuManager);
+        CollectobserverManage.getInstance().removeObserver(this);
     }
 
+    @Override
+    public synchronized void observerCallNotification(PubuliuBeanInfo pubuliuBeanInfo) {
+        for(int i=0;i<item.size();i++)
+        {
+            if(item.get(i).getId().equals(pubuliuBeanInfo.getId()))
+            {
+                item.remove(i);
+                if(pubuliuManager!=null)
+                {
+                    pubuliuManager.onResher(item);
+                }
+                break;
+            }
+        }
+    }
 }
