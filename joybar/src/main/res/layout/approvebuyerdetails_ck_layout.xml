@@ -63,9 +63,11 @@
             <!--    Tab备注信息-->
             <LinearLayout
                 android:id="@+id/approvebuydetails_ck_tab_bak_linearlayout"
-                style="@style/modulepaddingleftandright_style"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/shop_main_width15_dimen"
+                android:paddingRight="@dimen/shop_main_width15_dimen"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal" />
 
@@ -94,9 +96,11 @@
     <!--悬浮TAB-->
     <LinearLayout
         android:id="@+id/approvebuydetails_ck_suspensiontab_bak_linearlayout"
-        style="@style/modulepaddingleftandright_style"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/shop_main_width15_dimen"
+        android:paddingRight="@dimen/shop_main_width15_dimen"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:visibility="gone" />
 
