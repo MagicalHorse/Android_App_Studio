@@ -244,8 +244,10 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         approvebuyerdetails_layout_shoucang_linerlayout_textview.setOnClickListener(this);
         if (Data.isFavorite()) {
             approvebuyerdetails_layout_shoucang_linerlayout_textview.setText("已收藏");
+            approvebuyerdetails_layout_shoucang_linerlayout_textview.setSelected(true);
         } else {
             approvebuyerdetails_layout_shoucang_linerlayout_textview.setText("收藏");
+            approvebuyerdetails_layout_shoucang_linerlayout_textview.setSelected(false);
         }
         //头像包裹视图
         ll_attentionpeople_contener = (LinearLayout) parentView.findViewById(R.id.ll_attentionpeople_contener);

@@ -16,16 +16,13 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
 import com.shenma.yueba.baijia.modle.ProductsInfoBean;
+import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.shenma.yueba.baijia.modle.newmodel.SearchProductBackBean;
-import com.shenma.yueba.constants.Constants;
+import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
-import com.shenma.yueba.util.PerferneceUtil;
 import com.shenma.yueba.util.SharedUtil;
-import com.shenma.yueba.yangjia.adapter.MyAttentionAndFansForSocialAdapter;
 import com.shenma.yueba.yangjia.adapter.ProductSearchAdapter;
-import com.shenma.yueba.yangjia.modle.AttationAndFansItemBean;
-import com.shenma.yueba.yangjia.modle.AttationAndFansListBackBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,7 @@ import config.PerferneceConfig;
  * @author a
  * 
  */
-public class ProductSearchFragment extends BaseFragment {
+public class ProductSearchFragment extends BaseFragment implements CollectobserverManage.ObserverListener {
 
 	private PullToRefreshListView pull_refresh_list;
 	private ProductSearchAdapter adapter;
@@ -77,9 +74,9 @@ public class ProductSearchFragment extends BaseFragment {
 		pull_refresh_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if(position>0){
+				if (position > 0) {
 					Intent intent = new Intent(getActivity(), BaijiaProductInfoActivity.class);
-					intent.putExtra("productID", mList.get(position-1).getProductId());
+					intent.putExtra("productID", mList.get(position - 1).getProductId());
 					getActivity().startActivity(intent);
 				}
 			}
@@ -100,6 +97,7 @@ public class ProductSearchFragment extends BaseFragment {
 				getProductList(getActivity(), false, false, key);
 			}
 		});
+		CollectobserverManage.getInstance().addObserver(this);
 		return view;
 	}
 
@@ -116,7 +114,7 @@ public class ProductSearchFragment extends BaseFragment {
 		}
 		HttpControl httpControl = new HttpControl();
 		String cityId = SharedUtil.getStringPerfernece(getActivity(), SharedUtil.getStringPerfernece(getActivity(), PerferneceConfig.SELECTED_CITY_ID));
-		httpControl.searchProducts(key, SharedUtil.getUserId(ctx), cityId, storeId, "0", showDialog,page, new HttpCallBackInterface() {
+		httpControl.searchProducts(key, SharedUtil.getUserId(ctx), cityId, storeId, "0", showDialog, page, new HttpCallBackInterface() {
 			@Override
 			public void http_Success(Object obj) {
 				pull_refresh_list.postDelayed(new Runnable() {
@@ -153,4 +151,28 @@ public class ProductSearchFragment extends BaseFragment {
 		}, ctx);
 	}
 
+	@Override
+	public void observerCallNotification(PubuliuBeanInfo pubuliuBeanInfo) {
+		if(mList!=null)
+		{
+			for(int i=0;i<mList.size();i++)
+			{
+				if(Integer.toString(mList.get(i).getProductId()).equals(pubuliuBeanInfo.getId()))
+				{
+					mList.get(i).setIsFavorite(pubuliuBeanInfo.iscollection());
+					if(adapter!=null)
+					{
+						adapter.notifyDataSetChanged();
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		CollectobserverManage.getInstance().removeObserver(this);
+	}
 }

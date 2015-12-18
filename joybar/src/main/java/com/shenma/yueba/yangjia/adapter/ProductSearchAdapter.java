@@ -17,7 +17,9 @@ import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.BaseAdapterWithUtil;
 import com.shenma.yueba.baijia.modle.ProductsInfoBean;
+import com.shenma.yueba.baijia.modle.newmodel.PubuliuBeanInfo;
 import com.shenma.yueba.baijia.modle.newmodel.SearchProductBackBean;
+import com.shenma.yueba.util.CollectobserverManage;
 import com.shenma.yueba.util.HttpControl;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.yangjia.fragment.MsgListFragment;
@@ -110,14 +112,18 @@ public class ProductSearchAdapter extends BaseAdapterWithUtil {
 			@Override
 			public void http_Success(Object obj) {
 				if(isFavite){
-					Toast.makeText(ctx, "取消收藏成功", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(ctx, "取消收藏成功", Toast.LENGTH_SHORT).show();
 					mList.get(position).setIsFavorite(false);
 				}else{
-					Toast.makeText(ctx, "收藏成功", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(ctx, "收藏成功", Toast.LENGTH_SHORT).show();
 					mList.get(position).setIsFavorite(true);
 				}
 				notifyDataSetChanged();
 				stopAnimation(v);
+				PubuliuBeanInfo pubuliuBeanInfo=new PubuliuBeanInfo();
+				pubuliuBeanInfo.setId(Integer.toString(mList.get(position).getProductId()));
+				pubuliuBeanInfo.setIscollection(mList.get(position).isFavorite());
+				CollectobserverManage.getInstance().dataChangeNotication(pubuliuBeanInfo);
 			}
 
 			@Override
