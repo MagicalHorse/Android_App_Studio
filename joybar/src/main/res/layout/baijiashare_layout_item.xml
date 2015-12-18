@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/baijiashare_layout_item_parent_linearlayout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/shop_main_width100_dimen"
+    android:layout_height="wrap_content"
     android:padding="@dimen/shop_main_width15_dimen"
     android:background="@color/white"
     android:gravity="left|center_vertical"
     >
     
     <ImageView
-        android:layout_width="@dimen/shop_main_marginleft30_dimen"
-        android:layout_height="@dimen/shop_main_marginleft30_dimen"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:id="@+id/baijiashare_layout_item_heads_imageview"
         android:src="@drawable/check_background"
         android:scaleType="fitCenter"
         />
 
     <ImageView
-        android:layout_marginLeft="@dimen/shop_main_lineheight8_dimen"
+        android:layout_marginLeft="10dp"
         android:id="@+id/baijiashare_layout_item_icons_imageview"
         android:layout_toRightOf="@id/baijiashare_layout_item_heads_imageview"
-        android:layout_width="@dimen/shop_main_iconwidth80_dimen"
-        android:layout_height="@dimen/shop_main_iconwidth80_dimen"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/default_pic"
         android:scaleType="centerCrop"
         />
@@ -33,9 +34,10 @@
         android:layout_height="match_parent"
         >
     <TextView
-        android:maxLines="3"
+        android:maxLines="2"
         android:gravity="left|center_vertical"
         android:layout_above="@+id/baijiashare_layout_item_prices_textview"
+
         android:layout_marginLeft="@dimen/shop_main_width5_dimen"
         android:id="@+id/baijiashare_layout_item_names_textview"
         android:layout_width="match_parent"

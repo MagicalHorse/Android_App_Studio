@@ -159,9 +159,10 @@ public class MarketMainActivity extends BaseActivityWithTopView {
             brandstr_array.add(ToolsUtil.nullToString(brandInfos_array.get(i).getBrandName()));
         }
         bm = new AutoBrandListManager(this, baijia_authencationmain_brand_linearlayout);
-        bm.setChildMargin(getResources().getDimensionPixelSize(R.dimen.branditem_margin));
-        bm.setLastText("更多品牌", R.dimen.text_authentication_textsize);
-        bm.settextSize(R.dimen.text_authentication_textsize);
+        bm.setTextpadding(R.dimen.shop_main_width5_dimen);//设置文本padding值
+        bm.settextSize(R.dimen.text_authentication_textsize);//设置 品牌文本大小
+        bm.setChildMargin(MarketMainActivity.this.getResources().getDimensionPixelSize(R.dimen.branditem_margin));//设置文本 margin 左右的值
+        bm.setLastText("更多品牌", R.dimen.text_authentication_textsize);//设置最后一位文本的大小
         bm.setOnClickListener(new BrandListManager.OnBrandItemListener() {
             @Override
             public void onItemClick(View v, int i) {

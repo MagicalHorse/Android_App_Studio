@@ -42,7 +42,7 @@ public class BaiJiaShareDataAdapter extends BaseAdapter{
 
 	@Override
 	public Object getItem(int position) {
-		
+
 		return null;
 	}
 
@@ -64,28 +64,30 @@ public class BaiJiaShareDataAdapter extends BaseAdapter{
 			holder.baijiashare_layout_item_icons_imageview=(ImageView)convertView.findViewById(R.id.baijiashare_layout_item_icons_imageview);
 			holder.baijiashare_layout_item_names_textview=(TextView)convertView.findViewById(R.id.baijiashare_layout_item_names_textview);
 			holder.baijiashare_layout_item_prices_textview=(TextView)convertView.findViewById(R.id.baijiashare_layout_item_prices_textview);
-			holder.baijiashare_layout_item_heads_imageview.setOnClickListener(new OnClickListener() {
+			holder.baijiashare_layout_item_parent_linearlayout=(LinearLayout)convertView.findViewById(R.id.baijiashare_layout_item_parent_linearlayout);
+			holder.baijiashare_layout_item_parent_linearlayout.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					//获取已经选中的个数
-					if(getCheckCount()>=maxCount)
+
+					ImageView baijiashare_layout_item_heads_imageview=(ImageView)v.findViewById(R.id.baijiashare_layout_item_heads_imageview);
+					if(baijiashare_layout_item_heads_imageview!=null && baijiashare_layout_item_heads_imageview.getTag()!=null)
 					{
-						MyApplication.getInstance().showMessage(context, "一次最多分享"+maxCount);
-						return;
-					}
-					
-					if(v.getTag()!=null)
-					{
-						BaiJiaShareInfoBean bean=(BaiJiaShareInfoBean)v.getTag();
+						BaiJiaShareInfoBean bean=(BaiJiaShareInfoBean)baijiashare_layout_item_heads_imageview.getTag();
 						if(bean.isIscheck())
 						{
 							bean.setIscheck(false);
-							v.setSelected(false);
+							baijiashare_layout_item_heads_imageview.setSelected(false);
 						}else
 						{
+							//获取已经选中的个数
+							if(getCheckCount()>=maxCount)
+							{
+								MyApplication.getInstance().showMessage(context, "一次最多分享"+maxCount+"个商品");
+								return;
+							}
 							bean.setIscheck(true);
-							v.setSelected(true);
+							baijiashare_layout_item_heads_imageview.setSelected(true);
 						}
 					}
 				}
@@ -105,6 +107,7 @@ public class BaiJiaShareDataAdapter extends BaseAdapter{
 		ImageView baijiashare_layout_item_icons_imageview;
 		TextView baijiashare_layout_item_names_textview;
 		TextView baijiashare_layout_item_prices_textview;
+		LinearLayout baijiashare_layout_item_parent_linearlayout;
 	}
 	
 	void setValue(Holder holder,int position)
