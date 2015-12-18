@@ -128,7 +128,7 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
         }
         bitmapUtils.display(holder.riv_head, mList.get(position).getLogo());
         holder.tv_name.setText(ToolsUtil.nullToString(mList.get(position).getNickname()));
-        holder.tv_attention.setText(ToolsUtil.nullToString(mList.get(position).isFllowed() ? "取消关注" : "关注"));
+        holder.tv_attention.setText(ToolsUtil.nullToString(mList.get(position).isFllowed() ? "已关注" : "关注"));
         holder.tv_attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +200,7 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                     Toast.makeText(ctx,"取消成功",Toast.LENGTH_SHORT).show();
                     mList.get(position).setIsFllowed(false);
                 } else {
-                    tv_attention.setText("取消关注");
+                    tv_attention.setText("已关注");
                     Toast.makeText(ctx,"关注成功",Toast.LENGTH_SHORT).show();
                     mList.get(position).setIsFllowed(true);
                 }
