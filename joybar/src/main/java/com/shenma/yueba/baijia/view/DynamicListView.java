@@ -39,7 +39,7 @@ public class DynamicListView extends BaseView{
 	// 当前页
 	int currpage = Constants.CURRPAGE_VALUE;
 	// 每页显示的条数
-	int pagesize = Constants.PAGESIZE_VALUE*50;
+	int pagesize = Constants.PAGESIZE_VALUE;
 	private List<UserDynamicInfo> mList = new ArrayList<UserDynamicInfo>();
 	private View view;
 	private PullToRefreshListView pull_refresh_list;

@@ -44,7 +44,7 @@ public class MsgListView extends BaseView implements ImBroadcastReceiverLinstene
 	// 当前页
 	int currpage = Constants.CURRPAGE_VALUE;
 	// 每页显示的条数
-	int pagesize = Constants.PAGESIZE_VALUE*100;
+	int pagesize = Constants.PAGESIZE_VALUE;
 	private List<MsgListInfo> mList = new ArrayList<MsgListInfo>();
 	private View view;
 	private PullToRefreshListView pull_refresh_list;
