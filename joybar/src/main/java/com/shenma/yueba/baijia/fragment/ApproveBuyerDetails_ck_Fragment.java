@@ -787,7 +787,6 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         suspenstabViewpagerManager.initFragmentViewPager(this.getFragmentManager(), null);
         suspenstabViewpagerManager.setCurrView(0);
 
-
         /************
          * TAB切换视图
          * *********/
