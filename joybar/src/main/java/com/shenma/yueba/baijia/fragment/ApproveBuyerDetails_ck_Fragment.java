@@ -1112,9 +1112,9 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.approvebuyerdetails_icon_imageview:// 头像
-                if (!MyApplication.getInstance().isUserLogin(activity)) {
-                    return;
-                }
+//                if (!MyApplication.getInstance().isUserLogin(activity)) {
+//                    return;
+//                }
                 try {
                     ToolsUtil.forwardShopMainActivity(activity, Integer.valueOf(bean.getData().getBuyerId()));
                 } catch (Exception e) {
