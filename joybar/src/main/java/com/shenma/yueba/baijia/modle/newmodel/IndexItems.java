@@ -201,8 +201,6 @@ public class IndexItems implements Serializable{
         if (isRunning) {
             return;
         }
-
-
         if(BusinessTime<0)
         {
             return;
