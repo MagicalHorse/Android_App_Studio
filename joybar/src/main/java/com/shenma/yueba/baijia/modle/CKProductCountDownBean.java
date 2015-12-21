@@ -44,7 +44,7 @@ public class CKProductCountDownBean {
         if (isRunning) {
             return;
         }
-        if(ckProductDeatilsInfoBean.BusinessTime<=0)
+        if(ckProductDeatilsInfoBean.BusinessTime<0)
         {
             return;
         }
