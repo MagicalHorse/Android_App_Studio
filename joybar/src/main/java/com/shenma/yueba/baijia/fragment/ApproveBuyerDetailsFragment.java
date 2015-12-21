@@ -277,7 +277,6 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 								}
 							});
 						}
-
 					}
 				}
 			});
