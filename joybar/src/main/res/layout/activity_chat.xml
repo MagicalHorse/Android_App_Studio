@@ -324,7 +324,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/color_lightgrey"
+        android:background="@color/white"
         android:visibility="gone"
         >
 
@@ -333,6 +333,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/gonggao"
             android:scaleType="fitCenter"
+            android:visibility="gone"
             />
         <TextView
             android:id="@+id/chat_alertmsg_textview"
