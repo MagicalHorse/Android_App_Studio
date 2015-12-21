@@ -518,6 +518,14 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                     product_spec_layout_stockvalue_textview.setVisibility(View.GONE);
                 }
                 product_spec_layout_stockvalue_textview.setText(Integer.toString(bean.getInventory()));
+                String buycount= createorder_dialog_layout_countvalue_edittext.getText().toString().trim();
+                if(buycount.equals("") || Integer.valueOf(buycount)<=0)
+                {
+                    createorder_dialog_layout_countvalue_edittext.setText("1");
+                }else
+                {
+                    createorder_dialog_layout_countvalue_edittext.setText(buycount);
+                }
                 isTextButtonEnable();
             }
 
