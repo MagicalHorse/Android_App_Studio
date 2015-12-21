@@ -94,6 +94,7 @@
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="commons-codec-1.5" level="project" />
     <orderEntry type="library" exported="" name="oss-android-sdk-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="jpush-sdk-release1.7.5" level="project" />
     <orderEntry type="library" exported="" name="SocialSDK_UserCenter" level="project" />
     <orderEntry type="library" exported="" name="socket.io-client-0.4.2" level="project" />
