@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -964,6 +965,18 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             str = ToolsUtil.DounbleToString_2(d);
             setdataValue(R.id.hangtag_discount_textview, str + "折");
         }
+        TextView hangtag_discount_textview=(TextView)parentView.findViewById(R.id.hangtag_discount_textview);
+        if(hangtag_discount_textview!=null)
+        {
+            if(TextUtils.isEmpty(str))
+            {
+                hangtag_discount_textview.setVisibility(View.GONE);
+            }else
+            {
+                hangtag_discount_textview.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
 

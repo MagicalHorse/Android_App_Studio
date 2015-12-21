@@ -58,6 +58,8 @@
             android:layout_height="wrap_content"
             android:text=""
             android:background="@color/red_text_color"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
             android:singleLine="true"
             />
 
@@ -75,6 +77,6 @@
         android:lineSpacingExtra="2dip"
         android:textColor="@color/color_textgray"
         android:text="@null"
-        android:textSize="@dimen/textsize16sp" />
+        android:textSize="@dimen/textsize14sp" />
 
 </RelativeLayout>

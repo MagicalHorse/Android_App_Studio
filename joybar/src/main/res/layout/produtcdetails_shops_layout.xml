@@ -92,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text=""
+                    android:textColor="@color/text_gray_color"
                     android:textSize="@dimen/textsize13sp" />
             </LinearLayout>
 

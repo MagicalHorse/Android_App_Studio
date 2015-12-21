@@ -1,6 +1,7 @@
 package com.shenma.yueba.baijia.fragment;
 
 import android.app.Activity;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -338,6 +339,9 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		double unitPrice=Data.getUnitPrice();
 		//吊牌价
 		setdataValue(R.id.hangtag_price_textview, "￥" + Double.toString(unitPrice));
+		TextView hangtag_price_textview = (TextView) parentView.findViewById(R.id.hangtag_price_textview);
+		hangtag_price_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+		hangtag_price_textview.setVisibility(View.VISIBLE);
 
 
 		// 商品名称

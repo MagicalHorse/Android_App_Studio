@@ -104,6 +104,7 @@
             android:id="@+id/product_spec_layout_serve_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_gray_color"
             android:text="服务：由门店提供服务" />
 
     </LinearLayout>
