@@ -137,7 +137,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
                 View parentview = LinearLayout.inflate(activity, R.layout.pubuliu_item_layout, null);
                 //价格
                 TextView pubuliu_item_layout_pricevalue_textview = (TextView) parentview.findViewById(R.id.pubuliu_item_layout_pricevalue_textview);
-                pubuliu_item_layout_pricevalue_textview.setText(bean.getPrice() + "");
+                pubuliu_item_layout_pricevalue_textview.setText(ToolsUtil.DounbleToString_2(bean.getPrice()));
                 //商品名称
                 TextView pubuliu_item_layout_name_textview = (TextView) parentview.findViewById(R.id.pubuliu_item_layout_name_textview);
                 pubuliu_item_layout_name_textview.setText(bean.getName());
