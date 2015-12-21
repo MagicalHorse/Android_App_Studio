@@ -80,7 +80,6 @@ public class EarningManagerActivity extends BaseActivityWithTopView implements O
 		tv_total_income_money = getView(R.id.tv_total_income_money);
 		tv_income_detail = getView(R.id.tv_income_detail);
 		try {
-
 			// 设置数据
 			tv_today_income.withNumber(Float.parseFloat(income!=null?ToolsUtil.DounbleToString_2(income.getToday_income()):""));
 			// 设置动画播放时间
