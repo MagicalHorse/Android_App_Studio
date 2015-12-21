@@ -255,7 +255,6 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		in_circle_button.setOnClickListener(this);
 	}
 
-
 	void  dangyanggouTime()
 	{
 		if(ckProductCountDownBean!=null)
