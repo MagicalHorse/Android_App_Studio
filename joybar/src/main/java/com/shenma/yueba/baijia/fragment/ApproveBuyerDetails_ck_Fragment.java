@@ -1115,6 +1115,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
 //                if (!MyApplication.getInstance().isUserLogin(activity)) {
 //                    return;
 //                }
+
                 try {
                     ToolsUtil.forwardShopMainActivity(activity, Integer.valueOf(bean.getData().getBuyerId()));
                 } catch (Exception e) {
