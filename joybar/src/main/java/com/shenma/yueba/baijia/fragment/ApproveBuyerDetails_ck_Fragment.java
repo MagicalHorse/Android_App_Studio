@@ -581,7 +581,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             super.handleMessage(msg);
             switch (msg.what) {
                 case 200:
-                    scrollToxy();
+                    //scrollToxy();
                     break;
                 case 100:
                     if (approvebuyerdetails_srcollview != null) {
@@ -781,7 +781,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
 
             @Override
             public void onTabClick(int i) {
-                scrollToxy();
+                //scrollToxy();
             }
         });
         suspenstabViewpagerManager.initFragmentViewPager(this.getFragmentManager(), null);
@@ -798,7 +798,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
 
             @Override
             public void onTabClick(int i) {
-                scrollToxy();
+                //scrollToxy();
             }
         });
         tabViewpagerManager.initFragmentViewPager(this.getFragmentManager(), null);
@@ -827,7 +827,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                     approvebuydetails_ck_bak_viewpager.setLayoutParams(layoutParams);
                 }
                 approvebuydetails_ck_bak_viewpager.invalidate();
-                scrollToxy();
+                //scrollToxy();
             }
 
             @Override
