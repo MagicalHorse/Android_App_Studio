@@ -49,4 +49,5 @@
     <dimen name="round_margin">3dp</dimen>
     <dimen name="dimen_scrollwidth">80dp</dimen>
     <dimen name="dimen_cardItemHeight">40dp</dimen>
+
 </resources>

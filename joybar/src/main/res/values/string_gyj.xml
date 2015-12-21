@@ -50,7 +50,10 @@
     <string name="Loosentheloadstr">松开加载</string>
     
     <string name="queryorderdesc">查看订单详情</string>
-    
+
+    <string name="str_shopping_start">距离开始：</string>
+    <string name="str_shopping_end">距离结束：</string>
+
     
     
 </resources>
