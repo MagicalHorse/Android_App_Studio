@@ -57,7 +57,7 @@ public class WithDrawHistoryAdapter extends BaseAdapterWithUtil {
 			holder = (Holder) convertView.getTag();
 		}
 		
-		holder.tv_money.setText("￥"+ToolsUtil.nullToString(mList.get(position).getAmount()));
+		holder.tv_money.setText("￥"+ToolsUtil.DounbleToString_2(mList.get(position).getAmount()));
 		holder.tv_date.setText(ToolsUtil.nullToString(mList.get(position).getCreate_date()));
 		return convertView;
 	}

@@ -114,8 +114,8 @@ int maxValue=0;
 		affirmorder_item_productcount_textview.setText("x"+Integer.toString(productInfoBean.getProductCount()));
 		maxValue=baiJiaOrderListInfo.getOrderProductCount();
 		createorder_dialog_layout_countvalue_edittext.setText(Integer.toString(baiJiaOrderListInfo.getOrderProductCount()));
-		affirmorder_item_productprice_textview.setText("￥"+Double.toString(productInfoBean.getPrice()));
-		applyforrefund_layout_refundprivevalue_textview.setText("￥"+Double.toString(baiJiaOrderListInfo.getAmount()));
+		affirmorder_item_productprice_textview.setText("￥"+ToolsUtil.DounbleToString_2(productInfoBean.getPrice()));
+		applyforrefund_layout_refundprivevalue_textview.setText("￥"+ToolsUtil.DounbleToString_2(baiJiaOrderListInfo.getAmount()));
 		
         createorder_dialog_layout_countvalue_edittext.addTextChangedListener(new TextWatcher() {
 			

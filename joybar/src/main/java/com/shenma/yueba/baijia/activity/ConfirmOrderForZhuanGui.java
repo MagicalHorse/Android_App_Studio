@@ -276,7 +276,7 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
         tv_color = getView(R.id.tv_color);
         tv_color.setText("颜色：" + ToolsUtil.nullToString(affirmProductInfo.getColorName()));
         tv_product_money = getView(R.id.tv_product_money);
-        tv_product_money.setText("商品金额：￥" + ToolsUtil.nullToString(affirmProductInfo.getData().getData().getPrice() + " x " + affirmProductInfo.getBuycount()));
+        tv_product_money.setText("商品金额：￥" + ToolsUtil.nullToString(ToolsUtil.DounbleToString_2(affirmProductInfo.getData().getData().getPrice()) + " x " + affirmProductInfo.getBuycount()));
         et_comment = getView(R.id.et_comment);
         order_money_title = getView(R.id.order_money_title);
         ll_coupon = getView(R.id.ll_coupon);
@@ -488,7 +488,7 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
         //打样够 立减金额
         double dangyanggouprice = 0;
 
-        order_money_title.setText("订单金额：￥" + allprice);
+        order_money_title.setText("订单金额：￥" + ToolsUtil.DounbleToString_2(allprice));
 
         //如果 存在 已选择 的 会员卡
         if (currCheckedMemberCardBean != null) {

@@ -105,7 +105,7 @@ int buyCount=0;
 	 holder.affirmorder_item_productname_textview.setText(ToolsUtil.nullToString(productsDetailsInfoBean.getProductName()));
 	 holder.affirmorder_item_productsize_textview.setText(prioductSizesInfoBean.getSizeName());
 	 holder.affirmorder_item_productcount_textview.setText("x"+buyCount+"");
-	 holder.affirmorder_item_productprice_textview.setText("￥"+productsDetailsInfoBean.getPrice());
+	 holder.affirmorder_item_productprice_textview.setText("￥"+ToolsUtil.DounbleToString_2(productsDetailsInfoBean.getPrice()));
 	 
  }
  

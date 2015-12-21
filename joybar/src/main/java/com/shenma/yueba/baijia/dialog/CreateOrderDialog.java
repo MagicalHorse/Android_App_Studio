@@ -104,7 +104,7 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 		chat_product_head_layout_name_textview.setText(ToolsUtil.nullToString(productsDetailsInfoBean.getProductName()));
 		//产品价格
 		TextView chat_product_head_layout_price_textview=(TextView)ll.findViewById(R.id.chat_product_head_layout_price_textview);
-		chat_product_head_layout_price_textview.setText("￥"+productsDetailsInfoBean.getPrice());
+		chat_product_head_layout_price_textview.setText("￥"+ToolsUtil.DounbleToString_2(productsDetailsInfoBean.getPrice()));
 		//颜色类型
 		TextView createorder_dialog_layout_colorvalue_textview=(TextView)ll.findViewById(R.id.createorder_dialog_layout_colorvalue_textview);
 		//设置尺寸

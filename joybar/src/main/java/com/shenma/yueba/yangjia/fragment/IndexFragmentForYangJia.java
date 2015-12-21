@@ -412,8 +412,8 @@ public class IndexFragmentForYangJia extends BaseFragment implements
 				codeUrl = data.getBarcode();
 				shopName = data.getShopname();
 				Goodsamount goodsamount = data.getGoodsamount();
-				tv_today_huokuan_money.setText(ToolsUtil.nullToString(goodsamount.getTodaygoodsamount()));
-				tv_all_huokuan_money.setText(ToolsUtil.nullToString(goodsamount.getTotalgoodsamount()));
+				tv_today_huokuan_money.setText(ToolsUtil.DounbleToString_2(goodsamount.getTodaygoodsamount()));
+				tv_all_huokuan_money.setText(ToolsUtil.DounbleToString_2(goodsamount.getTotalgoodsamount()));
 				byte[] bytes = Base64Coder.decode(codeUrl);
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				options.inSampleSize = 4;
@@ -434,8 +434,8 @@ public class IndexFragmentForYangJia extends BaseFragment implements
 				tv_all_sales_count.setText(ToolsUtil.nullToString(order!=null?order.getAllorder():""));
 				
 				income = data.getIncome();
-				tv_today_earnings_money.setText(ToolsUtil.nullToString(income!=null?income.getToday_income():""));
-				tv_all_earnings_money.setText(ToolsUtil.nullToString(income!=null?income.getTotal_income():""));
+				tv_today_earnings_money.setText(ToolsUtil.DounbleToString_2(income.getToday_income()));
+				tv_all_earnings_money.setText(ToolsUtil.DounbleToString_2(income.getTotal_income()));
 				
 			}
 			

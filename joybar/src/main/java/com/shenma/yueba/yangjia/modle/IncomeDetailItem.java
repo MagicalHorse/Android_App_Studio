@@ -4,9 +4,9 @@ public class IncomeDetailItem {
 	private String id;//编号
 	private String order_type;//Giftcard/product （1/2）
 	private String order_no;//订单编号
-	private String income_amount;//提成金额
+	private double income_amount;//提成金额
 	private String status;//状态        0:不可用;1:冻结;2:失效;3:有效
-	private String amount;//订单金额
+	private double amount;//订单金额
 	private String create_date;//日期,
 	private String status_show;//文字状态：如“冻结”等
 	private String orderstatus;	//订单状态
@@ -29,24 +29,30 @@ public class IncomeDetailItem {
 	public void setOrder_no(String order_no) {
 		this.order_no = order_no;
 	}
-	public String getIncome_amount() {
+
+	public double getIncome_amount() {
 		return income_amount;
 	}
-	public void setIncome_amount(String income_amount) {
+
+	public void setIncome_amount(double income_amount) {
 		this.income_amount = income_amount;
 	}
+
 	public String getStatus() {
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getAmount() {
+
+	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(String amount) {
+
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
 	public String getCreate_date() {
 		return create_date;
 	}

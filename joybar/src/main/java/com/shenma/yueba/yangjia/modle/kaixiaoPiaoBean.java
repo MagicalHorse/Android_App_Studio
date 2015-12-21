@@ -3,7 +3,7 @@ package com.shenma.yueba.yangjia.modle;
 public class kaixiaoPiaoBean {
 
 	private String OrderNo;
-	private String Amount;
+	private double Amount;
 	private String ProductName;
 	private String ProductId;
 	private String QrCode;
@@ -13,12 +13,14 @@ public class kaixiaoPiaoBean {
 	public void setOrderNo(String orderNo) {
 		OrderNo = orderNo;
 	}
-	public String getAmount() {
+	public double getAmount() {
 		return Amount;
 	}
-	public void setAmount(String amount) {
+
+	public void setAmount(double amount) {
 		Amount = amount;
 	}
+
 	public String getProductName() {
 		return ProductName;
 	}

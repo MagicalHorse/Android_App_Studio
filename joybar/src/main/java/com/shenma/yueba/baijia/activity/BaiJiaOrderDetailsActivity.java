@@ -295,7 +295,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         BaiJiaOrdeDetailsInfoBean baiJiaOrdeDetailsInfoBean = bean.getData();
         order_no_content.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getOrderNo()));
         order_wating_content.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getOrderStatusName()));
-        order_money_count.setText("￥" + baiJiaOrdeDetailsInfoBean.getActualAmount());
+        order_money_count.setText("￥" + ToolsUtil.DounbleToString_2(baiJiaOrdeDetailsInfoBean.getActualAmount()));
         order_date_count.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getCreateDate()));
         customer_account_content.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getBuyerName()));
         tv_customer_phone_content.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getBuyerMobile()));

@@ -169,10 +169,10 @@ public class BaiJiaOrderListAdapter extends BaseAdapter {
 		holder.affirmorder_item_productsize_textview.setText(ToolsUtil
 				.nullToString(productDesc));
 		holder.affirmorder_item_productcount_textview.setText("x"+ procuctCount);
-		holder.affirmorder_item_productprice_textview.setText("￥"+ productPrice);
+		holder.affirmorder_item_productprice_textview.setText("￥"+ToolsUtil.DounbleToString_2( productPrice));
 		holder.baijia_orderdetails_lianxibuyer_textview.setText(ToolsUtil
 				.nullToString(productAddress));
-		holder.baijia_orderlayout_item_pricevalue_textview.setText("￥"+allPrice);
+		holder.baijia_orderlayout_item_pricevalue_textview.setText("￥"+ToolsUtil.DounbleToString_2(allPrice));
 		holder.affirmorder_item_icon_imageview
 				.setImageResource(R.drawable.default_pic);
 		holder.affirmorder_item_icon_imageview.setTag(productInfoBean

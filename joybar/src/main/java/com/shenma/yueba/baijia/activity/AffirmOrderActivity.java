@@ -316,9 +316,8 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 						R.id.affirmorder_item_allcount_textview, "共" + buyCount
 								+ "件商品");
 		ToolsUtil.setFontStyle(this, parentview,
-				R.id.affirmorder_item_pricevalue_textview, "￥"+Double
-						.toString(requestComputeAmountInfoBean.getData()
-								.getTotalamount()));
+				R.id.affirmorder_item_pricevalue_textview, "￥"+ToolsUtil.DounbleToString_2(requestComputeAmountInfoBean.getData()
+						.getTotalamount()));
 		ToolsUtil.setFontStyle(this, parentview,
 				R.id.affrimorder_layout_footer_countprice_textview, ToolsUtil
 						.nullToString(Double
@@ -342,8 +341,8 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 						parentview,
 						R.id.affirmorder_item_youhuicontext_textview,
 						ToolsUtil.nullToString("立减:￥"
-								+ Double.toString(requestComputeAmountInfoBean
-										.getData().getDiscountamount())));
+								+ ToolsUtil.DounbleToString_2(requestComputeAmountInfoBean
+								.getData().getDiscountamount())));
 
 			}
 		}

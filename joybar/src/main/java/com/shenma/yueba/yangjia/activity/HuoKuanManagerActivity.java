@@ -109,7 +109,7 @@ public class HuoKuanManagerActivity extends BaseActivityWithTopView implements
     		//刷新数据
     		getHuoKuanManagerInfo(false);
     	}else{
-			Toast.makeText(HuoKuanManagerActivity.this, "网络不可用，请稍后重试", 1000).show();
+			Toast.makeText(HuoKuanManagerActivity.this, "网络不可用，请稍后重试", Toast.LENGTH_SHORT).show();
 		}
 			}
 		});
@@ -215,13 +215,12 @@ public class HuoKuanManagerActivity extends BaseActivityWithTopView implements
 							+ ToolsUtil.nullToString(bean.getData()
 									.getPickedPercent()));
 					tv_had_withdraw_money.setText("￥"
-							+ ToolsUtil.nullToString(bean.getData()
-									.getPickedAmount()));
+							+ ToolsUtil.DounbleToString_2(bean.getData()
+							.getPickedAmount()));
 					try {
-						double userdCredit = Double.parseDouble(bean.getData()
-								.getUsedCredit());
-						double allCredit = Double.parseDouble(ToolsUtil
-								.nullToString(bean.getData().getCredit()));
+						double userdCredit = bean.getData()
+								.getUsedCredit();
+						double allCredit = bean.getData().getCredit();
 						if ((userdCredit / allCredit) < 1
 								&& (userdCredit / allCredit) > 0) {
 							weekProgress = 1;
@@ -233,9 +232,9 @@ public class HuoKuanManagerActivity extends BaseActivityWithTopView implements
 					}
 					try {
 						double had = (100 * (Double
-								.parseDouble(ToolsUtil.nullToString(bean
+								.parseDouble(ToolsUtil.DounbleToString_2(bean
 										.getData().getPickedAmount())) / Double
-								.parseDouble(ToolsUtil.nullToString(bean
+								.parseDouble(ToolsUtil.DounbleToString_2(bean
 										.getData().getTotalAmount()))));
 						if (had > 0 && had < 1) {
 							hadProgress = 1;
@@ -250,10 +249,9 @@ public class HuoKuanManagerActivity extends BaseActivityWithTopView implements
 					}
 					try {
 						double can = (100 * (Double
-								.parseDouble(ToolsUtil.nullToString(bean
-										.getData().getCanPickAmount())) / Double
-								.parseDouble(ToolsUtil.nullToString(bean
-										.getData().getTotalAmount()))));
+								.parseDouble(ToolsUtil.DounbleToString_2(bean
+										.getData().getCanPickAmount())) / bean
+										.getData().getTotalAmount()));
 						if (can > 0 && can < 1) {
 							canProgress = 1;
 						} else {
@@ -267,9 +265,9 @@ public class HuoKuanManagerActivity extends BaseActivityWithTopView implements
 					}
 					try {
 						double freeze = (100 * (Double
-								.parseDouble(ToolsUtil.nullToString(bean
+								.parseDouble(ToolsUtil.DounbleToString_2(bean
 										.getData().getFrozenAmount())) / Double
-								.parseDouble(ToolsUtil.nullToString(bean
+								.parseDouble(ToolsUtil.DounbleToString_2(bean
 										.getData().getTotalAmount()))));
 						if (freeze > 0 && freeze < 1) {
 							freezeProgress = 1;
@@ -283,9 +281,8 @@ public class HuoKuanManagerActivity extends BaseActivityWithTopView implements
 						freezeProgress = 0;
 					}
 					try {
-						double back = (100 * (Double.parseDouble(ToolsUtil
-								.nullToString(bean.getData().getRmaAmount())) / Double
-								.parseDouble(ToolsUtil.nullToString(bean
+						double back = (100 * (Double.parseDouble(ToolsUtil.DounbleToString_2(bean.getData().getRmaAmount())) / Double
+								.parseDouble(ToolsUtil.DounbleToString_2(bean
 										.getData().getTotalAmount()))));
 						if (back > 0 && back < 1) {
 							backProgress = 1;
@@ -302,32 +299,31 @@ public class HuoKuanManagerActivity extends BaseActivityWithTopView implements
 							+ ToolsUtil.nullToString(bean.getData()
 									.getUsedCreditPercent()));
 					tv_week_amount.setText("￥"
-							+ ToolsUtil.nullToString(bean.getData()
-									.getUsedCredit()));
+							+ ToolsUtil.DounbleToString_2(bean.getData()
+							.getUsedCredit()));
 					tv_week_money.setText("￥"
-							+ ToolsUtil
-									.nullToString(bean.getData().getCredit()));
+							+ ToolsUtil.DounbleToString_2(bean.getData().getCredit()));
 					tv_can_withdraw_ratio.setText("可提现货款 "
 							+ ToolsUtil.nullToString(bean.getData()
 									.getCanPickPercent()));
 					tv_can_withdraw_money.setText("￥"
-							+ ToolsUtil.nullToString(bean.getData()
-									.getCanPickAmount()));
+							+ ToolsUtil.DounbleToString_2(bean.getData()
+							.getCanPickAmount()));
 					tv_freeze_ratio.setText("冻结货款 "
 							+ ToolsUtil.nullToString(bean.getData()
 									.getFrozenPercent()));
 					tv_freeze_money.setText("￥"
-							+ ToolsUtil.nullToString(bean.getData()
-									.getFrozenAmount()));
+							+ ToolsUtil.DounbleToString_2(bean.getData()
+							.getFrozenAmount()));
 					tv_back_ratio.setText("退款 "
 							+ ToolsUtil.nullToString(bean.getData()
 									.getRmaPercent()));
 					tv_back_money.setText("￥"
-							+ ToolsUtil.nullToString(bean.getData()
-									.getRmaAmount()));
+							+ ToolsUtil.DounbleToString_2(bean.getData()
+							.getRmaAmount()));
 					tv_tatal_money.setText("￥"
-							+ ToolsUtil.nullToString(bean.getData()
-									.getTotalAmount()));
+							+ ToolsUtil.DounbleToString_2(bean.getData()
+							.getTotalAmount()));
 					// timer = new CountDownTimer(1000, 2) {
 					// @Override
 					// public void onTick(long millisUntilFinished) {
@@ -374,7 +370,7 @@ public class HuoKuanManagerActivity extends BaseActivityWithTopView implements
 
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(mContext, msg, 1000).show();
+				Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				pull_refresh_scrollview.onRefreshComplete();
 
 			}

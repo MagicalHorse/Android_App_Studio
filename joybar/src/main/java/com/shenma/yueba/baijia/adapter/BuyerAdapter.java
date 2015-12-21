@@ -260,7 +260,7 @@ public class BuyerAdapter extends BaseAdapter {
 		// 地址
 		holder.baijia_tab1_item_productaddress_textview.setText(ToolsUtil.nullToString(productsInfoBean.getBuyerAddress()));
 		// 商品价格
-		holder.buyersteetfragmeng_item_price_textview.setText("￥"+ Double.toString(productsInfoBean.getPrice()));
+		holder.buyersteetfragmeng_item_price_textview.setText("￥"+ToolsUtil.DounbleToString_2(productsInfoBean.getPrice()));
 		// 商品的图片地址
 		String url = ToolsUtil.nullToString(productsInfoBean.getBuyerLogo()) + "640x0.jpg";
 		// 买家头像

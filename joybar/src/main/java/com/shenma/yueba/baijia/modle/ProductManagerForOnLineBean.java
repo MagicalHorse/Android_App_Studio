@@ -9,7 +9,7 @@ public class ProductManagerForOnLineBean {
 	private String BrandId;//品牌ID
 	private String ExpireTime;//下架时间
 	private String StoreItemNo;//货号
-	private String Price;//价格
+	private double Price;//价格
 	private String UpdateDate;
 	private String ShareLink;
 	private RequestUploadProductDataBean Detail;
@@ -55,12 +55,15 @@ public class ProductManagerForOnLineBean {
 	public void setStoreItemNo(String storeItemNo) {
 		StoreItemNo = storeItemNo;
 	}
-	public String getPrice() {
+
+	public double getPrice() {
 		return Price;
 	}
-	public void setPrice(String price) {
+
+	public void setPrice(double price) {
 		Price = price;
 	}
+
 	public String getUpdateDate() {
 		return UpdateDate;
 	}

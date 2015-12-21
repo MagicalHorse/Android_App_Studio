@@ -111,8 +111,8 @@ public class HuoKuanIncomeAndOutGoingAdapter extends BaseAdapterWithUtil {
 					((HuoKuanIncomingAndOutgoingsActivity) ctx).removeIds(mList
 							.get(position).getOrderNo());
 					prices = prices
-							- Double.parseDouble(mList.get(position)
-									.getAmount());
+							- mList.get(position)
+									.getAmount();
 					if (prices > 0) {
 						((HuoKuanIncomingAndOutgoingsActivity) ctx)
 								.setHuoKuanCount("提现货款"
@@ -128,8 +128,8 @@ public class HuoKuanIncomeAndOutGoingAdapter extends BaseAdapterWithUtil {
 					((HuoKuanIncomingAndOutgoingsActivity) ctx).setIds(mList
 							.get(position).getOrderNo());
 					prices = prices
-							+ Double.parseDouble(mList.get(position)
-									.getAmount());
+							+ mList.get(position)
+									.getAmount();
 					if (prices > 0) {
 						((HuoKuanIncomingAndOutgoingsActivity) ctx)
 								.setHuoKuanCount("提现货款"
@@ -146,7 +146,7 @@ public class HuoKuanIncomeAndOutGoingAdapter extends BaseAdapterWithUtil {
 		});
 
 		holder.tv_money_number.setText("￥"
-				+ ToolsUtil.nullToString(mList.get(position).getAmount()));
+				+ ToolsUtil.DounbleToString_2(mList.get(position).getAmount()));
 		holder.tv_status.setText(ToolsUtil.nullToString(mList.get(position)
 				.getStatusName()));
 		holder.tv_order_muber.setText(ToolsUtil.nullToString(mList

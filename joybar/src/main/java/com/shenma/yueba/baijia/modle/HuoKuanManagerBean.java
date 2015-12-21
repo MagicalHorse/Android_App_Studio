@@ -1,50 +1,59 @@
 package com.shenma.yueba.baijia.modle;
 
 public class HuoKuanManagerBean {
-	private String TotalAmount;//总货款
-	private String PickedAmount;//已提现
-	private String CanPickAmount;//可提现
-	private String  FrozenAmount;//已冻结
-	private String RmaAmount;//退款
+	private double TotalAmount;//总货款
+	private double PickedAmount;//已提现
+	private double CanPickAmount;//可提现
+	private double  FrozenAmount;//已冻结
+	private double RmaAmount;//退款
 	private String PickedPercent;//已经提现比例,
 	private String CanPickPercent;//可提现比例
 	private String FrozenPercent;//冻结的比例
 	private String RmaPercent;//退货的比例
-	private String Credit;//货款总额度
-	private String UsedCredit;//已使用货款额度
+	private double Credit;//货款总额度
+	private double UsedCredit;//已使用货款额度
 	private String UsedCreditPercent;//已使用货款额度比例
-	
 
-	public String getTotalAmount() {
+	public double getTotalAmount() {
 		return TotalAmount;
 	}
-	public void setTotalAmount(String totalAmount) {
+
+	public void setTotalAmount(double totalAmount) {
 		TotalAmount = totalAmount;
 	}
-	public String getPickedAmount() {
+
+	public double getPickedAmount() {
 		return PickedAmount;
 	}
-	public void setPickedAmount(String pickedAmount) {
+
+	public void setPickedAmount(double pickedAmount) {
 		PickedAmount = pickedAmount;
 	}
-	public String getCanPickAmount() {
+
+	public double getCanPickAmount() {
 		return CanPickAmount;
 	}
-	public void setCanPickAmount(String canPickAmount) {
+
+	public void setCanPickAmount(double canPickAmount) {
 		CanPickAmount = canPickAmount;
 	}
-	public String getFrozenAmount() {
+
+	public double getFrozenAmount() {
 		return FrozenAmount;
 	}
-	public void setFrozenAmount(String frozenAmount) {
+
+	public void setFrozenAmount(double frozenAmount) {
 		FrozenAmount = frozenAmount;
 	}
-	public String getRmaAmount() {
+
+	public double getRmaAmount() {
 		return RmaAmount;
 	}
-	public void setRmaAmount(String rmaAmount) {
+
+	public void setRmaAmount(double rmaAmount) {
 		RmaAmount = rmaAmount;
 	}
+
 	public String getPickedPercent() {
 		return PickedPercent;
 	}
@@ -69,18 +78,23 @@ public class HuoKuanManagerBean {
 	public void setRmaPercent(String rmaPercent) {
 		RmaPercent = rmaPercent;
 	}
-	public String getCredit() {
+
+	public double getCredit() {
 		return Credit;
 	}
-	public void setCredit(String credit) {
+
+	public void setCredit(double credit) {
 		Credit = credit;
 	}
-	public String getUsedCredit() {
+
+	public double getUsedCredit() {
 		return UsedCredit;
 	}
-	public void setUsedCredit(String usedCredit) {
+
+	public void setUsedCredit(double usedCredit) {
 		UsedCredit = usedCredit;
 	}
+
 	public String getUsedCreditPercent() {
 		return UsedCreditPercent;
 	}

@@ -8,7 +8,7 @@ public class OrderItem {
 	private String OrderNo;
 	private String Status;
 	private String StatusName;
-	private String InCome;
+	private double InCome;
 	private String Amount;
 	private String CreateTime;
 	private String GoodsAmount;//货款金额
@@ -40,12 +40,7 @@ public class OrderItem {
 	public void setStatusName(String statusName) {
 		StatusName = statusName;
 	}
-	public String getInCome() {
-		return InCome;
-	}
-	public void setInCome(String inCome) {
-		InCome = inCome;
-	}
+
 	public String getAmount() {
 		return Amount;
 	}
@@ -83,8 +78,11 @@ public class OrderItem {
 		IsNeedRma = isNeedRma;
 	}
 
-	
-	
-	
-	
+	public double getInCome() {
+		return InCome;
+	}
+
+	public void setInCome(double inCome) {
+		InCome = inCome;
+	}
 }

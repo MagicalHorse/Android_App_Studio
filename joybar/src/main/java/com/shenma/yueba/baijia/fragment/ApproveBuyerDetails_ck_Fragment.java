@@ -880,11 +880,11 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         setdataValue(R.id.approvebuyerdetails_name_textview, username);
         double price = Data.getPrice();
         // 金额
-        setdataValue(R.id.approvebuyerdetails_price_textview, "￥" + Double.toString(price));
+        setdataValue(R.id.approvebuyerdetails_price_textview, "￥" + ToolsUtil.DounbleToString_2(price));
         //吊牌价
         double unitPrice = Data.getUnitPrice();
         //吊牌价
-        setdataValue(R.id.hangtag_price_textview, "￥" + Double.toString(unitPrice));
+        setdataValue(R.id.hangtag_price_textview, "￥" + ToolsUtil.DounbleToString_2(unitPrice));
         calculateDiscount(price, unitPrice);
 
         TextView hangtag_price_textview = (TextView) parentView.findViewById(R.id.hangtag_price_textview);

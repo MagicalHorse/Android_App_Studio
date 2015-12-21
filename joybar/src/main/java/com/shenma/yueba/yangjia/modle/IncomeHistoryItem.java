@@ -1,14 +1,16 @@
 package com.shenma.yueba.yangjia.modle;
 
 public class IncomeHistoryItem {
-	private String amount;//金额
+	private double amount;//金额
 	private String create_date;//时间
-	public String getAmount() {
+	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(String amount) {
+
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
 	public String getCreate_date() {
 		return create_date;
 	}

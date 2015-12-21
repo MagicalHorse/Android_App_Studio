@@ -81,7 +81,7 @@ public class BaijiaPayActivity extends BaseActivityWithTopView implements
 		baijiapay_layout_item_textview1 = (TextView) findViewById(R.id.baijiapay_layout_item_textview1);
 		baijiapay_layout_item_textview1.setText("请支付");
 		baijiapay_layout_item_textview2 = (TextView) findViewById(R.id.baijiapay_layout_item_textview2);
-		baijiapay_layout_item_textview2.setText("￥"+Double.toString(payResponseFormBean.getPrice()));
+		baijiapay_layout_item_textview2.setText("￥"+ToolsUtil.DounbleToString_2(payResponseFormBean.getPrice()));
 		baijiapay_layout_item_textview3 = (TextView) findViewById(R.id.baijiapay_layout_item_textview3);
 		baijiapay_layout_item_textview4 = (TextView) findViewById(R.id.baijiapay_layout_item_textview4);
 		rl_wechatpay = getView(R.id.rl_wechatpay);

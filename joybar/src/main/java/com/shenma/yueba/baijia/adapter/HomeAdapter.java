@@ -299,11 +299,11 @@ public class HomeAdapter extends BaseAdapter {
                     ll_price.setVisibility(View.VISIBLE);
                     //价格
                     TextView authentication_child_iten_layout_price_textview = (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_price_textview);
-                    authentication_child_iten_layout_price_textview.setText("￥"+product.getPrice() );
+                    authentication_child_iten_layout_price_textview.setText("￥"+ToolsUtil.DounbleToString_2(product.getPrice()));
                     //旧的价格
                     TextView authentication_child_iten_layout_oldprice_textview = (TextView) (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_oldprice_textview);
                     authentication_child_iten_layout_oldprice_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                    authentication_child_iten_layout_oldprice_textview.setText("￥"+product.getUnitPrice());
+                    authentication_child_iten_layout_oldprice_textview.setText("￥"+ToolsUtil.DounbleToString_2(product.getUnitPrice()));
 
                     //头像信息
                     LinearLayout home_item_pic1_include = (LinearLayout) view_array.get(i).findViewById(R.id.home_item_pic1_include);

@@ -4,7 +4,7 @@ public class HuoKuanItem {
 
 	private boolean isChecked;
 	private String CreateDate;// 时间,
-	private String Amount;// 金额,
+	private double Amount;// 金额,
 	private String OrderNo;// 订单号
 	private String StatusName;// 状态
 
@@ -16,11 +16,15 @@ public class HuoKuanItem {
 		CreateDate = createDate;
 	}
 
-	public String getAmount() {
+	public void setIsChecked(boolean isChecked) {
+		this.isChecked = isChecked;
+	}
+
+	public double getAmount() {
 		return Amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(double amount) {
 		Amount = amount;
 	}
 

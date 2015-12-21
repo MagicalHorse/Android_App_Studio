@@ -81,14 +81,14 @@ public class EarningManagerActivity extends BaseActivityWithTopView implements O
 		tv_income_detail = getView(R.id.tv_income_detail);
 		try {
 			// 设置数据
-			tv_today_income.withNumber(Float.parseFloat(income!=null?ToolsUtil.nullToString(income.getToday_income()):""));
+			tv_today_income.withNumber(Float.parseFloat(income!=null?ToolsUtil.DounbleToString_2(income.getToday_income()):""));
 			// 设置动画播放时间
 			tv_today_income.setDuration(1000);
 			// 开始播放动画
 			tv_today_income.start();
 			
 			// 设置数据
-			tv_total_income_money.withNumber(Float.parseFloat(income!=null?ToolsUtil.nullToString(income.getTotal_income()):""));
+			tv_total_income_money.withNumber(Float.parseFloat(income!=null?ToolsUtil.DounbleToString_2(income.getTotal_income()):""));
 			// 设置动画播放时间
 			tv_total_income_money.setDuration(1000);
 			// 开始播放动画

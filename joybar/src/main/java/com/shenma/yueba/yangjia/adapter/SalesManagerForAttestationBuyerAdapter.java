@@ -120,8 +120,8 @@ public class SalesManagerForAttestationBuyerAdapter extends BaseAdapterWithUtil 
 		if(item!=null){
 			holder.tv_bottom.setTag(item);
 			if(0 == tag){//全部订单
-				holder.tv_commission.setText(TextUtils.isEmpty(item.getInCome())?"":"佣金：￥"+item.getInCome());
-				ToolsUtil.setTextColorBlackAndRed(holder.tv_money_payed, "实付：￥", ToolsUtil.getTextColorRed(item.getAmount()));
+				holder.tv_commission.setText(("佣金￥" + ToolsUtil.DounbleToString_2(item.getInCome())));
+						ToolsUtil.setTextColorBlackAndRed(holder.tv_money_payed, "实付：￥", ToolsUtil.getTextColorRed(item.getAmount()));
 				if("3".equals(mList.get(position).getStatus()) && mList.get(position).isIsNeedRma()){
 					holder.ll_bottom.setVisibility(View.VISIBLE);
 					if(mList.get(position).isIsGoodsPick()){//订单状态为退货处理中
@@ -133,13 +133,13 @@ public class SalesManagerForAttestationBuyerAdapter extends BaseAdapterWithUtil 
 					holder.ll_bottom.setVisibility(View.GONE);
 				}
 			}else if(1 == tag){//待付款
-				holder.tv_commission.setText(TextUtils.isEmpty(item.getInCome())?"":"佣金：￥"+item.getInCome());
+				holder.tv_commission.setText("佣金：￥"+item.getInCome());
 				ToolsUtil.setTextColorBlackAndRed(holder.tv_money_payed, "实付：￥", ToolsUtil.getTextColorRed(item.getAmount()));
 			}else if(2 == tag){//专柜自提
-				holder.tv_commission.setText(TextUtils.isEmpty(item.getInCome())?"":"佣金：￥"+item.getInCome());
+				holder.tv_commission.setText("佣金：￥"+item.getInCome());
 				ToolsUtil.setTextColorBlackAndRed(holder.tv_money_payed, "实付：￥", ToolsUtil.getTextColorRed(item.getAmount()));
 			}else if(3 == tag){//售后服务
-				holder.tv_commission.setText(TextUtils.isEmpty(item.getInCome())?"":"退还佣金：￥"+item.getInCome());
+				holder.tv_commission.setText("退还佣金：￥"+item.getInCome());
 				ToolsUtil.setTextColorBlackAndRed(holder.tv_money_payed, "退款金额：￥", ToolsUtil.getTextColorRed(item.getAmount()));
 				if(mList.get(position).isIsNeedRma()){
 					holder.ll_bottom.setVisibility(View.VISIBLE);
@@ -183,13 +183,13 @@ public class SalesManagerForAttestationBuyerAdapter extends BaseAdapterWithUtil 
 		httpControl.comformBack(orderItem.getOrderNo(), new HttpCallBackInterface() {
 			@Override
 			public void http_Success(Object obj) {
-				Toast.makeText(ctx, "退款成功", 1000).show();
+				Toast.makeText(ctx, "退款成功", Toast.LENGTH_SHORT).show();
 				lisner.refreshOrderList(tag);
 			}
 			
 			@Override
 			public void http_Fails(int error, String msg) {
-				Toast.makeText(ctx, msg, 1000).show();
+				Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
 				
 			}
 		}, ctx, true);

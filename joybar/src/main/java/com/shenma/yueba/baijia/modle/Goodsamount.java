@@ -2,21 +2,22 @@ package com.shenma.yueba.baijia.modle;
 
 public class Goodsamount {
 
-	private String todaygoodsamount;
-	private String totalgoodsamount;
-	public String getTodaygoodsamount() {
+	private double todaygoodsamount;
+	private double totalgoodsamount;
+
+	public double getTodaygoodsamount() {
 		return todaygoodsamount;
 	}
-	public void setTodaygoodsamount(String todaygoodsamount) {
+
+	public void setTodaygoodsamount(double todaygoodsamount) {
 		this.todaygoodsamount = todaygoodsamount;
 	}
-	public String getTotalgoodsamount() {
+
+	public double getTotalgoodsamount() {
 		return totalgoodsamount;
 	}
-	public void setTotalgoodsamount(String totalgoodsamount) {
+
+	public void setTotalgoodsamount(double totalgoodsamount) {
 		this.totalgoodsamount = totalgoodsamount;
 	}
-	
-	
-	
 }

@@ -338,7 +338,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		double price = Data.getPrice();
 		double unitPrice=Data.getUnitPrice();
 		//吊牌价
-		setdataValue(R.id.hangtag_price_textview, "￥" + Double.toString(unitPrice));
+		setdataValue(R.id.hangtag_price_textview, "￥" + ToolsUtil.DounbleToString_2(unitPrice));
 		TextView hangtag_price_textview = (TextView) parentView.findViewById(R.id.hangtag_price_textview);
 		hangtag_price_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		hangtag_price_textview.setVisibility(View.VISIBLE);
@@ -360,7 +360,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 
 		setdataValue(R.id.approvebuyerdetails_name_textview, username);
 		// 金额
-		setdataValue(R.id.approvebuyerdetails_price_textview,"￥" + Double.toString(price));
+		setdataValue(R.id.approvebuyerdetails_price_textview,"￥" + ToolsUtil.DounbleToString_2(price));
 		// 商品名称
 		setdataValue(R.id.approvebuyerdetails_producename_textview, productName);
         // 收藏按钮

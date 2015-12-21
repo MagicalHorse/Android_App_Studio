@@ -241,7 +241,7 @@ public class ProductManagerFragmentForOnLineAdapter extends BaseAdapterWithUtil 
 				.get(position).getStoreItemNo()) ? "" : "货号："
 				+ mList.get(position).getStoreItemNo()));
 		holder.tv_price.setText("￥"
-				+ ToolsUtil.nullToString(mList.get(position).getPrice()));
+				+ ToolsUtil.nullToString(ToolsUtil.DounbleToString_2(mList.get(position).getPrice())));
 		return convertView;
 	}
 

@@ -124,7 +124,7 @@ public class BaiJiaShareDataAdapter extends BaseAdapter{
 		MyApplication.getInstance().getBitmapUtil().display(holder.baijiashare_layout_item_icons_imageview, ToolsUtil.getImage(ToolsUtil.nullToString(bean.getLogo()), 320, 0));
 		holder.baijiashare_layout_item_names_textview.setText(ToolsUtil.nullToString(bean.getName()));
 		//holder.baijiashare_layout_item_name_textview.setText("111");
-		holder.baijiashare_layout_item_prices_textview.setText("￥"+Double.toString(bean.getPrice()));
+		holder.baijiashare_layout_item_prices_textview.setText("￥"+ToolsUtil.DounbleToString_2(bean.getPrice()));
 	}
 	
 	int getCheckCount()

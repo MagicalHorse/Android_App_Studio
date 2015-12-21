@@ -857,7 +857,7 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
 								.getProductName()));
 				chat_product_head_layout_price_textview
 						.setText(ToolsUtil.nullToString("￥"
-								+ productsDetailsInfoBean.getPrice()));
+								+ ToolsUtil.DounbleToString_2(productsDetailsInfoBean.getPrice())));
 				chat_product_head_layout_button.setEnabled(true);
 			}
 
