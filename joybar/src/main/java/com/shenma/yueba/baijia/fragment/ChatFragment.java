@@ -533,22 +533,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                         if (obj != null
                                 && obj instanceof RequestImMessageInfoBean) {
                             RequestImMessageInfoBean messagebean = (RequestImMessageInfoBean) obj;
-                            if (messagebean.getData() == null
-                                    || messagebean.getData().getItems() == null
-                                    || messagebean.getData().getItems().size() == 0) {
-                                if (page == 1) {
-                                    // 如果是第一页
-                                }
+                            int allPage = messagebean.getData()
+                                    .getTotalpaged();
+                            if (currPage >= allPage) {
+                                haveMoreData = false;
+                                chat_list.setMode(PullToRefreshBase.Mode.DISABLED);
                             } else {
-                                int allPage = messagebean.getData()
-                                        .getTotalpaged();
-                                if (currPage >= allPage) {
-                                    haveMoreData = false;
-                                    chat_list.setMode(PullToRefreshBase.Mode.DISABLED);
-                                } else {
-                                    haveMoreData = true;
-                                    currPage++;
-                                }
+                                haveMoreData = true;
+                                currPage++;
                             }
                             dataSuceeValue(messagebean.getData().getItems());
                         } else {
