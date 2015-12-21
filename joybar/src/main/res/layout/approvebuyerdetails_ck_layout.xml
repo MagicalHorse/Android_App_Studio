@@ -30,7 +30,7 @@
                 style="@style/style_horizontal_line"
                 />
 
-            <!--自提地点-->
+            <!--自提地点 与打样够-->
             <include
                 layout="@layout/take_address_layout"
                 android:layout_width="match_parent"

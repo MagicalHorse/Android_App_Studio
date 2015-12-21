@@ -416,14 +416,13 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 			appprovebuyer_viewpager_relativelayout.setVisibility(View.VISIBLE);
 		}
 		ProductsDetailsPromotion productsDetailsPromotion = Data.getPromotion();
-		if (productsDetailsPromotion == null || !productsDetailsPromotion.isIsShow()) {
-			approvebuyerdetails_closeingtime_linearlayout.setVisibility(View.GONE);
-			
-		} else if(productsDetailsPromotion.isIsShow()) {
+		if(productsDetailsPromotion != null)
+		{
 			approvebuyerdetails_closeingtime_linearlayout.setVisibility(View.VISIBLE);
 			approvebuyerdetails_closeingtime_textview.setText(ToolsUtil.nullToString(productsDetailsPromotion.getDescriptionText()));
 			approvebuyerdetails_closeinginfo_textview.setText(ToolsUtil.nullToString(productsDetailsPromotion.getTipText()));
 		}
+
 		setFont();
 		approvebuyerdetails_srcollview.smoothScrollTo(0, 0);
 		approvebuyerbuybutton.setVisibility(View.VISIBLE);
