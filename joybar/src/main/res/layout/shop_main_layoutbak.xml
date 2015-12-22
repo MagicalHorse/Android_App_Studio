@@ -5,7 +5,7 @@
 
     <include
         android:id="@+id/shop_main_layout_title_relativelayout"
-        layout="@layout/top_layout" />
+        layout="@layout/title_for_common" />
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:layout_marginTop="@dimen/shop_main_width3_dimen"

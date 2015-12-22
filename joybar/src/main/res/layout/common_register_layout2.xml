@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/title"
-        layout="@layout/top_layout" />
+        layout="@layout/title_for_common" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -255,6 +255,8 @@
 
             <Button
                 android:id="@+id/bt_register"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:layout_marginLeft="@dimen/margin_left_and_right"
                 android:layout_marginRight="@dimen/margin_left_and_right"
                 android:background="@drawable/shape_main_color_button" />

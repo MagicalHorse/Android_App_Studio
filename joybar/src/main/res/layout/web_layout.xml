@@ -8,7 +8,7 @@
    
     <include
         android:id="@+id/title"
-        layout="@layout/top_layout" />
+        layout="@layout/title_for_common" />
 
     
 

@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/applyforrefund_layout_head_include"
-        layout="@layout/top_layout"
+        layout="@layout/title_for_common"
         android:background="@color/white" />
 
     <ScrollView
