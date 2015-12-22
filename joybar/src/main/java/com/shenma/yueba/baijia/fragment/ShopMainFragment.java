@@ -417,8 +417,8 @@ public class ShopMainFragment extends Fragment implements LoginRefreshObserver.L
                 if (myFavoriteProductListPic != null) {
                     pubuliuBeanInfo.setPicurl(myFavoriteProductListPic.getPic());
                     pubuliuBeanInfo.setRation(myFavoriteProductListPic.getRatio());
-                } else
-                    pubuliuBeanInfo.setPrice(myFavoriteProductListInfo.getPrice());
+                }
+                pubuliuBeanInfo.setPrice(myFavoriteProductListInfo.getPrice());
                 pubuliuBeanInfos.add(pubuliuBeanInfo);
             }
         }

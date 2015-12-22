@@ -7,7 +7,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,6 +31,7 @@ import com.shenma.yueba.util.ShareUtil.ShareListener;
 import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.util.WXLoginUtil;
+import com.shenma.yueba.view.MyListView;
 import com.shenma.yueba.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -46,7 +46,7 @@ import java.util.List;
 
 public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implements OnClickListener, InterfaceOrderRefreshListener, BindInter {
     View parentView;
-    ListView baijia_orderdetails_layout_lsitview;
+    MyListView baijia_orderdetails_layout_lsitview;
     TextView baijia_orderdetails_lianxibuyer_textview;//联系买手
     TextView baijia_orderdetails_xjfx_textview;//现金分享
     TextView order_no_content;//订单编号
@@ -132,7 +132,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         //头像
         riv_customer_head = (RoundImageView) parentView.findViewById(R.id.riv_customer_head);
         riv_customer_head.setOnClickListener(this);
-        baijia_orderdetails_layout_lsitview = (ListView) parentView.findViewById(R.id.baijia_orderdetails_layout_lsitview);
+        baijia_orderdetails_layout_lsitview = (MyListView) parentView.findViewById(R.id.baijia_orderdetails_layout_lsitview);
 
         baijia_orderdetails_lianxibuyer_textview = (TextView) parentView.findViewById(R.id.baijia_orderdetails_lianxibuyer_textview);
         baijia_orderdetails_lianxibuyer_textview.setOnClickListener(this);
@@ -153,7 +153,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         switch (v.getId()) {
             case R.id.baijia_orderdetails_lianxibuyer_textview://联系买手
             /*Intent intentbuter=new Intent(BaiJiaOrderDetailsActivity.this,ChatActivity.class);
-			intentbuter.putExtra("Chat_NAME",bean.getData().getBuyerName());//圈子名字
+            intentbuter.putExtra("Chat_NAME",bean.getData().getBuyerName());//圈子名字
 			intentbuter.putExtra("toUser_id", bean.getData().getBuyerId());
 			startActivity(intentbuter);*/
                 ToolsUtil.forwardChatActivity(BaiJiaOrderDetailsActivity.this, bean.getData().getBuyerName(), bean.getData().getBuyerId(), 0, null, null, null);

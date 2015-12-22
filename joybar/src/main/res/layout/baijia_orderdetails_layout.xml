@@ -3,42 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/baijia_orderdetails_layout_head"
         layout="@layout/title_for_common" />
-    
-    <View 
-        android:layout_below="@id/baijia_orderdetails_layout_head"
+
+    <View
         android:id="@+id/view_horizontal"
         style="@style/style_horizontal_line"
-        />
-    
-    
+        android:layout_below="@id/baijia_orderdetails_layout_head" />
+
+
     <ScrollView
-        android:layout_marginBottom="15dip"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_above="@+id/baijia_orderdetails_layout_footer"
-        android:layout_below="@id/baijia_orderdetails_layout_head" >
+        android:layout_below="@id/baijia_orderdetails_layout_head"
+        android:layout_marginBottom="15dip">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="15dp" >
+                    android:padding="15dp">
 
                     <TextView
                         android:id="@+id/order_no_title"
@@ -65,7 +64,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="15dp" >
+                    android:padding="15dp">
 
                     <TextView
                         android:id="@+id/order_wating_title"
@@ -92,7 +91,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="15dp" >
+                    android:padding="15dp">
 
                     <TextView
                         android:id="@+id/order_money_title"
@@ -123,7 +122,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="15dp" >
+                    android:padding="15dp">
 
                     <TextView
                         android:id="@+id/order_date_title"
@@ -148,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dip"
                 android:background="@color/white"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -157,7 +156,7 @@
                     android:paddingBottom="10dip"
                     android:paddingLeft="15dip"
                     android:paddingRight="15dip"
-                    android:paddingTop="10dip" >
+                    android:paddingTop="10dip">
 
                     <TextView
                         android:id="@+id/customer_account_title"
@@ -194,7 +193,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="15dp" >
+                    android:padding="15dp">
 
                     <TextView
                         android:id="@+id/tv_customer_phone_title"
@@ -233,7 +232,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="15dp" >
+                    android:padding="15dp">
 
                     <TextView
                         android:id="@+id/tv_get_address_title"
@@ -254,36 +253,44 @@
                 </LinearLayout>
             </LinearLayout>
 
-            
-                 <ListView
+
+            <com.shenma.yueba.view.MyListView
                 android:id="@+id/baijia_orderdetails_layout_lsitview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dip" />
-           
 
-           <!--  <com.shenma.yueba.view.NoSrcollListView
-                android:id="@+id/baijia_orderdetails_layout_lsitview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip" /> -->
+
+            <!--  <com.shenma.yueba.view.NoSrcollListView
+                 android:id="@+id/baijia_orderdetails_layout_lsitview"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="15dip" /> -->
         </LinearLayout>
     </ScrollView>
 
-  <include
-      android:id="@+id/bottom_for_renzheng"
-      android:visibility="gone"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      layout="@layout/order_detail_bottom_for_renzhen"/>
-
-    <include
-        android:id="@+id/bottom_for_zhuangui"
-        android:visibility="gone"
+    <LinearLayout
+        android:id="@+id/baijia_orderdetails_layout_footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        layout="@layout/order_detail_bottom_for_zhuangui"/>
+        android:orientation="horizontal"
+        >
 
+        <include
+            android:id="@+id/bottom_for_renzheng"
+            layout="@layout/order_detail_bottom_for_renzhen"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible" />
+
+        <include
+            android:id="@+id/bottom_for_zhuangui"
+            layout="@layout/order_detail_bottom_for_zhuangui"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" />
+    </LinearLayout>
 </RelativeLayout>
