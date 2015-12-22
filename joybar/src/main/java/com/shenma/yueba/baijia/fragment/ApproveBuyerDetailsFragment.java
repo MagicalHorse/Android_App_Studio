@@ -693,6 +693,11 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 				if (obj instanceof RequestCk_SPECDetails) {
 					requestCk_SPECDetails = (RequestCk_SPECDetails) obj;
 				}
+				if(approvebuyerdetails_srcollview!=null)
+				{
+					approvebuyerdetails_srcollview.smoothScrollTo(0,0);
+				}
+
 			}
 
 			@Override
