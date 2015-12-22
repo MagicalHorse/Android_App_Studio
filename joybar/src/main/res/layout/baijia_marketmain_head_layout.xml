@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <ImageView
         android:id="@+id/baijia_marketmain_head_background_layout_imageview"
@@ -26,6 +27,8 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text=""
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="15sp" />
 
         <RelativeLayout
@@ -47,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/baijia_marketmain_head_address_layout_imageview"
                 android:text=""
+                android:textColor="@color/white"
                 android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>

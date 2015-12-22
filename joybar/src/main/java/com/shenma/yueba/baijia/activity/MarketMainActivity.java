@@ -56,7 +56,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
     String titlename = "";
     String StoreId = null;
     HttpControl httpControl = new HttpControl();
-    String SortType = "5";
+    String SortType = "7";
     int currPage = Constants.CURRPAGE_VALUE;
     int PageSize = Constants.PAGESIZE_VALUE;
     List<PubuliuBeanInfo> items_array = new ArrayList<PubuliuBeanInfo>();
