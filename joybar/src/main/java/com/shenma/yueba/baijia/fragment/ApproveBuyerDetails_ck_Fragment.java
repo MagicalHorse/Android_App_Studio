@@ -694,6 +694,11 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                     setPSECValue();//设置规格尺寸数据
                     isSucess = true;
                 }
+                if(approvebuyerdetails_srcollview!=null)
+                {
+                    approvebuyerdetails_srcollview.smoothScrollTo(0,0);
+                }
+
             }
 
             @Override
