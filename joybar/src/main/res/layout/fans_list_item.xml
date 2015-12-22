@@ -90,7 +90,7 @@
             android:layout_height="30dip"
             android:layout_gravity="center_vertical"
             android:background="@drawable/shape_linearlayout10"
-            android:text=" 关注 "
+            android:text=""
             android:textSize="@dimen/textsize14sp" />
     </LinearLayout>
 

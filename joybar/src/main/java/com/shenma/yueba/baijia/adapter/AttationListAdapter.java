@@ -139,7 +139,7 @@ public class AttationListAdapter extends BaseAdapterWithUtil {
 			
 			if(bean.isFavorite())
 			{
-				holder.tv_atttention.setText("取消关注");
+				holder.tv_atttention.setText("已关注");
 			}else
 			{
 				holder.tv_atttention.setText(" 关注 ");
@@ -150,7 +150,7 @@ public class AttationListAdapter extends BaseAdapterWithUtil {
 			
 			if(bean.isFavorite())
 			{
-				holder.tv_atttention.setText("取消关注");
+				holder.tv_atttention.setText("已关注");
 			}else
 			{
 				holder.tv_atttention.setText(" 关注 ");
