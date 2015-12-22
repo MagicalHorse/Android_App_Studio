@@ -272,10 +272,16 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
             riv_head.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    forwardShopMainActivity(getActivity(),Integer.valueOf(mList.get(position).getBuyerId()));
+                    forwardShopMainActivity(getActivity(), Integer.valueOf(mList.get(position).getBuyerId()));
                 }
             });
+
             tv_attention.setText(mList.get(position).isFllowed() ? "已关注" : "关注");
+            if(mList.get(position).isFllowed()){
+                tv_attention.setBackgroundResource(R.drawable.shape_grayduck_color_button);
+            }else{
+                tv_attention.setBackgroundResource(R.drawable.yellow_roundsilod_background);
+            }
             tv_attention.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -301,9 +307,11 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
                     {
                         tv_attention.setText("关注");
                         mList.get(position).setIsFllowed(false);
+                        tv_attention.setBackgroundResource(R.drawable.yellow_roundsilod_background);
                     } else if (Status == 1) {
                         tv_attention.setText("已关注");
                         mList.get(position).setIsFllowed(true);
+                        tv_attention.setBackgroundResource(R.drawable.shape_grayduck_color_button);
                     }
                 }
                 @Override

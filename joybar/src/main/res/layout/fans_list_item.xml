@@ -89,8 +89,9 @@
             android:layout_width="wrap_content"
             android:layout_height="30dip"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/shape_linearlayout10"
+            android:background="@drawable/shape_grayduck_color_button"
             android:text=""
+            android:textColor="@color/white"
             android:textSize="@dimen/textsize14sp" />
     </LinearLayout>
 

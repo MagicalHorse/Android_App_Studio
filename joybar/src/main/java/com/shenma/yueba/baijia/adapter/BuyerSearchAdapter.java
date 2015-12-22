@@ -131,6 +131,11 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
         bitmapUtils.display(holder.riv_head, mList.get(position).getLogo());
         holder.tv_name.setText(ToolsUtil.nullToString(mList.get(position).getNickname()));
         holder.tv_attention.setText(ToolsUtil.nullToString(mList.get(position).isFllowed() ? "已关注" : "关注"));
+        if(mList.get(position).isFllowed()){
+            holder.tv_attention.setBackgroundResource(R.drawable.shape_grayduck_color_button);
+        }else{
+            holder.tv_attention.setBackgroundResource(R.drawable.yellow_roundsilod_background);
+        }
         holder.tv_attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,10 +206,12 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                     tv_attention.setText("关注");
                     Toast.makeText(ctx,"取消成功",Toast.LENGTH_SHORT).show();
                     mList.get(position).setIsFllowed(false);
+                    tv_attention.setBackgroundResource(R.drawable.yellow_roundsilod_background);
                 } else {
                     tv_attention.setText("已关注");
                     Toast.makeText(ctx,"关注成功",Toast.LENGTH_SHORT).show();
                     mList.get(position).setIsFllowed(true);
+                    tv_attention.setBackgroundResource(R.drawable.shape_grayduck_color_button);
                 }
             }
 
