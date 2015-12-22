@@ -2668,6 +2668,8 @@ public class HttpControl {
                     SharedUtil.user_canPush, userInfo.isIsOpenPush());
             JpushUtils jpushUtils = new JpushUtils(context);
             jpushUtils.setAlias(SharedUtil.getStringPerfernece(context, SharedUtil.user_id));//设置别名
+            //通知 登录成功
+            LoginRefreshObserver.getInstance().NoticationLoginSucess();
         }
     }
 
