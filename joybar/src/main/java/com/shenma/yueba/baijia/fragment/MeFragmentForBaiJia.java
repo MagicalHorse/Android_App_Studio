@@ -304,7 +304,7 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 		initPic(ToolsUtil.nullToString(myInfoBean.getLogo()), iv_icon);
 
 		if(0 != myInfoBean.getAllOrderCount()){
-			tv_all_order_count_textview.setVisibility(View.VISIBLE);
+			tv_all_order_count_textview.setVisibility(View.GONE);
 		}else{
 			tv_all_order_count_textview.setVisibility(View.GONE);
 		}
