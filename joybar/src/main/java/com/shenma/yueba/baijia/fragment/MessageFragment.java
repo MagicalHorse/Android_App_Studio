@@ -89,7 +89,7 @@ public class MessageFragment extends Fragment{
 	void initView(View v)
 	{
 		fragment_list.add(new FragmentBean("消息", -1, new MsgListView(getActivity())));
-		fragment_list.add(new FragmentBean("动态", -1, new DynamicListView(getActivity())));
+		//fragment_list.add(new FragmentBean("动态", -1, new DynamicListView(getActivity())));
 		
 		baijia_fragment_tab1_head_linearlayout=(LinearLayout)v.findViewById(R.id.baijia_fragment_tab1_head_linearlayout);
 		for(int i=0;i<fragment_list.size();i++)
@@ -218,8 +218,10 @@ public class MessageFragment extends Fragment{
 			if(i==value)
 			{
 				tv.setTextSize(Constants.title_text_selected_size);
-			  tv.setTextColor(this.getResources().getColor(R.color.color_deeoyellow));
-		      v.setVisibility(View.VISIBLE);
+				tv.setTextColor(this.getResources().getColor(R.color.text_gray_color));
+				v.setVisibility(View.INVISIBLE);
+			  //tv.setTextColor(this.getResources().getColor(R.color.color_deeoyellow));
+		      //v.setVisibility(View.VISIBLE);
 			}else
 			{
 				tv.setTextSize(Constants.title_text_normal_size);
