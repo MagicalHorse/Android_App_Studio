@@ -255,11 +255,13 @@ public class SocketManger {
 				if(obj!=null && obj instanceof RequestMessageBean)
 				{
 					RequestMessageBean requestMessageBean=(RequestMessageBean)obj;
-					if(ToolsUtil.isApplicationBroughtToBackground(MyApplication.getInstance().getPackageName().toString()+".ChatActivity"))
+					if(ToolsUtil.isApplicationBroughtToBackground(MyApplication.getInstance().getPackageName().toString()+".ChatActivity") || ToolsUtil.isApplicationBroughtToBackground(MyApplication.getInstance().getPackageName().toString()+".baijia.activity.ShopMainActivity"))
 					{
 						ToolsUtil.sendMsgImBroadcast(requestMessageBean);
 					}else if(requestMessageBean.getToUserId()>0)
 					{
+						ToolsUtil.sendMsgImBroadcast(requestMessageBean);
+                        //发送广播 显示通知栏
 						ToolsUtil.sendNoticationBroadcase(requestMessageBean);
 					}
 					
@@ -284,14 +286,16 @@ public class SocketManger {
 					if(obj!=null && obj instanceof RequestMessageBean)
 					{
 						final RequestMessageBean requestMessageBean=(RequestMessageBean)obj;
-						if(ToolsUtil.isApplicationBroughtToBackground(MyApplication.getInstance().getPackageName().toString()+".ChatActivity"))
+						if(ToolsUtil.isApplicationBroughtToBackground(MyApplication.getInstance().getPackageName().toString()+".ChatActivity") || ToolsUtil.isApplicationBroughtToBackground(MyApplication.getInstance().getPackageName().toString()+".baijia.activity.ShopMainActivity"))
 						{
 							
 						}else
 						{
+							//发生广播提示 有新数据
 							ToolsUtil.sendRoomMsgImBroadcast(requestMessageBean);
 							if(requestMessageBean.getToUserId()>0)
 							{
+								//发送广播 显示通知栏
 								ToolsUtil.sendNoticationBroadcase(requestMessageBean);
 							}
 							

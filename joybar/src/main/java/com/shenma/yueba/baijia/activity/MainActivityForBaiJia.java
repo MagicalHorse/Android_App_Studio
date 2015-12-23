@@ -323,7 +323,7 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 			   if(currid!=1)
 			   {
 				 //设置显示原点
-				   setRedView(1, true);
+				  // setRedView(1, true);
 			   }
 			   
 		   }else//私聊信息
