@@ -69,7 +69,7 @@ public class CircleListActivity extends BaseActivityWithTopView{
 	
 	void initPullView()
 	{
-		setTitle("圈子");
+		setTitle("我的圈子");
 		FontManager.changeFonts(CircleListActivity.this, tv_top_title);
 		setLeftTextView(new OnClickListener() {
 			

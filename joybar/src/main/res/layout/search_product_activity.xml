@@ -43,7 +43,7 @@
                     android:layout_marginRight="5dip"
                     android:layout_gravity="center_vertical"
                     android:background="@null"
-                    android:hint="请输入"
+                    android:hint="请输入品牌或者其他标签"
                     android:padding="3dp"
                     android:singleLine="true"
                     android:textColor="@color/black"

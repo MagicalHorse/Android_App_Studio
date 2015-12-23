@@ -80,7 +80,7 @@ public class AttationListActivity extends BaseActivityWithTopView implements Att
 		String title="";
 		if(status==0)
 		{
-			title="关注";
+			title="我的关注";
 		}else if(status==1)
 		{
 			title="粉丝";

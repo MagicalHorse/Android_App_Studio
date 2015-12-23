@@ -1,6 +1,8 @@
 package com.shenma.yueba.yangjia.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -65,9 +67,14 @@ public class MarketForSearchAdapter extends BaseAdapterWithUtil {
 				} else {
 			holder = (Holder) convertView.getTag();
 		}
-		bitmapUtils.display(holder.iv_market_head,mList.get(position).getStoreLogo());
+		bitmapUtils.display(holder.iv_market_head, mList.get(position).getStoreLogo());
 		holder.tv_shop_name.setText(mList.get(position).getStoreName());
-		holder.tv_address.setText(mList.get(position).getStoreLocation());
+
+		if(TextUtils.isEmpty(mList.get(position).getStoreLocation())){
+			holder.tv_address.setText("未知");
+		}else{
+			holder.tv_address.setText(mList.get(position).getStoreLocation());
+		}
 		holder.tv_distance.setText(""+ToolsUtil.Distance(mList.get(position).getLat(),mList.get(position).getLon(),Double.valueOf(PerferneceUtil.getString(PerferneceConfig.LATITUDE)),Double.valueOf(PerferneceUtil.getString(PerferneceConfig.LONGITUDE))));
 		return convertView;
 	}

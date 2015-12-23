@@ -205,13 +205,13 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String key = allList.get(position);
         allList.remove(mList.get(position));
-        allList.add(0,mList.get(position));
+        allList.add(0, mList.get(position));
         SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, "");
         StringBuffer sb = new StringBuffer();
-        SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
         for (int i=0;i<allList.size();i++){
             sb.append(allList.get(i)).append(",");
         }
+        SharedUtil.setStringPerfernece(SearchProductActivity.this, SharedUtil.search_history, sb.subSequence(0, sb.length() - 1).toString());
 
         if("searchBuyer".equals(flag)){//单纯的搜买手
             Intent intent = new Intent(SearchProductActivity.this, BuyerSearchActivity.class);
