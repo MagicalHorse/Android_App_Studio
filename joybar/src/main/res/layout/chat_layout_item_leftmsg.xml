@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/left"
-                 style="@style/chat_text_style"
+            style="@style/chat_text_style"
             android:padding="@dimen/shop_main_lineheight8_dimen" />
 
         <TextView

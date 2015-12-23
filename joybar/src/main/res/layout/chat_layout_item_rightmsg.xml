@@ -34,7 +34,7 @@
             android:layout_marginTop="3dip"
             android:layout_marginBottom="2dip"
             android:id="@+id/chat_layout_item_leftmsg_msg_textview"
-            style="@style/chat_text_style"
+            style="@style/chat_text_right_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/right"
