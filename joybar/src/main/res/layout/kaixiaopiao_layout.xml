@@ -36,6 +36,7 @@
                     <EditText
                         android:id="@+id/et_product_number"
                         style="@style/edittext_style_for_input"
+                        android:singleLine="true"
                         android:hint="货号" />
 
                     <View
@@ -54,6 +55,7 @@
                             android:inputType="numberDecimal"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:singleLine="true"
                             android:hint="销售价" />
 
                         <TextView
