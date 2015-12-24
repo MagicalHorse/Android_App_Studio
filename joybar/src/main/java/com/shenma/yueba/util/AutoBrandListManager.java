@@ -139,6 +139,7 @@ public class AutoBrandListManager extends  AbsBrandListManager{
             ll.removeAllViews();
             view_array.clear();
             childWidth=0;
+            boolean ishowlast=false;//是否显示 更多品牌按钮
             //获取最后一位文字的宽度
             int textwidth=getLastTextWidth(more,LasttextSize_id);
             //所能使用的的宽视的图度
@@ -169,6 +170,7 @@ public class AutoBrandListManager extends  AbsBrandListManager{
                     if((childWidth+item_childWidth)>width)
                     {
                         //addLastView(LastMarginLeft);
+                        ishowlast=true;
                         break;
                     }else
                     {
@@ -178,24 +180,29 @@ public class AutoBrandListManager extends  AbsBrandListManager{
                         ll.addView(tv, params);
                         childWidth+=item_childWidth;
                         view_array.add(tv);
+                        ishowlast=false;
 
                     }
                 }
                 LastMarginLeft=width-childWidth;
-                addLastView(LastMarginLeft);
+                addLastView(LastMarginLeft,ishowlast);
             }
 
         }
     }
 
-    void addLastView(int marginleft)
+    /********
+     * @param marginleft int 距离左侧距离
+     * @param  ishowlast boolean 是否显示
+     * ***/
+    void addLastView(int marginleft,boolean ishowlast)
     {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.gravity= Gravity.LEFT|Gravity.BOTTOM;
         params.leftMargin = marginleft+marginvalue;
         params.rightMargin = 0;
         TextView tv = new TextView(activity);
-        tv.setPadding(textpadding,0,textpadding,0);
+        tv.setPadding(textpadding, 0, textpadding, 0);
         tv.setBackgroundResource(R.color.color_lightgrey);
         tv.setSingleLine();
         tv.setEllipsize(TextUtils.TruncateAt.END);
@@ -203,6 +210,14 @@ public class AutoBrandListManager extends  AbsBrandListManager{
         int textsize=getTextSize(LasttextSize_id);
         tv.setTextSize(textsize);
         ll.addView(tv, params);
+        if(ishowlast)
+        {
+            tv.setVisibility(View.VISIBLE);
+        }else
+        {
+            tv.setVisibility(View.GONE);
+        }
+        //如果当前 品牌数量 小于
         view_array.add(tv);
     }
 
