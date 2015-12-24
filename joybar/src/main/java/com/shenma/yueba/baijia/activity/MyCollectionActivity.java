@@ -197,7 +197,7 @@ public class MyCollectionActivity extends BaseActivityWithTopView implements Col
             for (int i = 0; i < brandInfoInfos.size(); i++) {
                 PubuliuBeanInfo pubuliuBeanInfo = new PubuliuBeanInfo();
                 MyFavoriteProductListInfo storeIndexItem = brandInfoInfos.get(i);
-                pubuliuBeanInfo.setFavoriteCount(pubuliuBeanInfo.getFavoriteCount());
+                pubuliuBeanInfo.setFavoriteCount(storeIndexItem.getFavoriteCount());
                 pubuliuBeanInfo.setId(Integer.toString(storeIndexItem.getId()));
                 pubuliuBeanInfo.setIscollection(storeIndexItem.isFavorite());
                 pubuliuBeanInfo.setName(storeIndexItem.getName());

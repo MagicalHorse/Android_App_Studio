@@ -232,7 +232,7 @@ public class BrandListActivity extends BaseActivityWithTopView {
                 MyFavoriteProductListInfo storeIndexItem= brandInfoInfos.get(i);
                 pubuliuBeanInfo.setFavoriteCount(pubuliuBeanInfo.getFavoriteCount());
                 pubuliuBeanInfo.setId(Integer.toString(storeIndexItem.getId()));
-                pubuliuBeanInfo.setIscollection(pubuliuBeanInfo.iscollection());
+                pubuliuBeanInfo.setIscollection(storeIndexItem.isFavorite());
                 pubuliuBeanInfo.setName(storeIndexItem.getName());
                 MyFavoriteProductListPic pic=storeIndexItem.getPic();
                 if(pic!=null)
