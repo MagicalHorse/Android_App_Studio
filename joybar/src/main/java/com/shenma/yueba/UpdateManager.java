@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,11 +56,12 @@ public class UpdateManager implements View.OnClickListener {
 
 	public UpdateManager(Context context, String NewVersion,
 			String newVersionPath, String updateTitle, String updateContent) {
-		this.newVersionPath = newVersionPath;
-		this.updateTitle = updateTitle;
-		this.updateContent = updateContent;
+		this.newVersionPath = ToolsUtil.nullToString(newVersionPath);
+		this.updateTitle = ToolsUtil.nullToString(updateTitle);
+		this.updateContent = ToolsUtil.nullToString(updateContent);
 		this.mContext = context;
-		this.NewVersion = NewVersion;
+		this.NewVersion =ToolsUtil.nullToString(NewVersion) ;
+		Log.e("TAG", "---------UpdateManager -UpdateManager");
 	}
 
 	private Handler mHandler = new Handler() {
@@ -95,6 +97,7 @@ public class UpdateManager implements View.OnClickListener {
 		promptdialog.getWindow().setGravity(Gravity.CENTER);
 		promptdialog.show();
 		promptdialog.getWindow().setContentView(showNoticeDialog());
+		Log.e("TAG", "---------UpdateManager -startUpdate");
 	}
 
 	/**

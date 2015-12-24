@@ -180,11 +180,10 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             parentView = layoutInflater.inflate(R.layout.approvebuyerdetails_ck_layout, null);
             initViews();
             setFont();
-            setDatValue();
             getCkrProductSPECDetails();
             CollectobserverManage.getInstance().addObserver(this);
         }
-        calculateContactHeight();
+        //calculateContactHeight();
         if (parentView.getParent() != null) {
             ((ViewGroup) parentView.getParent()).removeView(parentView);
         }
@@ -692,6 +691,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 if (obj instanceof RequestCk_SPECDetails) {
                     requestCk_SPECDetails = (RequestCk_SPECDetails) obj;
                     setPSECValue();//设置规格尺寸数据
+                    setDatValue();
                     isSucess = true;
                 }
                 if(approvebuyerdetails_srcollview!=null)
@@ -840,7 +840,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
 
             }
         });
-
+        calculateContactHeight();
         if (customPagerAdapter != null) {
             customPagerAdapter.notifyDataSetChanged();
         }

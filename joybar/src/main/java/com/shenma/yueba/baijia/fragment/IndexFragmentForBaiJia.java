@@ -245,9 +245,9 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 if (!isAllLoadSucess && !isRunning && !baijia_contact_listview.isRefreshing()) {
                     requestAddData();
                 } else {
-                    if (isAllLoadSucess) {
+                    /*if (isAllLoadSucess) {
                         MyApplication.getInstance().showMessage(getActivity(), getActivity().getResources().getString(R.string.lastpagedata_str));
-                    }
+                    }*/
                 }
             }
         });
@@ -464,7 +464,6 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
 
             }
-            isAllLoadSucess = true;
             ToolsUtil.showNoDataView(getActivity(), parentView, true);
         } else if (page != 1 && (data.getData() == null || data.getData().getItems() == null || data.getData().getItems().size() == 0)) {
             if (baijia_contact_listview != null) {
