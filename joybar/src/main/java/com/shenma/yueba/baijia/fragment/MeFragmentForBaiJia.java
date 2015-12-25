@@ -88,6 +88,7 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 		return view;
 	}
 
+
 	/**
 	 * 初始化view
 	 */
