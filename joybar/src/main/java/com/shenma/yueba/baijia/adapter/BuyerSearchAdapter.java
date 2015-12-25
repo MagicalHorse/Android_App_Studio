@@ -93,34 +93,17 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                 }
             });
             holder.authentication_item_productlist_linearlayout = (LinearLayout) convertView.findViewById(R.id.authentication_item_productlist_linearlayout);
+            holder.cvm = new CreateAutoSizeViewManager(((Activity) ctx), ctx.getResources().getDimensionPixelSize(R.dimen.item_margin), R.layout.authentication_chid_item_layout, 3, holder.authentication_item_productlist_linearlayout, new CreateAutoSizeViewManager.InflaterSucessListener() {
+                @Override
+                public void returnChildListView(final List<View> view_array) {
+                    setPicValue(position,view_array);
+                }
+            });
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
-        holder.cvm = new CreateAutoSizeViewManager(((Activity) ctx), ctx.getResources().getDimensionPixelSize(R.dimen.item_margin), R.layout.authentication_chid_item_layout, 3, holder.authentication_item_productlist_linearlayout, new CreateAutoSizeViewManager.InflaterSucessListener() {
-            @Override
-            public void returnChildListView(final List<View> view_array) {
-                final List<ProductsInfoBean> products = mList.get(position).getProducts();
-                for (int i = 0; i < products.size(); i++) {
-                    if(view_array.size()>i){
-                        String pic = products.get(i).getPic();
-                        bitmapUtils.display((view_array.get(i)), pic);
-                        view_array.get(i).setTag(products.get(i).getProductId());
-                        view_array.get(i).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                int productId = (Integer)v.getTag();
-                                Intent intent = new Intent(ctx, BaijiaProductInfoActivity.class);
-                                intent.putExtra("productID",productId);
-                                ctx.startActivity(intent);
-                            }
-                        });
-                    }
-
-                }
-
-            }
-        });
+        setPicValue(position, holder.cvm.getChildView());
         if (mList.get(position).getProducts() == null || mList.get(position).getProducts().size() == 0) {
             holder.ll_touch.setVisibility(View.VISIBLE);
             holder.authentication_item_productlist_linearlayout.setVisibility(View.GONE);
@@ -150,8 +133,6 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
         });
         holder.tv_store_name.setText(ToolsUtil.nullToString(mList.get(position).getStoreName()));
         holder.tv_address.setText(ToolsUtil.nullToString(mList.get(position).getStoreLocal()));
-        ;
-
         return convertView;
     }
 
@@ -204,12 +185,12 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                 if (isFllowed) //1表示关注 0表示取消关注
                 {
                     tv_attention.setText("关注");
-                    Toast.makeText(ctx,"取消成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ctx, "取消成功", Toast.LENGTH_SHORT).show();
                     mList.get(position).setIsFllowed(false);
                     tv_attention.setBackgroundResource(R.drawable.yellow_roundsilod_background);
                 } else {
                     tv_attention.setText("已关注");
-                    Toast.makeText(ctx,"关注成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ctx, "关注成功", Toast.LENGTH_SHORT).show();
                     mList.get(position).setIsFllowed(true);
                     tv_attention.setBackgroundResource(R.drawable.shape_grayduck_color_button);
                 }
@@ -222,4 +203,33 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
         }, ctx);
     }
 
+
+    void setPicValue(int position,List<View> view_array)
+    {
+        for(int j=0;j<view_array.size();j++)
+        {
+            view_array.get(j).setVisibility(View.GONE);
+        }
+        final List<ProductsInfoBean> products = mList.get(position).getProducts();
+        for (int i = 0; i < products.size(); i++) {
+            if(view_array.size()>i){
+                view_array.get(i).setVisibility(View.VISIBLE);
+                String pic = products.get(i).getPic();
+                ImageView iv=(ImageView)view_array.get(i).findViewById(R.id.authentication_child_iten_layout_pic_imageview);
+                MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(pic),iv,MyApplication.getInstance().getDisplayImageOptions());
+                view_array.get(i).setTag(products.get(i).getProductId());
+                view_array.get(i).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int productId = (Integer)v.getTag();
+                        Intent intent = new Intent(ctx, BaijiaProductInfoActivity.class);
+                        intent.putExtra("productID",productId);
+                        ctx.startActivity(intent);
+                    }
+                });
+            }
+
+        }
+
+    }
 }
