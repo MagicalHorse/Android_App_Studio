@@ -83,8 +83,6 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
             android:paddingBottom="10dip"
             android:id="@+id/authentication_item_productlist_linearlayout"
             android:layout_width="match_parent"
