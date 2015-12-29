@@ -93,7 +93,6 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 	LinearLayout ll_attentionpeople_contener;
 
 	Activity activity;
-	LayoutInflater layoutInflater;
 	View parentView;
 	RequestCk_SPECDetails requestCk_SPECDetails;
 	Timer timer;
@@ -103,7 +102,6 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		this.activity = activity;
-		layoutInflater = LayoutInflater.from(activity);
 		bean = (RequestCKProductDeatilsInfo) activity.getIntent().getSerializableExtra("ProductInfo");
 		Data=bean.getData();
 		productID=Integer.valueOf(Data.getProductId());
@@ -118,7 +116,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (parentView == null) {
-			parentView = layoutInflater.inflate(R.layout.approvebuyerdetails_layout, null);
+			parentView = inflater.inflate(R.layout.approvebuyerdetails_layout, null);
 			initViews();
 			setDatValue();
 			setFont();

@@ -146,7 +146,6 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
     boolean isSucess = false;//是否加载完成
     RequestCKProductDeatilsInfo bean;
     Activity activity;
-    LayoutInflater layoutInflater;
     View parentView;
     CKProductCountDownBean ckProductCountDownBean;
 
@@ -154,7 +153,6 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.activity = activity;
-        layoutInflater = LayoutInflater.from(activity);
         bean = (RequestCKProductDeatilsInfo) activity.getIntent().getSerializableExtra("ProductInfo");
         if (bean != null) {
             Data = bean.getData();
@@ -177,7 +175,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (parentView == null) {
-            parentView = layoutInflater.inflate(R.layout.approvebuyerdetails_ck_layout, null);
+            parentView = inflater.inflate(R.layout.approvebuyerdetails_ck_layout, null);
             initViews();
             setFont();
             getCkrProductSPECDetails();
