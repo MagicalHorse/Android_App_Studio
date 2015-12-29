@@ -311,7 +311,9 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         }
 
         //根据订单状态 设置按钮
-        List<View> view_list = ButtonManager.getButton(this, bean.getData().getOrderStatus());
+        //数据转换
+        final BaiJiaOrderListInfo info = dataTrasition(bean.getData());
+        List<View> view_list = ButtonManager.getButton(this,info);
         baijia_orderdetails_footer_right_linearlayout.removeAllViews();
         if (view_list != null) {
             if (view_list != null) {
@@ -320,8 +322,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
                     Button btn = (Button) button.findViewById(R.id.baijia_orderdetails_sqtk_button);
                     FontManager.changeFonts(this, btn);
                     BaiJiaOrdeDetailsInfoBean infobean = bean.getData();
-                    //数据转换
-                    BaiJiaOrderListInfo info = dataTrasition(infobean);
+
                     btn.setTag(info);
                     LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     param.leftMargin = 5;

@@ -202,7 +202,7 @@ public class BaiJiaOrderListAdapter extends BaseAdapter {
 	 * ***/
 	void setButtonStatus(Holder holder,BaiJiaOrderListInfo bean) {
 		holder.baijiaorder_layout_item_status.removeAllViews();
-		List<View> view_list= ButtonManager.getButton((Activity)context, bean.getOrderStatus());
+		List<View> view_list= ButtonManager.getButton((Activity)context, bean);
 		if(view_list!=null)
 		{
 			for(int i=0;i<view_list.size();i++)

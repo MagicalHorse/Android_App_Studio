@@ -53,6 +53,7 @@ import com.shenma.yueba.baijia.modle.RequestMyFavoriteProductListInfoBean;
 import com.shenma.yueba.baijia.modle.RequestMyInfoBean;
 import com.shenma.yueba.baijia.modle.RequestProductListInfoBean;
 import com.shenma.yueba.baijia.modle.RequestRoomInfoBean;
+import com.shenma.yueba.baijia.modle.RequestStoreSalesReturnBean;
 import com.shenma.yueba.baijia.modle.RequestTuiJianCircleInfoBean;
 import com.shenma.yueba.baijia.modle.RequestUploadChatImageInfoBean;
 import com.shenma.yueba.baijia.modle.RequestUploadProductDataBean;
@@ -899,6 +900,21 @@ public class HttpControl {
         BasehttpSend(map, context, HttpConstants.METHOD_BRANDMANAGEER_ALL,
                 httpCallBack, BrandDetailInfoBean.class, true, false);
     }
+
+
+    /**********
+     * 根据单号获取门店退货信息
+     * @param  orderNo String 订单编号
+     * @param  ishowDialog boolean 是否显示对待对话框
+     * ********/
+    public void getSalesProductOrderInfo(Context context,String orderNo,final HttpCallBackInterface httpCallBack,boolean ishowDialog)
+    {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("orderNo", orderNo);
+        BasehttpSend(map, context, HttpConstants.METHOD_ORDER_GetOrderStoreRmaInfo,httpCallBack, RequestStoreSalesReturnBean.class, ishowDialog, false);
+    }
+
+
 
     /**
      * 按照时间获取传入时间后的品牌列表

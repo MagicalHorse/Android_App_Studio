@@ -132,8 +132,7 @@ public class BaiJiaOrderListFragment extends Fragment implements InterfaceOrderR
                                     long arg3) {
                 if (object_list != null) {
                     BaiJiaOrderListInfo info = object_list.get(arg2 - 1);
-                    Intent intent = new Intent(getActivity(),
-                            BaiJiaOrderDetailsActivity.class);
+                    Intent intent = new Intent(getActivity(),BaiJiaOrderDetailsActivity.class);
                     intent.putExtra("ORDER_ID", info.getOrderNo());
                     startActivity(intent);
                 }

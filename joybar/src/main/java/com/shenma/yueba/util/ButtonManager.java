@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.ApplyForRefundActivity;
+import com.shenma.yueba.baijia.activity.BaiJiaOrderDetail_ck_Activity;
 import com.shenma.yueba.baijia.activity.BaijiaAppealLoadingActivity;
 import com.shenma.yueba.baijia.modle.BaiJiaOrderListInfo;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
@@ -34,11 +35,11 @@ public class ButtonManager {
     public final static String SHENSU = "申诉";//4
     public final static String SHENSULOADING = "申诉中";//5
     public final static String CANCELORDER = "取消订单";//6
-
-    /***
+        /***
      * 根据订单状态返回操作按钮
      **/
-    public static List<View> getButton(Activity activity, int type) {
+    public static List<View> getButton(Activity activity,BaiJiaOrderListInfo bean) {
+        int type=bean.getOrderStatus();
         List<View> view_list = new ArrayList<View>();
         switch (type) {
             case 0://代付款
@@ -242,9 +243,20 @@ public class ButtonManager {
      **/
     public static void applyforRefund(Context context, BaiJiaOrderListInfo baiJiaOrderListInfo) {
 
-        Intent intent = new Intent(context, ApplyForRefundActivity.class);
-        intent.putExtra("DATA", baiJiaOrderListInfo);
-        context.startActivity(intent);
+        if((ToolsUtil.nullToString(baiJiaOrderListInfo.getUserleave()).equals("4") && baiJiaOrderListInfo.getOrderStatus()==1 && baiJiaOrderListInfo.getOrderProductType()==4)
+                ||
+                (ToolsUtil.nullToString(baiJiaOrderListInfo.getUserleave()).equals("8") && baiJiaOrderListInfo.getOrderStatus()==1))
+        {
+            Intent intent = new Intent(context, ApplyForRefundActivity.class);
+            intent.putExtra("DATA", baiJiaOrderListInfo);
+            context.startActivity(intent);
+        }else
+        {
+            Intent intent = new Intent(context, BaiJiaOrderDetail_ck_Activity.class);
+            intent.putExtra("OrderNo", baiJiaOrderListInfo.getOrderNo());
+            context.startActivity(intent);
+        }
+
         //((Activity)context).startActivityForResult(intent, 200);
     }
 

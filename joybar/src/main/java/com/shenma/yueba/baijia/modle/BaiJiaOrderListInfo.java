@@ -19,7 +19,14 @@ public class BaiJiaOrderListInfo implements Serializable{
     String CreateDate="";// 创建时间
     String Address="";//地址
     ProductInfoBean Product=new ProductInfoBean();//商品详情
-    
+	String userleave;
+	public String getUserleave() {
+		return userleave;
+	}
+
+	public void setUserleave(String userleave) {
+		this.userleave = userleave;
+	}
     public String getBuyerName() {
 		return BuyerName;
 	}

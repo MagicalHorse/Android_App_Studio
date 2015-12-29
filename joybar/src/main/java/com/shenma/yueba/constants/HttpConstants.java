@@ -426,6 +426,15 @@ public class HttpConstants {
 	
 	public static String METHOD_ORDER_GETALLORDERFORBUYER = OrderFORREAD
 			+ "GetOrderList";
+
+
+	/**
+	 * 根据单号获取门店退货信息
+	 */
+
+	public static String METHOD_ORDER_GetOrderStoreRmaInfo = V3FORREAD
+			+ "GetOrderStoreRmaInfo";
+
 	
 	/**
 	 * 确认退款
