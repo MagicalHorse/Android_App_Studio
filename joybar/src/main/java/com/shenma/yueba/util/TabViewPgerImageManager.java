@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.lidroid.xutils.BitmapUtils;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.ScrollViewPagerAdapter;
@@ -135,7 +136,9 @@ public class TabViewPgerImageManager {
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             rl.addView(iv, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
             viewlist.add(rl);
-            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(array_str.get(i)), iv, MyApplication.getInstance().getDisplayImageOptions());
+            BitmapUtils utils = new BitmapUtils(activity);
+            utils.display(iv,ToolsUtil.nullToString(array_str.get(i)));
+//            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(array_str.get(i)), iv);
         }
     }
 
