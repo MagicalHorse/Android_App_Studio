@@ -483,6 +483,10 @@
             android:name="com.shenma.yueba.baijia.activity.BuyerSearchActivity"
             android:screenOrientation="portrait" />
 
+        <!--败家 专柜商品订单   申请退款   详情页-->
+        <activity android:name=".baijia.activity.BaiJiaOrderDetail_ck_Activity"
+            android:screenOrientation="portrait"
+            />
 
         <!-- 网络状态变化的广播 -->
         <receiver
