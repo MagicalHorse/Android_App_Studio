@@ -216,10 +216,15 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 			}
 			int value=Integer.parseInt(createorder_dialog_layout_countvalue_edittext.getText().toString());
 			value--;
-			if(value<=0)
+			if(value<=1)
 			{
-                value=0;
+                value=1;
 			}
+			if(maxValue<=0)
+			{
+				value=0;
+			}
+
 			createorder_dialog_layout_countvalue_edittext.setText(Integer.toString(value));
 			isTextButtonEnable();
 			break;
@@ -362,11 +367,11 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 		int Stock=Integer.valueOf(createorder_dialog_layout_repertoryvalue_textview.getText().toString().trim());
 		//当前选择的购买数量
 		int count=Integer.valueOf(createorder_dialog_layout_countvalue_edittext.getText().toString().trim());
-		if(Stock<=0)
+		if(Stock<=1)
 		{
 			create_dialog_jian_button.setSelected(false);
 			create_dialog_jia_button.setSelected(false);
-		}else if(count<=0)
+		}else if(count<=1)
 		{
 			create_dialog_jian_button.setSelected(false);
 		}else if(count>=Stock)

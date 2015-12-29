@@ -388,7 +388,7 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
 		if (fView.getVisibility() == View.VISIBLE) {
 			hideFace();
 		}
-		//inroom();
+		inroom();
 	}
 
 	/**
@@ -929,6 +929,10 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
 	 * 加入房间
 	 * **/
 	void inroom() {
+		if(roomId==null || roomId.equals(""))
+		{
+			return;
+		}
 		// 加入房间
 		RoomBean roomBean = new RoomBean();
 		roomBean.setOwner(Integer.toString(formUser_id));

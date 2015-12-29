@@ -156,6 +156,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
             registerImBroadcastReceiver();//注册广播（接收 消息）
             regiestSockIoBroadCase();//监听sockeoio链接变化
             requestChatInfo();
+            inroom();
         }
     }
 
@@ -760,6 +761,11 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
      * 加入房间
      **/
     void inroom() {
+        if(roomId==null || roomId.equals(""))
+        {
+            return;
+        }
+
         // 加入房间
         RoomBean roomBean = new RoomBean();
         roomBean.setOwner(Integer.toString(formUser_id));

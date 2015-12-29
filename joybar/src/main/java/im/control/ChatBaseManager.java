@@ -64,7 +64,20 @@ public abstract class ChatBaseManager {
 			chat_layout_item_msg_time_textview=(TextView)v.findViewById(R.id.chat_layout_item_msg_time_textview);
 			chat_layout_item_msg_name_textview=(TextView)v.findViewById(R.id.chat_layout_item_msg_name_textview);
 			chat_layout_item_img_icon_roundimageview=(RoundImageView)v.findViewById(R.id.chat_layout_item_img_icon_roundimageview);
-			ToolsUtil.setFontStyle(context, v, R.id.chat_layout_item_msg_time_textview,R.id.chat_layout_item_msg_name_textview);
+			/*chat_layout_item_img_icon_roundimageview.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(v.getTag()!=null && v.getTag() instanceof BaseChatBean)
+					{
+						BaseChatBean chatBean=(BaseChatBean)v.getTag();
+						if(!chatBean.isIsoneself())
+						{
+							ToolsUtil.forwardShopMainActivity(context,chatBean.getFrom_id());
+						}
+					}
+				}
+			});*/
+			ToolsUtil.setFontStyle(context, v, R.id.chat_layout_item_msg_time_textview, R.id.chat_layout_item_msg_name_textview);
 		}
 	}
 	
@@ -83,6 +96,7 @@ public abstract class ChatBaseManager {
 		}
 		chat_layout_item_msg_time_textview.setText(ToolsUtil.nullToString(bean.getCreationDate()));
 		chat_layout_item_msg_name_textview.setText(ToolsUtil.nullToString(bean.getUserName()));
+		//chat_layout_item_img_icon_roundimageview.setTag(bean);
 		child_isshow(b, bean);
 		if(bean.getLogo()==null || bean.getLogo().equals(""))
 		{

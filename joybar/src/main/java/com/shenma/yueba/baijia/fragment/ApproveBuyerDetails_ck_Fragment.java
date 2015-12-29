@@ -353,6 +353,14 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("TAG", "onItemSelected position=" + position);
+                if(checked_ProductColorTypeBean!=null)
+                {
+                    ProductColorTypeBean bean = colortypelist.get(position);
+                    if(bean.getColorId().equals(checked_ProductColorTypeBean.getColorId()))
+                    {
+                        return;
+                    }
+                }
                 setSpecColorOnCheck(position);
             }
         });
@@ -367,6 +375,14 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         product_spec_layout_dimentype_mygridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(checked_ProductSPECbean!=null)
+                {
+                    ProductSPECbean bean = spectypelist.get(position);
+                    if(checked_ProductSPECbean.getSizeId().equals(bean.getSizeId()))
+                    {
+                        return;
+                    }
+                }
                 setSpecdimentOnCheck(position);
                 Log.i("TAG", "onItemSelected position=" + position);
             }
@@ -428,8 +444,13 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             public void onClick(View v) {
                 int value = Integer.parseInt(createorder_dialog_layout_countvalue_edittext.getText().toString());
                 value--;
-                if (value <= 0) {
-                    value = 0;
+                int maxValue = Integer.parseInt(product_spec_layout_stockvalue_textview.getText().toString());
+                if (value <= 1) {
+                    value = 1;
+                }
+                if(maxValue<=0)
+                {
+                    value=0;
                 }
                 createorder_dialog_layout_countvalue_edittext.setText(Integer.toString(value));
                 isTextButtonEnable();
@@ -603,10 +624,10 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         int Stock = Integer.valueOf(product_spec_layout_stockvalue_textview.getText().toString().trim());
         //当前选择的购买数量
         int count = Integer.valueOf(createorder_dialog_layout_countvalue_edittext.getText().toString().trim());
-        if (Stock <= 0) {
+        if (Stock <= 1) {
             create_dialog_jian_button.setSelected(false);
             create_dialog_jia_button.setSelected(false);
-        } else if (count <= 0) {
+        } else if (count <= 1) {
             create_dialog_jian_button.setSelected(false);
         } else if (count >= Stock) {
             create_dialog_jia_button.setSelected(false);
@@ -728,7 +749,6 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                             if (productSPECbean.getInventory() > 0) {
                                 setSpecColorOnCheck(i);
                                 setSpecdimentOnCheck(j);
-                                isSucess = true;
                                 return;
                             }
                         }
@@ -1040,6 +1060,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
     void initPic(final String url, final ImageView iv) {
         Log.i("TAG", "URL:" + url);
         MyApplication.getInstance().getBitmapUtil().display(iv, url);
+
     }
 
     void setFont() {

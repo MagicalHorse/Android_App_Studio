@@ -109,4 +109,25 @@
         style="@style/style_horizontal_line"
         android:layout_below="@+id/approvebuydetails_ck_suspensiontab_bak_linearlayout" />
 
+    <ImageView
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/back_grey_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back_grey"
+        />
+
+    <ImageView
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/share_grey_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:src="@drawable/share_grey"
+        />
+
 </RelativeLayout>

@@ -346,7 +346,7 @@ public class SocketManger {
 
 	/****
 	 * 进入房间
-	 * @param owner String 进入者id
+	 * @param userId int 登录用户
 	 * @param bean RoomBean 信息
 	 * ***/
 	public void inroon(String userId,RoomBean bean) {
@@ -391,8 +391,7 @@ public class SocketManger {
 	
 	/****
 	 * 设置登录的 用户id
-	 * @param owner String 进入者id
-	 * @param bean RoomBean 信息
+	 * @param userId int 登录用户id
 	 * ***/
 	public void online(int userId) {
 		if(socket!=null && socket.connected())
@@ -419,8 +418,7 @@ public class SocketManger {
 	
 	/****
 	 * 推出房间
-	 * @param owner String 进入者id
-	 * @param bean RoomBean 信息
+	 *
 	 * ***/
 	public void outinroon() {
 		
