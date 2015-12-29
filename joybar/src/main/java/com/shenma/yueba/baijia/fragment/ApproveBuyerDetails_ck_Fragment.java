@@ -212,7 +212,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                     return;
                 }
 
-                if (bean != null) {
+                if (bean != null && activity!=null) {
                     CKProductDeatilsInfoBean productinfobean = bean.getData();
                     if (productinfobean != null) {
                         String content = ToolsUtil.nullToString(productinfobean.getShareDesc());
@@ -288,7 +288,10 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         appprovebuyer_viewpager = (ViewPager) parentView.findViewById(R.id.appprovebuyer_viewpager);
         appprovebuyer_viewpager_relativelayout = (RelativeLayout) parentView.findViewById(R.id.appprovebuyer_viewpager_relativelayout);
         DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        if(activity!=null)
+        {
+            activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        }
         int width = dm.widthPixels;
         int height = width;
         appprovebuyer_viewpager_relativelayout.setLayoutParams(new LinearLayout.LayoutParams(width, height));
@@ -565,7 +568,10 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         int tabheight = approvebuydetails_ck_tab_bak_linearlayout.getHeight();
         Log.i("TAG", "calculateContactHeight footerheight:" + footerheight + "  statusheight:" + statusheight + "  tabheight:" + tabheight);
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        if(activity!=null)
+        {
+            activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        }
         int allHeight = displayMetrics.heightPixels;
         int contantHeight = allHeight - statusheight - footerheight - tabheight;
         Log.i("TAG", "calculateContactHeight contantHeight:" + contantHeight);
@@ -677,10 +683,13 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             affirmProductInfo.setSizeId(checked_ProductSPECbean.getSizeId());
             affirmProductInfo.setSizeName(checked_ProductSPECbean.getSizeName());
             affirmProductInfo.setBuycount(count);
+            if(activity!=null)
+            {
+                Intent intent = new Intent(activity, ConfirmOrderForZhuanGui.class);
+                intent.putExtra("ProductInfo", affirmProductInfo);
+                startActivity(intent);
+            }
 
-            Intent intent = new Intent(activity, ConfirmOrderForZhuanGui.class);
-            intent.putExtra("ProductInfo", affirmProductInfo);
-            startActivity(intent);
         }
     }
 
@@ -696,7 +705,11 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             if (str != null) {
                 ((TextView) v).setText(str);
             }
-            FontManager.changeFonts(activity, ((TextView) v));
+            if(activity!=null)
+            {
+                FontManager.changeFonts(activity, ((TextView) v));
+            }
+
         }
     }
 
@@ -924,32 +937,36 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         if (Data.getProductPic() != null && Data.getProductPic().size() > 0) {
             //图片和标签
             List<ProductsDetailsTagInfo> productsDetailsTagInfo_list = Data.getProductPic();
-            for (int i = 0; i < productsDetailsTagInfo_list.size(); i++) {
-                RelativeLayout rl = new RelativeLayout(activity);
-                ImageView iv = new ImageView(activity);
-                iv.setBackgroundColor(ApproveBuyerDetails_ck_Fragment.this.getResources().getColor(R.color.color_lightgrey));
-                iv.setScaleType(ScaleType.CENTER_CROP);
-                rl.addView(iv, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
-                TagImageView tiv = new TagImageView(activity);
-                //tiv.setBackgroundColor(ApproveBuyerDetailsActivity.this.getResources().getColor(R.color.color_blue));
-                //tiv.setAlpha(0.5f);
-                List<ProductsDetailsTagsInfo> productsDetailsTagsInfo_list = productsDetailsTagInfo_list.get(i).getTags();
-                if (productsDetailsTagsInfo_list != null && productsDetailsTagsInfo_list.size() > 0) {
-                    for (int j = 0; j < productsDetailsTagsInfo_list.size(); j++) {
-                        DisplayMetrics dm = new DisplayMetrics();
-                        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-                        int width = dm.widthPixels;
-                        int height = width;
-                        ProductsDetailsTagsInfo pdtinfo = productsDetailsTagsInfo_list.get(j);
-                        int tagx = (int) (pdtinfo.getPosX() * width);
-                        int tagy = (int) (pdtinfo.getPosY() * height);
-                        tiv.addTextTagCanNotMove(ToolsUtil.nullToString(pdtinfo.getName()), tagx, tagy, pdtinfo);
+            if(activity!=null)
+            {
+                for (int i = 0; i < productsDetailsTagInfo_list.size(); i++) {
+                    RelativeLayout rl = new RelativeLayout(activity);
+                    ImageView iv = new ImageView(activity);
+                    iv.setBackgroundColor(activity.getResources().getColor(R.color.color_lightgrey));
+                    iv.setScaleType(ScaleType.CENTER_CROP);
+                    rl.addView(iv, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+                    TagImageView tiv = new TagImageView(activity);
+                    //tiv.setBackgroundColor(ApproveBuyerDetailsActivity.this.getResources().getColor(R.color.color_blue));
+                    //tiv.setAlpha(0.5f);
+                    List<ProductsDetailsTagsInfo> productsDetailsTagsInfo_list = productsDetailsTagInfo_list.get(i).getTags();
+                    if (productsDetailsTagsInfo_list != null && productsDetailsTagsInfo_list.size() > 0) {
+                        for (int j = 0; j < productsDetailsTagsInfo_list.size(); j++) {
+                            DisplayMetrics dm = new DisplayMetrics();
+                            activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+                            int width = dm.widthPixels;
+                            int height = width;
+                            ProductsDetailsTagsInfo pdtinfo = productsDetailsTagsInfo_list.get(j);
+                            int tagx = (int) (pdtinfo.getPosX() * width);
+                            int tagy = (int) (pdtinfo.getPosY() * height);
+                            tiv.addTextTagCanNotMove(ToolsUtil.nullToString(pdtinfo.getName()), tagx, tagy, pdtinfo);
+                        }
                     }
+                    rl.addView(tiv, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+                    viewlist.add(rl);
+                    initPic(ToolsUtil.getImage(ToolsUtil.nullToString(productsDetailsTagInfo_list.get(i).getLogo()), 320, 0), iv);
                 }
-                rl.addView(tiv, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
-                viewlist.add(rl);
-                initPic(ToolsUtil.getImage(ToolsUtil.nullToString(productsDetailsTagInfo_list.get(i).getLogo()), 320, 0), iv);
             }
+
             customPagerAdapter = new ScrollViewPagerAdapter(activity, viewlist);
             appprovebuyer_viewpager.setAdapter(customPagerAdapter);
             setcurrItem(0);
@@ -1020,27 +1037,32 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
      * @param value int 当前选中的tab
      **/
     void addTabImageView(int size, int value) {
-        appprovebuyer_viewpager_footer_linerlayout.removeAllViews();
-        ((RelativeLayout.LayoutParams) appprovebuyer_viewpager_footer_linerlayout.getLayoutParams()).bottomMargin = 40;
-        if (size <= 1) {
-            return;
-        }
-        for (int i = 0; i < size; i++) {
-            View v = new View(activity);
-            v.setBackgroundResource(R.drawable.tabround_background);
-            int width = (int) ApproveBuyerDetails_ck_Fragment.this.getResources()
-                    .getDimension(R.dimen.shop_main_lineheight8_dimen);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    width, width);
-            params.leftMargin = (int) ApproveBuyerDetails_ck_Fragment.this
-                    .getResources()
-                    .getDimension(R.dimen.shop_main_width3_dimen);
-            appprovebuyer_viewpager_footer_linerlayout.addView(v, params);
-            if (i == value % size) {
-                v.setSelected(true);
-            } else {
-                v.setSelected(false);
+        try
+        {
+            appprovebuyer_viewpager_footer_linerlayout.removeAllViews();
+            ((RelativeLayout.LayoutParams) appprovebuyer_viewpager_footer_linerlayout.getLayoutParams()).bottomMargin = 40;
+            if (size <= 1) {
+                return;
             }
+            for (int i = 0; i < size; i++) {
+                if(activity!=null)
+                {
+                    View v = new View(activity);
+                    v.setBackgroundResource(R.drawable.tabround_background);
+                    int width = (int)activity.getResources().getDimension(R.dimen.shop_main_lineheight8_dimen);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width);
+                    params.leftMargin = (int)activity.getResources().getDimension(R.dimen.shop_main_width3_dimen);
+                    appprovebuyer_viewpager_footer_linerlayout.addView(v, params);
+                    if (i == value % size) {
+                        v.setSelected(true);
+                    } else {
+                        v.setSelected(false);
+                    }
+                }
+            }
+        }catch (Exception e)
+        {
+
         }
     }
 
@@ -1107,21 +1129,27 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             return;
         }
         timer = new Timer();
-        timer.schedule(new TimerTask() {
+        try
+        {
+            timer.schedule(new TimerTask() {
 
-            @Override
-            public void run() {
-                currid++;
-                activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    currid++;
+                    activity.runOnUiThread(new Runnable() {
 
-                    @Override
-                    public void run() {
-                        setViewPagerDuration(1000);
-                        setcurrItem(currid);
-                    }
-                });
-            }
-        }, 2000, 3000);
+                        @Override
+                        public void run() {
+                            setViewPagerDuration(1000);
+                            setcurrItem(currid);
+                        }
+                    });
+                }
+            }, 2000, 3000);
+        }catch (Exception e)
+        {
+
+        }
     }
 
     /*****

@@ -119,9 +119,7 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
             ll_coupon.setVisibility(View.GONE);
         }
 
-
-
-        //是否绑定手机
+        /*//是否绑定手机
         boolean IsBindMobile = SharedUtil.getBooleanPerfernece(ConfirmOrderForZhuanGui.this, SharedUtil.user_IsBindMobile);
         if (IsBindMobile) {
             tv_choose_card.setHint("请选择");
@@ -136,7 +134,16 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
             tv_choose_card.setHint("");
             rl_card_change_textview.setText("绑定金鹰会员卡");
             iv_card.setBackgroundResource(R.drawable.arrow_right);
+        }*/
+        tv_choose_card.setHint("请选择");
+        rl_card_change_textview.setText("选择金鹰会员卡");
+        iv_card.setBackgroundResource(R.drawable.arrow_down);
+        if (!isHide) {
+            ll_move.startAnimation(animUp);
+            iv_card.startAnimation(rotateAnimationDown);
+            isHide = true;
         }
+
     }
 
 
@@ -304,10 +311,11 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
 
         ll_content = getView(R.id.ll_content);
         ll_move = getView(R.id.ll_move);
+
         rl_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean IsBindMobile = SharedUtil.getBooleanPerfernece(ConfirmOrderForZhuanGui.this, SharedUtil.user_IsBindMobile);
+                /*boolean IsBindMobile = SharedUtil.getBooleanPerfernece(ConfirmOrderForZhuanGui.this, SharedUtil.user_IsBindMobile);
                 //是否参加Vip折扣
                 boolean isJoinDeiscount = affirmProductInfo.getData().getData().isJoinDeiscount();
                 isJoinDeiscount = true;
@@ -329,6 +337,18 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
                     //跳转到绑定页面
                     Intent intent = new Intent(ConfirmOrderForZhuanGui.this, BinderMemberCardActivity.class);
                     startActivityForResult(intent, 200);
+                }*/
+                boolean isJoinDeiscount = affirmProductInfo.getData().getData().isJoinDeiscount();
+                if(isJoinDeiscount)
+                {
+                    //判断是否有 会员卡列表  如果有 则直接显示  如果没有则请求
+                    if (memberCardBeanList == null) {
+                        if (!isrunning) {
+                            requestMemberCardList();
+                        }
+                    } else {
+                        memberShowOrHidden();
+                    }
                 }
             }
         });

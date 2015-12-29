@@ -41,7 +41,7 @@ public class ProductSPECAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView==null)
+        if(convertView==null && activity!=null)
         {
             convertView= LayoutInflater.from(activity).inflate(R.layout.productspectype_layout,null);
         }
@@ -51,11 +51,17 @@ public class ProductSPECAdapter extends BaseAdapter {
         if(speCbean.ischecked())
         {
             tv.setSelected(true);
-            tv.setTextColor(activity.getResources().getColor(R.color.white));
+            if(activity!=null)
+            {
+                tv.setTextColor(activity.getResources().getColor(R.color.white));
+            }
         }else
         {
             tv.setSelected(false);
-            tv.setTextColor(activity.getResources().getColor(R.color.text_gray_color));
+            if(activity!=null)
+            {
+                tv.setTextColor(activity.getResources().getColor(R.color.text_gray_color));
+            }
         }
         return convertView;
     }

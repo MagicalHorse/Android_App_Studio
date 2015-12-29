@@ -115,18 +115,24 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (parentView == null) {
-			parentView = inflater.inflate(R.layout.approvebuyerdetails_layout, null);
-			initViews();
-			setDatValue();
-			setFont();
-			getCkrProductSPECDetails();
-			CollectobserverManage.getInstance().addObserver(this);
+		try
+		{
+			if (parentView == null) {
+				parentView = inflater.inflate(R.layout.approvebuyerdetails_layout, null);
+				initViews();
+				setDatValue();
+				setFont();
+				getCkrProductSPECDetails();
+				CollectobserverManage.getInstance().addObserver(this);
+			}
+			if (parentView.getParent() != null) {
+				((ViewGroup) parentView.getParent()).removeView(parentView);
+			}
+			dangyanggouTime();
+		}catch (Exception e)
+		{
+
 		}
-		if (parentView.getParent() != null) {
-			((ViewGroup) parentView.getParent()).removeView(parentView);
-		}
-		dangyanggouTime();
 		return parentView;
 	}
 
@@ -135,7 +141,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		super.onCreate(savedInstanceState);
 	}
 
-	private void initViews() {
+	private void initViews() throws Exception{
 
 		//返回
 		ImageView back_grey_imageview=(ImageView)parentView.findViewById(R.id.back_grey_imageview);

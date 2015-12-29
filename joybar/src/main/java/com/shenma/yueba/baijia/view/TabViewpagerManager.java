@@ -57,6 +57,10 @@ public class TabViewpagerManager {
      ***********/
     void iniView() {
         for (int i = 0; i < bean.size(); i++) {
+            if(activity==null)
+            {
+                return;
+            }
             RelativeLayout rl = (RelativeLayout) RelativeLayout.inflate(activity, R.layout.tab_line_layout, null);
             TextView tv = (TextView) rl.findViewById(R.id.tab_line_textview);
             FontManager.changeFonts(activity, tv);
@@ -170,13 +174,17 @@ public class TabViewpagerManager {
             TextView tv = (TextView) rl.findViewById(R.id.tab_line_textview);
             View v = (View) rl.findViewById(R.id.tab_line_view);
             if (i == value) {
-                tv.setTextColor(activity.getResources().getColor(
-                        R.color.color_deeoyellow));
+                if(activity!=null)
+                {
+                    tv.setTextColor(activity.getResources().getColor(R.color.color_deeoyellow));
+                }
                 tv.setTextSize(Constants.title_text_selected_size);
                 v.setVisibility(View.VISIBLE);
             } else {
-                tv.setTextColor(activity.getResources().getColor(
-                        R.color.text_gray_color));
+                if(activity!=null)
+                {
+                    tv.setTextColor(activity.getResources().getColor(R.color.text_gray_color));
+                }
                 tv.setTextSize(Constants.title_text_normal_size);
                 v.setVisibility(View.INVISIBLE);
             }

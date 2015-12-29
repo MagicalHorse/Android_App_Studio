@@ -50,7 +50,7 @@ public class ProductColorTypeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
-        if(convertView==null)
+        if(convertView==null && activity!=null)
         {
             holder=new Holder();
             convertView=LayoutInflater.from(activity).inflate(R.layout.productcolor_item,null);
@@ -84,11 +84,18 @@ public class ProductColorTypeAdapter extends BaseAdapter {
         if(productColorTypeBean.isChecked())
         {
             holder.iv.setSelected(true);
-            holder.tv.setTextColor(activity.getResources().getColor(R.color.red_text_color));
+            if(activity!=null)
+            {
+                holder.tv.setTextColor(activity.getResources().getColor(R.color.red_text_color));
+            }
+
         }else
         {
             holder.iv.setSelected(false);
-            holder.tv.setTextColor(activity.getResources().getColor(R.color.text_gray_color));
+            if(activity!=null)
+            {
+                holder.tv.setTextColor(activity.getResources().getColor(R.color.text_gray_color));
+            }
         }
     }
 

@@ -630,6 +630,10 @@ public class ToolsUtil {
      */
     public static int getStatusHeight(Activity activity) {
         int statusHeight = 0;
+        if(activity==null)
+        {
+            return  statusHeight;
+        }
         Rect localRect = new Rect();
         activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(localRect);
         statusHeight = localRect.top;

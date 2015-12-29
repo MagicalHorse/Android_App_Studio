@@ -347,8 +347,7 @@ public class MyApplication extends Application {
      * return true 已经登录 false 未登录
      ***/
     public boolean isUserLogin(Context context) {
-        boolean status = SharedUtil.getBooleanPerfernece(
-                this.getApplicationContext(), SharedUtil.user_loginstatus);
+        boolean status = SharedUtil.getBooleanPerfernece(this.getApplicationContext(), SharedUtil.user_loginstatus);
         if (status) {
             return true;
         } else {
@@ -376,17 +375,19 @@ public class MyApplication extends Application {
      **/
     public void startLogin(final Context context, final String msg) {
         SocketManger.the().disContentSocket();
-        ((Activity) context).runOnUiThread(new Runnable() {
+        if(context!=null && context instanceof Activity)
+        {
+            ((Activity) context).runOnUiThread(new Runnable() {
 
-            @Override
-            public void run() {
-                showMessage(context, msg);
-                Intent intent = new Intent(context, LoginAndRegisterActivity.class);
-                intent.putExtra("flag", "needLogin");
-                ((Activity) context).startActivity(intent);
-            }
-        });
-
+                @Override
+                public void run() {
+                    showMessage(context, msg);
+                    Intent intent = new Intent(context, LoginAndRegisterActivity.class);
+                    intent.putExtra("flag", "needLogin");
+                    ((Activity) context).startActivity(intent);
+                }
+            });
+        }
 
     }
 

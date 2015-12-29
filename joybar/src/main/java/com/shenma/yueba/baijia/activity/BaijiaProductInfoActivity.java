@@ -54,12 +54,12 @@ public class BaijiaProductInfoActivity extends FragmentActivity {
                     if (ToolsUtil.nullToString(cKProductDeatilsInfoBean.getUserLevel()).equals("8")) {
                         ApproveBuyerDetailsFragment approveBuyerDetailsFragment = new ApproveBuyerDetailsFragment();
                         BaijiaProductInfoActivity.this.getIntent().putExtra("ProductInfo", bean);
-                        fragmentManager.beginTransaction().add(R.id.baijiaproductinfo_layout_framelayout, approveBuyerDetailsFragment).commit();
+                        fragmentManager.beginTransaction().replace(R.id.baijiaproductinfo_layout_framelayout, approveBuyerDetailsFragment).commitAllowingStateLoss();
                     } else//否则 专柜
                     {
                         ApproveBuyerDetails_ck_Fragment approveBuyerDetails_ck_fragment = new ApproveBuyerDetails_ck_Fragment();
                         BaijiaProductInfoActivity.this.getIntent().putExtra("ProductInfo", bean);
-                        fragmentManager.beginTransaction().add(R.id.baijiaproductinfo_layout_framelayout,approveBuyerDetails_ck_fragment ).commit();
+                        fragmentManager.beginTransaction().replace(R.id.baijiaproductinfo_layout_framelayout, approveBuyerDetails_ck_fragment).commitAllowingStateLoss();
                     }
                 }
             }
