@@ -73,6 +73,7 @@ public class BaiJiaOrderDetail_ck_Activity extends BaseActivityWithTopView {
                 }
             }
 
+
             @Override
             public void http_Fails(int error, String msg) {
                 MyApplication.getInstance().showMessage(BaiJiaOrderDetail_ck_Activity.this, msg);
