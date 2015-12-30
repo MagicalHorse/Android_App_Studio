@@ -16,6 +16,15 @@ public class ProductInfoBean implements Serializable{
     double Price;// 价格
     int ProductCount;//个数
     String Image="";// 图片地址
+	String UserLevel;
+	public String getUserLevel() {
+		return UserLevel;
+	}
+
+	public void setUserLevel(String userLevel) {
+		UserLevel = userLevel;
+	}
+
 	public int getStoreId() {
 		return StoreId;
 	}

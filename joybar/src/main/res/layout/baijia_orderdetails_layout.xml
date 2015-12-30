@@ -20,7 +20,7 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/baijia_orderdetails_layout_footer"
         android:layout_below="@id/baijia_orderdetails_layout_head"
-        android:layout_marginBottom="15dip">
+        android:layout_marginBottom="1dip">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -258,9 +258,17 @@
                 android:id="@+id/baijia_orderdetails_layout_lsitview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dip" />
+                android:layout_marginTop="15dip"
+                />
 
-
+            <!--活动列表-->
+            <com.shenma.yueba.view.MyListView
+                android:id="@+id/baijia_orderdetails_layout_promotionsname_lsitview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip"
+                android:layout_marginBottom="10dp"
+                />
             <!--  <com.shenma.yueba.view.NoSrcollListView
                  android:id="@+id/baijia_orderdetails_layout_lsitview"
                  android:layout_width="match_parent"

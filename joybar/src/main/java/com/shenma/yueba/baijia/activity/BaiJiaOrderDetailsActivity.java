@@ -13,8 +13,11 @@ import android.widget.TextView;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.adapter.BaijiaOrderDetailsAdapter;
+import com.shenma.yueba.baijia.adapter.BaijiaOrderDetailsPromotionAdapter;
 import com.shenma.yueba.baijia.modle.BaiJiaOrdeDetailsInfoBean;
 import com.shenma.yueba.baijia.modle.BaiJiaOrderListInfo;
+import com.shenma.yueba.baijia.modle.BaijiaOrderDetailsInfo;
+import com.shenma.yueba.baijia.modle.OrderPromotions;
 import com.shenma.yueba.baijia.modle.ProductInfoBean;
 import com.shenma.yueba.baijia.modle.RequestBaiJiaOrdeDetailsInfoBean;
 import com.shenma.yueba.inter.BindInter;
@@ -59,11 +62,14 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
     //头像
     RoundImageView riv_customer_head;
 
-    List<BaiJiaOrdeDetailsInfoBean> obj_list = new ArrayList<BaiJiaOrdeDetailsInfoBean>();
+    List<BaijiaOrderDetailsInfo> obj_list = new ArrayList<BaijiaOrderDetailsInfo>();
+    //活动信息
+    List<OrderPromotions> promotion_list = new ArrayList<OrderPromotions>();
     String orderNo = null;
     HttpControl httpControl = new HttpControl();
     RequestBaiJiaOrdeDetailsInfoBean bean;
     BaijiaOrderDetailsAdapter baijiaOrderDetailsAdapter;
+    BaijiaOrderDetailsPromotionAdapter baijiaOrderDetailsPromotionAdapter;
     LinearLayout baijia_orderdetails_footer_right_linearlayout;//按钮的父对象
     boolean isBroadcase = false;
     private LinearLayout bottom_for_zhuangui;//专柜买手底部布局
@@ -71,6 +77,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
     private TextView tv_connect;//联系顾客
     private TextView tv_get_code;//提货二维码
     private TextView tv_quit_order;//取消订单
+    MyListView baijia_orderdetails_layout_promotionsname_lsitview;//活动列表
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +145,8 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         baijia_orderdetails_lianxibuyer_textview.setOnClickListener(this);
         baijia_orderdetails_xjfx_textview = (TextView) parentView.findViewById(R.id.baijia_orderdetails_xjfx_textview);
         baijia_orderdetails_xjfx_textview.setOnClickListener(this);
-        setFont();
+
+        baijia_orderdetails_layout_promotionsname_lsitview = (MyListView) parentView.findViewById(R.id.baijia_orderdetails_layout_promotionsname_lsitview);
     }
 
     /****
@@ -186,7 +194,11 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         //判断当前是否绑定微信 如果绑定 则可以分享  如果没绑定 则 提示绑定
         if (SharedUtil.getBooleanPerfernece(BaiJiaOrderDetailsActivity.this, SharedUtil.user_IsBindWeiXin)) {
             final BaiJiaOrdeDetailsInfoBean infobean = bean.getData();
-            ShareUtil.shareAll(BaiJiaOrderDetailsActivity.this, ToolsUtil.nullToString(infobean.getShareDesc()), ToolsUtil.nullToString(infobean.getShareDesc()), infobean.getShareLink(), ToolsUtil.getImage(ToolsUtil.nullToString(infobean.getProductPic()), 320, 0), new ShareListener() {
+            String pic = "";
+            if (infobean.getProduct() != null && infobean.getProduct().size() > 0) {
+                pic = ToolsUtil.nullToString(infobean.getProduct().get(0).getProductPic());
+            }
+            ShareUtil.shareAll(BaiJiaOrderDetailsActivity.this, ToolsUtil.nullToString(infobean.getShareDesc()), ToolsUtil.nullToString(infobean.getShareDesc()), infobean.getShareLink(), pic, new ShareListener() {
 
                 @Override
                 public void sharedListener_sucess() {
@@ -245,15 +257,22 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         info.setBuyerName(baiJiaOrderListInfo.getBuyerName());
         info.setCreateDate(baiJiaOrderListInfo.getCreateDate());
         info.setOrderNo(baiJiaOrderListInfo.getOrderNo());
-        info.setOrderProductCount(baiJiaOrderListInfo.getProductCount());
+
         info.setOrderStatus(baiJiaOrderListInfo.getOrderStatus());
         info.setOrderStatusStr(baiJiaOrderListInfo.getOrderStatusName());
+        info.setOrderProductType(baiJiaOrderListInfo.getOrderProductType());
         ProductInfoBean productInfoBean = new ProductInfoBean();
-        productInfoBean.setImage(baiJiaOrderListInfo.getProductPic());
-        productInfoBean.setName(baiJiaOrderListInfo.getProductName());
-        productInfoBean.setPrice(baiJiaOrderListInfo.getPrice());
-        productInfoBean.setProductCount(baiJiaOrderListInfo.getProductCount());
-        productInfoBean.setProductId(baiJiaOrderListInfo.getProductId());
+
+        if (baiJiaOrderListInfo.getProduct() != null && baiJiaOrderListInfo.getProduct().size() > 0) {
+            BaijiaOrderDetailsInfo iteminfo = baiJiaOrderListInfo.getProduct().get(0);
+            info.setOrderProductCount(iteminfo.getProductCount());
+            productInfoBean.setImage(iteminfo.getProductPic());
+            productInfoBean.setName(iteminfo.getProductName());
+            productInfoBean.setPrice(iteminfo.getPrice());
+            productInfoBean.setProductCount(iteminfo.getProductCount());
+            productInfoBean.setProductId(iteminfo.getProductId());
+            productInfoBean.setUserLevel(baiJiaOrderListInfo.getUserLevel());
+        }
         info.setProduct(productInfoBean);
 
         return info;
@@ -292,6 +311,8 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
      * 负值
      **/
     void setvalue() {
+        obj_list.clear();
+        promotion_list.clear();
         BaiJiaOrdeDetailsInfoBean baiJiaOrdeDetailsInfoBean = bean.getData();
         order_no_content.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getOrderNo()));
         order_wating_content.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getOrderStatusName()));
@@ -301,10 +322,12 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         tv_customer_phone_content.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getBuyerMobile()));
         tv_get_address_content.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getPickAddress()));
         MyApplication.getInstance().getBitmapUtil().display(riv_customer_head, ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getBuyerLogo()));
-        obj_list.add(baiJiaOrdeDetailsInfoBean);
+        if (baiJiaOrdeDetailsInfoBean.getProduct() != null) {
+            obj_list.addAll(baiJiaOrdeDetailsInfoBean.getProduct());
+        }
         riv_customer_head.setTag(baiJiaOrdeDetailsInfoBean.getBuyerId());
         //是否显示分享按钮
-        if (bean.getData().isIsShareable()) {
+        if (bean.getData().isShareable()) {
             baijia_orderdetails_xjfx_textview.setVisibility(View.VISIBLE);
         } else {
             baijia_orderdetails_xjfx_textview.setVisibility(View.GONE);
@@ -313,7 +336,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         //根据订单状态 设置按钮
         //数据转换
         final BaiJiaOrderListInfo info = dataTrasition(bean.getData());
-        List<View> view_list = ButtonManager.getButton(this,info);
+        List<View> view_list = ButtonManager.getButton(this, info);
         baijia_orderdetails_footer_right_linearlayout.removeAllViews();
         if (view_list != null) {
             if (view_list != null) {
@@ -321,8 +344,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
                     View button = view_list.get(i);
                     Button btn = (Button) button.findViewById(R.id.baijia_orderdetails_sqtk_button);
                     FontManager.changeFonts(this, btn);
-                    BaiJiaOrdeDetailsInfoBean infobean = bean.getData();
-
+                    //BaiJiaOrdeDetailsInfoBean infobean = bean.getData();
                     btn.setTag(info);
                     LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     param.leftMargin = 5;
@@ -333,6 +355,14 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
         baijiaOrderDetailsAdapter = new BaijiaOrderDetailsAdapter(this, obj_list);
         baijia_orderdetails_layout_lsitview.setAdapter(baijiaOrderDetailsAdapter);
         baijiaOrderDetailsAdapter.notifyDataSetChanged();
+
+        if (baiJiaOrdeDetailsInfoBean.getPromotions() != null) {
+            promotion_list.addAll(baiJiaOrdeDetailsInfoBean.getPromotions());
+        }
+
+        baijiaOrderDetailsPromotionAdapter = new BaijiaOrderDetailsPromotionAdapter(this, promotion_list);
+        baijia_orderdetails_layout_promotionsname_lsitview.setAdapter(baijiaOrderDetailsPromotionAdapter);
+        baijiaOrderDetailsPromotionAdapter.notifyDataSetChanged();
 
         //ListViewUtils.setListViewHeightBasedOnChildren(baijia_orderdetails_layout_lsitview);
     }
@@ -370,19 +400,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
 
     @Override
     public void refresh() {
-        final BaiJiaOrdeDetailsInfoBean infobean = bean.getData();
-        ShareUtil.shareAll(BaiJiaOrderDetailsActivity.this, "", ToolsUtil.nullToString(infobean.getShareDesc()), infobean.getShareLink(), ToolsUtil.getImage(ToolsUtil.nullToString(infobean.getProductPic()), 320, 0), new ShareListener() {
-
-            @Override
-            public void sharedListener_sucess() {
-                requestShared(infobean.getOrderNo());
-            }
-
-            @Override
-            public void sharedListener_Fails(String msg) {
-                MyApplication.getInstance().showMessage(BaiJiaOrderDetailsActivity.this, msg);
-            }
-        });
+        shareUrl();
     }
 
     @Override

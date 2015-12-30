@@ -29,6 +29,7 @@ public class BaiJiaOrderDetail_ck_Activity extends BaseActivityWithTopView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MyApplication.getInstance().addActivity(this);// 加入回退栈
         requestWindowFeature(getWindow().FEATURE_NO_TITLE);
         setContentView(R.layout.orderdetails_ck_layout);
         super.onCreate(savedInstanceState);
@@ -97,5 +98,11 @@ public class BaiJiaOrderDetail_ck_Activity extends BaseActivityWithTopView {
                 orderdetails_ck_layout_storebark_textview.setText(Html.fromHtml(str));
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        MyApplication.getInstance().removeActivity(this);
+        super.onDestroy();
     }
 }

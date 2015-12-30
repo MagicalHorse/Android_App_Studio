@@ -11,13 +11,6 @@ import java.util.List;
  */
 
 public class BaiJiaOrdeDetailsInfoBean implements Serializable{
-	int ProductId;//产品id
-	String ProductName="";//产品名字
-	String ProductPic="";//产品图片
-	double Price;//价格
-	int ProductCount;//产品数量
-	String SizeName="";//规格
-	String SizeValue="";//规格值
 	String OrderNo="";//订单编号
     double OrderAmount;//订单金额
 	int BuyerId;// 买手编号
@@ -33,139 +26,150 @@ public class BaiJiaOrdeDetailsInfoBean implements Serializable{
     List<OrderPromotions> Promotions=new ArrayList<OrderPromotions>();//活动信息
     double ActualAmount;//实际付款
     String ShareDesc="";//分享信息
-	
-	public String getShareDesc() {
-		return ShareDesc;
+	List<BaijiaOrderDetailsInfo> Product=new ArrayList<BaijiaOrderDetailsInfo>();
+	int OrderProductType;//订单类型
+	String UserLevel;//买手级别
+	public String getUserLevel() {
+		return UserLevel;
 	}
-	public void setShareDesc(String shareDesc) {
-		ShareDesc = shareDesc;
+
+	public void setUserLevel(String userLevel) {
+		UserLevel = userLevel;
 	}
-	
-	public double getActualAmount() {
-		return ActualAmount;
-	}
-	public void setActualAmount(double actualAmount) {
-		ActualAmount = actualAmount;
-	}
-	public List<OrderPromotions> getPromotions() {
-		return Promotions;
-	}
-	public void setPromotions(List<OrderPromotions> promotions) {
-		Promotions = promotions;
-	}
-	public boolean isIsShareable() {
-		return IsShareable;
-	}
-	public void setIsShareable(boolean isShareable) {
-		IsShareable = isShareable;
-	}
-	public String getShareLink() {
-		return ShareLink;
-	}
-	public void setShareLink(String shareLink) {
-		ShareLink = shareLink;
-	}
-	public String getBuyerLogo() {
-		return BuyerLogo;
-	}
-	public void setBuyerLogo(String buyerLogo) {
-		BuyerLogo = buyerLogo;
-	}
-	public int getProductId() {
-		return ProductId;
-	}
-	public void setProductId(int productId) {
-		ProductId = productId;
-	}
-	public String getProductName() {
-		return ProductName;
-	}
-	public void setProductName(String productName) {
-		ProductName = productName;
-	}
-	public String getProductPic() {
-		return ProductPic;
-	}
-	public void setProductPic(String productPic) {
-		ProductPic = productPic;
-	}
-	public double getPrice() {
-		return Price;
-	}
-	public void setPrice(double price) {
-		Price = price;
-	}
-	public int getProductCount() {
-		return ProductCount;
-	}
-	public void setProductCount(int productCount) {
-		ProductCount = productCount;
-	}
-	public String getSizeName() {
-		return SizeName;
-	}
-	public void setSizeName(String sizeName) {
-		SizeName = sizeName;
-	}
-	public String getSizeValue() {
-		return SizeValue;
-	}
-	public void setSizeValue(String sizeValue) {
-		SizeValue = sizeValue;
-	}
+
 	public String getOrderNo() {
 		return OrderNo;
 	}
+
 	public void setOrderNo(String orderNo) {
 		OrderNo = orderNo;
 	}
+
 	public double getOrderAmount() {
 		return OrderAmount;
 	}
+
 	public void setOrderAmount(double orderAmount) {
 		OrderAmount = orderAmount;
 	}
+
 	public int getBuyerId() {
 		return BuyerId;
 	}
+
 	public void setBuyerId(int buyerId) {
 		BuyerId = buyerId;
 	}
+
 	public String getBuyerMobile() {
 		return BuyerMobile;
 	}
+
 	public void setBuyerMobile(String buyerMobile) {
 		BuyerMobile = buyerMobile;
 	}
+
 	public String getBuyerName() {
 		return BuyerName;
 	}
+
 	public void setBuyerName(String buyerName) {
 		BuyerName = buyerName;
 	}
+
 	public String getPickAddress() {
 		return PickAddress;
 	}
+
 	public void setPickAddress(String pickAddress) {
 		PickAddress = pickAddress;
 	}
+
 	public int getOrderStatus() {
 		return OrderStatus;
 	}
+
 	public void setOrderStatus(int orderStatus) {
 		OrderStatus = orderStatus;
 	}
+
 	public String getOrderStatusName() {
 		return OrderStatusName;
 	}
+
 	public void setOrderStatusName(String orderStatusName) {
 		OrderStatusName = orderStatusName;
 	}
+
 	public String getCreateDate() {
 		return CreateDate;
 	}
+
 	public void setCreateDate(String createDate) {
 		CreateDate = createDate;
 	}
 
+	public String getBuyerLogo() {
+		return BuyerLogo;
+	}
+
+	public void setBuyerLogo(String buyerLogo) {
+		BuyerLogo = buyerLogo;
+	}
+
+	public boolean isShareable() {
+		return IsShareable;
+	}
+
+	public void setIsShareable(boolean isShareable) {
+		IsShareable = isShareable;
+	}
+
+	public String getShareLink() {
+		return ShareLink;
+	}
+
+	public void setShareLink(String shareLink) {
+		ShareLink = shareLink;
+	}
+
+	public List<OrderPromotions> getPromotions() {
+		return Promotions;
+	}
+
+	public void setPromotions(List<OrderPromotions> promotions) {
+		Promotions = promotions;
+	}
+
+	public double getActualAmount() {
+		return ActualAmount;
+	}
+
+	public void setActualAmount(double actualAmount) {
+		ActualAmount = actualAmount;
+	}
+
+	public String getShareDesc() {
+		return ShareDesc;
+	}
+
+	public void setShareDesc(String shareDesc) {
+		ShareDesc = shareDesc;
+	}
+
+	public List<BaijiaOrderDetailsInfo> getProduct() {
+		return Product;
+	}
+
+	public void setProduct(List<BaijiaOrderDetailsInfo> product) {
+		Product = product;
+	}
+
+	public int getOrderProductType() {
+		return OrderProductType;
+	}
+
+	public void setOrderProductType(int orderProductType) {
+		OrderProductType = orderProductType;
+	}
 }

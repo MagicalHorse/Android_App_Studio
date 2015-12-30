@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:layout_centerVertical="true"
-                    android:text="打烊购" />
+                    android:text="@null" />
 
                 <TextView
                     android:id="@+id/affirmorder_item_youhuicontext_textview"
@@ -236,6 +236,7 @@
                         android:layout_marginLeft="@dimen/shop_main_width5_dimen"
                         android:layout_toRightOf="@id/affirmorder_item_tihuophone_textview"
                         android:background="@drawable/gray_background"
+                        android:maxLength="12"
                         android:phoneNumber="true"
                         android:singleLine="true" />
                 </LinearLayout>

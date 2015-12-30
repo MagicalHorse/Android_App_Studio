@@ -243,18 +243,22 @@ public class ButtonManager {
      **/
     public static void applyforRefund(Context context, BaiJiaOrderListInfo baiJiaOrderListInfo) {
 
-        if((ToolsUtil.nullToString(baiJiaOrderListInfo.getUserleave()).equals("4") && baiJiaOrderListInfo.getOrderStatus()==1 && baiJiaOrderListInfo.getOrderProductType()==4)
-                ||
-                (ToolsUtil.nullToString(baiJiaOrderListInfo.getUserleave()).equals("8") && baiJiaOrderListInfo.getOrderStatus()==1))
+        if(baiJiaOrderListInfo!=null && baiJiaOrderListInfo.getProduct()!=null)
         {
-            Intent intent = new Intent(context, ApplyForRefundActivity.class);
-            intent.putExtra("DATA", baiJiaOrderListInfo);
-            context.startActivity(intent);
-        }else
-        {
-            Intent intent = new Intent(context, BaiJiaOrderDetail_ck_Activity.class);
-            intent.putExtra("OrderNo", baiJiaOrderListInfo.getOrderNo());
-            context.startActivity(intent);
+            String userlevel=baiJiaOrderListInfo.getProduct().getUserLevel();
+            if((ToolsUtil.nullToString(userlevel).equals("4") && baiJiaOrderListInfo.getOrderStatus()==1 && baiJiaOrderListInfo.getOrderProductType()==4)
+                    ||
+                    (ToolsUtil.nullToString(userlevel).equals("8") && baiJiaOrderListInfo.getOrderStatus()==1))
+            {
+                Intent intent = new Intent(context, ApplyForRefundActivity.class);
+                intent.putExtra("OrderNo", baiJiaOrderListInfo.getOrderNo());
+                context.startActivity(intent);
+            }else
+            {
+                Intent intent = new Intent(context, BaiJiaOrderDetail_ck_Activity.class);
+                intent.putExtra("OrderNo", baiJiaOrderListInfo.getOrderNo());
+                context.startActivity(intent);
+            }
         }
 
         //((Activity)context).startActivityForResult(intent, 200);

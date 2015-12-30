@@ -71,10 +71,12 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 	CKProductDeatilsInfoBean productsDetailsInfoBean;
 	// 优惠信息
 	ProductsDetailsPromotion productsDetailsPromotion;
+	boolean isSucess=false;//数据是否加载完成
 
 	int buyCount = -1;// 购买数量
 	ProductSPECbean currCheckedFouce = null;// 选择的尺寸数据
 	RequestComputeAmountInfoBean requestComputeAmountInfoBean;
+	RequestCKProductDeatilsInfo CK_Productbean;//认证商品信息
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +86,9 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 		requestWindowFeature(getWindow().FEATURE_NO_TITLE);
 		setContentView(parentview);
 		super.onCreate(savedInstanceState);
-		if (this.getIntent().getSerializableExtra("DATA") != null
-				&& this.getIntent().getSerializableExtra("DATA") instanceof RequestCKProductDeatilsInfo) {
-			RequestCKProductDeatilsInfo bean = (RequestCKProductDeatilsInfo) this
-					.getIntent().getSerializableExtra("DATA");
-			productsDetailsInfoBean = bean.getData();
+		if (this.getIntent().getSerializableExtra("DATA") != null && this.getIntent().getSerializableExtra("DATA") instanceof RequestCKProductDeatilsInfo) {
+			CK_Productbean= (RequestCKProductDeatilsInfo) this.getIntent().getSerializableExtra("DATA");
+			productsDetailsInfoBean = CK_Productbean.getData();
 			productlist.add(productsDetailsInfoBean);
 			buyCount = this.getIntent().getIntExtra("COUNT", -1);
 			if (buyCount <= 0
@@ -113,7 +113,6 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 			finish();
 			return;
 		}
-
 		getBaijiaOrderPrice(Integer.valueOf(productsDetailsInfoBean.getProductId()), buyCount);
 	}
 
@@ -201,10 +200,12 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 
 					@Override
 					public void onClick(View v) {
-						if (affirmorder_item_tihuophonevalue_textview.getText()
-								.toString().trim().equals("")) {
-							MyApplication.getInstance().showMessage(
-									AffirmOrderActivity.this, "请输入提货人手机号");
+						if(!isSucess)
+						{
+							return;
+						}
+						if (affirmorder_item_tihuophonevalue_textview.getText().toString().trim().equals("")) {
+							MyApplication.getInstance().showMessage(AffirmOrderActivity.this, "请输入提货人手机号");
 							return;
 						}
 						submitData();
@@ -227,7 +228,7 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 	void submitData() {
 		String phone = affirmorder_item_tihuophonevalue_textview.getText()
 				.toString().trim();
-		httpControl.createProductOrder(phone,Integer.valueOf(productsDetailsInfoBean.getProductId()), buyCount,
+		httpControl.createProductOrder(phone, Integer.valueOf(productsDetailsInfoBean.getProductId()), buyCount,
 				Integer.valueOf(currCheckedFouce.getSizeId()), true,
 				new HttpCallBackInterface() {
 
@@ -237,8 +238,8 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 							RequestCreatOrderInfoBean requestCreatOrderInfoBean = (RequestCreatOrderInfoBean) obj;
 							if (requestCreatOrderInfoBean.getData() != null) {
 								MyApplication.getInstance().showMessage(AffirmOrderActivity.this, "下单成功");
-								ToolsUtil.frowardPayActivity(AffirmOrderActivity.this,productsDetailsInfoBean.getProductName(),buyCount,requestCreatOrderInfoBean.getData().getOrderNo(),requestCreatOrderInfoBean.getData().getActualAmount());
-								OrderChangeRefreshObserver.getInstance().refreshList(0,null);
+								ToolsUtil.frowardPayActivity(AffirmOrderActivity.this, productsDetailsInfoBean.getProductName(), buyCount, requestCreatOrderInfoBean.getData().getOrderNo(), requestCreatOrderInfoBean.getData().getActualAmount());
+								OrderChangeRefreshObserver.getInstance().refreshList(0, null);
 							}
 							finish();
 						}
@@ -283,6 +284,7 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 						} else {
 							requestComputeAmountInfoBean = (RequestComputeAmountInfoBean) obj;
 							setValue();
+							isSucess=true;
 						}
 					}
 
@@ -316,36 +318,32 @@ public class AffirmOrderActivity extends BaseActivityWithTopView implements
 						R.id.affirmorder_item_allcount_textview, "共" + buyCount
 								+ "件商品");
 		ToolsUtil.setFontStyle(this, parentview,
-				R.id.affirmorder_item_pricevalue_textview, "￥"+ToolsUtil.DounbleToString_2(requestComputeAmountInfoBean.getData()
+				R.id.affirmorder_item_pricevalue_textview, "￥" + ToolsUtil.DounbleToString_2(requestComputeAmountInfoBean.getData()
 						.getTotalamount()));
 		ToolsUtil.setFontStyle(this, parentview,
 				R.id.affrimorder_layout_footer_countprice_textview, ToolsUtil
 						.nullToString(Double
 								.toString(requestComputeAmountInfoBean
 										.getData().getSaletotalamount())));
-		if (productsDetailsPromotion != null) {
-			// 设置优惠名称
-			ToolsUtil.setFontStyle(this, parentview,
-					R.id.affirmorder_item_youhuititle_textview,
-					ToolsUtil.nullToString(productsDetailsPromotion.getName()));
-
-			if (requestComputeAmountInfoBean.getData() != null) {
-				if (requestComputeAmountInfoBean.getData().getDiscountamount() > 0) {
-					affirmorder_item_youhui_linearlayout
-							.setVisibility(View.VISIBLE);
-				}
-
-				// 优惠的金额
-				ToolsUtil.setFontStyle(
-						this,
-						parentview,
-						R.id.affirmorder_item_youhuicontext_textview,
-						ToolsUtil.nullToString("立减:￥"
-								+ ToolsUtil.DounbleToString_2(requestComputeAmountInfoBean
-								.getData().getDiscountamount())));
-
-			}
+		// 设置优惠名称
+		/*ToolsUtil.setFontStyle(this, parentview,
+				R.id.affirmorder_item_youhuititle_textview,
+				ToolsUtil.nullToString(productsDetailsPromotion.getName()));
+*/
+		affirmorder_item_youhui_linearlayout.setVisibility(View.VISIBLE);
+		String preferentialprice="0.00";
+		String preferentialname="";
+		ProductsDetailsPromotion promotion=CK_Productbean.getData().getPromotion();
+		if(promotion!=null)
+		{
+			preferentialname=ToolsUtil.nullToString(promotion.getName());
 		}
+		if (requestComputeAmountInfoBean.getData() != null) {
+			// 优惠的金额
+			preferentialprice=ToolsUtil.DounbleToString_2(requestComputeAmountInfoBean.getData().getDiscountamount());
+		}
+		ToolsUtil.setFontStyle(this,parentview,R.id.affirmorder_item_youhuicontext_textview,ToolsUtil.nullToString("立减:￥"+ preferentialprice));
+		ToolsUtil.setFontStyle(this,parentview,R.id.affirmorder_item_youhuititle_textview,ToolsUtil.nullToString(preferentialname+"："));
 
 	}
 

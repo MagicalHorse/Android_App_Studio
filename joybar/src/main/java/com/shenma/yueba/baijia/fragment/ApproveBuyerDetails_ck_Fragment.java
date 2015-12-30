@@ -128,6 +128,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
     Button create_dialog_jia_button;//减
     EditText createorder_dialog_layout_countvalue_edittext;//购买数量
     TextView product_spec_layout_stockvalue_textview;//库存数量
+    TextView product_spec_layout_stockunit_textview;
     LinearLayout footer_right_linerlayout;//底部按钮操作对象的父类用于 设置显示或隐藏 按钮
     CustomViewPager approvebuydetails_ck_bak_viewpager;//（图片详情 ，尺码参考 售后服务）
     LinearLayout approvebuydetails_ck_tab_bak_linearlayout;//TAB切换视图父对象
@@ -393,6 +394,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         /*****************
          * 购买数量的设置
          * *******************/
+        product_spec_layout_stockunit_textview=(TextView)parentView.findViewById(R.id.product_spec_layout_stockunit_textview);
         product_spec_layout_stockvalue_textview = (TextView) parentView.findViewById(R.id.product_spec_layout_stockvalue_textview);//库存
         createorder_dialog_layout_countvalue_edittext = (EditText) parentView.findViewById(R.id.createorder_dialog_layout_countvalue_edittext);
         createorder_dialog_layout_countvalue_edittext.addTextChangedListener(new TextWatcher() {
@@ -534,10 +536,12 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 if (bean.getInventory() <= 5) {
                     product_spec_layout_stock_textview.setVisibility(View.VISIBLE);
                     product_spec_layout_stockvalue_textview.setVisibility(View.VISIBLE);
+                    product_spec_layout_stockunit_textview.setVisibility(View.VISIBLE);
 
                 } else {
                     product_spec_layout_stock_textview.setVisibility(View.GONE);
                     product_spec_layout_stockvalue_textview.setVisibility(View.GONE);
+                    product_spec_layout_stockunit_textview.setVisibility(View.GONE);
                 }
                 product_spec_layout_stockvalue_textview.setText(Integer.toString(bean.getInventory()));
                 String buycount= createorder_dialog_layout_countvalue_edittext.getText().toString().trim();
@@ -752,19 +756,24 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             colortypelist.clear();
             colortypelist.addAll(requestCk_SPECDetails.getData());
             if (colortypelist != null && colortypelist.size() > 0) {
+                int checkedColor=0;
+                int checkedSpec=0;
                 for (int i = 0; i < colortypelist.size(); i++) {
                     ProductColorTypeBean productColorTypeBean = colortypelist.get(i);
                     if (productColorTypeBean.getSize() != null && productColorTypeBean.getSize().size() > 0) {
                         for (int j = 0; j < productColorTypeBean.getSize().size(); j++) {
                             ProductSPECbean productSPECbean = productColorTypeBean.getSize().get(j);
                             if (productSPECbean.getInventory() > 0) {
-                                setSpecColorOnCheck(i);
-                                setSpecdimentOnCheck(j);
-                                return;
+                                checkedSpec=j;
+                                checkedColor=i;
+                                break;
                             }
                         }
                     }
                 }
+
+                setSpecColorOnCheck(checkedColor);
+                setSpecdimentOnCheck(checkedSpec);
             }
         }
 

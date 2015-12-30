@@ -61,6 +61,8 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 	List<View> view_array=new ArrayList<View>();
 
 	TextView createorder_dialog_layout_repertoryvalue_textview;
+	TextView product_spec_layout_stockunit_textview;
+	TextView createorder_dialog_layout_repertory_textview;
 	List<ProductSPECbean> size_list=new ArrayList<ProductSPECbean>();
 	XCFlowLayout flowlayout;
 	
@@ -91,6 +93,7 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 	
 	void initView()
 	{
+		createorder_dialog_layout_repertory_textview=(TextView)findViewById(R.id.createorder_dialog_layout_repertory_textview);
 		ToolsUtil.setFontStyle(context, ll, R.id.chat_product_head_layout_name_textview,R.id.chat_product_head_layout_price_textview,R.id.createorder_dialog_layout_color_textview,R.id.createorder_dialog_layout_colorvalue_textview,R.id.createorder_dialog_layout_size_textview,R.id.createorder_dialog_layout_count_textview,R.id.create_dialog_jian_button,R.id.createorder_dialog_layout_countvalue_edittext,R.id.create_dialog_jia_button,R.id.createorder_dialog_layout_cancell_button,R.id.createorder_dialog_layout_submit_button,R.id.createorder_dialog_layout_repertory_textview,R.id.createorder_dialog_layout_repertoryvalue_textview);
 		//头像
 		ImageView chat_product_head_layout_imageview=(ImageView)ll.findViewById(R.id.chat_product_head_layout_imageview);
@@ -134,7 +137,7 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 		createorder_dialog_layout_cancell_button.setOnClickListener(this);
 		//库存
 		createorder_dialog_layout_repertoryvalue_textview=(TextView)ll.findViewById(R.id.createorder_dialog_layout_repertoryvalue_textview);
-		
+		product_spec_layout_stockunit_textview=(TextView)ll.findViewById(R.id.product_spec_layout_stockunit_textview);
 		//数量
 		createorder_dialog_layout_countvalue_edittext=(EditText)ll.findViewById(R.id.createorder_dialog_layout_countvalue_edittext);
 		createorder_dialog_layout_countvalue_edittext.addTextChangedListener(new TextWatcher() {
@@ -301,7 +304,17 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 			{
 				createorder_dialog_layout_countvalue_edittext.setText(Integer.toString(currvalue));
 			}
-			
+
+			if (inventory <= 5) {
+				createorder_dialog_layout_repertory_textview.setVisibility(View.VISIBLE);
+				createorder_dialog_layout_repertoryvalue_textview.setVisibility(View.VISIBLE);
+				product_spec_layout_stockunit_textview.setVisibility(View.VISIBLE);
+
+			} else {
+				createorder_dialog_layout_repertory_textview.setVisibility(View.GONE);
+				createorder_dialog_layout_repertoryvalue_textview.setVisibility(View.GONE);
+				product_spec_layout_stockunit_textview.setVisibility(View.GONE);
+			}
 		}
 		isTextButtonEnable();
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.modle.BaiJiaOrdeDetailsInfoBean;
+import com.shenma.yueba.baijia.modle.BaijiaOrderDetailsInfo;
 import com.shenma.yueba.baijia.modle.OrderPromotions;
 import com.shenma.yueba.util.FontManager;
 import com.shenma.yueba.util.ToolsUtil;
@@ -27,8 +28,8 @@ import android.widget.TextView;
 
 public class BaijiaOrderDetailsAdapter extends BaseAdapter{
 Context context;
-List<BaiJiaOrdeDetailsInfoBean> obj_list=new ArrayList<BaiJiaOrdeDetailsInfoBean>();
-	public BaijiaOrderDetailsAdapter(Context context,List<BaiJiaOrdeDetailsInfoBean> obj_list)
+List<BaijiaOrderDetailsInfo> obj_list=new ArrayList<BaijiaOrderDetailsInfo>();
+	public BaijiaOrderDetailsAdapter(Context context,List<BaijiaOrderDetailsInfo> obj_list)
 	{
 		this.context=context;
 		this.obj_list=obj_list;
@@ -68,28 +69,25 @@ List<BaiJiaOrdeDetailsInfoBean> obj_list=new ArrayList<BaiJiaOrdeDetailsInfoBean
 				
 				@Override
 				public void onClick(View v) {
-					if(v.getTag()!=null && v.getTag() instanceof BaiJiaOrdeDetailsInfoBean)
+					if(v.getTag()!=null && v.getTag() instanceof BaijiaOrderDetailsInfo)
 					{
-					   BaiJiaOrdeDetailsInfoBean bean=(BaiJiaOrdeDetailsInfoBean)v.getTag();
+						BaijiaOrderDetailsInfo bean=(BaijiaOrderDetailsInfo)v.getTag();
 					   ToolsUtil.forwardProductInfoActivity(context,bean.getProductId());
 					}
 				}
 			});
-			holder.productinfolist_layout_huodong_linearlayout=(LinearLayout)convertView.findViewById(R.id.productinfolist_layout_huodong_linearlayout);
-			
 			convertView.setTag(holder);
 			FontManager.changeFonts(context,holder.affirmorder_item_productname_textview,holder.affirmorder_item_productsize_textview,holder.affirmorder_item_productcount_textview,holder.affirmorder_item_productprice_textview);
 		}else
 		{
 			holder=(Holder)convertView.getTag();
 		}
-		setValue(holder,position);
+		setValue(holder, position);
 		return convertView;
 	}
 
  class	Holder 
  {
-	 LinearLayout productinfolist_layout_huodong_linearlayout;//活动
 	 ImageView affirmorder_item_icon_imageview;//商品图片
 	 TextView affirmorder_item_productname_textview;//商品名称
 	 TextView affirmorder_item_productsize_textview;//尺寸大小等信息
@@ -99,41 +97,13 @@ List<BaiJiaOrdeDetailsInfoBean> obj_list=new ArrayList<BaiJiaOrdeDetailsInfoBean
  
  void setValue(Holder holder,int position)
  {
-	 holder.productinfolist_layout_huodong_linearlayout.removeAllViews();
-	 BaiJiaOrdeDetailsInfoBean baiJiaOrdeDetailsInfoBean= obj_list.get(position);
-	 holder.affirmorder_item_icon_imageview.setTag(baiJiaOrdeDetailsInfoBean);
-	 MyApplication.getInstance().getBitmapUtil().display(holder.affirmorder_item_icon_imageview, ToolsUtil.getImage(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getProductPic()), 320, 0));
-	 holder.affirmorder_item_productname_textview.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getProductName()));
-	 holder.affirmorder_item_productsize_textview.setText(ToolsUtil.nullToString(baiJiaOrdeDetailsInfoBean.getSizeName()+"："+baiJiaOrdeDetailsInfoBean.getSizeValue()));
-	 holder.affirmorder_item_productcount_textview.setText(ToolsUtil.nullToString("x"+baiJiaOrdeDetailsInfoBean.getProductCount()));
-	 holder.affirmorder_item_productprice_textview.setText(ToolsUtil.nullToString("￥"+ToolsUtil.DounbleToString_2(baiJiaOrdeDetailsInfoBean.getPrice())));
-	 List<OrderPromotions> promotion_array=baiJiaOrdeDetailsInfoBean.getPromotions();
-	 
-	 if(promotion_array!=null)
-	 {
-		 addHuoDong(holder.productinfolist_layout_huodong_linearlayout,promotion_array);
-	 }
+	 BaijiaOrderDetailsInfo infobean= obj_list.get(position);
+	 holder.affirmorder_item_icon_imageview.setTag(infobean);
+	 MyApplication.getInstance().getBitmapUtil().display(holder.affirmorder_item_icon_imageview, ToolsUtil.getImage(ToolsUtil.nullToString(infobean.getProductPic()), 320, 0));
+	 holder.affirmorder_item_productname_textview.setText(ToolsUtil.nullToString(infobean.getProductName()));
+	 holder.affirmorder_item_productsize_textview.setText(ToolsUtil.nullToString(infobean.getSizeName()+"："+infobean.getSizeValue()));
+	 holder.affirmorder_item_productcount_textview.setText(ToolsUtil.nullToString("x"+infobean.getProductCount()));
+	 holder.affirmorder_item_productprice_textview.setText(ToolsUtil.nullToString("￥"+ToolsUtil.DounbleToString_2(infobean.getPrice())));
  }
- 
- 
- void addHuoDong(LinearLayout ll,List<OrderPromotions> huodonglist)
- {
-	 for(int i=0;i<huodonglist.size();i++)
-	 {
-		 View v=gethuoDongView();
-		 TextView tv=(TextView)v.findViewById(R.id.buyersteetfragment_item_footer_linearlyout_content_textview);
-		 tv.setText(ToolsUtil.nullToString(huodonglist.get(i).getPromotionName() +" 立减 "+huodonglist.get(i).getAmount()+"元"));
-		 LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		 params.topMargin=5;
-		 ll.addView(v,params);
-	 }
- }
- 
- 
- View gethuoDongView()
- {
-	 LinearLayout huodong=(LinearLayout)LinearLayout.inflate(context, R.layout.huodong_layout, null);
-	 return huodong;
- }
- 
+
 }
