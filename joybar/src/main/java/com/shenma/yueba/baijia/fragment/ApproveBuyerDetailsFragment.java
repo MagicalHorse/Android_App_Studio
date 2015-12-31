@@ -366,6 +366,11 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		// 金额
 		setdataValue(R.id.approvebuyerdetails_price_textview,"￥" + ToolsUtil.DounbleToString_2(price));
 		// 商品名称
+
+		if(Data.getBrandName()!=null && !Data.getBrandName().equals(""))
+		{
+			productName="# "+Data.getBrandName()+" # "+productName;
+		}
 		setdataValue(R.id.approvebuyerdetails_producename_textview, productName);
         // 收藏按钮
 		approvebuyerdetails_layout_shoucang_linerlayout_textview.setOnClickListener(this);

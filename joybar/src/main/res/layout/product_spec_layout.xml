@@ -125,6 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/red_text_color"
+        android:visibility="gone"
         android:text="注意该商品不支持退货" />
 
 </LinearLayout>

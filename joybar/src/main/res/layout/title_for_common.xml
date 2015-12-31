@@ -23,8 +23,11 @@
         android:paddingRight="5dip"
         android:layout_marginRight="15dip"
         android:drawableLeft="@drawable/back"
+        android:minWidth="30dp"
+        android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:visibility="gone" />
+        android:visibility="gone"
+        />
 
     <Button
         android:id="@+id/bt_top_left"

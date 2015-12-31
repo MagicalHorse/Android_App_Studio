@@ -67,6 +67,8 @@ import com.shenma.yueba.view.RoundImageView;
 import com.shenma.yueba.view.TagImageView;
 import com.shenma.yueba.view.scroll.MyScrollView;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -936,6 +938,19 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         hangtag_price_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         hangtag_price_textview.setVisibility(View.VISIBLE);
 
+        TextView product_spec_layout_notes_textview=(TextView)parentView.findViewById(R.id.product_spec_layout_notes_textview);
+        if(Data.isCanRam())
+        {
+            product_spec_layout_notes_textview.setVisibility(View.VISIBLE);
+        }else
+        {
+            product_spec_layout_notes_textview.setVisibility(View.GONE);
+        }
+
+        if(Data.getBrandName()!=null && !Data.getBrandName().equals(""))
+        {
+            productName="# "+Data.getBrandName()+" # "+productName;
+        }
         // 商品名称
         setdataValue(R.id.approvebuyerdetails_producename_textview, productName);
         //设置服务描述

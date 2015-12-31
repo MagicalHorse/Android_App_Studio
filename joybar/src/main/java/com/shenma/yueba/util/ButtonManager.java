@@ -47,13 +47,31 @@ public class ButtonManager {
                 view_list.add(createWaitPayButton(activity, 0));//付款按钮
                 break;
             case 1://申请退款 确认提货
-                view_list.add(createWaitPayButton(activity, 3));//申请退款
+                if(bean.getProduct()!=null)
+                {
+                    if(bean.getProduct().getUserLevel().equals("4") && !bean.getProduct().isCanRma())
+                    {
+                        //不显示
+                    }else
+                    {
+                        view_list.add(createWaitPayButton(activity, 3));//申请退款
+                    }
+                }
                 view_list.add(createWaitPayButton(activity, 2));// 确认提货
                 break;
             case 15://确认提货  申请退款
             case 16:
                 //view_list.add(createWaitPayButton(activity, 2));//确认提货
-                view_list.add(createWaitPayButton(activity, 3));//申请退款
+                if(bean.getProduct()!=null)
+                {
+                    if(bean.getProduct().getUserLevel().equals("4") && !bean.getProduct().isCanRma())
+                    {
+                        //不显示
+                    }else
+                    {
+                        view_list.add(createWaitPayButton(activity, 3));//申请退款
+                    }
+                }
                 break;
             //申请退款
             case 3:
@@ -248,7 +266,7 @@ public class ButtonManager {
             String userlevel=baiJiaOrderListInfo.getProduct().getUserLevel();
             if((ToolsUtil.nullToString(userlevel).equals("4") && baiJiaOrderListInfo.getOrderStatus()==1 && baiJiaOrderListInfo.getOrderProductType()==4)
                     ||
-                    (ToolsUtil.nullToString(userlevel).equals("8") && baiJiaOrderListInfo.getOrderStatus()==1))
+                    (ToolsUtil.nullToString(userlevel).equals("8") && (baiJiaOrderListInfo.getOrderStatus()==1 || baiJiaOrderListInfo.getOrderStatus()==15 || baiJiaOrderListInfo.getOrderStatus()==16)))
             {
                 Intent intent = new Intent(context, ApplyForRefundActivity.class);
                 intent.putExtra("OrderNo", baiJiaOrderListInfo.getOrderNo());

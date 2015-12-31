@@ -103,7 +103,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingBottom="10dip"
-                    android:paddingTop="10dip">
+                    android:paddingTop="10dip"
+                    android:visibility="gone"
+                    >
 
                     <TextView
                         android:id="@+id/applyforrefund_layout_count_textview"

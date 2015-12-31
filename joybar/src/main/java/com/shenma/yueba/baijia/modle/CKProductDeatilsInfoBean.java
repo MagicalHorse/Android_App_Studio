@@ -45,6 +45,14 @@ public class CKProductDeatilsInfoBean implements Serializable {
     List<ProductsDetailsTagInfo> ProductPic = new ArrayList<ProductsDetailsTagInfo>();
     boolean IsJoinDeiscount = false;//是否参加Vip折扣  eg.False
     float VipDiscount;//Vip折扣率  eg.0
+    boolean IsCanRam=false;//产品是否可退货 True / False
+    public boolean isCanRam() {
+        return IsCanRam;
+    }
+
+    public void setIsCanRam(boolean isCanRam) {
+        IsCanRam = isCanRam;
+    }
 
     public DaYangGouDisInfoBean getDaYangGouDis() {
         return DaYangGouDis;

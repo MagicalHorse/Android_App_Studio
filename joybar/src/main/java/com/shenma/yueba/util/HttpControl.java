@@ -2446,6 +2446,7 @@ public class HttpControl {
                             } else if (bean.getStatusCode() == 401)//如果token 失效
                             {
                                 MyApplication.getInstance().startLogin(context, "登录已经失效,请重新登录");
+                                setUnLoginInfo(context);
                             } else {
                                 httpCallBack.http_Fails(bean.getStatusCode(), bean.getMessage());
                             }

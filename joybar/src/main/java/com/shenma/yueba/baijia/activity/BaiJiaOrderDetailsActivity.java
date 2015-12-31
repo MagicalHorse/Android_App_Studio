@@ -272,6 +272,8 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
             productInfoBean.setProductCount(iteminfo.getProductCount());
             productInfoBean.setProductId(iteminfo.getProductId());
             productInfoBean.setUserLevel(baiJiaOrderListInfo.getUserLevel());
+            productInfoBean.setCanRma(baiJiaOrderListInfo.isCanRma());
+            productInfoBean.setCanInvoiced(baiJiaOrderListInfo.isCanInvoiced());
         }
         info.setProduct(productInfoBean);
 
@@ -347,7 +349,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
                     //BaiJiaOrdeDetailsInfoBean infobean = bean.getData();
                     btn.setTag(info);
                     LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    param.leftMargin = 5;
+                    param.leftMargin = 10;
                     baijia_orderdetails_footer_right_linearlayout.addView(button, param);
                 }
             }

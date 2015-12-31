@@ -29,6 +29,24 @@ public class BaiJiaOrdeDetailsInfoBean implements Serializable{
 	List<BaijiaOrderDetailsInfo> Product=new ArrayList<BaijiaOrderDetailsInfo>();
 	int OrderProductType;//订单类型
 	String UserLevel;//买手级别
+	boolean CanInvoiced;// 是否可开发票
+	boolean CanRma;// 是否可退货
+	public boolean isCanInvoiced() {
+		return CanInvoiced;
+	}
+
+	public void setCanInvoiced(boolean canInvoiced) {
+		CanInvoiced = canInvoiced;
+	}
+
+	public boolean isCanRma() {
+		return CanRma;
+	}
+
+	public void setCanRma(boolean canRma) {
+		CanRma = canRma;
+	}
+
 	public String getUserLevel() {
 		return UserLevel;
 	}

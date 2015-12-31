@@ -17,6 +17,24 @@ public class ProductInfoBean implements Serializable{
     int ProductCount;//个数
     String Image="";// 图片地址
 	String UserLevel;
+	boolean CanRma=false; //是否可退货
+	boolean CanInvoiced=false;//是否可开发票
+	public boolean isCanInvoiced() {
+		return CanInvoiced;
+	}
+
+	public void setCanInvoiced(boolean canInvoiced) {
+		CanInvoiced = canInvoiced;
+	}
+
+	public boolean isCanRma() {
+		return CanRma;
+	}
+
+	public void setCanRma(boolean canRma) {
+		CanRma = canRma;
+	}
+
 	public String getUserLevel() {
 		return UserLevel;
 	}
