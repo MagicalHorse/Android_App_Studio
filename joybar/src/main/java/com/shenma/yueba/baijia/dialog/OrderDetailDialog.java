@@ -76,31 +76,7 @@ public class OrderDetailDialog extends Dialog implements
 		params.width = ToolsUtil.getDisplayWidth(context) / 4 * 3;
 		params.height = ToolsUtil.getDisplayWidth(context) / 4 * 3;
 		iv_code.setLayoutParams(params);
-		MyApplication.getInstance().getImageLoader().displayImage(qrCodePath, iv_code, new ImageLoadingListener() {
-			
-			@Override
-			public void onLoadingStarted(String arg0, View arg1) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
-				bitmap = arg2;
-			}
-			
-			@Override
-			public void onLoadingCancelled(String arg0, View arg1) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		MyApplication.getInstance().ShowImage(qrCodePath, iv_code);
 		FontManager.changeFonts(context, tv_money, tv_tishi,tv_title);
 	}
 

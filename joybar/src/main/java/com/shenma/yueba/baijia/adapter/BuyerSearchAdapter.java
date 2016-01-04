@@ -216,7 +216,7 @@ public class BuyerSearchAdapter extends BaseAdapterWithUtil {
                 view_array.get(i).setVisibility(View.VISIBLE);
                 String pic = products.get(i).getPic();
                 ImageView iv=(ImageView)view_array.get(i).findViewById(R.id.authentication_child_iten_layout_pic_imageview);
-                MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(pic),iv,MyApplication.getInstance().getDisplayImageOptions());
+                MyApplication.getInstance().ShowImage(ToolsUtil.nullToString(pic),iv);
                 view_array.get(i).setTag(products.get(i).getProductId());
                 view_array.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override

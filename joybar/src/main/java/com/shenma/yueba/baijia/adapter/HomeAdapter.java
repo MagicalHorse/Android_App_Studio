@@ -107,7 +107,7 @@ public class HomeAdapter extends BaseAdapter {
     void setCommonValue(int position, final Holder holder) {
         final IndexItems indexItems = infoList.get(position);
         holder.home_item_top_name_textview.setText(indexItems.getStoreName());
-        MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(indexItems.getLogo()), holder.home_item_top_layout_icon_customimageview, MyApplication.getInstance().getDisplayImageOptions());
+        MyApplication.getInstance().ShowImage(ToolsUtil.nullToString(indexItems.getLogo()), holder.home_item_top_layout_icon_customimageview);
         holder.home_item_top_layout_include.setTag(indexItems);
         //如果是认证买手
         if (indexItems.getStoreLeave().equals("8")) {
@@ -160,25 +160,20 @@ public class HomeAdapter extends BaseAdapter {
         indexItems.setTimerLinstener(new IndexItems.TimerLinstener() {
             @Override
             public void timerCallBack() {
-                if(activity!=null)
-                {
+                if (activity != null) {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             //倒计时
                             IndexItems _indexItems = (IndexItems) holder.home_item_top_layout_time_textview.getTag();
-                            if(_indexItems.isDayangGou())
-                            {
-                                holder.home_item_top_layout_time_textview.setText(activity.getString(R.string.str_shopping_end)+_indexItems.getShowstr());
-                            }else
-                            {
-                                holder.home_item_top_layout_time_textview.setText(activity.getString(R.string.str_shopping_start)+_indexItems.getShowstr());
+                            if (_indexItems.isDayangGou()) {
+                                holder.home_item_top_layout_time_textview.setText(activity.getString(R.string.str_shopping_end) + _indexItems.getShowstr());
+                            } else {
+                                holder.home_item_top_layout_time_textview.setText(activity.getString(R.string.str_shopping_start) + _indexItems.getShowstr());
                             }
-                            if(_indexItems.getShowstr()==null || _indexItems.getShowstr().toString().trim().equals(""))
-                            {
+                            if (_indexItems.getShowstr() == null || _indexItems.getShowstr().toString().trim().equals("")) {
                                 holder.home_item_top_layout_time_textview.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 holder.home_item_top_layout_time_textview.setVisibility(View.VISIBLE);
                             }
                         }
@@ -285,7 +280,7 @@ public class HomeAdapter extends BaseAdapter {
                     ImageView authentication_child_iten_layout_pic_imageview = (ImageView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_pic_imageview);
                     String url = ToolsUtil.nullToString(product.getPic());
                     authentication_child_iten_layout_pic_imageview.setTag(product);
-                    MyApplication.getInstance().getImageLoader().displayImage(url, authentication_child_iten_layout_pic_imageview, MyApplication.getInstance().getDisplayImageOptions());
+                    MyApplication.getInstance().ShowImage(url, authentication_child_iten_layout_pic_imageview);
                     authentication_child_iten_layout_pic_imageview.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -303,7 +298,12 @@ public class HomeAdapter extends BaseAdapter {
                     //旧的价格
                     TextView authentication_child_iten_layout_oldprice_textview = (TextView) (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_oldprice_textview);
                     authentication_child_iten_layout_oldprice_textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                    authentication_child_iten_layout_oldprice_textview.setText("￥"+ToolsUtil.DounbleToString_2(product.getUnitPrice()));
+                    double unitPrice=product.getUnitPrice();
+                    if(unitPrice<=0)
+                    {
+                        unitPrice=product.getPrice();
+                    }
+                    authentication_child_iten_layout_oldprice_textview.setText("￥"+ToolsUtil.DounbleToString_2(unitPrice));
 
                     //头像信息
                     LinearLayout home_item_pic1_include = (LinearLayout) view_array.get(i).findViewById(R.id.home_item_pic1_include);
@@ -318,7 +318,7 @@ public class HomeAdapter extends BaseAdapter {
                     RoundImageView gudie_item_layout_roundimageview = (RoundImageView) home_item_pic1_include.findViewById(R.id.gudie_item_layout_roundimageview);
                     String buyerPic = ToolsUtil.nullToString(product.getUserLogo());
                     gudie_item_layout_roundimageview.setTag(product);
-                    MyApplication.getInstance().getImageLoader().displayImage(buyerPic, gudie_item_layout_roundimageview, MyApplication.getInstance().getDisplayImageOptions());
+                    MyApplication.getInstance().ShowImage(buyerPic,gudie_item_layout_roundimageview);
                     home_item_pic1_include.setTag(product);
                     home_item_pic1_include.setOnClickListener(new View.OnClickListener() {
                         @Override

@@ -36,6 +36,7 @@ public class Product_ck_AftermaketServerView {
         parentView = new TextView(activity);
         ViewGroup.LayoutParams params=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         parentView.setLayoutParams(params);
+        parentView.setPadding(10,5,10,5);
         String str="售后服务";
         if(bean==null || bean.getData()==null)
         {

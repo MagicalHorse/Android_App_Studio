@@ -156,10 +156,10 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
                     iv_one.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(0).getProductId());
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(0).getProductId());
                         }
                     });
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
                     guide_ll_container.addView(imageView1);
                 } else if (mList.get(position).getProducts() != null && mList.get(position).getProducts().size() == 2) {
                     View imageView2 = View.inflate(getActivity(), R.layout.two_pic_layout, null);
@@ -173,17 +173,17 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
                     iv_one.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(0).getProductId());
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(0).getProductId());
                         }
                     });
                     iv_two.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(1).getProductId());
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(1).getProductId());
                         }
                     });
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(1).getPic(), iv_two);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(1).getPic(), iv_two);
                     guide_ll_container.addView(imageView2);
                 } else if (mList.get(position).getProducts() != null && mList.get(position).getProducts().size() == 3) {
                     View imageView3 = View.inflate(getActivity(), R.layout.four_pic_layout, null);
@@ -201,24 +201,24 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
                     iv_one.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(0).getProductId());
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(0).getProductId());
                         }
                     });
                     iv_two.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(1).getProductId());
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(1).getProductId());
                         }
                     });
                     iv_three.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(2).getProductId());
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(2).getProductId());
                         }
                     });
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(1).getPic(), iv_two);
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(2).getPic(), iv_three);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(1).getPic(), iv_two);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(2).getPic(), iv_three);
                     guide_ll_container.addView(imageView3);
                 } else if (mList.get(position).getProducts() != null && mList.get(position).getProducts().size() >= 4) {
                     View imageView4 = View.inflate(getActivity(), R.layout.four_pic_layout, null);
@@ -236,19 +236,19 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
                     iv_one.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(0).getProductId());
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(0).getProductId());
                         }
                     });
                     iv_two.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(1).getProductId());
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(1).getProductId());
                         }
                     });
                     iv_three.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            forwardProductInfoActivity(getActivity(),mList.get(position).getProducts().get(2).getProductId());
+                            forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(2).getProductId());
                         }
                     });
                     iv_four.setOnClickListener(new View.OnClickListener() {
@@ -257,10 +257,10 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
                             forwardProductInfoActivity(getActivity(), mList.get(position).getProducts().get(3).getProductId());
                         }
                     });
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(1).getPic(), iv_two);
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(2).getPic(), iv_three);
-                    MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getProducts().get(3).getPic(), iv_four);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(0).getPic(), iv_one);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(1).getPic(), iv_two);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(2).getPic(), iv_three);
+                    MyApplication.getInstance().ShowImage(mList.get(position).getProducts().get(3).getPic(), iv_four);
                     guide_ll_container.addView(imageView4);
                 }
 
@@ -268,7 +268,7 @@ public class GuideFragment extends BaseFragment implements View.OnTouchListener{
             tv_brand_name.setText(ToolsUtil.nullToString(mList.get(position).getBrandName()));
             tv_buyer_name.setText(ToolsUtil.nullToString(mList.get(position).getNickName()));
             tv_address.setText(ToolsUtil.nullToString(mList.get(position).getAddress()));
-            MyApplication.getInstance().getImageLoader().displayImage(mList.get(position).getLogo(), riv_head);
+            MyApplication.getInstance().ShowImage(mList.get(position).getLogo(), riv_head);
             riv_head.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

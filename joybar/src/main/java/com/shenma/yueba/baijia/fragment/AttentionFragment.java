@@ -272,7 +272,7 @@ public class AttentionFragment extends BaseFragment implements AdapterView.OnIte
             TextView tv_price = (TextView) view.findViewById(R.id.tv_price);
             ImageView iv_collection = (ImageView) view.findViewById(R.id.iv_collection);
             TextView tv_introduce = (TextView) view.findViewById(R.id.tv_introduce);
-            MyApplication.getInstance().getImageLoader().displayImage(products.get(position).getPic(),iv_product);
+            MyApplication.getInstance().ShowImage(products.get(position).getPic(),iv_product);
             tv_price.setText(products.get(position).getPrice() + "");
             tv_introduce.setText(products.get(position).getProductName());
             iv_collection.setBackgroundDrawable(products.get(position).isFavite() ? getResources().getDrawable(R.drawable.collect) : getResources().getDrawable(R.drawable.uncollect));
@@ -336,17 +336,17 @@ public class AttentionFragment extends BaseFragment implements AdapterView.OnIte
 
             for (int i=0;i<buyers.size();i++){
                 if(i == 0){
-                   MyApplication.getInstance().getImageLoader().displayImage(buyers.get(i).getLogo(),riv_head1);
+                    MyApplication.getInstance().ShowImage(buyers.get(i).getLogo(), riv_head1);
                     tv_name1.setText(ToolsUtil.nullToString(buyers.get(i).getNickName()));
                     tv_zhuangui_name1.setText(ToolsUtil.nullToString(buyers.get(i).getStoreName()));
                 }
                 if(i == 1){
-                    MyApplication.getInstance().getImageLoader().displayImage(buyers.get(i).getLogo(),riv_head2);
+                    MyApplication.getInstance().ShowImage(buyers.get(i).getLogo(), riv_head2);
                     tv_name2.setText(ToolsUtil.nullToString(buyers.get(i).getNickName()));
                     tv_zhuangui_name2.setText(ToolsUtil.nullToString(buyers.get(i).getStoreName()));
                 }
                 if(i == 2){
-                    MyApplication.getInstance().getImageLoader().displayImage(buyers.get(i).getLogo(),riv_head3);
+                    MyApplication.getInstance().ShowImage(buyers.get(i).getLogo(), riv_head3);
                     tv_name3.setText(buyers.get(i).getNickName());
                     tv_zhuangui_name3.setText(ToolsUtil.nullToString(buyers.get(i).getStoreName()));
                 }

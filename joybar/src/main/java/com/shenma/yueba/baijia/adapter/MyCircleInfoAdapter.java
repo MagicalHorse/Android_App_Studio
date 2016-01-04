@@ -250,7 +250,7 @@ public class MyCircleInfoAdapter extends BaseAdapterWithUtil {
 				.writeDebugLogs().build();
 		MyApplication.getInstance().getImageLoader().init(config);
 		try {
-			MyApplication.getInstance().getImageLoader().displayImage(url, iv);
+			MyApplication.getInstance().ShowImage(url,iv);
 		} catch (Exception e) {
 		}
 	}

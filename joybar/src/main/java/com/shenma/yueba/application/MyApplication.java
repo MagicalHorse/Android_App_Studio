@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Typeface;
+import android.view.View;
 import android.widget.Toast;
 
 import cn.jpush.android.api.JPushInterface;
@@ -45,6 +46,7 @@ import com.shenma.yueba.refreshservice.HuoKuanManagerRefreshService;
 import com.shenma.yueba.refreshservice.IndexRefreshService;
 import com.shenma.yueba.util.PublishPicUtil;
 import com.shenma.yueba.util.SharedUtil;
+import com.shenma.yueba.util.ToolsUtil;
 
 public class MyApplication extends Application {
     private CityChangeRefreshService cityChangeRefreshService;//切换城市后的刷新
@@ -263,6 +265,15 @@ public class MyApplication extends Application {
             bitmapUtils = new BitmapUtils(this);
         }
         return bitmapUtils;
+    }
+
+
+    /*****
+     * 加载图片
+     * ***/
+    public void ShowImage(String url,View iv)
+    {
+        getBitmapUtil().display(iv,ToolsUtil.nullToString(url));
     }
 
     /**

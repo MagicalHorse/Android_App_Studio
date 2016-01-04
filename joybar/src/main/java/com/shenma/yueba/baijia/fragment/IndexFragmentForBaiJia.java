@@ -351,22 +351,21 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
         horizontalScrollView.addView(ll, params);
         for (int i = 0; i < subjectrBean_array.size(); i++) {
             RoundImageView riv = new RoundImageView(getActivity());
-            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getLogo()),riv,MyApplication.getInstance().getDisplayImageOptions());
+            MyApplication.getInstance().ShowImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getLogo()),riv);
             riv.setTag(subjectrBean_array.get(i));
             riv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SubjectrBean subjectrBean = (SubjectrBean) v.getTag();
-                    String url=ToolsUtil.nullToString(subjectrBean.getLink());
-                    if(url!=null & url.length()>0)
-                    {
-                        Intent intent=new Intent(getActivity(), ThemeWebActivity.class);
-                        intent.putExtra("url",url);
+                    String url = ToolsUtil.nullToString(subjectrBean.getLink());
+                    if (url != null & url.length() > 0) {
+                        Intent intent = new Intent(getActivity(), ThemeWebActivity.class);
+                        intent.putExtra("url", url);
                         startActivity(intent);
                     }
                 }
             });
-            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getLogo()), riv, MyApplication.getInstance().getDisplayImageOptions());
+            MyApplication.getInstance().ShowImage(ToolsUtil.nullToString(subjectrBean_array.get(i).getLogo()), riv);
             int width = getActivity().getResources().getDimensionPixelOffset(R.dimen.dimen_scrollwidth);
             LinearLayout.LayoutParams chidparam = new LinearLayout.LayoutParams(width, width);
             chidparam.leftMargin = 3;

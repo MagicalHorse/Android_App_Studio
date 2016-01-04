@@ -243,7 +243,7 @@ public class PubuliuManager implements CollectobserverManage.ObserverListener {
      * 加载图片
      */
     void initPic(final String url, final ImageView iv) {
-        MyApplication.getInstance().getImageLoader().displayImage(url, iv, MyApplication.getInstance().getDisplayImageOptions());
+        MyApplication.getInstance().ShowImage(url, iv);
     }
 
 

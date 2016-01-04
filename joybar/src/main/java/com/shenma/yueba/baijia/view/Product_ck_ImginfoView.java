@@ -77,7 +77,7 @@ public class Product_ck_ImginfoView {
                 String url="";
                 List<ProductsDetailsTagInfo> info=bean.getData().getProductPic();
                 ProductsDetailsTagInfo productsDetailsTagInfo=info.get(position);
-                MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(productsDetailsTagInfo.getLogo()),((ImageView) convertView),MyApplication.getInstance().getDisplayImageOptions());
+                MyApplication.getInstance().ShowImage(ToolsUtil.nullToString(productsDetailsTagInfo.getLogo()), ((ImageView) convertView));
                 return convertView;
             }
         });

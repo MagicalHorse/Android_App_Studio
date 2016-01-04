@@ -70,38 +70,14 @@ public class WeChatDialog extends Dialog implements
 		TextView tv_wechat_name = (TextView) ll.findViewById(R.id.tv_money);
 		TextView tv_save = (TextView) ll.findViewById(R.id.tv_save);
 		TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-		tv_wechat_name.setText("（"+title+"）");
+		tv_wechat_name.setText("（" + title + "）");
 		ImageView iv_close = (ImageView) ll.findViewById(R.id.iv_close);
 		iv_close.setOnClickListener(this);
 		LayoutParams params = iv_code.getLayoutParams();
 		params.width = ToolsUtil.getDisplayWidth(context) / 4 * 3;
 		params.height = ToolsUtil.getDisplayWidth(context) / 4 * 3;
 		iv_code.setLayoutParams(params);
-		MyApplication.getInstance().getImageLoader().displayImage(qrCodePath, iv_code, new ImageLoadingListener() {
-			
-			@Override
-			public void onLoadingStarted(String arg0, View arg1) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
-				bitmap = arg2;
-			}
-			
-			@Override
-			public void onLoadingCancelled(String arg0, View arg1) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		MyApplication.getInstance().ShowImage(qrCodePath, iv_code);
 		FontManager.changeFonts(context, tv_wechat_name, tv_save, tv_save,tv_title);
 	}
 

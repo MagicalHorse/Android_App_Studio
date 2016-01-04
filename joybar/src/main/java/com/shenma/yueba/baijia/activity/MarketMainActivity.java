@@ -256,7 +256,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         if (data != null) {
             titlename = ToolsUtil.nullToString(data.getStoreName());
             setTitle(ToolsUtil.nullToString(titlename));
-            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(data.getLogo()), baijia_marketmain_head_background_layout_imageview, MyApplication.getInstance().getDisplayImageOptions());
+            MyApplication.getInstance().ShowImage(ToolsUtil.nullToString(data.getLogo()),baijia_marketmain_head_background_layout_imageview);
             baijia_marketmain_head_name_layout_textview.setText(ToolsUtil.nullToString(data.getStoreName()));
             //如果是认证买手
             if (data.getStoreLeave().equals("8")) {

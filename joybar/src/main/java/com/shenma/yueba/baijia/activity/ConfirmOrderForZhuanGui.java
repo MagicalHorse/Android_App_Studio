@@ -273,7 +273,7 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
         List<ProductsDetailsTagInfo> pic_array = affirmProductInfo.getData().getData().getProductPic();
         if (pic_array.size() > 0) {
             String url = pic_array.get(0).getLogo();
-            MyApplication.getInstance().getImageLoader().displayImage(ToolsUtil.nullToString(url), iv_product, MyApplication.getInstance().getDisplayImageOptions());
+            MyApplication.getInstance().ShowImage(ToolsUtil.nullToString(url),iv_product);
         }
 
         tv_product_name = getView(R.id.tv_product_name);

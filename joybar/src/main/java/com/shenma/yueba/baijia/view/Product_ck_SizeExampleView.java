@@ -35,7 +35,7 @@ public class Product_ck_SizeExampleView {
         parentView = new ImageView(activity);
         ViewGroup.LayoutParams params=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         parentView.setLayoutParams(params);
-        parentView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        parentView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         String url="";
         if(bean==null || bean.getData()==null)
         {
@@ -45,7 +45,8 @@ public class Product_ck_SizeExampleView {
             url= ToolsUtil.nullToString(bean.getData().getSizeContrastPic());
         }
 
-        MyApplication.getInstance().getImageLoader().displayImage(url,parentView,MyApplication.getInstance().getDisplayImageOptions());
+        MyApplication.getInstance().ShowImage(url,parentView);
+        //MyApplication.getInstance().getImageLoader().displayImage(url, parentView, MyApplication.getInstance().getDisplayImageOptions());
     }
 
 

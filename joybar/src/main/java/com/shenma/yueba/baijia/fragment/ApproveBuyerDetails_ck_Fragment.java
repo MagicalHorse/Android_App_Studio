@@ -939,7 +939,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         hangtag_price_textview.setVisibility(View.VISIBLE);
 
         TextView product_spec_layout_notes_textview=(TextView)parentView.findViewById(R.id.product_spec_layout_notes_textview);
-        if(Data.isCanRam())
+        if(!Data.isCanRam())
         {
             product_spec_layout_notes_textview.setVisibility(View.VISIBLE);
         }else
