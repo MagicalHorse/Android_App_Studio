@@ -84,7 +84,6 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
 		super.onCreate(savedInstanceState);
 		ll=(RelativeLayout)RelativeLayout.inflate(context, R.layout.createorder_dialog_layout, null);
 		setContentView(ll);
@@ -113,6 +112,8 @@ public class CreateOrderDialog extends Dialog implements android.view.View.OnCli
 		//设置尺寸
 		if(requestCk_SPECDetails.getData()!=null && requestCk_SPECDetails.getData().size()>0)
 		{
+			//createorder_dialog_layout_colorvalue_textview.setText(ToolsUtil.nullToString(requestCk_SPECDetails.getData().get(0).getColorName()));
+
 			ProductColorTypeBean productColorTypeBean=requestCk_SPECDetails.getData().get(0);
 			size_list.clear();
 			if(productColorTypeBean!=null)

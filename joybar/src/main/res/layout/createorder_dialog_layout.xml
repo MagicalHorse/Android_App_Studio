@@ -62,19 +62,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/shop_main_lineheight10_dimen"
-            android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
-            android:visibility="gone" >
+            android:layout_marginTop="@dimen/shop_main_lineheight10_dimen">
 
             <TextView
                 android:id="@+id/createorder_dialog_layout_color_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_gray_color"
                 android:text="颜色:" />
 
             <TextView
                 android:id="@+id/createorder_dialog_layout_colorvalue_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_gray_color"
                 android:text="默认" />
         </LinearLayout>
 

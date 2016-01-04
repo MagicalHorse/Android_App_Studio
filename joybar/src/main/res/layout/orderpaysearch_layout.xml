@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    android:gravity="center"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/loading_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:visibility="invisible"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/order_dialog_background"
+        >
+        <ProgressBar
+            android:id="@+id/orderpay_dialog_layout_progressbar"
+            style="@android:style/Widget.ProgressBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/orderpay_dialog_layout_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/shop_main_width15_dimen"
+            android:text="查询订单支付状态..."
+            android:textColor="@color/text_gray_color"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/orderpay_dialog_layout_sucess_linearlayout"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:orientation="vertical"
+        android:background="@drawable/order_dialog_background">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="提示"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/orderpay_dialog_layout_sucess_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/shop_main_width15_dimen"
+            android:text="支付成功"
+            android:textSize="13sp" />
+
+        <View
+            style="@style/style_horizontal_line"
+            android:layout_marginTop="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#66999999"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/orderpay_dialog_layout_sucess_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:padding="@dimen/shop_main_width5_dimen"
+                android:text="返回首页"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/textsize12sp" />
+
+            <Button
+                android:id="@+id/orderpay_dialog_layout_queryorder_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.1dip"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:padding="@dimen/shop_main_width5_dimen"
+                android:text="查看订单"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/textsize12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

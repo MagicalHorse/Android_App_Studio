@@ -341,6 +341,10 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		// 价格
 		double price = Data.getPrice();
 		double unitPrice=Data.getUnitPrice();
+		if(unitPrice<=0)
+		{
+			unitPrice=price;
+		}
 		//吊牌价
 		setdataValue(R.id.hangtag_price_textview, "￥" + ToolsUtil.DounbleToString_2(unitPrice));
 		TextView hangtag_price_textview = (TextView) parentView.findViewById(R.id.hangtag_price_textview);

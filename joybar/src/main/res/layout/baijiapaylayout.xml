@@ -2,85 +2,101 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <include layout="@layout/title_for_common" />
 
     <View style="@style/style_horizontal_line" />
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/shop_main_width15_dimen" >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/baijiapay_layout_item_textview1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize13sp" />
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
+            <!-- 头部价格信息-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/shop_main_width15_dimen">
 
-        <TextView
-            android:id="@+id/baijiapay_layout_item_textview2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/red"
-            android:textSize="@dimen/textsize13sp" />
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/baijiapay_layout_item_textview1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/textsize13sp" />
 
-    <View style="@style/style_horizontal_line" />
+                <TextView
+                    android:id="@+id/baijiapay_layout_item_textview2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text=""
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/textsize13sp" />
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_wechatpay"
-        android:layout_width="match_parent"
-        android:layout_height="70dip"
-        android:padding="@dimen/shop_main_width5_dimen" >
+            <View style="@style/style_horizontal_line" />
+            <!--微信支付-->
+            <RelativeLayout
+                android:id="@+id/rl_wechatpay"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp">
 
-        <ImageView
-            android:id="@+id/baijiapay_layout_item_imageview"
-            android:layout_width="@dimen/user_config_iconwidth60_dimen"
-            android:layout_height="@dimen/user_config_iconwidth60_dimen"
-            android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/wechat" />
+                <ImageView
+                    android:id="@+id/baijiapay_layout_item_imageview"
+                    android:layout_width="@dimen/user_config_iconwidth60_dimen"
+                    android:layout_height="@dimen/user_config_iconwidth60_dimen"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/weixinpayicon" />
 
-        <TextView
-            android:id="@+id/baijiapay_layout_item_textview3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dip"
-            android:layout_marginTop="5dip"
-            android:layout_toRightOf="@id/baijiapay_layout_item_imageview"
-            android:text="微信支付"
-            android:textSize="@dimen/textsize13sp" />
+                <ImageView
+                    android:id="@+id/baijiapay_layout_item_right_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right" />
 
-        <TextView
-            android:id="@+id/baijiapay_layout_item_textview4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/baijiapay_layout_item_textview3"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dip"
-            android:text="微信安全支付"
-            android:textColor="@color/text_gray_color"
-            android:textSize="@dimen/textsize10sp" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@id/baijiapay_layout_item_right_imageview"
+                    android:layout_toRightOf="@id/baijiapay_layout_item_imageview"
+                    android:layout_alignTop="@+id/baijiapay_layout_item_imageview"
+                    android:id="@+id/baijiapay_layout_item_textview3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信支付"
+                    android:textSize="@dimen/textsize13sp" />
 
-        <ImageView
-            android:id="@+id/baijiapay_layout_item_right_imageview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/arrow_right" />
-    </RelativeLayout>
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignBottom="@id/baijiapay_layout_item_imageview"
+                    android:layout_toLeftOf="@id/baijiapay_layout_item_right_imageview"
+                    android:layout_toRightOf="@id/baijiapay_layout_item_imageview"
+                    android:id="@+id/baijiapay_layout_item_textview4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信安全支付"
+                    android:textColor="@color/text_gray_color"
+                    android:textSize="@dimen/textsize10sp" />
+            </RelativeLayout>
 
-    <ListView
-        android:id="@+id/baijiapay_layout_paytype_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/shop_main_lineheight10_dimen"
-        android:divider="@color/color_transparent"
-        android:dividerHeight="@dimen/shop_main_lineheight10_dimen"
-        android:visibility="gone" />
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </LinearLayout>
