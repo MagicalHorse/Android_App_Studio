@@ -52,6 +52,7 @@
                     android:inputType="phone"
                     android:background="@null"
                     android:hint="请输入手机号"
+                    android:maxLength="12"
                     android:textSize="@dimen/center_text_size" />
 
             </RelativeLayout>
@@ -309,6 +310,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"

@@ -544,7 +544,7 @@ public class ConfirmOrderForZhuanGui extends BaseActivityWithTopView {
         }
 
         //打样够立减
-        tv_dyg_money.setText(ToolsUtil.DounbleToString_2(dangyanggouprice));
+        tv_dyg_money.setText("￥"+ToolsUtil.DounbleToString_2(dangyanggouprice));
 
         payPrice = allprice - vipDiscrate - dangyanggouprice;
         if (payPrice < 0) {

@@ -481,20 +481,25 @@ public class ToolsUtil {
                 AliYunKeyBackBean bean = (AliYunKeyBackBean) obj;
                 if (bean != null && bean.getData() != null) {
                     AliYunKeyBean data = bean.getData();
-                    if (data != null && data.getKey() != null) {
-                        String[] keyAndSign = data.getKey().split(",");
-                        if (keyAndSign != null && keyAndSign.length == 2) {
-                            String[] keyArr = keyAndSign[0].split("=");
-                            String[] signArr = keyAndSign[1].split("=");
-                            if (keyArr != null && keyArr.length == 2) {
-                                SharedUtil.setAliYunKey(ctx, ToolsUtil.nullToString(keyArr[1]));
-                            }
-                            if (signArr != null && signArr.length == 2) {
-                                SharedUtil.setAliYunSign(ctx, ToolsUtil.nullToString(signArr[1]));
-                            }
-                            initAliOSS(ctx, ToolsUtil.nullToString(keyArr[1]), ToolsUtil.nullToString(signArr[1]));
+                    if(data!=null)
+                    {
+                        String key=data.getAccessKey();
+                        String sign=data.getAccessKeySecret();
+                        String ali_key=DES3Manager.decodeByDes3(key);
+                        String ali_sign=DES3Manager.decodeByDes3(sign);
+                        if(ali_key!=null && ali_sign!=null)
+                        {
+                            SharedUtil.setAliYunKey(ctx, ali_key);
+                            SharedUtil.setAliYunSign(ctx, ali_sign);
+                            initAliOSS(ctx,ali_key,ali_sign);
+
+                        }else
+                        {
+                            Toast.makeText(ctx, "阿里云key获取失败", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
+
+                    }else
+                    {
                         Toast.makeText(ctx, "阿里云key获取失败", Toast.LENGTH_SHORT).show();
                     }
                 }

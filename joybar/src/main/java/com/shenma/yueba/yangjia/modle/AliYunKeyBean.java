@@ -2,17 +2,24 @@ package com.shenma.yueba.yangjia.modle;
 
 public class AliYunKeyBean {
 
-	
-	private String key;
+	String AccessKey="";//加密的key
 
-	public String getKey() {
-		return key;
+	public String getAccessKeySecret() {
+		return AccessKeySecret;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setAccessKeySecret(String accessKeySecret) {
+		AccessKeySecret = accessKeySecret;
 	}
 
+	public String getAccessKey() {
+		return AccessKey;
+	}
 
+	public void setAccessKey(String accessKey) {
+		AccessKey = accessKey;
+	}
+
+	String AccessKeySecret="";//加密
 	
 }
