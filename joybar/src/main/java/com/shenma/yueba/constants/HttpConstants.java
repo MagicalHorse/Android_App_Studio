@@ -1582,7 +1582,7 @@ public class HttpConstants {
 		}else if(Constants.PublishStatus.equals("2")){//正式环境
 			return "http://appw.joybar.com.cn/app/";
 		}else if(Constants.PublishStatus.equals("3")){//测试环境
-			return "http://123.57.77.86:8080/app/";
+			return "http://123.57.77.86:8070/app/";
 		}else{
 			return "";
 		}
@@ -1597,7 +1597,7 @@ public class HttpConstants {
 		}else if(Constants.PublishStatus.equals("2")){//正式环境
 			return "http://appr.joybar.com.cn/app/";
 		}else if(Constants.PublishStatus.equals("3")){//测试环境
-			return "http://123.57.77.86:8080/app/";
+			return "http://123.57.77.86:8070/app/";
 		}else{
 			return "";
 		}
