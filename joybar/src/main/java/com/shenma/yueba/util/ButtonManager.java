@@ -75,8 +75,11 @@ public class ButtonManager {
                 break;
             //申请退款
             case 3:
-                view_list.add(createWaitPayButton(activity, 1));//取消退款
-                //撤销退款
+                if(bean.getProduct().getUserLevel().equals("8") )
+                {
+                    view_list.add(createWaitPayButton(activity, 1));//取消退款
+                    //撤销退款
+                }
                 break;
         }
 
