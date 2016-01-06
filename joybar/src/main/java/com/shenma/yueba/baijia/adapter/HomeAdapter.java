@@ -290,7 +290,7 @@ public class HomeAdapter extends BaseAdapter {
                             activity.startActivity(intent);
                         }
                     });
-                    LinearLayout ll_price = (LinearLayout) view_array.get(i).findViewById(R.id.ll_price);
+                    RelativeLayout ll_price = (RelativeLayout) view_array.get(i).findViewById(R.id.ll_price);
                     ll_price.setVisibility(View.VISIBLE);
                     //价格
                     TextView authentication_child_iten_layout_price_textview = (TextView) view_array.get(i).findViewById(R.id.authentication_child_iten_layout_price_textview);

@@ -11,12 +11,13 @@
         android:scaleType="centerCrop"
         android:src="@drawable/default_pic" />
 
-    <LinearLayout
+    <RelativeLayout
         android:visibility="gone"
         android:id="@+id/ll_price"
         android:background="@drawable/gray_transparent_background"
         android:paddingBottom="5dp"
         android:paddingLeft="3dp"
+        android:paddingRight="3dp"
         android:paddingTop="5dp"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -24,27 +25,28 @@
         android:orientation="horizontal"
         >
         <TextView
-            android:layout_weight="0.4"
             android:background="@color/color_transparent"
             android:id="@+id/authentication_child_iten_layout_price_textview"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
+            android:layout_alignParentBottom="true"
             android:singleLine="true"
-            android:textSize="@dimen/textsize13sp"
+            android:textSize="@dimen/textsize12sp"
             android:textColor="@color/white"
-            android:text="￥28000" />
+            android:text="￥0.00" />
         <TextView
-            android:layout_weight="0.6"
+            android:layout_toRightOf="@id/authentication_child_iten_layout_price_textview"
             android:background="@color/color_transparent"
             android:id="@+id/authentication_child_iten_layout_oldprice_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
+            android:layout_alignParentBottom="true"
+            android:gravity="right|center_vertical"
             android:singleLine="true"
             android:textSize="@dimen/textsize10sp"
             android:textColor="#99ffffff"
-            android:text="￥28000" />
-    </LinearLayout>
+            android:text="￥0.00" />
+    </RelativeLayout>
 
 </RelativeLayout>
