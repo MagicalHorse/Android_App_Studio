@@ -191,21 +191,22 @@ public class MarketMainActivity extends BaseActivityWithTopView {
     }
 
     /*********
-     * @param currPage int 当前页
+     * @param _currPage int 当前页
      * @param type     int 类型  0：刷新 1：加载
      ********/
-    void requestData(final int currPage, final int type) {
+    void requestData(final int _currPage, final int type) {
         isrunning = true;
         String UserId = SharedUtil.getStringPerfernece(MarketMainActivity.this, SharedUtil.user_id);
         if (UserId == null || UserId.equals("")) {
             UserId = "0";
         }
-        httpControl.getStoreIndex(isShow, StoreId, UserId, currPage, PageSize, SortType, new HttpControl.HttpCallBackInterface() {
+        httpControl.getStoreIndex(isShow, StoreId, UserId, _currPage, PageSize, SortType, new HttpControl.HttpCallBackInterface() {
             @Override
             public void http_Success(Object obj) {
                 isShow = false;
                 isrunning = false;
                 StoreIndexBackBean storeIndexBackBean = (StoreIndexBackBean) obj;
+                currPage=_currPage;
                 switch (type) {
                     case 0:
                         refreshData(storeIndexBackBean);
@@ -215,7 +216,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
                         break;
                 }
                 ToolsUtil.pullResfresh(baijia_market_main_layout_pullTorefreshscrollview);
-                setPageStatus(storeIndexBackBean, currPage);
+                setPageStatus(storeIndexBackBean, _currPage);
             }
 
             @Override
@@ -284,6 +285,7 @@ public class MarketMainActivity extends BaseActivityWithTopView {
             return;
         }
         isShow = true;
+        currPage=1;
         requestData(1, 0);
     }
 
