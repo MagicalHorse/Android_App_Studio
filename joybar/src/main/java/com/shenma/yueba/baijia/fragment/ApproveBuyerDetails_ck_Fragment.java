@@ -907,6 +907,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         //城市
         String cityAddress = ToolsUtil.nullToString(Data.getCityName());
         setdataValue(R.id.address_name_textview, cityAddress);
+        setdataValue(R.id.brand_name_textview, ToolsUtil.nullToString(Data.getBrandName()));
         // 商品名称
         String productName = ToolsUtil.nullToString(Data.getProductName());
         initPic(usericon, approvebuyerdetails_icon_imageview);

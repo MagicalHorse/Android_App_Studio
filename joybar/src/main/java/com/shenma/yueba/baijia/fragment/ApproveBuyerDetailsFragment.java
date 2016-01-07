@@ -338,6 +338,7 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		//城市
 		String cityAddress=ToolsUtil.nullToString(Data.getCityName());
 		setdataValue(R.id.address_name_textview,cityAddress);
+		setdataValue(R.id.brand_name_textview,ToolsUtil.nullToString(Data.getBrandName()));
 		// 价格
 		double price = Data.getPrice();
 		double unitPrice=Data.getUnitPrice();
