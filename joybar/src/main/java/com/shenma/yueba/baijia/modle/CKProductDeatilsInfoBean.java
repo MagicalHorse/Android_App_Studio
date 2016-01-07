@@ -38,6 +38,7 @@ public class CKProductDeatilsInfoBean implements Serializable {
     boolean IsStart = false;//是否开始
     long BusinessTime;//营业时长（秒） 即非打样购时间
     long RemainTime;// 剩余时长（秒） 如果IsStart=true  则是剩余结束时间，否则是剩余开始时间
+    int PublishStatus;//发布状态     0表示已经下架   1表示上架
     //活动信息
     ProductsDetailsPromotion Promotion = new ProductsDetailsPromotion();
     String ShareLink;//分享链接地址
@@ -334,6 +335,14 @@ public class CKProductDeatilsInfoBean implements Serializable {
 
     public void setShareLink(String shareLink) {
         ShareLink = shareLink;
+    }
+
+    public int getPublishStatus() {
+        return PublishStatus;
+    }
+
+    public void setPublishStatus(int publishStatus) {
+        PublishStatus = publishStatus;
     }
 
 }

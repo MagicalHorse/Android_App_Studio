@@ -273,11 +273,14 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 							getActivity().runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
-									//如果打样够开始
-									if (ckProductCountDownBean.isDayangGou()) {
-										approvebuyerbuybutton.setText("立即购买");
-									} else {
-										approvebuyerbuybutton.setText(activity.getString(R.string.str_shopping_start) + ckProductCountDownBean.getShowstr());
+									if(Data.getPublishStatus()>=1)
+									{
+										//如果打样够开始
+										if (ckProductCountDownBean.isDayangGou()) {
+											approvebuyerbuybutton.setText("立即购买");
+										} else {
+											approvebuyerbuybutton.setText(activity.getString(R.string.str_shopping_start) + ckProductCountDownBean.getShowstr());
+										}
 									}
 								}
 							});
@@ -440,6 +443,10 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 		setFont();
 		approvebuyerdetails_srcollview.smoothScrollTo(0, 0);
 		approvebuyerbuybutton.setVisibility(View.VISIBLE);
+		if(Data.getPublishStatus()<1)
+		{
+			approvebuyerbuybutton.setText("该商品已下架");
+		}
 	}
 
 
@@ -603,12 +610,15 @@ public class ApproveBuyerDetailsFragment extends Fragment implements OnClickList
 			forwardSiLiao();
 			break;
 		case R.id.approvebuyerbuybutton:
-			if(!ckProductCountDownBean.isDayangGou())
+			if(Data.getPublishStatus()>=1)
 			{
-				MyApplication.getInstance().showMessage(getActivity(),"活动还没开始");
-				return;
+				if(!ckProductCountDownBean.isDayangGou())
+				{
+					MyApplication.getInstance().showMessage(getActivity(),"活动还没开始");
+					return;
+				}
+				startChatActivity();
 			}
-			startChatActivity();
 			break;
 		case R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview:
 			if (!MyApplication.getInstance().isUserLogin(

@@ -1009,6 +1009,10 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         setFont();
         footer_right_linerlayout.setVisibility(View.VISIBLE);
         approvebuyerbuybutton.setVisibility(View.VISIBLE);
+        if(Data.getPublishStatus()<1)
+        {
+            approvebuyerbuybutton.setText("该商品已下架");
+        }
         approvebuyerdetails_layout_siliao_linerlayout_textview.setVisibility(View.VISIBLE);
         ll_footer.setVisibility(View.VISIBLE);
         handler.sendMessageDelayed(handler.obtainMessage(100), 300);
@@ -1221,11 +1225,14 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 forwardSiLiao();
                 break;
             case R.id.approvebuyerbuybutton:
-                if (!ckProductCountDownBean.isDayangGou()) {
-                    MyApplication.getInstance().showMessage(getActivity(), "活动还没开始");
-                    return;
+                if(Data.getPublishStatus()>=1)
+                {
+                    if (!ckProductCountDownBean.isDayangGou()) {
+                        MyApplication.getInstance().showMessage(getActivity(), "活动还没开始");
+                        return;
+                    }
+                    startChatActivity();
                 }
-                startChatActivity();
                 break;
             case R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview:
                 if (!MyApplication.getInstance().isUserLogin(activity)) {
@@ -1272,11 +1279,14 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //如果打样够开始
-                        if (ckProductCountDownBean.isDayangGou()) {
-                            approvebuyerbuybutton.setText("立即购买");
-                        } else {
-                            approvebuyerbuybutton.setText(activity.getString(R.string.str_shopping_start) + ckProductCountDownBean.getShowstr());
+                        if(Data.getPublishStatus()>=1)
+                        {
+                            //如果打样够开始
+                            if (ckProductCountDownBean.isDayangGou()) {
+                                approvebuyerbuybutton.setText("立即购买");
+                            } else {
+                                approvebuyerbuybutton.setText(activity.getString(R.string.str_shopping_start) + ckProductCountDownBean.getShowstr());
+                            }
                         }
                     }
                 });
