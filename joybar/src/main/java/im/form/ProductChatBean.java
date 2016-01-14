@@ -19,8 +19,7 @@ public class ProductChatBean extends BaseChatBean{
 
 	@Override
 	public void sendData() {
-		MessageBean bean=getMessageBean();
-		SocketManger.the().sendMsg(bean);
+		SocketManger.the().sendMsg(this);
 	}
 
 	@Override

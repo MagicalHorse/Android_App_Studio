@@ -12,11 +12,20 @@ public class MessageBean implements Serializable{
 	String userName="";//发送方名称
 	String productId="";//商品id
 	String fromUserType="";//用户类型
-	String type="";//所在的组（私聊 ，群聊）
+
 	String body="";//信息内容
 	String logo="";//图片
 	String sharelink="";
 	String roomId="";
+	String messageType="";//【0、私聊  1 群聊 】所在的组（私聊 ，群聊）
+
+	public String getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(String messageType) {
+		this.messageType = messageType;
+	}
 	public String getRoomId() {
 		return roomId;
 	}
@@ -70,12 +79,6 @@ public class MessageBean implements Serializable{
 	}
 	public void setFromUserType(String fromUserType) {
 		this.fromUserType = fromUserType;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
 	}
 
 }

@@ -31,15 +31,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import im.broadcast.ImBroadcastReceiver;
-import im.broadcast.ImBroadcastReceiver.ImBroadcastReceiverLinstener;
-import im.broadcast.ImBroadcastReceiver.RECEIVER_type;
+
+import im.control.SocketObserverManager;
 import im.form.RequestMessageBean;
 
 /******
  * 败家主页  包含败家主页面的 布局 以及 加载或替换 fragment 来更新显示内容
  * *******/
-public class MainActivityForBaiJia extends FragmentActivity implements ImBroadcastReceiverLinstener{
+public class MainActivityForBaiJia extends FragmentActivity implements SocketObserverManager.SocketNoticationListener{
 	FrameLayout baijia_main_framelayout;
 	private long exitTime = 0;// 初始化退出时间，用于两次点击返回退出程序
 	LinearLayout baijia_main_foot_linearlayout;
@@ -49,10 +48,7 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 	int currid = -1;
 	Fragment indexFragmentForBaiJia, findShoppingGuideFragmnet, messageFragment,meFragmentForBaiJia;
 	FragmentManager fragmentManager;
-	ImBroadcastReceiver imBroadcastReceiver;
 	boolean isbroadcase=false;
-
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,13 +56,11 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 		setContentView(R.layout.baijia_main_layout);
 		MyApplication.getInstance().addActivity(this);
 		AlartMangerUtil.startHeartAlart(MainActivityForBaiJia.this);
-		imBroadcastReceiver=new ImBroadcastReceiver(this);
 		initView();
 		initaddFooterView();
 		setCurrView(0);
 		checkVersion();
-//		Toast.makeText(this, ""+SocializeConstants.SDK_VERSION, 1000).show();
-		registerBroadcase();
+		SocketObserverManager.getInstance().addSocketObserver(this);
 	}
 
 	
@@ -257,6 +251,7 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 	@Override
 	protected void onDestroy() {
 		MyApplication.getInstance().removeActivity(this);// 加入回退栈
+		SocketObserverManager.getInstance().removeSocketObserver(this);
 		super.onDestroy();
 	}
 
@@ -268,6 +263,7 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 				Toast.makeText(getApplicationContext(), "再按一次退出程序",
 						Toast.LENGTH_SHORT).show();
 			} else {
+				SocketObserverManager.getInstance().clearSocketObserver();
 				MyApplication.getInstance().exit();
 				
 			}
@@ -276,66 +272,6 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 		return super.onKeyDown(keyCode, event);
 	}
 
-
-	/******
-	 * 注册 消息广播监听
-	 * ***/
-	void registerBroadcase()
-	{
-		if(!isbroadcase)
-		{
-			isbroadcase=true;
-			MainActivityForBaiJia.this.registerReceiver(imBroadcastReceiver, new IntentFilter(ImBroadcastReceiver.IntentFilterRoomMsg));
-		}
-		
-	}
-	
-	
-	/******
-	 * 注册 消息广播监听
-	 * ***/
-	void unregisterBroadcase()
-	{
-		if(isbroadcase)
-		{
-			MainActivityForBaiJia.this.unregisterReceiver(imBroadcastReceiver);
-			isbroadcase=false;
-		}
-		
-	}
-
-
-	@Override
-	public void newMessage(Object obj) {
-		
-		
-	}
-
-
-	@Override
-	public void roomMessage(Object obj) {
-	   if(obj!=null && obj instanceof RequestMessageBean)
-	   {
-		   RequestMessageBean bean=(RequestMessageBean)obj;
-		   int touserid=bean.getToUserId();
-		   if(touserid<=0)//群聊信息
-		   {
-			   if(currid!=1)
-			   {
-				 //设置显示原点
-				   setRedView(1, true);
-			   }
-			   
-		   }else//私聊信息
-		   {
-			   if(currid!=2)
-			   {
-				   setRedView(2, true);
-			   }
-		   }
-	   }
-	}
-	
 	/***
 	 * 设置 红色的按钮显示或隐藏
 	 * @param i int 需要控制的 item 的 下标
@@ -360,24 +296,53 @@ public class MainActivityForBaiJia extends FragmentActivity implements ImBroadca
 		
 	}
 
-	@Override
-	public void clearMsgNotation(RECEIVER_type type) {
-		switch(type)
-		{
-		case circle:
-			setRedView(1, false);
-			break;
-		case msg:
-			setRedView(2, false);
-			break;
-		}
-	}
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		// TODO Auto-generated method stub
 		//super.onSaveInstanceState(outState);//禁止应用保持fragment 的数据
 	}
 
 
+	@Override
+	public void socketConnectSucess() {
+
+	}
+
+	@Override
+	public void socketConnectFails() {
+
+	}
+
+	@Override
+	public void receiveMsgFromRoom(RequestMessageBean bean) {
+
+	}
+
+	@Override
+	public void receiveMsgFromUnRoom(RequestMessageBean bean) {
+		if(bean!=null )
+		{
+			int touserid=bean.getToUserId();
+			if(touserid<=0)//群聊信息
+			{
+				if(currid!=1)
+				{
+					//设置显示原点
+					setRedView(1, true);
+				}
+
+			}else//私聊信息
+			{
+				if(currid!=2)
+				{
+					setRedView(2, true);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void sendStatusChaneg() {
+
+	}
 }

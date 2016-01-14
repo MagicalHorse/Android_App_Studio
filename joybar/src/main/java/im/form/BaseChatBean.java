@@ -63,7 +63,19 @@ public abstract class  BaseChatBean implements Serializable{
 	String type="";//信息的类型 默认为 文本    sss
 	String creationDate="";
 	String sharelink="";
-	
+
+	public int getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(int messageType) {
+		this.messageType = messageType;
+	}
+
+	int messageType;//【0、私聊  1 群聊 】
+
+
+
 	public String getSharelink() {
 		return sharelink;
 	}
@@ -170,14 +182,17 @@ public abstract class  BaseChatBean implements Serializable{
 			from_id=bean.getFromUserId();
 			to_id=bean.getToUserId();
 			room_No=bean.getRoomId();
-			type=bean.getType();
-			userName=bean.getUserName();
+			type=Integer.toString(bean.getMessageType());
+			MessageUserInfoBean userbean=bean.getUser();
+			if(userbean!=null)
+			{
+				userName=userbean.getNickName();
+				logo=userbean.getLogo();
+			}
 			productId=bean.getProductId();
 			content=bean.getBody();
-			logo=bean.getLogo();
 			creationDate=ToolsUtil.nullToString(bean.getCreationDate());
-			productId=bean.getProductId();
-			String user_id=SharedUtil.getStringPerfernece(MyApplication.getInstance().getApplicationContext(),SharedUtil.user_id);
+			String user_id=SharedUtil.getStringPerfernece(MyApplication.getInstance().getApplicationContext(), SharedUtil.user_id);
 			if(user_id.equals(Integer.toString(from_id)))
 			{
 				isoneself=true;
@@ -185,7 +200,6 @@ public abstract class  BaseChatBean implements Serializable{
 			{
 				isoneself=false;
 			}
-			
 			sendStatus=SendStatus.send_sucess;
 		}
 	}
@@ -201,7 +215,7 @@ public abstract class  BaseChatBean implements Serializable{
 		bean.setFromUserId(Integer.toString(from_id));
 		bean.setProductId(Integer.toString(productId));
 		bean.setToUserId(Integer.toString(to_id));
-		bean.setType(type);
+		bean.setMessageType(type);
 		bean.setUserName(userName);
 		bean.setLogo(logo);
 		bean.setSharelink((String)content);

@@ -171,7 +171,6 @@ public class FillPersonDataActivity extends BaseActivityWithTopView {
 				if(obj!=null && obj instanceof UserRequestBean)
 				{
 					finish();
-					SocketManger.the().onLineToUserID();
 					UserRequestBean bean=(UserRequestBean)obj;
 					httpControl.setLoginInfo(FillPersonDataActivity.this, bean);
 					Intent intent=new Intent(FillPersonDataActivity.this,MainActivityForBaiJia.class);

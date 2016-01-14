@@ -146,7 +146,6 @@ public class WXLoginUtil {
 				if (obj != null && obj instanceof UserRequestBean) {
 					UserRequestBean bean = (UserRequestBean) obj;
 					httpcon.setLoginInfo(ctx, bean);
-					SocketManger.the().onLineToUserID();
 					Intent intent = new Intent(ctx,
 							MainActivityForBaiJia.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

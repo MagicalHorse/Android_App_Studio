@@ -25,9 +25,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
-import im.broadcast.ImBroadcastReceiver;
-import im.broadcast.ImBroadcastReceiver.ImBroadcastReceiverLinstener;
-import im.broadcast.ImBroadcastReceiver.RECEIVER_type;
 import im.form.RequestMessageBean;
 
 /**
@@ -36,7 +33,7 @@ import im.form.RequestMessageBean;
  * 
  */
 
-public class MyCircleView extends BaseView implements ImBroadcastReceiverLinstener{
+public class MyCircleView extends BaseView{
 	private View view;
 	private PullToRefreshListView pull_refresh_list;
 	LinearLayout showloading_layout_view;
@@ -49,7 +46,7 @@ public class MyCircleView extends BaseView implements ImBroadcastReceiverLinsten
 	HttpControl httpCntrol=new HttpControl();
 	List<MyCircleInfo> items=new ArrayList<MyCircleInfo>();
 	boolean isFirst=true;
-	ImBroadcastReceiver imBroadcastReceiver;
+
 	boolean isImBroadcase=false;
 	public MyCircleView(Activity activity)
 	{
@@ -58,8 +55,6 @@ public class MyCircleView extends BaseView implements ImBroadcastReceiverLinsten
 			this.activity=activity;
 			initView();
 			initPullView();
-			imBroadcastReceiver=new ImBroadcastReceiver(this);
-			registImBroacase();
 		}
 	}
 	
@@ -278,60 +273,5 @@ public class MyCircleView extends BaseView implements ImBroadcastReceiverLinsten
 		}*/
 		requestFalshData();
 	}
-	
-	
-	void registImBroacase()
-	{
-		if(!isImBroadcase)
-		{
-			if(activity!=null)
-			{
-				isImBroadcase=true;
-				activity.registerReceiver(imBroadcastReceiver, new IntentFilter(ImBroadcastReceiver.IntentFilterRoomMsg));
-			}
-		}
-	}
-	
-	
-	void unRegistImBroacase()
-	{
-		if(isImBroadcase)
-		{
-			if(activity!=null)
-			{
-				isImBroadcase=false;
-				activity.unregisterReceiver(imBroadcastReceiver);
-			}
-		}
-	}
 
-
-	@Override
-	public void newMessage(Object obj) {
-		
-	}
-
-
-	@Override
-	public void roomMessage(Object obj) {
-		if(obj!=null && obj instanceof RequestMessageBean)
-		{
-			RequestMessageBean	bean=(RequestMessageBean)obj;
-			int touserid=bean.getToUserId();
-			if(touserid<=0)
-			{
-				String roomid=bean.getRoomId();
-				if(roomid!=null)
-				{
-					requestFalshData();
-				}
-			}
-		}
-	}
-
-
-	@Override
-	public void clearMsgNotation(RECEIVER_type type) {
-		
-	}
 }

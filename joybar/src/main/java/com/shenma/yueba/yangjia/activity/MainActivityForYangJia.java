@@ -16,9 +16,6 @@ package com.shenma.yueba.yangjia.activity;
  * limitations under the License.
  *******************************************************************************/
 
-import im.broadcast.ImBroadcastReceiver;
-import im.broadcast.ImBroadcastReceiver.ImBroadcastReceiverLinstener;
-import im.broadcast.ImBroadcastReceiver.RECEIVER_type;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -51,13 +48,16 @@ import com.shenma.yueba.yangjia.fragment.MessageFragmentForYangJia;
 import com.shenma.yueba.yangjia.fragment.TaskRewardFragment;
 import com.umeng.analytics.MobclickAgent;
 
+import im.control.SocketObserverManager;
+import im.form.RequestMessageBean;
+
 
 /**
  * 养家模式
  * @author a
  *
  */
-public final class MainActivityForYangJia extends FragmentActivity implements ImBroadcastReceiverLinstener{
+public final class MainActivityForYangJia extends FragmentActivity implements SocketObserverManager.SocketNoticationListener{
 	private long exitTime = 0;// 初始化退出时间，用于两次点击返回退出程序
 	private FragmentTabHost mTabHost;
 //	// 定义数组来存放按钮图片
@@ -69,7 +69,6 @@ public final class MainActivityForYangJia extends FragmentActivity implements Im
 	// 定义数组来存放Fragment界面
 	private Class fragmentArray[] = { IndexFragmentForYangJia.class,TaskRewardFragment.class,CircleFragment.class,MessageFragmentForYangJia.class,MeFragmentForYangJia.class};
 	View round_view;//消息的原点
-	ImBroadcastReceiver imBroadcastReceiver;
 	boolean isbroadcase=false;
 	/** Called when the activity is first created. */
 	@Override
@@ -78,9 +77,8 @@ public final class MainActivityForYangJia extends FragmentActivity implements Im
 		MyApplication.getInstance().addActivity(this);//加入回退栈
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		imBroadcastReceiver=new ImBroadcastReceiver(this);
 		initView();
-		
+		SocketObserverManager.getInstance().addSocketObserver(this);
 //		CustomProgressDialog progressDialog = CustomProgressDialog.createDialog(this);
 //		progressDialog.setMessage("正在加载中...");
 //		progressDialog.show();
@@ -93,7 +91,6 @@ public final class MainActivityForYangJia extends FragmentActivity implements Im
 	private void initView() {
 		TextView yangjia_msg_textview=(TextView)findViewById(R.id.yangjia_msg_textview);
 		round_view=findViewById(R.id.round_view);
-		registerBroadcase();
 //		yangjia_msg_textview.setOnClickListener(new OnClickListener() {
 //			
 //			@Override
@@ -164,8 +161,8 @@ private View getTabItemView(int index) {
 @Override
 protected void onDestroy() {
 	MyApplication.getInstance().removeActivity(this);
+	SocketObserverManager.getInstance().removeSocketObserver(this);
 	super.onDestroy();
-	unregisterBroadcase();
 }
 
 public void onResume() {
@@ -185,6 +182,7 @@ public void onResume() {
 					Toast.makeText(getApplicationContext(), "再按一次退出程序",
 							Toast.LENGTH_SHORT).show();
 				} else {
+					SocketObserverManager.getInstance().clearSocketObserver();
 					MyApplication.getInstance().exit();
 				}
 				return true; // 返回true表示执行结束不需继续执行父类按键响应
@@ -204,7 +202,38 @@ public void onResume() {
 			showMenu.createView();
 		}
 
-		/**
+	@Override
+	public void socketConnectSucess() {
+
+	}
+
+	@Override
+	public void socketConnectFails() {
+
+	}
+
+	@Override
+	public void receiveMsgFromRoom(RequestMessageBean bean) {
+		if(!mTabHost.getCurrentTabTag().equals("消息"))
+		{
+			setRedView(true);
+		}
+	}
+
+	@Override
+	public void receiveMsgFromUnRoom(RequestMessageBean bean) {
+		if(!mTabHost.getCurrentTabTag().equals("消息"))
+		{
+			setRedView(true);
+		}
+	}
+
+	@Override
+	public void sendStatusChaneg() {
+
+	}
+
+	/**
 		 * 弹出底部菜单
 		 * 
 		 * @author
@@ -240,31 +269,6 @@ public void onResume() {
 
 		}
 
-		@Override
-		public void newMessage(Object obj) {
-			// TODO Auto-generated method stub
-			if(!mTabHost.getCurrentTabTag().equals("消息"))
-			{
-				setRedView(true);
-			}
-				
-		}
-
-		@Override
-		public void roomMessage(Object obj) {
-			// TODO Auto-generated method stub
-			if(!mTabHost.getCurrentTabTag().equals("消息"))
-			{
-				setRedView(true);
-			}
-		}
-
-		@Override
-		public void clearMsgNotation(RECEIVER_type type) {
-			// TODO Auto-generated method stub
-			
-		}
-		
 		/***
 		 * 设置 红色的按钮显示或隐藏
 		 * @param i int 需要控制的 item 的 下标
@@ -283,31 +287,5 @@ public void onResume() {
 				  }
 			   }
 		}
-		
-		/******
-		 * 注册 消息广播监听
-		 * ***/
-		void registerBroadcase()
-		{
-			if(!isbroadcase)
-			{
-				isbroadcase=true;
-				MainActivityForYangJia.this.registerReceiver(imBroadcastReceiver, new IntentFilter(ImBroadcastReceiver.IntentFilterRoomMsg));
-			}
-			
-		}
-		
-		
-		/******
-		 * 注册 消息广播监听
-		 * ***/
-		void unregisterBroadcase()
-		{
-			if(isbroadcase)
-			{
-				MainActivityForYangJia.this.unregisterReceiver(imBroadcastReceiver);
-				isbroadcase=false;
-			}
-			
-		}
+
 }

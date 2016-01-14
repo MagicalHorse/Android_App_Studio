@@ -29,7 +29,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import im.broadcast.ImBroadcastReceiver;
 
 public class CircleView extends BaseView{
 	Activity activity;
@@ -47,7 +46,6 @@ public class CircleView extends BaseView{
 	boolean showDialog=true;
 	boolean isruning=false;
 	HttpControl httpCntrol=new HttpControl();
-	ImBroadcastReceiver imBroadcastReceiver;
 	boolean isImBroadcase=false;
 	
 	public CircleView(Activity activity)

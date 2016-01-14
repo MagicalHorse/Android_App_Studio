@@ -20,6 +20,7 @@ import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -61,8 +62,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import im.broadcast.ImBroadcastReceiver;
 import im.control.SocketManger;
+import im.control.SocketObserverManager;
 import im.form.BaseChatBean;
 import im.form.NoticeChatBean;
 import im.form.PicChatBean;
@@ -74,14 +75,13 @@ import im.form.TextChatBean;
 /**
  * Created by Administrator on 2015/10/8.
  */
-public class ChatFragment extends Fragment implements View.OnClickListener {
+public class ChatFragment extends Fragment implements View.OnClickListener , SocketObserverManager.SocketNoticationListener{
     String TAG = "TAG";
     LayoutInflater layoutInflater;
     View parentView;
     LinearLayout chat_alertmsg_linearlayout;// 顶部提示信息
     LinearLayout resertaddinfo_linearlayout;//重新加载页面父视图对象
     TextView resertaddinfo_textview;
-    ImBroadcastReceiver imBroadcastReceiver;
     String usericon;//本地头像
     private int circleId = -1;// 圈子id
     private TextView pb_reserttitle_textview;//提示socke重连文本对象
@@ -96,7 +96,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     private int formUser_id;//当前用户的id
     private int toUser_id;//发送指定的人的id
     String userName;//我的昵称
-    String socketType = "group";
     private LinkedList<BaseChatBean> bean_list = new LinkedList<BaseChatBean>();// 消息列表
     ChattingAdapter chattingAdapter;
     FaceView fView;//表情视图对象
@@ -106,10 +105,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     private LinearLayout btnContainer;// 扩展视图（照相 图片 链接 收藏 ）
     private ImageView iv_emoticons_normal;// 表情按钮
     Button btnMore;//更多的按钮
-    private boolean isregister = false;
-    boolean isRegisterbroadcase = false;
     private RequestRoomInfo requestRoomInfo;//房间信息对象
-    private List<Integer> int_array = new ArrayList<Integer>();
     boolean isPrepare = false;//是否准备完成 即 是否已经获取到 房间号
     boolean isrunning = false;
     //圈子信息
@@ -141,7 +137,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         if (vg != null) {
             vg.removeView(parentView);
         }
-
+        SocketObserverManager.getInstance().addSocketObserver(this);
         return parentView;
     }
 
@@ -153,8 +149,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         //如果用户已经登录
         if (isVisibleToUser && MyApplication.getInstance().isUserLoginNoForward(getActivity())) {
             SocketManger.the().setContext(getActivity());
-            registerImBroadcastReceiver();//注册广播（接收 消息）
-            regiestSockIoBroadCase();//监听sockeoio链接变化
             requestChatInfo();
             inroom();
         }
@@ -225,6 +219,17 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
          *   初始化连接视图
          * ***************/
         chat_list = (PullToRefreshListView) parentView.findViewById(R.id.chat_list);
+        chat_list.getRefreshableView().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //隐藏输入法
+                hideKeyboard();
+                //回复默认键盘输入界面
+                btnContainer.setVisibility(View.GONE);
+                hideFace();
+                return false;
+            }
+        });
         chat_list.setMode(PullToRefreshBase.Mode.DISABLED);//设置下拉不可用
         chat_list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -574,30 +579,30 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
             return;
         }
         for (int i = 0; i < items.size(); i++) {
-            String type = items.get(i).getType();
+            String type = Integer.toString(items.get(i).getMessageType());
             if (type.equals(RequestMessageBean.type_img))// 如果是 图片
             {
                 BaseChatBean bean = new PicChatBean(getActivity());
                 bean.setValue(items.get(i));
-                bean.setType(socketType);
+                bean.setMessageType(1);
                 addListData(true, bean);
             } else if (type.equals(RequestMessageBean.type_produtc_img))// 是商品图片
             {
                 BaseChatBean bean = new ProductChatBean(getActivity());
                 bean.setValue(items.get(i));
-                bean.setType(socketType);
+                bean.setMessageType(1);
                 addListData(true, bean);
             } else if (type.equals(RequestMessageBean.notice))// 广播
             {
                 BaseChatBean bean = new NoticeChatBean(getActivity());
                 bean.setValue(items.get(i));
-                bean.setType(socketType);
+                bean.setMessageType(1);
                 addListData(true, bean);
             } else if (type.equals(RequestMessageBean.type_empty))// 文本信息
             {
                 BaseChatBean bean = new TextChatBean(getActivity());
                 bean.setValue(items.get(i));
-                bean.setType(socketType);
+                bean.setMessageType(1);
                 addListData(true, bean);
             }
         }
@@ -649,7 +654,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 return;
             }
 
-            String type = bean.getType();
+            String type = Integer.toString(bean.getMessageType());
             if (type.equals(RequestMessageBean.type_img))// 如果是图片
             {
                 baseChatBean = new PicChatBean(getActivity());
@@ -708,8 +713,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                             } else {
                                 requestRoomInfo = bean.getData();
                                 roomId = bean.getData().getId();
-                                // 进入房间
-                                int_array = requestRoomInfo.getUserList();
+                                // 进入房间eeeeeee
+                                //int_array = requestRoomInfo.getUserList();
                                 getMessage();// 获取历史数据
                                 Log.i("TAG", "---->>>socket roomId:" + roomId);
                                 inroom();
@@ -768,16 +773,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
         // 加入房间
         RoomBean roomBean = new RoomBean();
-        roomBean.setOwner(Integer.toString(formUser_id));
         roomBean.setRoom_id(roomId);
-        roomBean.setType(socketType);
-        //roomBean.setTitle();ssss
+        roomBean.setType("group");
         roomBean.setUserName(userName);
-        int[] userint = new int[int_array.size()];
-        for (int i = 0; i < int_array.size(); i++) {
-            userint[i] = int_array.get(i);
-        }
-        roomBean.setUsers(userint);
         SocketManger.the().inroon(Integer.toString(formUser_id), roomBean);
 
         if (requestRoomInfo != null) {
@@ -823,86 +821,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
     }
 
-
-    /******
-     * 注册广播监听 用于接收消息
-     ***/
-    synchronized void registerImBroadcastReceiver() {
-        if (!isregister) {
-            if (imBroadcastReceiver == null) {
-                imBroadcastReceiver = new ImBroadcastReceiver(new ImBroadcastReceiver.ImBroadcastReceiverLinstener() {
-
-                    @Override
-                    public void newMessage(Object obj) {
-                        roomMsg(obj);
-                    }
-
-                    @Override
-                    public void roomMessage(Object obj) {
-
-                    }
-
-                    @Override
-                    public void clearMsgNotation(ImBroadcastReceiver.RECEIVER_type type) {
-
-                    }
-                });
-            }
-            isregister = true;
-            getActivity().registerReceiver(imBroadcastReceiver, new IntentFilter(ImBroadcastReceiver.IntentFilter));
-        }
-
-    }
-
-    /****
-     * 注销广播监听
-     **/
-    synchronized void unRegisterImBroadcastReceiver() {
-        if (isregister) {
-            getActivity().unregisterReceiver(imBroadcastReceiver);
-            isregister = false;
-        }
-
-    }
-
-    /*******
-     * 注册socketio  链接变化监听
-     ******/
-    synchronized void regiestSockIoBroadCase() {
-        if (!isRegisterbroadcase) {
-            isRegisterbroadcase = true;
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(Constants.IntentFilterChatAtConnect);
-            intentFilter.addAction(Constants.IntentFilterChatAtUnConnect);
-            getActivity().registerReceiver(broadcastReceiver, intentFilter);
-        }
-    }
-
-
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent != null) {
-                if (intent.getAction().equals(Constants.IntentFilterChatAtConnect) || intent.getAction().equals(Constants.IntentFilterChatAtUnConnect)) {
-                    showOrHiddenAlertView();
-                }
-            }
-        }
-
-    };
-
-
-    /*******
-     * 注销socketio  链接变化监听
-     ******/
-    synchronized void unRegiestSockIoBroadCase() {
-        if (isRegisterbroadcase) {
-            getActivity().unregisterReceiver(broadcastReceiver);
-            isRegisterbroadcase = false;
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -919,6 +837,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     public void onStop() {
         super.onStop();
         Log.i(TAG, "ChatFragment--->>onStop ");
+        outRoom();
     }
 
     @Override
@@ -931,15 +850,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     public void onDestroyView() {
         super.onDestroyView();
         Log.i(TAG, "ChatFragment--->>onDestroyView ");
+        SocketObserverManager.getInstance().removeSocketObserver(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "ChatFragment--->>onDestroy ");
-        unRegisterImBroadcastReceiver();//注销消息接收
-        unRegiestSockIoBroadCase();//注销socketio  链接变化监听
-        outRoom();
+
     }
 
 
@@ -1221,5 +1139,38 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
         setSendValue(baseChatBean, "");
 
+    }
+
+    @Override
+    public void socketConnectSucess() {
+        showOrHiddenAlertView();
+    }
+
+    @Override
+    public void socketConnectFails() {
+        showOrHiddenAlertView();
+    }
+
+    @Override
+    public void receiveMsgFromRoom(RequestMessageBean bean) {
+        roomMsg(bean);
+    }
+
+    @Override
+    public void receiveMsgFromUnRoom(RequestMessageBean bean) {
+    }
+
+    @Override
+    public void sendStatusChaneg() {
+        getActivity().runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (chattingAdapter != null) {
+                    chattingAdapter.notifyDataSetChanged();
+                    // chat_list.invalidate();
+                }
+            }
+        });
     }
 }

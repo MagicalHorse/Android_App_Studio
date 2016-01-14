@@ -469,7 +469,10 @@ public class IndexFragmentForBaiJia extends Fragment implements CityChangeRefres
                 baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
             }
             isAllLoadSucess = true;
-            MyApplication.getInstance().showMessage(getActivity(), getActivity().getResources().getString(R.string.lastpagedata_str));
+            if(getActivity()!=null)
+            {
+                MyApplication.getInstance().showMessage(getActivity(), getActivity().getResources().getString(R.string.lastpagedata_str));
+            }
         } else {
             if (baijia_contact_listview != null) {
                 baijia_contact_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);

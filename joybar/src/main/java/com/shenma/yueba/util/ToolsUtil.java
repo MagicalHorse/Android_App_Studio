@@ -82,7 +82,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.jpush.android.api.JPushInterface;
-import im.broadcast.ImBroadcastReceiver;
+import im.form.MessageUserInfoBean;
 import im.form.RequestMessageBean;
 
 public class ToolsUtil {
@@ -910,10 +910,16 @@ public class ToolsUtil {
             jsonobject.put("type", "14");
             jsonobject.put("roomid", requestMessageBean.getRoomId());
             jsonobject.put("fromuserid", requestMessageBean.getFromUserId());
-            jsonobject.put("username", requestMessageBean.getUserName());
+            String nickname="";
+            if(requestMessageBean.getUser()!=null)
+            {
+                MessageUserInfoBean userbean=requestMessageBean.getUser();
+                nickname=userbean.getNickName();
+            }
+            jsonobject.put("username",nickname);
             Intent notificationintent = new Intent(JPushInterface.ACTION_MESSAGE_RECEIVED);
             notificationintent.putExtra(JPushInterface.EXTRA_MESSAGE, requestMessageBean.getBody());
-            notificationintent.putExtra(JPushInterface.EXTRA_TITLE, requestMessageBean.getUserName());
+            notificationintent.putExtra(JPushInterface.EXTRA_TITLE,nickname);
             notificationintent.putExtra(JPushInterface.EXTRA_EXTRA, jsonobject.toString());
             //如果消息免打扰  没有开启 则 弹出 通知
             if (!SharedUtil.getBooleanPerfernece(MyApplication.getInstance().getApplicationContext(), SharedUtil.user_canPush)) {
@@ -924,28 +930,6 @@ public class ToolsUtil {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-
-
-    /****
-     * 发送 通知 广播  通知消息 更新数据
-     ***/
-    public static void sendRoomMsgImBroadcast(RequestMessageBean bean) {
-        Intent intent = new Intent();
-        intent.setAction(ImBroadcastReceiver.IntentFilterRoomMsg);
-        intent.putExtra("Data", bean);
-        MyApplication.getInstance().getApplicationContext().sendBroadcast(intent);
-    }
-
-
-    /****
-     * 发送 通知 广播  通知消息 更新数据
-     ***/
-    public static void sendMsgImBroadcast(RequestMessageBean bean) {
-        Intent intent = new Intent();
-        intent.setAction(ImBroadcastReceiver.IntentFilter);
-        intent.putExtra("Data", bean);
-        MyApplication.getInstance().getApplicationContext().sendBroadcast(intent);
     }
 
 

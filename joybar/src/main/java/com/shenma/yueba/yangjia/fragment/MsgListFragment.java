@@ -26,9 +26,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import im.broadcast.ImBroadcastReceiver;
-import im.broadcast.ImBroadcastReceiver.ImBroadcastReceiverLinstener;
-import im.broadcast.ImBroadcastReceiver.RECEIVER_type;
+
+import im.control.SocketObserverManager;
 import im.form.RequestMessageBean;
 
 
@@ -37,7 +36,7 @@ import im.form.RequestMessageBean;
  * @author a
  *
  */
-public class MsgListFragment extends BaseFragment implements ImBroadcastReceiverLinstener{
+public class MsgListFragment extends BaseFragment implements SocketObserverManager.SocketNoticationListener{
 	private MsgAdapter msgAdapter;
 	boolean showDialog=true;
 	boolean  isfirststatus=false;
@@ -49,8 +48,6 @@ public class MsgListFragment extends BaseFragment implements ImBroadcastReceiver
 	private List<MsgListInfo> mList = new ArrayList<MsgListInfo>();
 	private View view;
 	private PullToRefreshListView pull_refresh_list;
-	boolean isImBroadcase=false;
-	ImBroadcastReceiver imBroadcastReceiver;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,9 +61,8 @@ public class MsgListFragment extends BaseFragment implements ImBroadcastReceiver
 
 		if (view == null) {
 			view = inflater.inflate(R.layout.refresh_listview_without_title_layout, null);
-			imBroadcastReceiver=new ImBroadcastReceiver(this);
 			initPullView();
-			registImBroacase();
+			SocketObserverManager.getInstance().addSocketObserver(this);
 		}
 		// 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
 		ViewGroup parent = (ViewGroup) view.getParent();
@@ -195,7 +191,7 @@ public class MsgListFragment extends BaseFragment implements ImBroadcastReceiver
 			{
 				pull_refresh_list.setMode(Mode.PULL_FROM_START);
 			}
-			ToolsUtil.showNoDataView(getActivity(), view,true);
+			ToolsUtil.showNoDataView(getActivity(), view, true);
 		} else if (page != 1
 				&& (data.getData() == null || data.getData().getItems()==null || data.getData().getItems().size() == 0)) {
 			if(pull_refresh_list!=null)
@@ -261,17 +257,28 @@ public class MsgListFragment extends BaseFragment implements ImBroadcastReceiver
 		requestFalshData();
 	}
 
+	
 	@Override
-	public void newMessage(Object obj) {
+	public void onDestroyView() {
 		// TODO Auto-generated method stub
-		
+		super.onDestroyView();
+		SocketObserverManager.getInstance().removeSocketObserver(this);
 	}
 
 	@Override
-	public void roomMessage(Object obj) {
-		if(obj!=null && obj instanceof RequestMessageBean)
+	public void socketConnectSucess() {
+
+	}
+
+	@Override
+	public void socketConnectFails() {
+
+	}
+
+	@Override
+	public void receiveMsgFromRoom(RequestMessageBean bean) {
+		if(bean!=null )
 		{
-			RequestMessageBean	bean=(RequestMessageBean)obj;
 			int touserid=bean.getToUserId();
 			if(touserid>0)
 			{
@@ -285,40 +292,12 @@ public class MsgListFragment extends BaseFragment implements ImBroadcastReceiver
 	}
 
 	@Override
-	public void clearMsgNotation(RECEIVER_type type) {
-		// TODO Auto-generated method stub
-		
+	public void receiveMsgFromUnRoom(RequestMessageBean bean) {
+
 	}
-	
-	void registImBroacase()
-	{
-		if(!isImBroadcase)
-		{
-			if(getActivity()!=null)
-			{
-				isImBroadcase=true;
-				getActivity().registerReceiver(imBroadcastReceiver, new IntentFilter(ImBroadcastReceiver.IntentFilterRoomMsg));
-			}
-		}
-	}
-	
-	
-	void unRegistImBroacase()
-	{
-		if(isImBroadcase)
-		{
-			if(getActivity()!=null)
-			{
-				isImBroadcase=false;
-				getActivity().unregisterReceiver(imBroadcastReceiver);
-			}
-		}
-	}
-	
+
 	@Override
-	public void onDestroyView() {
-		// TODO Auto-generated method stub
-		super.onDestroyView();
-		unRegistImBroacase();
+	public void sendStatusChaneg() {
+
 	}
 }

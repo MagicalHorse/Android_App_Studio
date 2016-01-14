@@ -22,6 +22,8 @@ import com.shenma.yueba.view.RoundImageView;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import im.form.BaseChatBean;
 
@@ -38,6 +40,8 @@ public abstract class ChatBaseManager {
 	TextView chat_layout_item_msg_time_textview;//时间
 	TextView chat_layout_item_msg_name_textview;//名字
 	RoundImageView chat_layout_item_img_icon_roundimageview;//头像
+	ImageView chat_layout_item_msg_gantanhao_imageview;//感叹号 点击重新发送信息
+	ProgressBar chat_layout_item_msg_gantanhao_progressbar;//进度条
 	View parentView;
 	
 	public enum ChatView_Type
@@ -77,6 +81,27 @@ public abstract class ChatBaseManager {
 					}
 				}
 			});*/
+
+			chat_layout_item_msg_gantanhao_imageview=(ImageView)v.findViewById(R.id.chat_layout_item_msg_gantanhao_imageview);
+			if(chat_layout_item_msg_gantanhao_imageview!=null)
+			{
+				chat_layout_item_msg_gantanhao_imageview.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						if(v.getTag()!=null)
+						{
+							BaseChatBean baseChatBean=(BaseChatBean)v.getTag();
+							if(baseChatBean.getSendStatus()== BaseChatBean.SendStatus.send_fails)
+							{
+								baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_loading);
+								SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
+								baseChatBean.sendData();
+							}
+						}
+					}
+				});
+			}
+			chat_layout_item_msg_gantanhao_progressbar=(ProgressBar)v.findViewById(R.id.chat_layout_item_msg_gantanhao_progressbar);
 			ToolsUtil.setFontStyle(context, v, R.id.chat_layout_item_msg_time_textview, R.id.chat_layout_item_msg_name_textview);
 		}
 	}
@@ -115,8 +140,57 @@ public abstract class ChatBaseManager {
 		{
 			initBitmap(ToolsUtil.nullToString(bean.getLogo()));
 		}
+
+		chat_layout_item_msg_gantanhao_imageview.setTag(bean);
+		switch(bean.getSendStatus())
+		{
+			case send_unsend:
+			case send_loading:
+				setShowOrHiddenProgressbar(true);
+				setShowOrHiddenGanTanHan(false);
+				break;
+			case send_fails:
+				setShowOrHiddenProgressbar(false);
+				setShowOrHiddenGanTanHan(true);
+				break;
+			case send_sucess:
+				setShowOrHiddenProgressbar(false);
+				setShowOrHiddenGanTanHan(false);
+				break;
+
+		}
 	}
-	
+
+
+	void setShowOrHiddenProgressbar(boolean b)
+	{
+		if(chat_layout_item_msg_gantanhao_progressbar!=null)
+		{
+			if(b)
+			{
+				chat_layout_item_msg_gantanhao_progressbar.setVisibility(View.VISIBLE);
+			}else
+			{
+				chat_layout_item_msg_gantanhao_progressbar.setVisibility(View.INVISIBLE);
+			}
+		}
+	}
+
+
+	void setShowOrHiddenGanTanHan(boolean b)
+	{
+		if(chat_layout_item_msg_gantanhao_imageview!=null)
+		{
+			if(b)
+			{
+				chat_layout_item_msg_gantanhao_imageview.setVisibility(View.VISIBLE);
+			}else
+			{
+				chat_layout_item_msg_gantanhao_imageview.setVisibility(View.INVISIBLE);
+			}
+		}
+	}
+
 	/*****
 	 * 初始化视图 
 	 * @param v View 父视图对象

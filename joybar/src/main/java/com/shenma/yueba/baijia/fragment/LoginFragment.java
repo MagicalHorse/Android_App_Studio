@@ -115,7 +115,6 @@ public class LoginFragment extends BaseFragment implements OnClickListener {
 							String flag = getActivity().getIntent().getStringExtra("flag");
 							UserRequestBean bean = (UserRequestBean) obj;
 							httpControl.setLoginInfo(getActivity(), bean);
-							SocketManger.the().onLineToUserID();
 							if("needLogin".equals(flag)){
 								
 							}else if (obj != null && obj instanceof UserRequestBean) {

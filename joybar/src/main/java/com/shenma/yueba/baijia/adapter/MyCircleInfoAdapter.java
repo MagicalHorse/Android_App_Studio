@@ -105,7 +105,7 @@ public class MyCircleInfoAdapter extends BaseAdapterWithUtil {
 						switch(users.getUser_Type())
 						{
 						case data:
-							//ToolsUtil.forwardShopMainActivity(ctx,Integer.parseInt(users.getUserId()));
+							ToolsUtil.forwardShopMainActivity(ctx,Integer.parseInt(users.getUserId()));
 							break;
 						case jia:
 							// 邀请加入圈子

@@ -25,9 +25,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
-import im.broadcast.ImBroadcastReceiver;
-import im.broadcast.ImBroadcastReceiver.ImBroadcastReceiverLinstener;
-import im.broadcast.ImBroadcastReceiver.RECEIVER_type;
+
+import im.control.SocketObserverManager;
 import im.form.RequestMessageBean;
 
 /**  
@@ -36,7 +35,7 @@ import im.form.RequestMessageBean;
  * 程序的简单说明  
  */
 
-public class MsgListView extends BaseView implements ImBroadcastReceiverLinstener{
+public class MsgListView extends BaseView implements SocketObserverManager.SocketNoticationListener{
 	Activity activity;
 	LayoutInflater layoutInflater;
 	boolean showDialog=true;
@@ -51,7 +50,6 @@ public class MsgListView extends BaseView implements ImBroadcastReceiverLinstene
 	LinearLayout showloading_layout_view;
 	MsgAdapter msgAdapter;
 	boolean isImBroadcase=false;
-	ImBroadcastReceiver imBroadcastReceiver;
 	public MsgListView(Activity activity)
 	{
 		this.activity=activity;
@@ -62,11 +60,10 @@ public class MsgListView extends BaseView implements ImBroadcastReceiverLinstene
 		if(view==null)
 		{
 			layoutInflater=activity.getLayoutInflater();
-			imBroadcastReceiver=new ImBroadcastReceiver(this);
 			initView();
 			initPullView();
 			firstInitData();
-			registImBroacase();
+			SocketObserverManager.getInstance().addSocketObserver(this);
 		}
 		return view;
 	}
@@ -113,7 +110,7 @@ public class MsgListView extends BaseView implements ImBroadcastReceiverLinstene
 				requestData();
 			}
 		});
-		msgAdapter=new MsgAdapter(activity, mList);
+		msgAdapter = new MsgAdapter(activity, mList);
 		pull_refresh_list.setAdapter(msgAdapter);
 	}
 	
@@ -122,7 +119,7 @@ public class MsgListView extends BaseView implements ImBroadcastReceiverLinstene
 	 * 请求加载数据
 	 * ***/
 	public void requestData() {
-		if(isruning)
+		if (isruning)
 		{
 			return;
 		}
@@ -260,43 +257,27 @@ public class MsgListView extends BaseView implements ImBroadcastReceiverLinstene
 	public void firstInitData() {
 		requestFalshData();
 	}
-	
-	
-	void registImBroacase()
-	{
-		if(!isImBroadcase)
-		{
-			if(activity!=null)
-			{
-				isImBroadcase=true;
-				activity.registerReceiver(imBroadcastReceiver, new IntentFilter(ImBroadcastReceiver.IntentFilterRoomMsg));
-			}
-		}
-	}
-	
-	
-	void unRegistImBroacase()
-	{
-		if(isImBroadcase)
-		{
-			if(activity!=null)
-			{
-				isImBroadcase=false;
-				activity.unregisterReceiver(imBroadcastReceiver);
-			}
-		}
+
+
+	@Override
+	public void socketConnectSucess() {
+
 	}
 
 	@Override
-	public void newMessage(Object obj) {
-		
+	public void socketConnectFails() {
+
 	}
 
 	@Override
-	public void roomMessage(Object obj) {
-		if(obj!=null && obj instanceof RequestMessageBean)
+	public void receiveMsgFromRoom(RequestMessageBean bean) {
+
+	}
+
+	@Override
+	public void receiveMsgFromUnRoom(RequestMessageBean bean) {
+		if(bean!=null )
 		{
-			RequestMessageBean	bean=(RequestMessageBean)obj;
 			int touserid=bean.getToUserId();
 			if(touserid>0)
 			{
@@ -310,7 +291,7 @@ public class MsgListView extends BaseView implements ImBroadcastReceiverLinstene
 	}
 
 	@Override
-	public void clearMsgNotation(RECEIVER_type type) {
-		
+	public void sendStatusChaneg() {
+
 	}
 }

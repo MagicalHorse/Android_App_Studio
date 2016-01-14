@@ -11,7 +11,7 @@ public class RoomBean {
 	String  type= "private";
 	String userName= "gyj";
 	int[] users;
-	
+
 	public int[] getUsers() {
 		return users;
 	}
