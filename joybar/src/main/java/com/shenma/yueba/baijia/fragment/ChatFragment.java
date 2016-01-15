@@ -461,9 +461,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener , Soc
         if (bean == null) {
             return;
         }
-        bean.setContent(content);
-        bean.setFrom_id(formUser_id);
-        bean.setTo_id(toUser_id);
+        bean.setBody(content);
+        bean.setFromUserId(formUser_id);
+        bean.setToUserId(toUser_id);
         bean.setRoom_No(roomId);
         bean.setUserName(userName);
         bean.setIsoneself(true);
@@ -579,30 +579,34 @@ public class ChatFragment extends Fragment implements View.OnClickListener , Soc
             return;
         }
         for (int i = 0; i < items.size(); i++) {
-            String type = Integer.toString(items.get(i).getMessageType());
+            String type = items.get(i).getType();
             if (type.equals(RequestMessageBean.type_img))// 如果是 图片
             {
                 BaseChatBean bean = new PicChatBean(getActivity());
                 bean.setValue(items.get(i));
                 bean.setMessageType(1);
+                bean.setType(type);
                 addListData(true, bean);
             } else if (type.equals(RequestMessageBean.type_produtc_img))// 是商品图片
             {
                 BaseChatBean bean = new ProductChatBean(getActivity());
                 bean.setValue(items.get(i));
                 bean.setMessageType(1);
+                bean.setType(type);
                 addListData(true, bean);
             } else if (type.equals(RequestMessageBean.notice))// 广播
             {
                 BaseChatBean bean = new NoticeChatBean(getActivity());
                 bean.setValue(items.get(i));
                 bean.setMessageType(1);
+                bean.setType(type);
                 addListData(true, bean);
             } else if (type.equals(RequestMessageBean.type_empty))// 文本信息
             {
                 BaseChatBean bean = new TextChatBean(getActivity());
                 bean.setValue(items.get(i));
                 bean.setMessageType(1);
+                bean.setType(type);
                 addListData(true, bean);
             }
         }
@@ -654,7 +658,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener , Soc
                 return;
             }
 
-            String type = Integer.toString(bean.getMessageType());
+            String type = bean.getType();
             if (type.equals(RequestMessageBean.type_img))// 如果是图片
             {
                 baseChatBean = new PicChatBean(getActivity());

@@ -68,7 +68,7 @@ public class ChatViewManager {
 		{
 		//根据 类型 设置 当前 消息 对应的 视图样式
 		case link_type://链接信息
-			if(bean.isIsoneself())
+			if(bean.isoneself())
 			{
 				bean.setBaseManager(rightlinkViewManager);
 			}else
@@ -78,7 +78,7 @@ public class ChatViewManager {
 			
 			break;
 		case text_trype:///文本信息
-			if(bean.isIsoneself())
+			if(bean.isoneself())
 			{
 				bean.setBaseManager(rightTextViewManager);
 			}else
@@ -87,7 +87,7 @@ public class ChatViewManager {
 			}
 			break;
 		case pic_type://图片信息
-			if(bean.isIsoneself())
+			if(bean.isoneself())
 			{
 				bean.setBaseManager(rightPicViewManager);
 			}else
@@ -96,7 +96,7 @@ public class ChatViewManager {
 			}
 			break;
 			default://默认文本信息
-			if(bean.isIsoneself())
+			if(bean.isoneself())
 			{
 				bean.setBaseManager(rightTextViewManager);
 			}else

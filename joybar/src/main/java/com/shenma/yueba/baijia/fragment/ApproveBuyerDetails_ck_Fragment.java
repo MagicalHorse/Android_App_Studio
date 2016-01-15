@@ -198,6 +198,10 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
     }
 
     private void initViews() {
+        if(bean==null || Data==null)
+        {
+            getActivity().finish();
+        }
         //返回
         ImageView back_grey_imageview = (ImageView) parentView.findViewById(R.id.back_grey_imageview);
         back_grey_imageview.setOnClickListener(new OnClickListener() {

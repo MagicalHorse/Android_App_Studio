@@ -79,7 +79,7 @@ public class PicViewManager extends ChatBaseManager implements OnClickListener{
 			//如果 图片上传完成 则 显示 图片
 			if(picbean.isSuccess())
 			{
-				initBitmap(ToolsUtil.nullToString((String)picbean.getContent()), chat_layout_item_leftimg_msg_imageview);
+				initBitmap(ToolsUtil.nullToString((String)picbean.getBody()), chat_layout_item_leftimg_msg_imageview);
 			}
 			
 			//如果图片上传完成 则隐藏进度条 否则显示进度条
@@ -114,7 +114,7 @@ public class PicViewManager extends ChatBaseManager implements OnClickListener{
 			Intent intent=new Intent(context,TouchImageViewActivity.class);
 			if(picbean.isSuccess())
 			{
-				intent.putExtra("IMG_URL", (String)picbean.getContent());
+				intent.putExtra("IMG_URL", (String)picbean.getBody());
 			    context.startActivity(intent);
 			    ((Activity)context).overridePendingTransition(R.anim.img_scale_in, R.anim.img_scale_out);
 			}

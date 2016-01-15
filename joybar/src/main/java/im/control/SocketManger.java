@@ -10,6 +10,7 @@ import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.util.BaseGsonUtils;
 import com.shenma.yueba.util.Md5Utils;
 import com.shenma.yueba.util.SharedUtil;
 
@@ -22,8 +23,10 @@ import java.util.List;
 
 import im.form.BaseChatBean;
 import im.form.MessageBean;
+import im.form.RequestImCallBackBean;
 import im.form.RequestMessageBean;
 import im.form.RoomBean;
+import im.form.TextChatBean;
 
 /****
  * 通信管理 本类定义 im 通信 管理类 提供  链接服务器  断开服务器   进入房间 及 发送消息等方法
@@ -33,7 +36,6 @@ public class SocketManger {
     static SocketManger socketManger;
     //final String URL = "2".equals(Constants.PublishStatus)?"http://chat.joybar.com.cn/chat?userid=":"http://182.92.7.70:8000/chat?userid=";//服务器地址
     final String URL = "http://182.92.7.70:8000/chat?";
-    List<MessageBean> mssageBean_list = new ArrayList<MessageBean>();
     String userId = null;
     RoomBean roomBean = null;
 
@@ -310,50 +312,52 @@ public class SocketManger {
      * @param baseChatBean BaseChatBean 发送信息
      * ***/
     public synchronized void sendMsg(final BaseChatBean baseChatBean) {
-        final MessageBean messageBean=baseChatBean.getMessageBean();
         baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_loading);
-        if(!mssageBean_list.contains(messageBean))
-        {
-            mssageBean_list.add(messageBean);
-        }
+        MessageBean sendbean=baseChatBean.getMessageBean();
         if (isConnect()) {
             // Map<String, String> data2=getMap(messageBean);
             Gson gson=new Gson();
-            String json=gson.toJson(messageBean);
+            String json=gson.toJson(sendbean);
             Log.i("TAG","---->>>socket  sendMsg--->>"+json);
-            Log.i("TAG","---->>>socket sendMsg--->>user_id"+messageBean.getToUserId());
             try {
                 socket.emit("sendMessage", new JSONObject(json), new Ack() {
 
                     @Override
                     public void call(Object... arg0) {
-                        JSONObject jsonObject=(JSONObject)arg0[0];
-                        if(jsonObject.has("type"))
+                        if(arg0!=null && arg0.length>0)
                         {
-                            try {
-                                String type=jsonObject.getString("type");
-                                if(type.equals("success"))
+                            JSONObject json = (JSONObject) arg0[0];
+                            RequestImCallBackBean bean=BaseGsonUtils.getJsonToObject(RequestImCallBackBean.class,json.toString());
+                            if(json!=null && bean!=null)
+                            {
+                                if(bean.getType().equals("success"))
                                 {
                                     baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_sucess);
                                     //发送成功
                                     SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
                                 }else
                                 {
-                                    baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_unsend);
+                                    baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_sucess);
+                                    //发送成功
                                     SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
-                                    //发送失败
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            }else
+                            {
+                                baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_unsend);
+                                SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
+                                //发送失败
                             }
+                            JSONObject jsonObject=(JSONObject)arg0[0];
+
+                        }else
+                        {
+                            baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_unsend);
+                            SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
+                            //发送失败
                         }
                         Log.i("TAG", "sendMessage " + arg0.toString());
                     }
                 });
-                if(mssageBean_list.contains(messageBean))
-                {
-                    mssageBean_list.remove(messageBean);
-                }
             } catch (Exception e) {
                 Log.i("TAG", e.getMessage());
             }

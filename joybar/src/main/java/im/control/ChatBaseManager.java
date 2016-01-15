@@ -126,16 +126,16 @@ public abstract class ChatBaseManager {
 		if(bean.getLogo()==null || bean.getLogo().equals(""))
 		{
 			//首先从 软引用列表中 查询是否存在相应的 bitmap对象 如果存在 直接引用 不存在 则调用接口请求数据
-			if(ChatActivity.userid_logo.containsKey(bean.getFrom_id()))
+			if(ChatActivity.userid_logo.containsKey(bean.getFromUserId()))
 			{
-				String save_logo= ChatActivity.userid_logo.get(bean.getFrom_id());
+				String save_logo= ChatActivity.userid_logo.get(bean.getFromUserId());
 				if(save_logo!=null)
 				{
 					initBitmap(save_logo);
 					return;
 				}
 			}
-			getUserLogo(bean.getFrom_id());
+			getUserLogo(bean.getFromUserId());
 		}else
 		{
 			initBitmap(ToolsUtil.nullToString(bean.getLogo()));

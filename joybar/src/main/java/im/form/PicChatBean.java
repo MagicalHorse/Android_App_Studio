@@ -112,7 +112,7 @@ public class PicChatBean extends BaseChatBean {
      * 发送通知
      ****/
     void sendIm(String url) {
-        content = url;
+        body = url;
         SocketManger.the().sendMsg(this);
         if (listener != null) {
             listener.pic_notifaction();
@@ -194,7 +194,7 @@ public class PicChatBean extends BaseChatBean {
                 isFails = false;
                 ali_content = arg0;
                 isUpload = false;
-                content = arg0;
+                body = arg0;
                 if (listener != null) {
                     listener.pic_notifaction();
                 }

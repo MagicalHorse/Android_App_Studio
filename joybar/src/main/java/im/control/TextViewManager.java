@@ -64,7 +64,7 @@ public class TextViewManager extends ChatBaseManager{
 	@Override
 	public void child_isshow(boolean b,BaseChatBean bean) {
 		
-		chat_layout_item_leftmsg_msg_textview.setText(ToolsUtil.analysisFace(context,(String)bean.getContent()),BufferType.SPANNABLE);
+		chat_layout_item_leftmsg_msg_textview.setText(ToolsUtil.analysisFace(context,(String)bean.getBody()),BufferType.SPANNABLE);
 
 	}
 	

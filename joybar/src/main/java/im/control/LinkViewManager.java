@@ -87,7 +87,7 @@ public class LinkViewManager extends ChatBaseManager {
 	 * ***/
 	public void child_isshow(boolean b, BaseChatBean bean) {
 		chat_item_content_linearlayout.setTag(bean);
-		String contecnt_str=ToolsUtil.getImage(ToolsUtil.nullToString((String)bean.getContent()), 320, 0);
+		String contecnt_str=ToolsUtil.getImage(ToolsUtil.nullToString((String)bean.getBody()), 320, 0);
 		chat_layout_item_leftmsg_msg_textview.setText(ToolsUtil.analysisFace(context,contecnt_str),BufferType.SPANNABLE);
 		initBitmap(contecnt_str, chat_layout_item_leftmsg_productimg_textview);
 	}

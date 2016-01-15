@@ -503,9 +503,9 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
             inroom();
         }
 
-        bean.setContent(content);
-        bean.setFrom_id(formUser_id);
-        bean.setTo_id(toUser_id);
+        bean.setBody(content);
+        bean.setFromUserId(formUser_id);
+        bean.setToUserId(toUser_id);
         bean.setRoom_No(roomId);
         bean.setUserName(userName);
         bean.setIsoneself(true);
@@ -1028,30 +1028,34 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
             return;
         }
         for (int i = 0; i < items.size(); i++) {
-            String type = Integer.toString(items.get(i).getMessageType());
+            String type = items.get(i).getType();
             if (type.equals(RequestMessageBean.type_img))// 如果是 图片
             {
                 BaseChatBean bean = new PicChatBean(ChatActivity.this);
                 bean.setValue(items.get(i));
                 bean.setMessageType(0);
+                bean.setType(type);
                 addListData(true, bean);
             } else if (type.equals(RequestMessageBean.type_produtc_img))// 是商品图片
             {
                 BaseChatBean bean = new ProductChatBean(ChatActivity.this);
                 bean.setValue(items.get(i));
                 bean.setMessageType(0);
+                bean.setType(type);
                 addListData(true, bean);
             } else if (type.equals(RequestMessageBean.notice))// 广播
             {
                 BaseChatBean bean = new NoticeChatBean(ChatActivity.this);
                 bean.setValue(items.get(i));
                 bean.setMessageType(0);
+                bean.setType(type);
                 addListData(true, bean);
             } else if (type.equals(RequestMessageBean.type_empty))// 文本信息
             {
                 BaseChatBean bean = new TextChatBean(ChatActivity.this);
                 bean.setValue(items.get(i));
                 bean.setMessageType(0);
+                bean.setType(type);
                 addListData(true, bean);
             }
         }
@@ -1140,7 +1144,7 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
             }
 
             BaseChatBean baseChatBean = null;
-            String type = Integer.toString(bean.getMessageType());
+            String type = bean.getType();
             if (type.equals(RequestMessageBean.type_img))// 如果是图片
             {
                 baseChatBean = new PicChatBean(ChatActivity.this);
