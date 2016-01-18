@@ -140,8 +140,10 @@ public abstract class ChatBaseManager {
 		{
 			initBitmap(ToolsUtil.nullToString(bean.getLogo()));
 		}
-
-		chat_layout_item_msg_gantanhao_imageview.setTag(bean);
+		if(chat_layout_item_msg_gantanhao_imageview!=null)
+		{
+			chat_layout_item_msg_gantanhao_imageview.setTag(bean);
+		}
 		switch(bean.getSendStatus())
 		{
 			case send_unsend:

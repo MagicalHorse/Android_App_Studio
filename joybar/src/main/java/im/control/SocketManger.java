@@ -10,23 +10,20 @@ import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.receiver.ConnectionChangeReceiver;
 import com.shenma.yueba.util.BaseGsonUtils;
 import com.shenma.yueba.util.Md5Utils;
 import com.shenma.yueba.util.SharedUtil;
+import com.shenma.yueba.util.ToolsUtil;
 
+import org.apache.http.conn.ClientConnectionManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import im.form.BaseChatBean;
-import im.form.MessageBean;
-import im.form.RequestImCallBackBean;
-import im.form.RequestMessageBean;
-import im.form.RoomBean;
-import im.form.TextChatBean;
+import im.form.*;
+
 
 /****
  * 通信管理 本类定义 im 通信 管理类 提供  链接服务器  断开服务器   进入房间 及 发送消息等方法
@@ -38,7 +35,8 @@ public class SocketManger {
     final String URL = "http://182.92.7.70:8000/chat?";
     String userId = null;
     RoomBean roomBean = null;
-
+    int maxCount=3;//设置重新连接的最大次数
+    int currCount=0;
     private SocketManger() {
     }
 
@@ -68,15 +66,25 @@ public class SocketManger {
      ***/
     public synchronized void contentSocket() {
         //如果对象为null 或者 当前没有链接  则进行链接
+        if(!ToolsUtil.isNetworkConnected(MyApplication.getInstance()))
+        {
+            return;
+        }
         if(socket==null)
         {
             try {
                 //获取当前用户的userID
-                String useriD=SharedUtil.getStringPerfernece(MyApplication.getInstance().getApplicationContext(), SharedUtil.user_id);
+                String useriD= SharedUtil.getStringPerfernece(MyApplication.getInstance().getApplicationContext(), SharedUtil.user_id);
                 if(useriD==null || useriD.equals(""))
                 {
                     Log.i("TAG", "---->>>socket create  useriD:"+useriD);
                     return;
+                }
+                if(currCount>maxCount)
+                {
+                    Log.i("TAG", "---->>>socket 重新建立连接等待15000");
+                    currCount=0;
+                    SystemClock.sleep(15000);
                 }
 
                 String timestamp=Long.toString(new Date().getTime());
@@ -93,6 +101,7 @@ public class SocketManger {
                 setListtener();
                 //链接
                 socket.connect();
+                currCount++;
                 Log.i("TAG", "---->>>socket create");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -102,7 +111,15 @@ public class SocketManger {
         {
             Log.i("TAG", "---->>>socket unconnect");
             //socket.close();
+            if(currCount>maxCount)
+            {
+                Log.i("TAG", "---->>>socket 重新连接等待15000");
+                currCount=0;
+                SystemClock.sleep(15000);
+            }
+
             socket.connect();
+            currCount++;
         }else if(socket.connected())
         {
 
@@ -135,6 +152,7 @@ public class SocketManger {
             public void call(Object... arg0) {
                 SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.connectSucess);
                 Log.i("TAG", "---->>>socket  Socket.EVENT_CONNECT");
+                currCount=0;
                 inroon(userId, roomBean);
             }
         });
@@ -143,7 +161,7 @@ public class SocketManger {
 
             @Override
             public void call(Object... arg0) {
-                SystemClock.sleep(800);
+                SystemClock.sleep(5000);
                 Log.i("TAG", "---->>>socket Socket.EVENT_CONNECT_ERROR   arg0:" + arg0);
                 SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.UnconnectSucess);
                 contentSocket();
@@ -155,7 +173,7 @@ public class SocketManger {
 
             @Override
             public void call(Object... arg0) {
-                SystemClock.sleep(800);
+                SystemClock.sleep(5000);
                 SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.UnconnectSucess);
                 Log.i("TAG", "---->>>socket Socket.EVENT_CONNECT_TIMEOUT");
                 contentSocket();
@@ -198,6 +216,7 @@ public class SocketManger {
                     Gson gson = new Gson();
                     Object obj = gson.fromJson(json.toString(), RequestMessageBean.class);
                     if (obj != null && obj instanceof RequestMessageBean) {
+                        Log.i("TAG", "---->>>socket new message 收到");
                         RequestMessageBean requestMessageBean = (RequestMessageBean) obj;
                         SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.roomMessage,requestMessageBean);
                     }
@@ -234,8 +253,10 @@ public class SocketManger {
     public void inroon(String userId,RoomBean bean) {
         //Map<String, String> data2=getMap(bean);
         //Log.i("TAG", new JSONObject(data2).toString());
-        if(socket==null)
+        if(socket==null || !isConnect())
         {
+            Log.i("TAG","inroon:socket 未连接 进行重连");
+            currCount=0;
             contentSocket();
             return;
         }
@@ -297,6 +318,11 @@ public class SocketManger {
 
                 @Override
                 public void call(Object... arg0) {
+                    if(arg0!=null && arg0.length>0)
+                    {
+                        JSONObject jsonObject=(JSONObject)arg0[0];
+                        Log.i("TAG", "---->>>socket outinroon:"+jsonObject.toString());
+                    }
                     SocketObserverManager.getInstance().setIsJoinRoom(false);
                     Log.i("TAG", "---->>>socket outinroon");
                 }
@@ -327,22 +353,25 @@ public class SocketManger {
                         if(arg0!=null && arg0.length>0)
                         {
                             JSONObject json = (JSONObject) arg0[0];
-                            RequestImCallBackBean bean=BaseGsonUtils.getJsonToObject(RequestImCallBackBean.class,json.toString());
+                            RequestImCallBackBean bean= BaseGsonUtils.getJsonToObject(RequestImCallBackBean.class, json.toString());
                             if(json!=null && bean!=null)
                             {
                                 if(bean.getType().equals("success"))
                                 {
                                     baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_sucess);
+                                    Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调:成功");
                                     //发送成功
                                     SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
                                 }else
                                 {
-                                    baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_sucess);
-                                    //发送成功
+                                    Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调:失败");
+                                    baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_unsend);
+                                    //发送失败
                                     SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
                                 }
                             }else
                             {
+                                Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调:成功");
                                 baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_unsend);
                                 SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
                                 //发送失败
@@ -392,23 +421,25 @@ public class SocketManger {
      * 注销监听
      **/
     void unsetListtener() {
-        // 连接监听
-        socket.off(Socket.EVENT_CONNECT);
-        // 连接失败监听
-        socket.off(Socket.EVENT_CONNECT_ERROR);
+        if(socket!=null)
+        {
+            // 连接监听
+            socket.off(Socket.EVENT_CONNECT);
+            // 连接失败监听
+            socket.off(Socket.EVENT_CONNECT_ERROR);
 
-        // 连接超时
-        socket.off(Socket.EVENT_CONNECT_TIMEOUT);
+            // 连接超时
+            socket.off(Socket.EVENT_CONNECT_TIMEOUT);
 
-        // 断开连接监听
-        socket.off(Socket.EVENT_DISCONNECT);
+            // 断开连接监听
+            socket.off(Socket.EVENT_DISCONNECT);
 
-        socket.off("new message");
-        socket.off("room message");
-        // 发送消息监听
-        socket.off(Socket.EVENT_MESSAGE);
-        // 重新连接监听
-        socket.off(Socket.EVENT_RECONNECT);
+            socket.off("new message");
+            socket.off("room message");
+            // 发送消息监听
+            socket.off(Socket.EVENT_MESSAGE);
+            // 重新连接监听
+            socket.off(Socket.EVENT_RECONNECT);
+        }
     }
-
 }

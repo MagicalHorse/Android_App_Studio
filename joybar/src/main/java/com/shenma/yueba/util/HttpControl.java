@@ -110,6 +110,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import im.control.SocketManger;
+
 /**
  * @author gyj
  * @version 创建时间：2015-5-10 下午4:29:03 程序的简单说明:本类定义 Http控制类 用于各种Http访问的的方法处理
@@ -2687,6 +2689,10 @@ public class HttpControl {
             jpushUtils.setAlias(SharedUtil.getStringPerfernece(context, SharedUtil.user_id));//设置别名
             //通知 登录成功
             LoginRefreshObserver.getInstance().NoticationLoginSucess();
+            if(!SocketManger.the().isConnect())
+            {
+                SocketManger.the().contentSocket();
+            }
         }
     }
 

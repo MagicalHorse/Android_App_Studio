@@ -84,7 +84,7 @@ public abstract class BaseChatBean extends MessageBean implements Serializable {
             body = bean.getBody();
             creationDate = ToolsUtil.nullToString(bean.getCreationDate());
             String user_id = SharedUtil.getStringPerfernece(MyApplication.getInstance().getApplicationContext(), SharedUtil.user_id);
-            if (user_id.equals(fromUserId)) {
+            if (user_id.equals(Integer.toString(fromUserId))) {
                 isoneself = true;
             } else {
                 isoneself = false;
