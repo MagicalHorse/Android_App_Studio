@@ -365,14 +365,14 @@ public class SocketManger {
                                 }else
                                 {
                                     Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调:失败");
-                                    baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_unsend);
+                                    baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_fails);
                                     //发送失败
                                     SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
                                 }
                             }else
                             {
                                 Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调:成功");
-                                baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_unsend);
+                                baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_fails);
                                 SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
                                 //发送失败
                             }
@@ -380,7 +380,7 @@ public class SocketManger {
 
                         }else
                         {
-                            baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_unsend);
+                            baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_fails);
                             SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
                             //发送失败
                         }

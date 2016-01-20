@@ -17,6 +17,7 @@ import com.umeng.socialize.controller.UMSocialService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -124,6 +125,7 @@ public class LoginFragment extends BaseFragment implements OnClickListener {
 								JpushUtils jpushUtils = new JpushUtils(getActivity());
 								jpushUtils.setAlias(bean.getData().getId()+"");
 								startActivity(intent);
+								Log.i("TAG", "jUSH LoginFragment:"+bean.getData().getId());
 							}
 							getActivity().finish();
 						}

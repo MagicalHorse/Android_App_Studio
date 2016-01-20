@@ -33,6 +33,7 @@ public class MyReceiver extends BroadcastReceiver {
 			String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
 			try {
 				JSONObject jsonObject = new JSONObject(extra);
+				Log.i("TAG", "jUSH MyReceiver:onReceive :"+jsonObject.toString());
 				type = jsonObject.getString("type");
 				if(jsonObject.has("roomid"))
 				{

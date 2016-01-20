@@ -21,6 +21,7 @@ import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.view.RoundImageView;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -161,6 +162,7 @@ public abstract class ChatBaseManager {
 				break;
 
 		}
+		Log.i("TAG", "socket isshow SendStatus：" + bean.getSendStatus()+"  body:"+bean.getBody());
 	}
 
 
