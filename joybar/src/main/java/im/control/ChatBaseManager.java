@@ -15,6 +15,7 @@ import com.shenma.yueba.view.RoundImageView;
 
 import im.form.BaseChatBean;
 
+
 /**
  * @author gyj
  * @version 创建时间：2015-7-3 下午5:37:09
