@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+import im.db.ImDataBaseManager;
 import im.form.*;
 
 
@@ -216,8 +217,9 @@ public class SocketManger {
                     Gson gson = new Gson();
                     Object obj = gson.fromJson(json.toString(), RequestMessageBean.class);
                     if (obj != null && obj instanceof RequestMessageBean) {
-                        Log.i("TAG", "---->>>socket new message 收到");
+                        Log.i("TAG", "---->>>socket new message 收到:"+json.toString());
                         RequestMessageBean requestMessageBean = (RequestMessageBean) obj;
+                        ImDataBaseManager.getInstance().writeImMessageData(requestMessageBean);
                         SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.roomMessage,requestMessageBean);
                     }
                 }
@@ -233,11 +235,12 @@ public class SocketManger {
             public void call(Object... arg0) {
                 if (arg0[0] != null && arg0[0] instanceof JSONObject) {
                     JSONObject json = (JSONObject) arg0[0];
-                    Log.i("TAG", "---->>>socket room message");
+                    Log.i("TAG", "---->>>socket room message:"+json.toString());
                     Gson gson = new Gson();
                     Object obj = gson.fromJson(json.toString(), RequestMessageBean.class);
                     if (obj != null && obj instanceof RequestMessageBean) {
                         final RequestMessageBean requestMessageBean = (RequestMessageBean)obj;
+                        ImDataBaseManager.getInstance().writeImMessageData(requestMessageBean);
                         SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.OurRoomMessage,requestMessageBean);
                     }
                 }
@@ -359,9 +362,18 @@ public class SocketManger {
                                 if(bean.getType().equals("success"))
                                 {
                                     baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_sucess);
-                                    Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调:成功");
+                                    if(bean.getData()!=null)
+                                    {
+                                        baseChatBean.set_id(bean.getData().get_id());
+                                    }
+                                    Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调:成功:"+json.toString());
+                                    if(bean.getData()!=null)
+                                    {
+                                        baseChatBean.set_id(bean.getData().get_id());
+                                    }
+                                    ImDataBaseManager.getInstance().writeImMessageData(bean.getData());
                                     //发送成功
-                                    SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
+                                    SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts,baseChatBean);
                                 }else
                                 {
                                     Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调:失败");

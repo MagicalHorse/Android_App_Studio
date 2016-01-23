@@ -297,7 +297,7 @@ public class MsgListFragment extends BaseFragment implements SocketObserverManag
 	}
 
 	@Override
-	public void sendStatusChaneg() {
+	public void sendStatusChaneg(Object obj) {
 
 	}
 }

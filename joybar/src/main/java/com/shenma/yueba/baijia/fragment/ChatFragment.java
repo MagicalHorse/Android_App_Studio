@@ -1165,7 +1165,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener , Soc
     }
 
     @Override
-    public void sendStatusChaneg() {
+    public void sendStatusChaneg(Object obj) {
         getActivity().runOnUiThread(new Runnable() {
 
             @Override

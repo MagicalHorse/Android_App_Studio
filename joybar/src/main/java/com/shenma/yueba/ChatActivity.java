@@ -65,6 +65,7 @@ import java.util.List;
 import java.util.Map;
 import im.control.SocketManger;
 import im.control.SocketObserverManager;
+import im.db.ImDataBaseManager;
 import im.form.BaseChatBean;
 import im.form.NoticeChatBean;
 import im.form.PicChatBean;
@@ -119,6 +120,7 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
     private int toUser_id;
     private int circleId;// 圈子id
     private int currPage = Constants.CURRPAGE_VALUE;
+    private int messagecurrPage = Constants.CURRPAGE_VALUE;//获取本地历史信息的当前页
     private String roomId = null;
     private String userName = "";
     private String usericon = "";
@@ -128,7 +130,7 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
     private TextView pb_reserttitle_textview;//提示socke重连
     private String littlePicPath;
     private String littlePicPath_cache;
-    public static Map<Integer, String> userid_logo = new HashMap<Integer, String>();
+    //public static Map<Integer, String> userid_logo = new HashMap<Integer, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -356,7 +358,6 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        userid_logo.clear();
         SocketObserverManager.getInstance().removeSocketObserver(this);
         outRoom();
         MyApplication.getInstance().removeActivity(this);
@@ -885,7 +886,28 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
         }
         loadmorePB.setVisibility(View.VISIBLE);
         isloading = true;
-        getMessageRecord(roomId, -10, currPage, Constants.PAGESIZE_VALUE);
+        if(roomId!=null && !roomId.equals(""))
+        {
+            /**********
+             * 从数据库中获取历史消息
+             * *******/
+            List<RequestMessageBean> list= ImDataBaseManager.getInstance().readImMessageAllData(messagecurrPage,10,roomId);
+            if(list!=null && list.size()!=0 )
+            {
+                Log.i("TAG", "socket: 获取到历史信息："+list.size()+" messagecurrPage:"+messagecurrPage+"  roomId:"+roomId);
+                dataSuceeValue(list);
+                /*loadmorePB.setVisibility(View.GONE);
+                isloading = false;*/
+                messagecurrPage++;
+            }else
+            {
+                /*isloading = false;
+                ishowStatus = false;
+                loadmorePB.setVisibility(View.GONE);*/
+                Log.i("TAG", "socket: 获取到网络历史信息：" + " currPage:" + currPage + "  roomId:" + roomId);
+                getMessageRecord(roomId, -10, currPage, Constants.PAGESIZE_VALUE);
+            }
+        }
 
     }
 
@@ -1066,8 +1088,6 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
 
         pointLast(items.size());
 
-        // chattingAdapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -1131,7 +1151,7 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
                         break;
                 }
             }
-            sendStatusChaneg();
+            sendStatusChaneg(null);
         }
     }
 
@@ -1143,24 +1163,32 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
                 return;
             }
 
-            BaseChatBean baseChatBean = null;
-            String type = bean.getType();
-            if (type.equals(RequestMessageBean.type_img))// 如果是图片
-            {
-                baseChatBean = new PicChatBean(ChatActivity.this);
-            } else if (type.equals(RequestMessageBean.type_produtc_img))// 如果是商品图片
-            {
-                baseChatBean = new ProductChatBean(ChatActivity.this);
-            } else if (type.equals(RequestMessageBean.notice))// 如果是广播
-            {
-
-            } else {
-                baseChatBean = new TextChatBean(ChatActivity.this);
-
-            }
-            // 通知更新
-            notification(baseChatBean, bean);
+            addMessageList(bean);
         }
+    }
+
+    /********
+     * 将 收到的数据 转化成试图 对象
+     * ****/
+    void addMessageList(RequestMessageBean bean)
+    {
+        BaseChatBean baseChatBean = null;
+        String type = bean.getType();
+        if (type.equals(RequestMessageBean.type_img))// 如果是图片
+        {
+            baseChatBean = new PicChatBean(ChatActivity.this);
+        } else if (type.equals(RequestMessageBean.type_produtc_img))// 如果是商品图片
+        {
+            baseChatBean = new ProductChatBean(ChatActivity.this);
+        } else if (type.equals(RequestMessageBean.notice))// 如果是广播
+        {
+
+        } else {
+            baseChatBean = new TextChatBean(ChatActivity.this);
+
+        }
+        // 通知更新
+        notification(baseChatBean, bean);
     }
 
     @Override
@@ -1169,7 +1197,7 @@ public class ChatActivity extends RoboActivity implements OnClickListener,
     }
 
     @Override
-    public void sendStatusChaneg() {
+    public void sendStatusChaneg(Object obj) {
         ChatActivity.this.runOnUiThread(new Runnable() {
 
             @Override

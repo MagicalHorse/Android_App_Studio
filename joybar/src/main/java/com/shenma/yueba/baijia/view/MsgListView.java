@@ -53,6 +53,7 @@ public class MsgListView extends BaseView implements SocketObserverManager.Socke
 	public MsgListView(Activity activity)
 	{
 		this.activity=activity;
+		SocketObserverManager.getInstance().addSocketObserver(this);
 	}
 	
 	public View getView()
@@ -278,20 +279,15 @@ public class MsgListView extends BaseView implements SocketObserverManager.Socke
 	public void receiveMsgFromUnRoom(RequestMessageBean bean) {
 		if(bean!=null )
 		{
-			int touserid=bean.getToUserId();
-			if(touserid>0)
+			if(bean.getMessageType()==0)
 			{
-				String roomid=bean.getRoomId();
-				if(roomid!=null)
-				{
-					requestFalshData();
-				}
+				requestFalshData();
 			}
 		}
 	}
 
 	@Override
-	public void sendStatusChaneg() {
+	public void sendStatusChaneg(Object obj) {
 
 	}
 }

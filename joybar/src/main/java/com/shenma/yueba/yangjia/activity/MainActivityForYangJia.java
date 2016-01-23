@@ -229,7 +229,7 @@ public void onResume() {
 	}
 
 	@Override
-	public void sendStatusChaneg() {
+	public void sendStatusChaneg(Object obj) {
 
 	}
 
@@ -271,7 +271,6 @@ public void onResume() {
 
 		/***
 		 * 设置 红色的按钮显示或隐藏
-		 * @param i int 需要控制的 item 的 下标
 		 * @param b  boolean 是否显示 true显示  false否
 		 * **/
 		void setRedView(boolean b)

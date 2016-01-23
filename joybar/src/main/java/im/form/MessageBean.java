@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 发生消息信息对象
  * ****/
 public class MessageBean implements Serializable{
-
+	String _id="";//消息id
 	int fromUserId;//发送方ID
 	int toUserId;//接收方id
 	String userName="";//发送方名称
@@ -20,6 +20,15 @@ public class MessageBean implements Serializable{
 	int messageType=0;//【0、私聊  1 群聊 】所在的组（私聊 ，群聊）
 	String type="";//信息类型
 	String creationDate="";
+
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
 
 	public int getFromUserId() {
 		return fromUserId;

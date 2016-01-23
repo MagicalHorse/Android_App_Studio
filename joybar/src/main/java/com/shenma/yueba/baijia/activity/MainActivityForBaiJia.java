@@ -320,29 +320,17 @@ public class MainActivityForBaiJia extends FragmentActivity implements SocketObs
 
 	@Override
 	public void receiveMsgFromUnRoom(RequestMessageBean bean) {
-		if(bean!=null )
+		if(bean!=null && currid!=2)
 		{
-			int touserid=bean.getToUserId();
-			if(touserid<=0)//群聊信息
+			if(bean.getMessageType()==0)
 			{
-				if(currid!=1)
-				{
-					//设置显示原点
-					setRedView(1, true);
-				}
-
-			}else//私聊信息
-			{
-				if(currid!=2)
-				{
-					setRedView(2, true);
-				}
+				setRedView(2, true);
 			}
 		}
 	}
 
 	@Override
-	public void sendStatusChaneg() {
+	public void sendStatusChaneg(Object obj) {
 
 	}
 }
