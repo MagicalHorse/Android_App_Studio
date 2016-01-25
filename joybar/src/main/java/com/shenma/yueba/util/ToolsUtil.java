@@ -116,7 +116,7 @@ public class ToolsUtil {
         if (phone == null || "".equals(phone)) {
             return false;
         }
-        Pattern pattern = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$");
+        Pattern pattern = Pattern.compile("^((13[0-9])|(15[0-9])|(18[0-9])|(17[0-9]))\\d{8}$");
         Matcher matcher = pattern.matcher(phone);
         if (matcher.matches()) {
             return true;

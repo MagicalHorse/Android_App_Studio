@@ -53,8 +53,8 @@ public class ImDataBaseManager {
                 String fromUserLogo="";
                 MessageUserInfoBean messageUserInfoBean = requestMessageBean.getUser();
                 if (messageUserInfoBean != null) {
-                    fromusername = messageUserInfoBean.getLogo();
-                    fromUserLogo = messageUserInfoBean.getNickName();
+                    fromUserLogo= messageUserInfoBean.getLogo();
+                    fromusername = messageUserInfoBean.getNickName();
                 }
                 //从数据库中 查询是否存在 指定的 用户id 信息 如果没有则创建
                 Map<String, String> map = new HashMap<String, String>();
