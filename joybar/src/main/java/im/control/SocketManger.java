@@ -276,7 +276,7 @@ public class SocketManger {
                 final String json=gson.toJson(bean);
                 Log.i("TAG", json);
                 try {
-                    Log.i("TAG", "---->>>socket inroom    json:" + json);
+                    Log.i("TAG", "---->>>socket inroom userId:"+userId+" json:" + json);
                     socket.emit("join room",userId, new JSONObject(json), new Ack() {
 
                         @Override
@@ -284,13 +284,15 @@ public class SocketManger {
                             if(arg0[0] != null && arg0[0] instanceof JSONObject)
                             {
                                 JSONObject jsonObject=(JSONObject)arg0[0];
+                                Log.i("TAG", "---->>>socket inroom  加入房间返回jsonObject:" + jsonObject.toString());
                                 if(jsonObject.has("type"))
                                 {
                                     try {
                                         String type=jsonObject.getString("type");
                                         if(type.equals("success"))
                                         {
-                                            SocketObserverManager.getInstance().setIsJoinRoom(true);
+                                            Log.i("TAG", "---->>>socket inroom  加入房间成功" );
+                                                    SocketObserverManager.getInstance().setIsJoinRoom(true);
                                             //通知 加入房间成功
                                         }
                                     } catch (JSONException e) {
@@ -378,6 +380,7 @@ public class SocketManger {
                                 {
                                     Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调:失败");
                                     baseChatBean.setSendStatus(BaseChatBean.SendStatus.send_fails);
+                                    Log.i("TAG", "---->>>socket sendMsg 收到发送 成功回调 失败:json:"+json.toString());
                                     //发送失败
                                     SocketObserverManager.getInstance().Notication(SocketObserverManager.SocketObserverType.sendstauts);
                                 }
@@ -414,6 +417,7 @@ public class SocketManger {
             Log.i("TAG", "未连接");
         }
     }
+
 
 
     /******
