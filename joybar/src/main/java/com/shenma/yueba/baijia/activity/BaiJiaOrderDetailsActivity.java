@@ -160,11 +160,7 @@ public class BaiJiaOrderDetailsActivity extends BaseActivityWithTopView implemen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.baijia_orderdetails_lianxibuyer_textview://联系买手
-            /*Intent intentbuter=new Intent(BaiJiaOrderDetailsActivity.this,ChatActivity.class);
-            intentbuter.putExtra("Chat_NAME",bean.getData().getBuyerName());//圈子名字
-			intentbuter.putExtra("toUser_id", bean.getData().getBuyerId());
-			startActivity(intentbuter);*/
-                ToolsUtil.forwardChatActivity(BaiJiaOrderDetailsActivity.this, bean.getData().getBuyerName(), bean.getData().getBuyerId(), 0, null, null, null);
+                ToolsUtil.forwardChatActivity(BaiJiaOrderDetailsActivity.this, bean.getData().getBuyerName(), bean.getData().getBuyerId());
                 break;
             case R.id.riv_customer_head://头像
                 if (v.getTag() != null && v.getTag() instanceof Integer) {

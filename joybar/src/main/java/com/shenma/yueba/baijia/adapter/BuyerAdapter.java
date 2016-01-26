@@ -363,11 +363,7 @@ public class BuyerAdapter extends BaseAdapter {
 						if (v.getTag() != null
 								&& v.getTag() instanceof ProductsInfoBean) {
 							ProductsInfoBean bean = (ProductsInfoBean) v.getTag();
-						/*Intent intentsiliao = new Intent(activity,ChatActivity.class);
-						intentsiliao.putExtra("Chat_NAME", bean.getBuyerName());// 圈子名字
-						intentsiliao.putExtra("toUser_id", bean.getBuyerid());
-						activity.startActivity(intentsiliao);*/
-							ToolsUtil.forwardChatActivity(activity, bean.getBuyerName(), bean.getBuyerid(), 0, null, null,null);
+							ToolsUtil.forwardChatActivity(activity, bean.getBuyerName(), bean.getBuyerid());
 						}
 
 						break;

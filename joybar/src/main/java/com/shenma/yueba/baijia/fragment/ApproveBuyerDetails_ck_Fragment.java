@@ -655,7 +655,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
             return;
         }
 
-        ToolsUtil.forwardChatActivity(getActivity(), ToolsUtil.nullToString(bean.getData().getBuyerName()), Integer.valueOf(bean.getData().getBuyerId()), 0, null, null, null);
+        ToolsUtil.forwardChatActivity(getActivity(), ToolsUtil.nullToString(bean.getData().getBuyerName()), Integer.valueOf(bean.getData().getBuyerId()));
     }
 
 

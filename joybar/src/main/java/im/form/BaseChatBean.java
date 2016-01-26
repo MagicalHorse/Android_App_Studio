@@ -75,11 +75,9 @@ public abstract class BaseChatBean extends MessageBean implements Serializable {
             room_No = bean.getRoomId();
             messageType = bean.getMessageType();
             type = bean.getType();
-            MessageUserInfoBean userbean = bean.getUser();
-            if (userbean != null) {
-                userName = userbean.getNickName();
-                logo = userbean.getLogo();
-            }
+            _id=bean.get_id();
+            userName = bean.getUserName();
+            logo = bean.getLogo();
             productId = bean.getProductId();
             body = bean.getBody();
             creationDate = ToolsUtil.nullToString(bean.getCreationDate());

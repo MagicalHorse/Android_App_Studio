@@ -178,9 +178,9 @@ public class ShopMainActivity extends FragmentActivity implements OnClickListene
                 }
             }
         };
-        Bundle bundle = new Bundle();
-        bundle.putInt("buyerId", buyerId);
-        tabViewpagerManager.initFragmentViewPager(fragmentManager, bundle);
+
+        this.getIntent().putExtra("chatType","DefaultCircle");
+        tabViewpagerManager.initFragmentViewPager(fragmentManager, null);
 
         shop_main_layout_contact_viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

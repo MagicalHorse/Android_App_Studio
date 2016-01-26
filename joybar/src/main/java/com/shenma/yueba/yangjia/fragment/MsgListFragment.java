@@ -88,12 +88,7 @@ public class MsgListFragment extends BaseFragment implements SocketObserverManag
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 				MsgListInfo msgListInfo=mList.get(arg2-1);
-				/*Intent intent=new Intent(getActivity(),ChatActivity.class);
-				intent.putExtra("toUser_id", msgListInfo.getId());
-				intent.putExtra("Chat_NAME",msgListInfo.getName());//名字
-				intent.putExtra("Chat_RoomID",msgListInfo.getRoomId());//roomid
-				getActivity().startActivity(intent);*/
-				ToolsUtil.forwardChatActivity(getActivity(),msgListInfo.getName(), msgListInfo.getId(),0, msgListInfo.getRoomId(),null,null);
+				ToolsUtil.forwardChatActivity(getActivity(),msgListInfo.getName(), msgListInfo.getToUserId());
 			}
 		});
 		ToolsUtil.initPullResfresh(pull_refresh_list, getActivity());

@@ -56,6 +56,7 @@ import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.BaijiaPayActivity;
 import com.shenma.yueba.baijia.activity.BaijiaProductInfoActivity;
 import com.shenma.yueba.baijia.activity.CircleInfoActivity;
+import com.shenma.yueba.baijia.activity.MyDefaultCircleActivity;
 import com.shenma.yueba.baijia.activity.ShopMainActivity;
 import com.shenma.yueba.baijia.modle.BaseRequest;
 import com.shenma.yueba.baijia.modle.PayResponseFormBean;
@@ -934,6 +935,21 @@ public class ToolsUtil {
     }
 
 
+    /*********
+     * 跳转 默认圈子
+     *
+     * @param activity     Activity
+     * @param buyerId int 用户id()用于根据用户id 获取默认圈子
+     *
+     ******/
+    public static void forwardMyDefaultCircleActivity(Activity activity,int buyerId)
+    {
+        Intent intent = new Intent(activity, MyDefaultCircleActivity.class);
+        intent.putExtra("buyerId", buyerId);
+        activity.startActivity(intent);
+
+    }
+
     /******
      * 进入个人店铺首页
      * @param id int
@@ -958,25 +974,65 @@ public class ToolsUtil {
 
 
     /*****
-     * 跳转到聊天界面
-     *
+     * 跳转到 私聊聊天界面
      * @param Chat_NAME             String  圈子名称  没有 传 null
      * @param toUser_id             int 私聊对象id  没有 传 0
-     * @param circleId              int 圈子id  没有 传 0
-     * @param Chat_RoomID           String 房间id  没有 传 null
+     ****/
+    public static void forwardChatActivity(Context ctx,String Chat_NAME, int toUser_id) {
+        MyApplication.getInstance().finishActivity(MyDefaultCircleActivity.class);
+        Intent intent = new Intent(ctx, MyDefaultCircleActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.putExtra("chatType", "Private");//跳转类型
+        intent.putExtra("Chat_NAME", Chat_NAME);
+        intent.putExtra("toUser_id", toUser_id);
+        ctx.startActivity(intent);
+    }
+
+    /*****
+     * 跳转到 私聊聊天界面 带 商品信息
+     * @param Chat_NAME             String  圈子名称  没有 传 null
+     * @param toUser_id             int 私聊对象id  没有 传 0
      * @param bean                  RequestProductDetailsInfoBean 商品信息 没有穿null
      * @param requestCk_SPECDetails RequestCk_SPECDetails 商品的尺寸信息  没有传NULL
      ****/
-    public static void forwardChatActivity(Context ctx, String Chat_NAME, int toUser_id, int circleId, String Chat_RoomID, RequestCKProductDeatilsInfo bean, RequestCk_SPECDetails requestCk_SPECDetails) {
-        MyApplication.getInstance().finishActivity(ChatActivity.class);
-        Intent intent = new Intent(ctx, ChatActivity.class);
+    public static void forwardChatActivity(Context ctx,String Chat_NAME, int toUser_id, RequestCKProductDeatilsInfo bean, RequestCk_SPECDetails requestCk_SPECDetails) {
+        MyApplication.getInstance().finishActivity(MyDefaultCircleActivity.class);
+        Intent intent = new Intent(ctx, MyDefaultCircleActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.putExtra("chatType", "Private");//跳转类型
+        intent.putExtra("Chat_NAME", Chat_NAME);
+        intent.putExtra("toUser_id", toUser_id);
+        intent.putExtra("DATA", bean);//商品信息
+        intent.putExtra("standard_data", requestCk_SPECDetails);//尺寸
+        ctx.startActivity(intent);
+    }
+
+
+
+    /*****
+     * 跳转到 圈子聊天界面
+     * @param circleId              int 圈子id  没有 传 0
+     ****/
+    public static void forwardCircleChatActivity(Context ctx,String Chat_NAME,int circleId) {
+        MyApplication.getInstance().finishActivity(MyDefaultCircleActivity.class);
+        Intent intent = new Intent(ctx, MyDefaultCircleActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.putExtra("chatType", "CircleID");//跳转类型
         intent.putExtra("Chat_NAME", Chat_NAME);
         intent.putExtra("circleId", circleId);
-        intent.putExtra("toUser_id", toUser_id);
-        intent.putExtra("Chat_RoomID", Chat_RoomID);
-        intent.putExtra("DATA", bean);
-        intent.putExtra("standard_data", requestCk_SPECDetails);
+        ctx.startActivity(intent);
+    }
+
+    /*****
+     * 跳转到 默认圈子聊天界面
+     * @param buyerId              买手id
+     ****/
+    public static void forwardDefaultCircleActivity(Context ctx,int buyerId) {
+        MyApplication.getInstance().finishActivity(MyDefaultCircleActivity.class);
+        Intent intent = new Intent(ctx, MyDefaultCircleActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.putExtra("chatType", "DefaultCircle");//跳转类型
+        intent.putExtra("buyerId", buyerId);
         ctx.startActivity(intent);
     }
 

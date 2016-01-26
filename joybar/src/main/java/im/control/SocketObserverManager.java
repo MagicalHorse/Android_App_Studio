@@ -66,43 +66,46 @@ public class SocketObserverManager {
     public void Notication(final SocketObserverType status, final Object... obj) {
 
         for (int i = 0; i < list.size(); i++) {
-            Activity activity = null;
-            final SocketNoticationListener listener = list.get(i);
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    switch (status) {
-                        case connectSucess:
-                            listener.socketConnectSucess();
-                            break;
-                        case UnconnectSucess:
-                            listener.socketConnectFails();
-                            break;
-                        case roomMessage:
-                            if (obj != null && obj.length > 0) {
-                                if (obj[0] instanceof RequestMessageBean) {
-                                    listener.receiveMsgFromRoom((RequestMessageBean) obj[0]);
-                                }
-                            }
-                            break;
-                        case OurRoomMessage:
-                            if (obj != null && obj.length > 0) {
-                                if (obj[0] instanceof RequestMessageBean) {
-                                    listener.receiveMsgFromUnRoom((RequestMessageBean) obj[0]);
-                                }
-                            }
-                            break;
-                        case sendstauts:
-                            if (obj != null && obj.length > 0) {
-                                if (obj[0] instanceof BaseChatBean) {
-                                    listener.sendStatusChaneg((BaseChatBean) obj[0]);
-                                }
-                            }
-                            break;
-                    }
-                }
-            });
 
+            final SocketNoticationListener listener = list.get(i);
+            if(listener!=null){
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (status) {
+                            case connectSucess:
+                                listener.socketConnectSucess();
+                                break;
+                            case UnconnectSucess:
+                                listener.socketConnectFails();
+                                break;
+                            case roomMessage:
+                                if (obj != null && obj.length > 0) {
+                                    if (obj[0] instanceof RequestMessageBean) {
+                                        listener.receiveMsgFromRoom((RequestMessageBean) obj[0]);
+                                    }
+                                }
+                                break;
+                            case OurRoomMessage:
+                                if (obj != null && obj.length > 0) {
+                                    if (obj[0] instanceof RequestMessageBean) {
+                                        listener.receiveMsgFromUnRoom((RequestMessageBean) obj[0]);
+                                    }
+                                }
+                                break;
+                            case sendstauts:
+                                if (obj != null && obj.length > 0) {
+                                    if (obj[0] instanceof BaseChatBean) {
+                                        listener.sendStatusChaneg((BaseChatBean) obj[0]);
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                });
+
+            }
         }
     }
 

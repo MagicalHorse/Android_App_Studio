@@ -389,6 +389,11 @@
             android:name=".baijia.activity.MyCollectionActivity"
             android:screenOrientation="portrait"></activity>
 
+        <!-- 私聊/群聊 -->
+        <activity
+            android:name=".baijia.activity.MyDefaultCircleActivity"
+            android:screenOrientation="portrait"></activity>
+
         <!-- 商品详情 -->
         <activity
             android:name=".baijia.activity.BaijiaProductInfoActivity"

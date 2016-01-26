@@ -104,7 +104,7 @@ public class MyCircleView extends BaseView{
 				intent.putExtra("Chat_NAME",myCircleInfo.getName());//圈子名字
 				intent.putExtra("circleId",myCircleInfo.getId());//圈子id
 				activity.startActivity(intent);*/
-				ToolsUtil.forwardChatActivity(activity, myCircleInfo.getName(), 0,myCircleInfo.getId(), null,null,null);
+				ToolsUtil.forwardChatActivity(activity, myCircleInfo.getName(),myCircleInfo.getId());
 			}
 		});
 	}

@@ -175,7 +175,6 @@ public class FillPersonDataActivity extends BaseActivityWithTopView {
 					httpControl.setLoginInfo(FillPersonDataActivity.this, bean);
 					Intent intent=new Intent(FillPersonDataActivity.this,MainActivityForBaiJia.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					intent.putExtra("forwarddata", bean);
 					startActivity(intent);
 				}
 			}

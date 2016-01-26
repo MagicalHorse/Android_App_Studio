@@ -103,11 +103,7 @@ public class CircleListActivity extends BaseActivityWithTopView{
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 				MyCircleInfo myCircleInfo=items.get(arg2-1);
-				/*Intent intent=new Intent(CircleListActivity.this,ChatActivity.class);
-				intent.putExtra("Chat_NAME",myCircleInfo.getName());//圈子名字
-				intent.putExtra("circleId",myCircleInfo.getId());
-				startActivity(intent);*/
-				ToolsUtil.forwardChatActivity(CircleListActivity.this, myCircleInfo.getName(), 0, myCircleInfo.getId(), null,null,null);
+				ToolsUtil.forwardCircleChatActivity(CircleListActivity.this, myCircleInfo.getName(), myCircleInfo.getId());
 			}
 		});
 	}

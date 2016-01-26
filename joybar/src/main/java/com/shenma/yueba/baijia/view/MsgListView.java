@@ -85,13 +85,9 @@ public class MsgListView extends BaseView implements SocketObserverManager.Socke
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 				MsgListInfo msgListInfo=mList.get(arg2-1);
 				//Intent intent=new Intent(activity,ChatActivity.class);
-				int to_userid=msgListInfo.getId();
+				int to_userid=msgListInfo.getToUserId();
 				Log.i("TAG", "----->>to_userid:"+to_userid);
-				/*intent.putExtra("toUser_id", to_userid);
-				intent.putExtra("Chat_NAME",msgListInfo.getName());//名字
-				intent.putExtra("Chat_RoomID",msgListInfo.getRoomId());//roomid
-				activity.startActivity(intent);*/
-				ToolsUtil.forwardChatActivity(activity, msgListInfo.getName(), to_userid,0, msgListInfo.getRoomId(),null,null);
+				ToolsUtil.forwardChatActivity(activity, msgListInfo.getName(), to_userid);
 			}
 		});
 		

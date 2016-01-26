@@ -86,7 +86,7 @@ public class ShopMainFragment extends Fragment implements LoginRefreshObserver.L
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.activity = activity;
-        buyerId = getArguments().getInt("buyerId", -1);
+        buyerId = activity.getIntent().getIntExtra("buyerId", -1);
         layoutInflater = LayoutInflater.from(activity);
         fragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
     }
@@ -206,7 +206,7 @@ public class ShopMainFragment extends Fragment implements LoginRefreshObserver.L
                     if (!MyApplication.getInstance().isUserLogin(getActivity())) {
                         return;
                     }
-                    ToolsUtil.forwardChatActivity(getActivity(), userInfoBean.getUserName(), buyerId, 0, null, null, null);
+                    ToolsUtil.forwardChatActivity(getActivity(), userInfoBean.getUserName(), buyerId);
                     break;
                 case R.id.shop_main_attention_imagebutton://关注
                     if (!MyApplication.getInstance().isUserLogin(getActivity())) {
