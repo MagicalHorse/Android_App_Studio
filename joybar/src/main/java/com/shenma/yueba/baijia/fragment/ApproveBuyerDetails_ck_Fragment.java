@@ -201,6 +201,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         if(bean==null || Data==null)
         {
             getActivity().finish();
+            return;
         }
         //返回
         ImageView back_grey_imageview = (ImageView) parentView.findViewById(R.id.back_grey_imageview);
@@ -247,6 +248,7 @@ public class ApproveBuyerDetails_ck_Fragment extends Fragment implements OnClick
         // 收藏按钮
         approvebuyerdetails_layout_shoucang_linerlayout_textview = (TextView) parentView.findViewById(R.id.approvebuyerdetails_layout_shoucang_linerlayout_textview);
         approvebuyerdetails_layout_shoucang_linerlayout_textview.setOnClickListener(this);
+
         if (Data.isFavorite()) {
             approvebuyerdetails_layout_shoucang_linerlayout_textview.setText("已收藏");
             approvebuyerdetails_layout_shoucang_linerlayout_textview.setSelected(true);

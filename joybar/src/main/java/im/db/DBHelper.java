@@ -28,8 +28,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBStaticInfo.IM_DBTABLE_Message_productID + DBStaticInfo.field_varchar100 + "," +
                 DBStaticInfo.IM_DBTABLE_Message_shareUrl + DBStaticInfo.field_varchar100 + "," +
                 DBStaticInfo.IM_DBTABLE_toUser_ID + DBStaticInfo.field_varchar100 + "," +
-                DBStaticInfo.IM_DBTABLE_toUser_Name + DBStaticInfo.field_varchar100 + "," +
-                DBStaticInfo.IM_DBTABLE_toUser_icon + DBStaticInfo.field_varchar100 + "," +
                 DBStaticInfo.IM_DBTABLE_MESSAGE_RoomId + DBStaticInfo.field_varchar100 + "," +
                 DBStaticInfo.IM_DBTABLE_Chat_Type + DBStaticInfo.field_varchar100 + "," +
                 DBStaticInfo.IM_DBTABLE_MESSAGE_id + DBStaticInfo.field_varchar100 + "," +

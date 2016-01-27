@@ -1,5 +1,8 @@
 package im.db;
 
+
+import com.shenma.yueba.baijia.modle.MsgListInfo;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,10 +32,6 @@ public class ImDataBaseManager {
      * @param requestMessageBean RequestMessageBean 消息数据
      ******/
     public void writeImMessageData(RequestMessageBean requestMessageBean) {
-        if(true)
-        {
-            return;
-        }
         if (requestMessageBean != null) {
             if (requestMessageBean != null) {
                 DBHelper dBHelper = new DBHelper();
@@ -70,8 +69,6 @@ public class ImDataBaseManager {
                 map.put(DBStaticInfo.IM_DBTABLE_Chat_Type.trim(),chattype);
                 map.put(DBStaticInfo.IM_DBTABLE_Message_Type.trim(), Integer.toString(messageType));
                 map.put(DBStaticInfo.IM_DBTABLE_toUser_ID.trim(), Integer.toString(touserid));
-                map.put(DBStaticInfo.IM_DBTABLE_toUser_icon.trim(), "");
-                map.put(DBStaticInfo.IM_DBTABLE_toUser_Name.trim(), "");
                 map.put(DBStaticInfo.IM_DBTABLE_MESSAGE_RoomId.trim(), roomId);
                 map.put(DBStaticInfo.IM_DBTABLE_MESSAGE_id.trim(), messageid);
                 userDbManager.addMessageInfo(map);
@@ -86,13 +83,20 @@ public class ImDataBaseManager {
      * @param roomid String 房间号
      ******/
     public List<RequestMessageBean> readImMessageAllData(int curpage,int pagesize,String roomid) {
-        if(true)
-        {
-            return null;
-        }
         DBHelper dBHelper = new DBHelper();
         UserDbManager userDbManager = new UserDbManager(dBHelper);
         List<RequestMessageBean> list =userDbManager.queryMessageById(roomid, curpage, pagesize);
+        return list;
+    }
+
+
+    /*********
+     * 向数据库中读取数据 （根据roomId 分组 去重 显示数据）
+     ******/
+    public List<MsgListInfo> getRoomIdGroup() {
+        DBHelper dBHelper = new DBHelper();
+        UserDbManager userDbManager = new UserDbManager(dBHelper);
+        List<MsgListInfo> list =userDbManager.queryMessageGroup();
         return list;
     }
 }

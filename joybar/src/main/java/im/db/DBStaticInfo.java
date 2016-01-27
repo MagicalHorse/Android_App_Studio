@@ -28,8 +28,6 @@ public class DBStaticInfo {
     public final static String IM_DBTABLE_Message_productID = " product_id ";//商品id(如果是商品链接 则包含商品id)
     public final static String IM_DBTABLE_Message_shareUrl = " shareUrl ";//分享链接
     public final static String IM_DBTABLE_toUser_ID = " touser_id ";//接收者id（可能多个 以，号区分
-    public final static String IM_DBTABLE_toUser_Name = " touser_name ";//接受者用户名称
-    public final static String IM_DBTABLE_toUser_icon = " touser_icon ";//接受者用户头像
 
 
 }

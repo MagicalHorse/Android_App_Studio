@@ -415,11 +415,6 @@
             android:screenOrientation="portrait" />
 
         <!-- 聊天界面 -->
-        <activity
-            android:name=".ChatActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
         <!-- 店铺介绍界面 -->
         <activity
             android:name=".yangjia.activity.StoreIntroduceActivity"

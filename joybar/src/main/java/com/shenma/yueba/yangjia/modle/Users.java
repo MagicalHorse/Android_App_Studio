@@ -9,7 +9,7 @@ public class Users {
 		jian//减
 	}
 	private String UserId;
-	private String NickName;
+	private String Nickname;
 	private String Logo;
 	private boolean showDelete;
 	private User_Type user_Type=User_Type.data;
@@ -28,10 +28,10 @@ public class Users {
 		UserId = userId;
 	}
 	public String getNickName() {
-		return NickName;
+		return Nickname;
 	}
 	public void setNickName(String nickName) {
-		NickName = nickName;
+		Nickname = nickName;
 	}
 	public String getLogo() {
 		return Logo;

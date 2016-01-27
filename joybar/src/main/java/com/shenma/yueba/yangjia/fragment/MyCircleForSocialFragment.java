@@ -6,14 +6,14 @@ import java.util.List;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.shenma.yueba.ChatActivity;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
+import com.shenma.yueba.baijia.activity.MyDefaultCircleActivity;
 import com.shenma.yueba.baijia.fragment.BaseFragment;
 import com.shenma.yueba.constants.Constants;
 import com.shenma.yueba.util.HttpControl;
-import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.util.HttpControl.HttpCallBackInterface;
+import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.yangjia.adapter.MyCircleForSocialAdapter;
 import com.shenma.yueba.yangjia.modle.CircleListBackBean;
 import com.shenma.yueba.yangjia.modle.CirlceItemBean;
@@ -61,12 +61,9 @@ public class MyCircleForSocialFragment extends BaseFragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
 					long arg3) {
-				MyApplication.getInstance().finishActivity(ChatActivity.class);
-				Intent intent = new Intent(getActivity(),ChatActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-				intent.putExtra("Chat_NAME",mList.get(pos-1).getName());//圈子名字
-				intent.putExtra("circleId", Integer.parseInt(mList.get(pos-1).getId()));
-				startActivityForResult(intent, Constants.REQUESTCODE);
+
+				MyApplication.getInstance().finishActivity(MyDefaultCircleActivity.class);
+				ToolsUtil.forwardCircleChatActivity(getActivity(),ToolsUtil.nullToString(mList.get(pos-1).getName()),Integer.parseInt(mList.get(pos-1).getId()));
 			}
 		});
 		pull_refresh_list.setOnRefreshListener(new OnRefreshListener2() {

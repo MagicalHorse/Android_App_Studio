@@ -1,9 +1,9 @@
 package com.shenma.yueba.util;
 
-import com.shenma.yueba.ChatActivity;
 import com.shenma.yueba.R;
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.baijia.activity.BaiJiaOrderListActivity;
+import com.shenma.yueba.baijia.activity.MyDefaultCircleActivity;
 import com.shenma.yueba.yangjia.activity.EarningManagerActivity;
 import com.shenma.yueba.yangjia.activity.HuoKuanManagerActivity;
 import com.shenma.yueba.yangjia.activity.MainActivityForYangJia;
@@ -124,12 +124,11 @@ public class NotificationUtils {
 			
 				if(!ToolsUtil.isApplicationBroughtToBackground(MyApplication.getInstance().getPackageName().toString()+".ChatActivity"))
 				{
-					MyApplication.getInstance().finishActivity(ChatActivity.class);
+					MyApplication.getInstance().finishActivity(MyDefaultCircleActivity.class);
 				}
-				
-				notificationIntent = new Intent(ctx,ChatActivity.class); // 点击该通知后要跳转的Activity
-				notificationIntent.setFlags(Intent. FLAG_ACTIVITY_REORDER_TO_FRONT);
-				notificationIntent.putExtra("Chat_RoomID", roomid.toString());
+				notificationIntent = new Intent(ctx,MyDefaultCircleActivity.class); // 点击该通知后要跳转的Activity
+				notificationIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				notificationIntent.putExtra("chatType", roomid.toString());
 				notificationIntent.putExtra("Chat_NAME", username.toString());
 				notificationIntent.putExtra("toUser_id", Integer.valueOf(toUser_id.toString()));
 			}

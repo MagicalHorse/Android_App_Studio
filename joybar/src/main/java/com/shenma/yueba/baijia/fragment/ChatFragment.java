@@ -84,7 +84,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
     View parentView;
     LinearLayout chat_alertmsg_linearlayout;// 顶部提示信息
     LinearLayout resertaddinfo_linearlayout;//重新加载页面父视图对象
-
+    TextView tv_top_right;
     private CreateOrderDialog createOrderDialog;// 创建订单对话框
     TextView resertaddinfo_textview;
     String usericon;//本地头像
@@ -193,6 +193,12 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
         {
             messageType=1;
             requestCirCleByID();
+            if(tv_top_right!=null)
+            {
+                tv_top_right.setVisibility(View.VISIBLE);
+                tv_top_right.setText("设置");
+                tv_top_right.setOnClickListener(this);
+            }
         }else if(currChatType.equals(chatType[2]))//私聊
         {
             messageType=0;
@@ -364,6 +370,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
                 tv_top_title.setVisibility(View.VISIBLE);
             }
         }
+
+        tv_top_right  = (TextView)getActivity().findViewById(R.id.tv_top_right);
+
 
         /***************
          *  输入法管理对象
@@ -1076,6 +1085,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_top_right:// 设置
+                ToolsUtil.forwardCircleActivity(getActivity(), circleId, -1);
+                break;
             case R.id.btn_camera:// 拍照
                 openCamera();
                 break;
