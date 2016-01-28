@@ -633,8 +633,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
         bean.setMessageType(messageType);
         bean.setSharelink(content);
         bean.sendData();// 发送数据
-
-        //addListData(false, bean);
+        bean.set_id(ToolsUtil.getCurrentTime());
+        addListData(false, bean);
         if (chattingAdapter != null) {
             chattingAdapter.notifyDataSetChanged();
         }
@@ -1327,7 +1327,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
 
     @Override
     public void sendStatusChaneg(Object obj) {
-        if (obj != null && obj instanceof BaseChatBean) {
+        /*if (obj != null && obj instanceof BaseChatBean) {
             BaseChatBean info=(BaseChatBean) obj;
             info.setCreationDate(ToolsUtil.getCurrentTimeNoYear());
             addListData(false, info);
@@ -1335,6 +1335,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
                 chattingAdapter.notifyDataSetChanged();
             }
             pointLast(bean_list.size());
+        }*/
+        if (chattingAdapter != null) {
+            chattingAdapter.notifyDataSetChanged();
         }
+        pointLast(bean_list.size());
     }
 }

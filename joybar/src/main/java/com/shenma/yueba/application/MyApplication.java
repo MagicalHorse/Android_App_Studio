@@ -259,11 +259,14 @@ public class MyApplication extends Application {
         bitmapUtils.configDefaultLoadingImage(R.drawable.default_pic);// 默认背景图片
         bitmapUtils.configDefaultLoadFailedImage(R.drawable.default_pic);// 加载失败图片
         bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);// 设置图片压缩类型
+        bitmapUtils.configDiskCacheEnabled(true);
+        bitmapUtils.configDefaultDisplayConfig(bigPicDisplayConfig);
     }
 
     public BitmapUtils getBitmapUtil() {
         if (bitmapUtils == null) {
             bitmapUtils = new BitmapUtils(this);
+            initBitmapUtils();
         }
         return bitmapUtils;
     }
