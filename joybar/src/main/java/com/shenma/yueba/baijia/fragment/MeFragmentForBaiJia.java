@@ -36,6 +36,7 @@ import com.shenma.yueba.util.DialogUtils;
 import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
 import com.shenma.yueba.util.WXLoginUtil;
+import com.shenma.yueba.view.RoundImageView;
 import com.shenma.yueba.yangjia.activity.MainActivityForYangJia;
 
 import config.PerferneceConfig;
@@ -50,7 +51,7 @@ import config.PerferneceConfig;
 public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener {
 	private View view;
 	private ImageView iv_setting;
-	private ImageView iv_icon;
+	private RoundImageView iv_icon;
 	private TextView tv_nickname;
 	private TextView tv_all_order;
 	private TextView tv_waiting_for_send;
@@ -108,7 +109,7 @@ public class MeFragmentForBaiJia extends BaseFragment implements OnClickListener
 		tv_my_circle.setOnClickListener(this);
 
 		iv_setting = (ImageView) view.findViewById(R.id.iv_setting);
-		iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
+		iv_icon = (RoundImageView) view.findViewById(R.id.iv_icon);
 		iv_icon.setImageResource(R.drawable.default_pic);
 		//买手名称
 		tv_nickname = (TextView) view.findViewById(R.id.tv_nickname);
