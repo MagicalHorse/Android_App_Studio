@@ -115,23 +115,26 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
     private RequestRoomInfo requestRoomInfo;//房间信息对象
     boolean isrunning = false;
 
-    int messageType=0;//0私聊 1 群聊
+    int messageType = 0;//0私聊 1 群聊
     private String littlePicPath;
     private String littlePicPath_cache;
     public static final int Result_code_link = 400;// 链接
     public static final int Result_code_collection = 500;// 收藏
-    Set<String> set=new HashSet<String>();//存储消息id 的信息
+    Set<String> set = new HashSet<String>();//存储消息id 的信息
     int buyerId = -1;
-    String[] chatType=new String[]{"DefaultCircle","CircleID","Private"};//聊天类型 ：默认圈子，指定圈子，私聊
-    String currChatType="";
+    String[] chatType = new String[]{"DefaultCircle", "CircleID", "Private"};//聊天类型 ：默认圈子，指定圈子，私聊
+    String currChatType = "";
+
+    String lastMessageId="";
+
+    boolean islocationData=true;//是否加载本地数据
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         layoutInflater = LayoutInflater.from(activity);
-        if(activity.getIntent().getStringExtra("chatType")!=null)
-        {
-            currChatType=activity.getIntent().getStringExtra("chatType");
+        if (activity.getIntent().getStringExtra("chatType") != null) {
+            currChatType = activity.getIntent().getStringExtra("chatType");
         }
 
         SocketManger.the().setContext(activity);
@@ -167,7 +170,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
     }
 
 
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -181,17 +183,16 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
 
     /********
      * 初始化 准备信息
-     * ********/
-    void initPerpare()
-    {
-        if(currChatType.equals(chatType[0]))//默认圈子
+     ********/
+    void initPerpare() {
+        if (currChatType.equals(chatType[0]))//默认圈子
         {
-            buyerId = getActivity().getIntent().getIntExtra("buyerId",-1);
-            messageType=1;
+            buyerId = getActivity().getIntent().getIntExtra("buyerId", -1);
+            messageType = 1;
             requestDefaultChatInfo();
-        }else if(currChatType.equals(chatType[1]))//指定圈子
+        } else if (currChatType.equals(chatType[1]))//指定圈子
         {
-            messageType=1;
+            messageType = 1;
             requestCirCleByID();
             if(tv_top_right!=null)
             {
@@ -199,26 +200,23 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
                 tv_top_right.setText("设置");
                 tv_top_right.setOnClickListener(this);
             }
-        }else if(currChatType.equals(chatType[2]))//私聊
+        } else if (currChatType.equals(chatType[2]))//私聊
         {
-            messageType=0;
+            messageType = 0;
             requestprivateChatInfo();
         }
     }
 
     /**********
      * 私聊
-     * ********/
-    void requestprivateChatInfo()
-    {
-        if(toUser_id<=0)
-        {
+     ********/
+    void requestprivateChatInfo() {
+        if (toUser_id <= 0) {
             //获取私聊的对方id
             toUser_id = getActivity().getIntent().getIntExtra("toUser_id", 0);
         }
-        if(roomId==null || roomId.equals(""))
-        {
-            getRoomdId(formUser_id,toUser_id);
+        if (roomId == null || roomId.equals("")) {
+            getRoomdId(formUser_id, toUser_id);
             getMessage();
             inroom();
         }
@@ -227,16 +225,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
 
     /**********
      * 根据id获取 圈子信息
-     * ********/
-    void requestCirCleByID()
-    {
-        if(roomId==null || roomId.equals(""))
-        {
-            if(this.getActivity().getIntent().getIntExtra("circleId",-1)>0)
-            {
+     ********/
+    void requestCirCleByID() {
+        if (roomId == null || roomId.equals("")) {
+            if (this.getActivity().getIntent().getIntExtra("circleId", -1) > 0) {
                 //获取圈子id
-                circleId =this.getActivity().getIntent().getIntExtra("circleId",-1);
-                roomId=Integer.toString(circleId);
+                circleId = this.getActivity().getIntent().getIntExtra("circleId", -1);
+                roomId = Integer.toString(circleId);
                 inroom();
                 getMessage();
             }
@@ -255,14 +250,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
             }
         }
         //显示圈子提示
-        if(chat_alertmsg_linearlayout!=null)
-        {
+        if (chat_alertmsg_linearlayout != null) {
             chat_alertmsg_linearlayout.setVisibility(View.VISIBLE);
         }
-        if(chat_alertmsg_textview!=null)//圈子公告
+        if (chat_alertmsg_textview != null)//圈子公告
         {
 
-           // chat_alertmsg_textview.setText(user_CommunityDesc);
+            // chat_alertmsg_textview.setText(user_CommunityDesc);
         }
     }
 
@@ -272,7 +266,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
      ***/
     void setProduct(Intent intent) {
 
-        RelativeLayout chat_product_head_layout_include = (RelativeLayout)parentView.findViewById(R.id.chat_product_head_layout_include);// 商品信息
+        RelativeLayout chat_product_head_layout_include = (RelativeLayout) parentView.findViewById(R.id.chat_product_head_layout_include);// 商品信息
         // 判断是否传递了商品的信息
         if (intent.getSerializableExtra("DATA") == null) {
             chat_product_head_layout_include.setVisibility(View.GONE);
@@ -282,13 +276,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
         }
 
         // 产品图片
-        ImageView chat_product_head_layout_imageview = (ImageView)parentView.findViewById(R.id.chat_product_head_layout_imageview);
+        ImageView chat_product_head_layout_imageview = (ImageView) parentView.findViewById(R.id.chat_product_head_layout_imageview);
         // 产品名称
-        TextView chat_product_head_layout_name_textview = (TextView)parentView.findViewById(R.id.chat_product_head_layout_name_textview);
+        TextView chat_product_head_layout_name_textview = (TextView) parentView.findViewById(R.id.chat_product_head_layout_name_textview);
         // 价格
-        TextView chat_product_head_layout_price_textview = (TextView)parentView.findViewById(R.id.chat_product_head_layout_price_textview);
+        TextView chat_product_head_layout_price_textview = (TextView) parentView.findViewById(R.id.chat_product_head_layout_price_textview);
         // 立即购买
-        Button chat_product_head_layout_button = (Button)parentView.findViewById(R.id.chat_product_head_layout_button);
+        Button chat_product_head_layout_button = (Button) parentView.findViewById(R.id.chat_product_head_layout_button);
         chat_product_head_layout_button.setEnabled(false);
         chat_product_head_layout_button.setOnClickListener(new View.OnClickListener() {
 
@@ -297,8 +291,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
                 if (createOrderDialog != null) {
                     createOrderDialog.cancel();
                 }
-                RequestCKProductDeatilsInfo bean = (RequestCKProductDeatilsInfo)getActivity().getIntent().getSerializableExtra("DATA");
-                RequestCk_SPECDetails standard_data = (RequestCk_SPECDetails)getActivity().getIntent().getSerializableExtra("standard_data");
+                RequestCKProductDeatilsInfo bean = (RequestCKProductDeatilsInfo) getActivity().getIntent().getSerializableExtra("DATA");
+                RequestCk_SPECDetails standard_data = (RequestCk_SPECDetails) getActivity().getIntent().getSerializableExtra("standard_data");
                 createOrderDialog = new CreateOrderDialog(getActivity(), bean, standard_data);
                 createOrderDialog.show();
             }
@@ -337,7 +331,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
 
     void initView() {
         setProduct(getActivity().getIntent());
-        chat_alertmsg_textview=(TextView)parentView.findViewById(R.id.chat_alertmsg_textview);
+        chat_alertmsg_textview = (TextView) parentView.findViewById(R.id.chat_alertmsg_textview);
         //照相
         ImageView btn_camera = (ImageView) parentView.findViewById(R.id.btn_camera);
         btn_camera.setOnClickListener(this);
@@ -363,16 +357,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
         {
             // 圈子名称 或 私聊用户名称
             String chat_name = getActivity().getIntent().getStringExtra("Chat_NAME");
-            TextView tv_top_title = (TextView)parentView.findViewById(R.id.tv_top_title);
-            if(tv_top_title!=null)
-            {
+            TextView tv_top_title = (TextView) parentView.findViewById(R.id.tv_top_title);
+            if (tv_top_title != null) {
                 tv_top_title.setText(chat_name);
                 tv_top_title.setVisibility(View.VISIBLE);
             }
         }
-
         tv_top_right  = (TextView)getActivity().findViewById(R.id.tv_top_right);
-
 
         /***************
          *  输入法管理对象
@@ -683,10 +674,36 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
         }
         loadmorePB.setVisibility(View.VISIBLE);
         isloading = true;
+        loadmorePB.setVisibility(View.VISIBLE);
+        isloading = true;
         if(roomId!=null && !roomId.equals(""))
         {
-            Log.i("TAG", "socket: 获取到网络历史信息：" + " currPage:" + currPage + "  roomId:" + roomId);
-            getMessageRecord(roomId, -10, currPage, Constants.PAGESIZE_VALUE);
+            /*if(islocationData)
+            {
+                *//**********
+                 * 从数据库中获取历史消息
+                 * *******//*
+                List<RequestMessageBean> list= ImDataBaseManager.getInstance().readImMessageAllData(messagecurrPage,10,roomId);
+                if(list!=null && list.size()>0 )
+                {
+                    Log.i("TAG", "socket: 获取到历史信息："+list.size()+" messagecurrPage:"+messagecurrPage+"  roomId:"+roomId);
+                    dataSuceeValue(list);
+                    loadmorePB.setVisibility(View.GONE);
+                    isloading = false;
+                    messagecurrPage++;
+                    //记录最后一条消息的id
+                    lastMessageId=list.get(list.size()-1).get_id();
+                }else {
+                    islocationData=false;
+                }
+            }
+
+            if(!islocationData)
+            {
+                Log.i("TAG", "socket: 获取到网络历史信息：" + " currPage:" + currPage + "  roomId:" + roomId);
+                getMessageRecord(currPage, Constants.PAGESIZE_VALUE);
+            }*/
+            getMessageRecord(currPage, Constants.PAGESIZE_VALUE);
         }
 
 
@@ -696,12 +713,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
     /****
      * 获取聊天记录
      *
-     * @param roomId        int 房间id
-     * @param lastMessageId int 信息id 小于0 可不传
      * @param page          int 访问页数
      * @param pageSize      int 每页大小
      ***/
-    void getMessageRecord(String roomId, int lastMessageId, final int page, int pageSize) {
+    void getMessageRecord(final int page, int pageSize) {
         if (httpControl == null) {
             httpControl = new HttpControl();
         }
@@ -789,8 +804,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
         if (chattingAdapter != null) {
             chattingAdapter.notifyDataSetChanged();
         }
-        if(items.size()>0)
-        {
+        if (items.size() > 0) {
             pointLast(items.size());
         }
 
@@ -817,14 +831,12 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
         if (chatBean != null && chatBean.length > 0) {
             for (int i = 0; i < chatBean.length; i++) {
                 BaseChatBean bbean = chatBean[i];
-                String message_id=bbean.get_id();//消息id
+                String message_id = bbean.get_id();//消息id
                 /******
                  * 收到消息后  先从set 中判断 是否存在 此消息id 不存在则加入到 set 中 用于避免重复消息
                  * *****/
-                if(message_id!=null && !message_id.equals(""))
-                {
-                    if(!set.contains(message_id))
-                    {
+                if (message_id != null && !message_id.equals("")) {
+                    if (!set.contains(message_id)) {
                         set.add(message_id);
                         if (isfirst) {
                             bean_list.addFirst(chatBean[i]);
@@ -845,6 +857,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
         if (obj != null && obj instanceof RequestMessageBean) {
             BaseChatBean baseChatBean = null;
             RequestMessageBean bean = (RequestMessageBean) obj;
+            bean.setCreationDate(ToolsUtil.getCurrentTimeNoYear());
             //判断 接受到的消息是否 是当然roomid 是则 显示 不是则不处理
             if (bean.getRoomId() == null || roomId == null || !bean.getRoomId().equals(roomId)) {
                 return;
@@ -891,12 +904,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
      * @param toUser   int
      **/
     void getRoomdId(int fromUser, int toUser) {
-        if(fromUser<toUser)
-        {
-            roomId= fromUser+"_"+toUser;
-        }else
-        {
-            roomId= toUser+"_"+fromUser;
+        if (fromUser < toUser) {
+            roomId = fromUser + "_" + toUser;
+        } else {
+            roomId = toUser + "_" + fromUser;
         }
     }
 
@@ -1061,9 +1072,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
                         circlesettings_imageview.setTag(circleId);
                         circlesettings_imageview.setVisibility(View.VISIBLE);
                     }
-                    if(circleId > 0)
-                    {
-                        roomId=Integer.toString(circleId);
+                    if (circleId > 0) {
+                        roomId = Integer.toString(circleId);
                         inroom();
                         getMessage();
                     }
@@ -1085,9 +1095,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_top_right:// 设置
-                ToolsUtil.forwardCircleActivity(getActivity(), circleId, -1);
-                break;
             case R.id.btn_camera:// 拍照
                 openCamera();
                 break;
@@ -1153,8 +1160,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
 		 * intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
 		 * startActivityForResult(intent, Result_code_camera);
 		 */
+
         if (ToolsUtil.isAvailableSpace(getActivity())) {
-            littlePicPath = PhotoUtils.takePicture(getActivity());
+            littlePicPath = PhotoUtils.takePicture(this);
             Log.i("TAG", "littlePicPath:" + littlePicPath);
         }
 
@@ -1165,7 +1173,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
      **/
     void openPicture() {
         if (ToolsUtil.isAvailableSpace(getActivity())) {
-            PhotoUtils.selectPhoto(getActivity());
+            PhotoUtils.selectPhoto(this);
         }
     }
 
@@ -1319,9 +1327,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Sock
 
     @Override
     public void sendStatusChaneg(Object obj) {
-        if(obj!=null && obj instanceof BaseChatBean)
-        {
-            addListData(false,(BaseChatBean)obj);
+        if (obj != null && obj instanceof BaseChatBean) {
+            BaseChatBean info=(BaseChatBean) obj;
+            info.setCreationDate(ToolsUtil.getCurrentTimeNoYear());
+            addListData(false, info);
             if (chattingAdapter != null) {
                 chattingAdapter.notifyDataSetChanged();
             }

@@ -2191,12 +2191,10 @@ public class HttpControl {
      * @param ishowStatus   boolean 是否显示等待对话框 true 是  false否
      * @return void
      **/
-    public void getRoomMessage(String roomId, int lastMessageId, int page, int pageSize, boolean ishowStatus, final HttpCallBackInterface httpCallBack, Context context) {
+    public void getRoomMessage(String roomId, String lastMessageId, int page, int pageSize, boolean ishowStatus, final HttpCallBackInterface httpCallBack, Context context) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("roomId", roomId);
-        if (lastMessageId > 0) {
-            map.put("lastMessageId", Integer.toString(lastMessageId));
-        }
+        map.put("lastMessageId",lastMessageId);
         map.put(Constants.PAGE, Integer.toString(page));
         map.put(Constants.PAGESIZE, Integer.toString(pageSize));
         BasehttpSend(map, context, HttpConstants.METHOD_GETROOMMESSAE, httpCallBack, RequestImMessageInfoBean.class, ishowStatus, false);

@@ -152,9 +152,19 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
                     intent.putExtra("key",et_search.getText().toString().trim());
                     startActivity(intent);
                 }else{
-                    Intent intent = new Intent(mContext,SearchResultActivity.class);
-                    intent.putExtra("key",et_search.getText().toString().trim());
-                    startActivity(intent);
+
+                    if(this.getIntent().getStringExtra("storeId")!=null && !this.getIntent().getStringExtra("storeId").equals(""))
+                    {
+                        String StoreId=this.getIntent().getStringExtra("storeId");
+                        Intent intent = new Intent(mContext, SearchResultActivityForThreeTab.class);
+                        intent.putExtra("key",et_search.getText().toString().trim());
+                        intent.putExtra("storeId", StoreId);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(mContext,SearchResultActivity.class);
+                        intent.putExtra("key",et_search.getText().toString().trim());
+                        startActivity(intent);
+                    }
                 }
 
                 break;
@@ -218,9 +228,19 @@ public class SearchProductActivity extends BaseActivityWithTopView implements Vi
             intent.putExtra("key",key);
             startActivity(intent);
         }else{
-            Intent intent = new Intent(SearchProductActivity.this, SearchResultActivity.class);
-            intent.putExtra("key",key);
-            startActivity(intent);
+
+            if(this.getIntent().getStringExtra("storeId")!=null && !this.getIntent().getStringExtra("storeId").equals(""))
+            {
+                String StoreId=this.getIntent().getStringExtra("storeId");
+                Intent intent = new Intent(mContext, SearchResultActivityForThreeTab.class);
+                intent.putExtra("key",key);
+                intent.putExtra("storeId", StoreId);
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(mContext,SearchResultActivity.class);
+                intent.putExtra("key",key);
+                startActivity(intent);
+            }
         }
 
 

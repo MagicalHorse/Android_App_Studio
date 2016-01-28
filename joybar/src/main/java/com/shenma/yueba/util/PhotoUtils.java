@@ -33,10 +33,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.constants.Constants;
 
 public class PhotoUtils {
@@ -57,23 +57,28 @@ public class PhotoUtils {
 
 	/**
 	 * 通过手机相册获取图片
-	 * 
-	 * @param activity
+	 *
+	 * @param obj Object
 	 */
-	public static void selectPhoto(Activity activity) {
+	public static void selectPhoto(Object obj) {
 		Intent intent = new Intent(Intent.ACTION_PICK, null);
-		intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-				"image/*");
-		activity.startActivityForResult(intent, INTENT_REQUEST_CODE_ALBUM);
+		intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+		if(obj instanceof Activity)
+		{
+			((Activity)obj).startActivityForResult(intent, INTENT_REQUEST_CODE_ALBUM);
+		}else if(obj instanceof Fragment)
+		{
+			((Fragment)obj).startActivityForResult(intent, INTENT_REQUEST_CODE_ALBUM);
+		}
 	}
 
 	/**
 	 * 通过手机照相获取图片
-	 * 
-	 * @param activity
+	 *
+	 * @param obj Object
 	 * @return 照相后图片的路径
 	 */
-	public static String takePicture(Activity activity) {
+	public static String takePicture(Object obj) {
 		FileUtils.createDirFile(IMAGE_PATH);
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		String path = IMAGE_PATH + UUID.randomUUID().toString() + "jpg";
@@ -81,7 +86,13 @@ public class PhotoUtils {
 		if (file != null) {
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
 		}
-		activity.startActivityForResult(intent, INTENT_REQUEST_CODE_CAMERA);
+		if(obj instanceof Activity)
+		{
+			((Activity)obj).startActivityForResult(intent, INTENT_REQUEST_CODE_CAMERA);
+		}else if(obj instanceof Fragment)
+		{
+			((Fragment)obj).startActivityForResult(intent, INTENT_REQUEST_CODE_CAMERA);
+		}
 		return path;
 	}
 

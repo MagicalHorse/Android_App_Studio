@@ -2,6 +2,7 @@ package im.db;
 
 
 import com.shenma.yueba.baijia.modle.MsgListInfo;
+import com.shenma.yueba.util.ToolsUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,8 @@ public class ImDataBaseManager {
                 int fromUserId = requestMessageBean.getFromUserId();
                 String body = requestMessageBean.getBody();
                 String chattype = requestMessageBean.getType();//信息类型 如 文本 图片 链接
-                String createtime = requestMessageBean.getCreationDate();//创建时间
+                //String createtime = requestMessageBean.getCreationDate();//创建时间
+                String createtime = ToolsUtil.getCurrentTimeNoYear();
                 String fromUserType = requestMessageBean.getFromUserType();//用户类型
 
                 int messageType = requestMessageBean.getMessageType();//消息类型 0、私聊  1 群聊

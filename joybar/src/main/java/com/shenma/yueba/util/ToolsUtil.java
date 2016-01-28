@@ -326,6 +326,17 @@ public class ToolsUtil {
         return dateToStrLong(new Date(System.currentTimeMillis()));
     }
 
+
+    /**
+     * 获取当前时间 只包含 时间
+     *
+     * @return
+     */
+    public static String getCurrentTimeNoYear() {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date(System.currentTimeMillis()));
+    }
+
     /**
      * 将长时间格式时间转换为字符串 yyyy-MM-dd HH:mm:ss
      *
@@ -333,7 +344,7 @@ public class ToolsUtil {
      * @return
      */
     public static String dateToStrLong(java.util.Date dateDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = formatter.format(dateDate);
         return dateString;
     }

@@ -2,6 +2,7 @@ package im.form;
 
 import android.content.Context;
 
+
 import com.shenma.yueba.application.MyApplication;
 import com.shenma.yueba.util.SharedUtil;
 import com.shenma.yueba.util.ToolsUtil;
@@ -75,14 +76,12 @@ public abstract class BaseChatBean extends MessageBean implements Serializable {
             room_No = bean.getRoomId();
             messageType = bean.getMessageType();
             type = bean.getType();
-            _id=bean.get_id();
-            if(bean.getUser()!=null)
-            {
+            _id = bean.get_id();
+            if (bean.getUser() != null) {
                 userName = ToolsUtil.nullToString(bean.getUser().getNickName());
                 logo = ToolsUtil.nullToString(bean.getUser().getLogo());
-                creationDate = ToolsUtil.nullToString(bean.getUser().getCreationDate());
             }
-
+            creationDate = ToolsUtil.nullToString(bean.getCreationDate());
             productId = bean.getProductId();
             body = bean.getBody();
             String user_id = SharedUtil.getStringPerfernece(MyApplication.getInstance().getApplicationContext(), SharedUtil.user_id);
@@ -163,4 +162,5 @@ public abstract class BaseChatBean extends MessageBean implements Serializable {
         bean.setSharelink(body);
         return bean;
     }
+
 }

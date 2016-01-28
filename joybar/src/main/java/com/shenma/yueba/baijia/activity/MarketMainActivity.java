@@ -114,7 +114,8 @@ public class MarketMainActivity extends BaseActivityWithTopView {
         setTopRightTextView("", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, SearchResultActivityForThreeTab.class);
+
+                Intent intent = new Intent(mContext, SearchProductActivity.class);
                 intent.putExtra("storeId", StoreId);
                 startActivity(intent);
             }
