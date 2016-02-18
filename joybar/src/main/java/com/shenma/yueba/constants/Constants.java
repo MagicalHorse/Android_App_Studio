@@ -9,8 +9,6 @@ public class Constants {
     //public static final String PublishStatus = "1";//开发环境
     //public static final String PublishStatus = "2";//生产环境
       public static final String PublishStatus = "3";//测试环境
-
-
     public static final String aliyunDirForDev = "apprss";//阿里云目录，开发环境
     public static final String aliyunDirForWork = "app-prod-rss";//阿里云目录，生产环境
 
